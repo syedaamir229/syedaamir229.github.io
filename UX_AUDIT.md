@@ -44,7 +44,7 @@ This is a decisions record, not a specification. It states what to do and why. A
 
 **Gap**: Current employer and level are invisible above the fold. A recruiter scanning fast will not scroll to Timeline.
 
-**Verdict**: Add "Currently: Assistant Analytics Manager, Shahid (MBC Group)" as a compact one-liner in the hero, below the headline or beside the years/location line. Add a tertiary resume download link (text-link style) alongside the primary CTA.
+**Verdict**: Add "Currently: Assistant Analytics Manager, Shahid (MBC Group)" as a compact one-liner in the hero, below the headline or beside the years/location line. The portfolio itself serves as the CV — no separate resume download needed.
 
 ---
 
@@ -211,15 +211,15 @@ Data engineer turned knowledge creator. Hybrid consultant / content site.
 
 **Current section order**: Hero / Pipeline / MetricsStrip / CapabilityCard / FeaturedProjects / Timeline / Certifications / CTA
 
-**Proposed section order**: Hero / Logo Strip (new) / MetricsStrip / Pipeline / CapabilityCard / FeaturedProjects / Timeline / Certifications / (Testimonials — future) / CTA
+**Proposed section order**: Hero / Logo Strip (new) / Pipeline / CapabilityCard / FeaturedProjects / Timeline / Certifications / (Testimonials — future) / CTA
 
-The Pipeline moves lower because it is dense and rewards the peer engineer who is already engaged. The Logo Strip moves higher to hit the consulting prospect within the first scroll.
+MetricsStrip is cut entirely (see Section 5.3). The Pipeline moves lower because it rewards the peer engineer who is already engaged. The Logo Strip moves high to hit the consulting prospect within the first scroll.
 
 | Section | What Stays | What Changes | What Cuts |
 |---|---|---|---|
-| Hero | Headline, photo, bullet points, location/years line | "Let's Talk" as sole primary CTA. Add current employer one-liner. Add resume download as tertiary text-link. | "View Case Studies" demoted to ghost secondary. |
+| Hero | Headline, photo, bullet points, location/years line | "Let's Talk" as sole primary CTA. Add current employer one-liner. | "View Case Studies" demoted to ghost secondary. |
 | Logo Strip (new) | n/a | NEW: Compact "Worked with" row with employer logos | Nothing |
-| MetricsStrip | 4-metric grid layout | Replace 2 weak metrics with impact-driven ones (see Section 5.3) | Nothing structural |
+| MetricsStrip | n/a | n/a | CUT entirely — numbers are weak without context. Project cards carry outcome metrics where they have meaning. |
 | Pipeline | Stage labels as concepts | MAJOR REDESIGN: Vertical card layout per reference image (see Section 5.1) | Horizontal chip row entirely |
 | CapabilityCard | 4 capability cards, icon, description | Rename section title from "What I Do" to "Where I Work" | Nothing |
 | FeaturedProjects | 4 project cards, 2-col grid | Add 1-sentence section intro. Keep 4 cards. Keep "View all" link. | Nothing structural |
@@ -232,7 +232,6 @@ The Pipeline moves lower because it is dense and rewards the peer engineer who i
 
 - Hero: `pt-32` top padding (128px) is high on mobile. Propose `pt-24 md:pt-32`.
 - Logo Strip: 5+ logos need 2-row grid or `overflow-x: auto` scroll at 375px.
-- MetricsStrip: 2x2 grid already. Fine.
 - Pipeline (new vertical): Single-column vertical by design. No issues at 375px.
 - CapabilityCard: Single column below sm (640px). Fine.
 - FeaturedProjects: Single column on mobile. Fine.
@@ -446,28 +445,18 @@ The current 404 is already well-done. The description explicitly mentions the pr
 
 ---
 
-### 5.3 MetricsStrip: Upgrade Metrics
+### 5.3 MetricsStrip: Cut
 
-**Current**: Four metrics: "10+ Years Experience", "14 Projects Delivered", "5 Certifications", "4 Industries."
+**Decision**: Remove the MetricsStrip section from the home page entirely.
 
-**Problem**: "14 Projects Delivered" is underwhelming for 10 years of work (feels like a low number). "4 Industries" is abstract and means nothing to a consulting prospect.
+**Rationale**: A metrics strip only earns its space when every number is self-explanatory and genuinely impressive without context. The current four ("14 Projects Delivered", "4 Industries", "10+ Years", "5 Certifications") are either too generic or too low. Replacing weak ones with outcome numbers (subscriber counts, GB figures) doesn't help — those numbers are meaningless without knowing the company or the scope of work.
 
-**Decision**: Replace the two weaker metrics with impact-driven ones drawn from actual project outcomes.
+More importantly, the site already handles this elsewhere in a more credible way:
+- "10+ years · Dubai, UAE" is already in the hero subline.
+- Outcome metrics appear on each project card in context: "Foundation for 100+ KPIs" on the data model card lands harder than the same number floating in a strip.
+- The Certifications section handles the "proof of skills" signal with verifiable badge images.
 
-| Current | Problem | Replace with |
-|---|---|---|
-| 10+ Years Experience | Generic but recognizable. Keep. | (keep) |
-| 14 Projects Delivered | Sounds low. | "100+ Governed KPIs" or "10M+ Subscriber Profiles" |
-| 5 Certifications | Fine. Three Databricks certs in 2024-26 is notable. Keep. | (keep) |
-| 4 Industries | Vague. | "4 Countries" or "MENA Focus" or a scale metric like "300GB Semantic Layer" |
-
-**Preferred replacement set:**
-
-```
-10+ Years   |   10M+ Subscriber Profiles   |   3x Databricks Certified   |   100+ Governed KPIs
-```
-
-This reads as a credibility row with a mix of time, scale, verification, and outcome. Each number is real and verifiable from project case studies.
+A weak metrics strip signals padding. Cut it and let the project cards do the number work where the numbers have meaning.
 
 ---
 
@@ -638,15 +627,15 @@ Quality bar: each testimonial must include name, title, company, and at least on
 
 **Decision**: "Let's Talk" is the single primary CTA across the entire site. It links to `mailto:saamir259@gmail.com?subject=Let%27s%20talk`.
 
-| Location | Primary CTA | Secondary CTA | Tertiary |
-|---|---|---|---|
-| Hero | "Let's Talk" (filled teal button) | "View Case Studies" (ghost button) | "Download CV" (text link) |
-| Bottom home CTA section | "Let's Talk" (filled teal button) | "Connect on LinkedIn" (ghost button) | Nothing |
-| /experience page CTA | "Let's Talk" | "LinkedIn" | Nothing |
-| Blog post footer (new) | "Let's Talk" | Nothing | Nothing |
-| Project detail footer (new) | "Let's Talk" | Nothing | Nothing |
+| Location | Primary CTA | Secondary CTA |
+|---|---|---|
+| Hero | "Let's Talk" (filled teal button) | "View Case Studies" (ghost button) |
+| Bottom home CTA section | "Let's Talk" (filled teal button) | "Connect on LinkedIn" (ghost button) |
+| /experience page CTA | "Let's Talk" | "LinkedIn" |
+| Blog post footer (new) | "Let's Talk" | Nothing |
+| Project detail footer (new) | "Let's Talk" | Nothing |
 
-**Resume download**: Add as a tertiary text-link in the hero ("or download my CV") and optionally in the nav dropdown or footer. Serves Persona A (recruiter) without competing with the primary CTA visually.
+**No resume download.** The portfolio is the CV. A download link adds friction without adding information that isn't already on the site. If a recruiter specifically asks, the email response can include a PDF.
 
 **Future consideration**: In Phase 6, replace the email `mailto:` link with a Calendly booking link when the consulting site launches and inbound volume justifies a scheduling layer. Keep email for now.
 
@@ -660,7 +649,7 @@ Walk every section at 375px first.
 |---|---|---|
 | Hero | `pt-32` (128px) top padding is heavy. Text and photo stack correctly. CTAs wrap naturally. | Reduce to `pt-24 md:pt-32`. |
 | Logo Strip (new) | 5-6 logos need 2-row grid or horizontal scroll. Single-row will overflow. | Use `flex-wrap justify-center` with 36px logo height at mobile. |
-| MetricsStrip | `grid-cols-2` already. 2x2 at mobile. Fine. | No change. |
+| MetricsStrip | Cut. Does not appear in Phase 5 build. | n/a |
 | Pipeline (new vertical) | Vertical stack by design. Ideal at 375px. | No issues expected. |
 | CapabilityCard | Single column at mobile (below sm). 4 stacked cards. Fine. | No change. |
 | FeaturedProjects | Single column at mobile. Fine. | No change. |
@@ -686,41 +675,39 @@ Walk every section at 375px first.
 
 4. **Current employer in hero.** Add "Currently: Assistant Analytics Manager, Shahid (MBC Group)" as a one-liner in the hero. Persona A (recruiter) needs this without scrolling.
 
-5. **MetricsStrip upgrade.** Replace "14 Projects Delivered" and "4 Industries" with "10M+ Subscriber Profiles" and "100+ Governed KPIs" (or the equivalent impact metrics per Section 5.3).
-
-6. **Resume download link.** Add a tertiary text-link in the hero. Required for Persona A.
+5. **Remove MetricsStrip.** Delete the component from the home page. No replacement. Project cards carry outcome metrics in context.
 
 ### SHOULD (materially improves trust and conversion)
 
-7. **Employer logo strip.** "Worked with" compact section below hero. Source SVG/PNG logos. Confirm nameable companies with user before publishing.
+6. **Employer logo strip.** "Worked with" compact section below hero. Source SVG/PNG logos. Confirm nameable companies with user before publishing.
 
-8. **Hero photo treatment.** Change from portrait `w-64 h-80` to square `w-56 h-56`. Tighter face-and-shoulders crop. Add `border-2 border-teal-500/30`. Review JPEG quality before implementing.
+7. **Hero photo treatment.** Change from portrait `w-64 h-80` to square `w-56 h-56`. Tighter face-and-shoulders crop. Add `border-2 border-teal-500/30`. Review JPEG quality before implementing.
 
-9. **Category filter horizontal scroll.** Apply `overflow-x: auto` to filter rows on /blog and /projects at mobile, preventing multi-row wrapping.
+8. **Category filter horizontal scroll.** Apply `overflow-x: auto` to filter rows on /blog and /projects at mobile, preventing multi-row wrapping.
 
-10. **Timeline rename.** Change home page "Experience" heading to "Career Path."
+9. **Timeline rename.** Change home page "Experience" heading to "Career Path."
 
-11. **Blog post footer CTA.** Add compact "About the author" + "Let's Talk" block at the bottom of every blog post.
+10. **Blog post footer CTA.** Add compact "About the author" + "Let's Talk" block at the bottom of every blog post.
 
-12. **Project detail navigation.** Add "Back to Projects" breadcrumb at top and "Next / Previous project" nav at bottom.
+11. **Project detail navigation.** Add "Back to Projects" breadcrumb at top and "Next / Previous project" nav at bottom.
 
-13. **Testimonials.** Source 3-5 LinkedIn recommendations with specific outcomes. Embed above bottom CTA section. (Gated on user outreach effort, not Phase 5 build.)
+12. **Testimonials.** Source 3-5 LinkedIn recommendations with specific outcomes. Embed above bottom CTA section. (Gated on user outreach effort, not Phase 5 build.)
 
 ### NICE-TO-HAVE (polish, not blocking)
 
-14. **FeaturedProjects intro sentence.** Add one-line context below section heading.
+13. **FeaturedProjects intro sentence.** Add one-line context below section heading.
 
-15. **Certifications subtitle.** "Verified credentials, click any badge to verify."
+14. **Certifications subtitle.** "Verified credentials, click any badge to verify."
 
-16. **Company logos in /experience timeline.** Small 24px thumbnails next to company name headings, same grayscale treatment as home logo strip.
+15. **Company logos in /experience timeline.** Small 24px thumbnails next to company name headings, same grayscale treatment as home logo strip.
 
-17. **"Featured" filter on /projects.** Surface the 4 featured project case studies with a dedicated filter button.
+16. **"Featured" filter on /projects.** Surface the 4 featured project case studies with a dedicated filter button.
 
-18. **Nav order.** Consider Projects / Experience / Blog order (current: Projects / Blog / Experience). Experience before Blog is a more natural consulting funnel.
+17. **Nav order.** Consider Projects / Experience / Blog order (current: Projects / Blog / Experience). Experience before Blog is a more natural consulting funnel.
 
-19. **Pipeline active-stage highlight.** One stage (AI & Automation as the outcome layer) highlighted with teal border, statically. Adds hierarchy without JavaScript.
+18. **Pipeline active-stage highlight.** One stage (AI & Automation as the outcome layer) highlighted with teal border, statically. Adds hierarchy without JavaScript.
 
-20. **CapabilityCard title.** "Where I Work" is stronger framing than "What I Do."
+19. **CapabilityCard title.** "Where I Work" is stronger framing than "What I Do."
 
 ---
 
