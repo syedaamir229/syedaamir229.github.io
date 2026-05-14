@@ -25,22 +25,22 @@ Phased work plan for the portfolio ecosystem. Each phase is designed for one foc
 
 ## Phase 2A: UX & Content Architecture Audit
 
-**Status**: Not started
+**Status**: Done (2026-05-14)
 **Depends on**: Phase 1 (site must be live to audit)
 **Goal**: Holistic UX, IA, and content-flow review before any brand or implementation work. Output is a decision doc, not code.
 
-- [ ] Define 3 personas (recruiter scanning in 10s / peer engineer doing deep dive / AI-advisory prospect looking for trust signals) and what each needs from the home page
-- [ ] Reference audit: pull 3-5 strong personal portfolios in the data/AI consulting space, identify patterns to adopt or reject (Gerrit Bosua's site is one starting reference)
-- [ ] Page-by-page walkthrough: home, projects index, project detail, blog index, blog post, experience, 404. For each: purpose, section ordering, what stays/cuts/changes
-- [ ] Component redesign briefs:
+- [x] Define 3 personas (recruiter scanning in 10s / peer engineer doing deep dive / AI-advisory prospect looking for trust signals) and what each needs from the home page
+- [x] Reference audit: pull 3-5 strong personal portfolios in the data/AI consulting space, identify patterns to adopt or reject (Gerrit Bosua's site is one starting reference)
+- [x] Page-by-page walkthrough: home, projects index, project detail, blog index, blog post, experience, 404. For each: purpose, section ordering, what stays/cuts/changes
+- [x] Component redesign briefs:
   - Pipeline (replace simple chip-row with richer vertical layout per `docs/inspiration/pipeline-reference.png`)
   - Hero (profile-photo decision: keep/remove/change treatment)
   - MetricsStrip, FeaturedProjects, Timeline (evaluate each)
-- [ ] Imagery strategy: which images to generate via Gemini nano banana, with concrete prompts written into the audit doc. Includes 1200x630 OG card, optional hero illustration, optional section accents
-- [ ] Trust signals: decide on client/employer logos (MBC, Shahid, Adani, Al-Futtaim, JLR), testimonials, placement
-- [ ] CTAs: pick ONE primary CTA for home (currently split between "Let's Talk" and "View Case Studies")
-- [ ] Mobile-first re-evaluation: walk every section at 375px before 1440px
-- [ ] Output: `UX_AUDIT.md` committed to repo root with personas, reference findings, per-page decisions, component briefs, imagery brief, and MUST/SHOULD/NICE punch list
+- [x] Imagery strategy: which images to generate via Gemini nano banana, with concrete prompts written into the audit doc. Includes 1200x630 OG card, optional hero illustration, optional section accents
+- [x] Trust signals: decide on client/employer logos (MBC, Shahid, Adani, Al-Futtaim, JLR), testimonials, placement
+- [x] CTAs: pick ONE primary CTA for home (currently split between "Let's Talk" and "View Case Studies")
+- [x] Mobile-first re-evaluation: walk every section at 375px before 1440px
+- [x] Output: `UX_AUDIT.md` committed to repo root with personas, reference findings, per-page decisions, component briefs, imagery brief, and MUST/SHOULD/NICE punch list
 
 **Out of scope for this phase:**
 - Brand identity decisions (colors, fonts, logo) — that's Phase 2B
