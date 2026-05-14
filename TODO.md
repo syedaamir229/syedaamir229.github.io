@@ -49,30 +49,61 @@ Phased work plan for the portfolio ecosystem. Each phase is designed for one foc
 
 ## Phase 2B: Branding & Design System
 
-**Status**: Not started
+**Status**: Done (2026-05-15)
 **Depends on**: Phase 2A (UX decisions inform brand choices)
 **Goal**: Establish brand identity that works across portfolio and future AI business site
 
-- [ ] Brainstorm company name for AI consulting/course venture
-- [ ] Define brand positioning: personal brand vs company brand
-- [ ] Finalize color palette (refine current navy/teal or evolve, informed by component redesigns from 2A)
-- [ ] Confirm typography choices (Outfit / DM Sans / JetBrains Mono)
-- [ ] Logo concept (even if just a wordmark)
-- [ ] Create shared design tokens document for cross-project consistency
-- [ ] Output: `BRAND_GUIDE.md` that Phase 5 and the AI business site reference
+- [x] Define brand positioning: personal brand vs company brand
+- [x] Finalize color palette (warm carbon + copper, away from navy/teal)
+- [x] Confirm typography choices (Space Grotesk headings / DM Sans body / JetBrains Mono)
+- [x] Create shared design tokens document for cross-project consistency
+- [x] Output: `BRAND_GUIDE.md` that Phase 5 and the AI business site reference
+- [ ] Company name for AI consulting/course venture — deferred, blocks logo/wordmark only
+- [ ] Logo concept (wordmark) — blocked until company name decided
 
-## Phase 3: Content Quality - Blogs
+## Phase 3: Content Quality - Blogs (Audit & Plan)
+
+**Status**: Done (2026-05-15)
+**Depends on**: Phase 1 (site live for context)
+**Goal**: Audit migrated blog content, refine voice spec, plan rewrites
+**Outputs**: `BLOG_AUDIT.md`, `BLOG_VOICE.md`, `BLOG_STRATEGY.md`. `BLOG_GUIDELINES.md` preserved as `BLOG_GUIDELINES.legacy.md` with a redirect note.
+
+- [x] Audit all 15 blog posts (frontmatter clean across the board; `--` em-dash substitutes flagged in 7 posts)
+- [x] Score each post on thought-leadership alignment (strict rubric in `BLOG_AUDIT.md`; most posts score 3 against the rubric, not 4-5)
+- [x] Identify top 5 posts to rewrite — see `BLOG_AUDIT.md` section 5
+- [x] Replace `BLOG_GUIDELINES.md` with `BLOG_VOICE.md` (two depth tiers, image generation rules, LinkedIn excerpt block, author bio CTA, pre-publication checklist)
+- [x] Plan the blog writing agent project — sketch in `BLOG_STRATEGY.md` section 9; actual repo kicks off Phase 4+
+- [x] Cross-posting strategy — LinkedIn primary, Medium secondary, Dev.to deferred (`BLOG_STRATEGY.md` section 4)
+- [x] Define three content pillars mapping to consulting service lines (`governed-data`, `applied-ai`, `bi-to-ai`)
+- [x] Decide on newsletter — deferred to Phase 6 alongside the AI business site
+- [x] Plan Semantic Layer Series packaging (new flagship intro + landing page; implementation in Phase 5)
+
+## Phase 3.5: Top 5 Blog Rewrites (Execution)
 
 **Status**: Not started
-**Depends on**: Phase 1 (site should be live for context)
-**Goal**: Audit migrated blog content, plan rewrites
+**Depends on**: Phase 3 (audit + voice spec)
+**Goal**: Execute the top 5 priorities from `BLOG_AUDIT.md` — one focused session per Flagship Strategic rewrite, one batched session for any short refreshes.
 
-- [ ] Audit all 15 blog posts for formatting issues (broken images, bad links, leftover mkdocs syntax)
-- [ ] Score each post on thought-leadership alignment (1-5 scale)
-- [ ] Identify top 3-5 posts to rewrite in the new voice
-- [ ] Review and refine BLOG_GUIDELINES.md based on actual content review
-- [ ] Plan the blog writing agent project (separate repo, goals, architecture)
-- [ ] Consider cross-posting strategy (LinkedIn, Medium, Dev.to)
+- [ ] **Rewrite 1**: Write new flagship intro post "Why Most Semantic Layers Fail" (1,400 words, `governed-data` pillar, funnels into Semantic Layer Series Part 1)
+- [ ] **Rewrite 2**: `bi-to-ai-journey.md` — promote to flagship-grade with "The Compounding Stack" framework + Gemini-generated diagram (`bi-to-ai` pillar)
+- [ ] **Rewrite 3**: `enigma-voice-of-customer-intelligence.md` — Technical Deep Dive rewrite centering "The Voice-of-Customer Stack" + the two-Genie-space insight (`applied-ai` pillar). Strip 22 em-dash substitutes.
+- [ ] **Rewrite 4**: `scalable-data-model.md` — Flagship Strategic rewrite with "The Five Rules of a Compounding Data Model" framework (`governed-data` pillar)
+- [ ] **Rewrite 5**: `semantic-layer-01-why-governed-metrics.md` — refresh and reposition as Part 1 of the packaged series
+
+Each session follows the 8-step Rewrite Workflow in `BLOG_STRATEGY.md` section 8.
+
+## Phase 3.6: Remaining Refreshes (Batched)
+
+**Status**: Not started
+**Depends on**: Phase 3.5
+**Goal**: Refresh the remaining 10 posts in shape-matched batches.
+
+- [ ] Session A — Applied AI batch: refresh `ai-crm-automation.md`, `gender-prediction-model-in-practice.md`
+- [ ] Session B — BI-to-AI batch: refresh `bi-to-data-science-bridge-patterns.md`, `bi-to-data-science-transition-story.md`
+- [ ] Session C — Governed Data batch: refresh `avod-revenue-pipeline-and-alerting.md`, `bi-modernization-lessons.md`
+- [ ] Session D — Semantic Series batch: refresh Parts 2-6 in one focused session (shared voice patterns and source PDF)
+
+All sessions strip `--` em-dash substitutes per `BLOG_AUDIT.md` section 3.1 and add the author bio + CTA block per `BLOG_VOICE.md` section 5.
 
 ## Phase 4: Content Quality - Projects
 

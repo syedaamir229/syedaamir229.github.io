@@ -1,4 +1,12 @@
-# Blog Guidelines
+# Blog Guidelines (Legacy)
+
+> **This document is superseded by [`BLOG_VOICE.md`](./BLOG_VOICE.md) as of Phase 3 (2026-05-15).**
+>
+> The current spec for voice, structure, image generation, frontmatter, LinkedIn excerpts, and the pre-publication checklist lives in `BLOG_VOICE.md`. The strict audit of all 15 migrated posts against the new voice doc lives in `BLOG_AUDIT.md`. The content pillars, distribution plan, rewrite workflow, and blog agent plan live in `BLOG_STRATEGY.md`.
+>
+> This file is retained as historical context only. Do not use it as the spec for new posts.
+
+---
 
 Voice and structure guidelines for the Syed Aamir portfolio blog. These guidelines are designed for both human and agent-driven content creation.
 
