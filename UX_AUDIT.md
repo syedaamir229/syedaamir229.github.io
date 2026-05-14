@@ -185,13 +185,13 @@ Data engineer turned knowledge creator. Hybrid consultant / content site.
 
 ### 3.3 Employer Logos
 
-**Decision**: Add a "Worked with" employer logo strip on the home page, placed between the hero and the MetricsStrip.
+**Decision**: Add a "Where I've worked" employer logo strip on the home page, placed between the Hero and Pipeline sections.
 
-**Rationale**: Research shows client/employer logo strips can increase conversion by up to 70% when positioned in the first scroll. Named, recognizable brands do the most work: MBC Group is the BBC of the Arab world; Al-Futtaim is a major regional conglomerate; JLR is globally recognized. These signals matter most to Persona C (consulting prospect) who needs to quickly validate that Syed has worked with credible organizations.
+**Rationale**: Research shows employer logo strips can increase conversion by up to 70% when positioned in the first scroll. Named, recognizable brands do the most work: MBC Group is the BBC of the Arab world; Al-Futtaim is a major regional conglomerate; JLR is globally recognized. These signals matter most to Persona C (consulting prospect) who needs to quickly validate that Syed has worked with credible organizations.
 
-**Brands to show**: MBC Group (parent brand), Shahid (operating brand of current role), Al-Futtaim, JLR, HHRC, Adani. Confirm with user which are publicly nameable before implementation (see Open Questions).
+**Brands to show**: MBC Group (parent brand), Shahid (operating brand of current role), Al-Futtaim, JLR, HHRC, Adani. All are former employers — this is standard portfolio and LinkedIn practice, no separate permission needed.
 
-**Visual treatment**: Grayscale logos at 60% opacity, teal tint on hover. Compact strip with a small "Worked with" label.
+**Visual treatment**: Grayscale logos at 60% opacity, teal tint on hover. Compact strip with a small "Where I've worked" label. If a logo cannot be sourced in SVG/PNG quality, fall back to the company name as styled text.
 
 ---
 
@@ -423,7 +423,7 @@ The current 404 is already well-done. The description explicitly mentions the pr
 
 **Active stage**: Highlight one stage statically (e.g., AI & Automation as the outcome layer, or Data Modeling as the foundational layer) with a teal border. This adds visual hierarchy without requiring JavaScript. Implementation decision for Phase 5.
 
-**Section placement**: Move Pipeline lower on the home page (after MetricsStrip) because it rewards engaged visitors. The Logo Strip and MetricsStrip should hit first for the consulting prospect; the Pipeline detail is for the peer engineer who is already scrolling.
+**Section placement**: Pipeline sits third in the home page order (Hero / Logo Strip / Pipeline), after the Logo Strip. The Logo Strip hits the consulting prospect in the first scroll; the Pipeline detail rewards the peer engineer who is already engaged and scrolling.
 
 ---
 
@@ -581,13 +581,13 @@ a high-quality dark-themed SaaS or consultancy website.
 
 ### 7.1 Employer Logo Strip (Home)
 
-**Decision**: Add a "Worked with" section immediately below the hero, above MetricsStrip.
+**Decision**: Add a "Where I've worked" employer history strip immediately below the Hero, before the Pipeline section.
 
 **Section layout sketch:**
 
 ```
   ┌────────────────────────────────────────────────┐
-  │  Worked with                                   │
+  │  Where I've worked                             │
   │                                                │
   │  [MBC Group]  [Shahid]  [Al-Futtaim]  [JLR]   │
   │               [HHRC]   [Adani]                 │
@@ -598,9 +598,8 @@ a high-quality dark-themed SaaS or consultancy website.
 ```
 
 **Implementation notes for Phase 5:**
-- Source logos as SVG or high-res PNG from official brand press kits or company pages.
-- Do not screenshot logos from other sites.
-- Confirm with user which companies can be publicly named (see Open Questions).
+- Source logos as SVG or high-res PNG from official brand press kits or company pages. Do not screenshot from other sites.
+- If a logo cannot be sourced at usable quality, use the company name as styled text (same grayscale treatment).
 - At 375px: reduce logo height to ~36px. Use flex-wrap with justify-center so they form 2 clean rows.
 
 ### 7.2 Testimonials (Future)
@@ -713,15 +712,14 @@ Walk every section at 375px first.
 
 ## 11. Open Questions
 
-1. **Employer logo rights.** Is it acceptable to show MBC Group/Shahid, Al-Futtaim, Adani, JLR, and HHRC logos publicly on a personal portfolio? These are former employers, not contracted clients, which generally permits this. Confirm company by company before publishing. If any are off-limits, use the company name as text instead.
+1. **Profile photo quality.** The current `syedaamir.jpeg` needs review at 224x224px display size before Phase 5 commits to it. If it looks soft, low-res, or too casual, a retake is worthwhile before implementation. A poor photo at the adjusted size is worse than the current larger portrait.
 
-2. **Resume PDF.** Is the current PDF at `/assets/` up to date and ready to link? The project notes mention it exists but it is not linked anywhere in the current site. Review before adding the hero download link.
+2. **Tableau profile.** Listed in `SOCIAL` config but not linked anywhere in nav or footer. Is the Tableau Public portfolio worth linking from the site? If the vizzes are polished and represent strong BI work, a link from the /projects page or /experience page adds credibility for BI-focused visitors.
 
-3. **Consulting vs. job search framing.** Is the portfolio primarily aimed at consulting/advisory prospects, or also at job opportunities? This changes the weight of "Let's Talk" (consulting) vs "Download CV" (job search). Current site reads as consulting-first. If both audiences are equally important, both CTAs need more visual parity.
-
-4. **Profile photo quality.** The current `syedaamir.jpeg` needs review at 224x224px display size before Phase 5 commits to it. If it looks soft, low-res, or too casual, a retake is worthwhile before implementation. A poor photo at the adjusted size is worse than the current larger portrait.
-
-5. **Tableau profile.** Listed in `SOCIAL` config but not linked anywhere in nav or footer. Is the Tableau Public portfolio worth linking from the site? If the vizzes are polished and represent strong BI work, a link from the /projects page or /experience page adds credibility for BI-focused visitors.
+Closed questions (decisions made):
+- **Employer logos**: Former employer logos on a personal portfolio are standard practice (same as LinkedIn). No separate permission needed. Text fallback used if a logo cannot be sourced at adequate quality.
+- **Resume download**: Dropped. The /experience page is the CV — full timeline, role detail, project links, skills, and certifications. If a recruiter asks directly over email, a PDF can be provided then.
+- **Primary audience**: Consulting-first. Recruiter conversion is intentionally subordinate. The /experience page and the "Let's Talk" CTA serve both audiences without a dedicated CV download path.
 
 ---
 
