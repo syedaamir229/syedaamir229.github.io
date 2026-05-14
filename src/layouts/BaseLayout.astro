@@ -1,0 +1,91 @@
+---
+import '../styles/global.css';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import { SITE } from '../config';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+}
+
+const { title, description, image } = Astro.props;
+const pageTitle = title ? `${title} | ${SITE.name}` : `${SITE.name} - ${SITE.title}`;
+const pageDescription = description || SITE.description;
+const canonicalURL = new URL(Astro.url.pathname, SITE.url);
+const ogImage = new URL(image ?? '/assets/syedaamir.jpeg', SITE.url).toString();
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDescription} />
+    <link rel="canonical" href={canonicalURL} />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:alt" content={`${SITE.name} - ${SITE.title}`} />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={pageDescription} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- Schema.org -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": SITE.name,
+      "url": SITE.url,
+      "sameAs": [
+        "https://www.linkedin.com/in/syedaamiruddin/",
+        "https://public.tableau.com/app/profile/syed.aamir/vizzes"
+      ],
+      "jobTitle": SITE.title,
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Dubai",
+        "addressCountry": "UAE"
+      },
+      "alumniOf": {
+        "@type": "CollegeOrUniversity",
+        "name": "BITS Pilani Dubai Campus"
+      },
+      "knowsAbout": ["Data Engineering", "Business Intelligence", "Machine Learning", "Artificial Intelligence", "Databricks", "Power BI", "Python", "GenAI"]
+    })} />
+  </head>
+  <body class="min-h-screen flex flex-col">
+    <Nav />
+    <main class="flex-1">
+      <slot />
+    </main>
+    <Footer />
+
+    <script>
+      // Scroll reveal
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+            }
+          });
+        },
+        { threshold: 0.1 }
+      );
+      document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+    </script>
+  </body>
+</html>

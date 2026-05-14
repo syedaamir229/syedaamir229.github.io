@@ -1,0 +1,63 @@
+---
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  category: string;
+  tags?: string[];
+  metrics?: { label: string; value: string }[];
+}
+
+const { title, description, category, tags = [], metrics = [] } = Astro.props;
+---
+
+<BaseLayout title={title} description={description}>
+  <article class="pt-32 pb-16 px-6">
+    <div class="max-w-4xl mx-auto">
+      <!-- Header -->
+      <header class="mb-12">
+        <span class="text-xs font-mono text-teal-400 bg-teal-500/10 px-2.5 py-1 rounded">
+          {category}
+        </span>
+        <h1 class="text-3xl md:text-4xl font-bold mt-4 mb-4 leading-tight" style="font-family: var(--font-heading)">
+          {title}
+        </h1>
+        <p class="text-slate-400 text-lg">{description}</p>
+
+        {metrics.length > 0 && (
+          <div class="flex flex-wrap gap-6 mt-6 pt-6 border-t border-white/5">
+            {metrics.map((m) => (
+              <div>
+                <p class="text-xl font-bold gradient-text" style="font-family: var(--font-heading)">{m.value}</p>
+                <p class="text-slate-500 text-xs">{m.label}</p>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {tags.length > 0 && (
+          <div class="flex flex-wrap gap-2 mt-4">
+            {tags.map((tag) => (
+              <span class="text-xs text-slate-500 border border-white/5 px-2 py-0.5 rounded">
+                {tag}
+              </span>
+            ))}
+          </div>
+        )}
+      </header>
+
+      <!-- Content -->
+      <div class="prose">
+        <slot />
+      </div>
+
+      <!-- Back link -->
+      <div class="mt-16 pt-8 border-t border-white/5">
+        <a href="/projects/" class="text-teal-400 hover:text-teal-300 text-sm font-medium transition-colors">
+          &larr; Back to all projects
+        </a>
+      </div>
+    </div>
+  </article>
+</BaseLayout>

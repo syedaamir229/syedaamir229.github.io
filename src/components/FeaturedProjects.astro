@@ -1,0 +1,69 @@
+---
+const projects = [
+  {
+    title: 'Enterprise Data Model',
+    description: 'Consolidated four source systems into one governed data model at Shahid (MBC Group), resolving metric disputes and becoming the foundation for semantic layers, ML, and AI.',
+    tags: ['Databricks', 'PySpark', 'Delta Lake'],
+    metric: 'Foundation for 100+ KPIs',
+    href: '/projects/data-model/',
+  },
+  {
+    title: 'Semantic Layer & KPI Framework',
+    description: 'Built a governed semantic layer with 100+ DAX measures serving finance, marketing, and content teams. Migrated from Power BI Premium to SSAS Tabular at scale.',
+    tags: ['SSAS', 'DAX', 'Power BI'],
+    metric: '100+ governed measures',
+    href: '/projects/semantic-layer/',
+  },
+  {
+    title: 'CRM Automation Platform',
+    description: 'Replaced manual audience-building with a governed scenario engine. CRM teams now configure and launch campaigns independently through CleverTap.',
+    tags: ['Python', 'CleverTap', 'Databricks'],
+    metric: 'Manual to self-serve',
+    href: '/projects/jarvis/',
+  },
+  {
+    title: 'Voice-of-Customer Intelligence',
+    description: 'GenAI-powered multilingual NLP platform unifying support, review, and social signals with a conversational interface for non-technical teams.',
+    tags: ['GenAI', 'NLP', 'Databricks Genie'],
+    metric: 'Arabic + English NLP',
+    href: '/projects/enigma/',
+  },
+];
+---
+
+<section class="py-16 px-6 reveal">
+  <div class="max-w-6xl mx-auto">
+    <div class="flex items-center justify-between mb-12">
+      <h2 class="text-2xl md:text-3xl font-bold" style="font-family: var(--font-heading)">
+        Featured Work
+      </h2>
+      <a href="/projects/" class="text-teal-400 hover:text-teal-300 text-sm font-medium transition-colors">
+        View all &rarr;
+      </a>
+    </div>
+    <div class="grid md:grid-cols-2 gap-6">
+      {projects.map((project) => (
+        <a href={project.href} class="group block p-6 rounded-xl border border-white/5 bg-navy-800/40 card-hover">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="text-xs font-mono text-teal-400 bg-teal-500/10 px-2 py-0.5 rounded">
+              {project.metric}
+            </span>
+          </div>
+          <h3 class="text-white font-semibold text-lg mb-2 group-hover:text-teal-400 transition-colors" style="font-family: var(--font-heading)">
+            {project.title}
+          </h3>
+          <p class="text-slate-400 text-sm leading-relaxed mb-4">
+            {project.description}
+          </p>
+          <div class="flex flex-wrap gap-2">
+            {project.tags.map((tag) => (
+              <span class="text-xs text-slate-500 border border-white/5 px-2 py-0.5 rounded">
+                {tag}
+              </span>
+            ))}
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,88 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog'))
+  .filter((post) => !post.data.draft)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const categories = [...new Set(posts.flatMap((p) => p.data.categories))].sort();
+
+function readingTime(body: string) {
+  return Math.max(1, Math.ceil(body.split(/\s+/).length / 200));
+}
+---
+
+<BaseLayout title="Blog" description="Thoughts on data architecture, BI, data science, and AI automation.">
+  <section class="pt-32 pb-16 px-6">
+    <div class="max-w-5xl mx-auto">
+      <h1 class="text-3xl md:text-4xl font-bold mb-4" style="font-family: var(--font-heading)">Blog</h1>
+      <p class="text-slate-400 mb-12 max-w-2xl">
+        Perspectives on data architecture, analytics, and AI automation from 10+ years of delivery.
+      </p>
+
+      <!-- Category filters -->
+      <div class="flex flex-wrap gap-2 mb-10">
+        <button class="category-btn active text-xs font-mono px-3 py-1.5 rounded border border-teal-500/40 text-teal-400 bg-teal-500/10 transition-colors" data-category="all">
+          All
+        </button>
+        {categories.map((cat) => (
+          <button class="category-btn text-xs font-mono px-3 py-1.5 rounded border border-white/10 text-slate-400 hover:border-teal-500/40 hover:text-teal-400 transition-colors" data-category={cat}>
+            {cat}
+          </button>
+        ))}
+      </div>
+
+      <!-- Post grid -->
+      <div class="grid gap-6" id="posts-grid">
+        {posts.map((post) => (
+          <a
+            href={`/blog/${post.id}/`}
+            class="post-card group block p-6 rounded-xl border border-white/5 bg-navy-800/40 card-hover"
+            data-categories={JSON.stringify(post.data.categories)}
+          >
+            <div class="flex flex-wrap items-center gap-2 mb-3">
+              {post.data.categories.map((cat) => (
+                <span class="text-xs font-mono text-teal-400 bg-teal-500/10 px-2 py-0.5 rounded">
+                  {cat}
+                </span>
+              ))}
+              <span class="text-xs text-slate-500">
+                {readingTime(post.body ?? '')} min read
+              </span>
+            </div>
+            <h2 class="text-white font-semibold text-lg mb-2 group-hover:text-teal-400 transition-colors" style="font-family: var(--font-heading)">
+              {post.data.title}
+            </h2>
+            <p class="text-slate-400 text-sm line-clamp-2 mb-3">
+              {post.data.description}
+            </p>
+            <time class="text-xs text-slate-500" datetime={post.data.date.toISOString()}>
+              {post.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+            </time>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  document.querySelectorAll('.category-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.category-btn').forEach((b) => {
+        b.classList.remove('active', 'border-teal-500/40', 'text-teal-400', 'bg-teal-500/10');
+        b.classList.add('border-white/10', 'text-slate-400');
+      });
+      btn.classList.add('active', 'border-teal-500/40', 'text-teal-400', 'bg-teal-500/10');
+      btn.classList.remove('border-white/10', 'text-slate-400');
+
+      const category = (btn as HTMLElement).dataset.category;
+      document.querySelectorAll('.post-card').forEach((card) => {
+        const cats = JSON.parse((card as HTMLElement).dataset.categories || '[]');
+        (card as HTMLElement).style.display =
+          category === 'all' || cats.includes(category) ? '' : 'none';
+      });
+    });
+  });
+</script>

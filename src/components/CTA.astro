@@ -1,0 +1,32 @@
+---
+import { SOCIAL } from '../config';
+---
+
+<section class="py-16 px-6 reveal">
+  <div class="max-w-3xl mx-auto text-center">
+    <div class="p-10 rounded-2xl border border-teal-500/10 bg-gradient-to-br from-teal-500/5 to-transparent">
+      <h2 class="text-2xl md:text-3xl font-bold mb-4" style="font-family: var(--font-heading)">
+        Let's work together
+      </h2>
+      <p class="text-slate-400 mb-8 max-w-lg mx-auto">
+        Whether you're dealing with fragmented data, a BI platform in need of modernization, or an AI automation idea you want to turn into a production system, I'm available for project and advisory work.
+      </p>
+      <div class="flex flex-wrap justify-center gap-3">
+        <a
+          href="mailto:saamir259@gmail.com?subject=Let's%20work%20together"
+          class="inline-flex items-center gap-2 px-6 py-2.5 bg-teal-500 hover:bg-teal-400 text-navy-950 font-semibold text-sm rounded-lg transition-colors"
+        >
+          Let's Talk
+        </a>
+        <a
+          href={SOCIAL.linkedin}
+          target="_blank"
+          rel="noopener"
+          class="inline-flex items-center gap-2 px-6 py-2.5 border border-teal-500/40 hover:border-teal-400 text-teal-400 hover:text-teal-300 font-semibold text-sm rounded-lg transition-colors"
+        >
+          Connect on LinkedIn
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

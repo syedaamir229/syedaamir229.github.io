@@ -1,0 +1,47 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Page Not Found"
+  description="The page you're looking for doesn't exist. Head back to the portfolio home."
+>
+  <section class="min-h-[70vh] flex items-center justify-center px-6 pt-24 pb-16">
+    <div class="max-w-2xl text-center">
+      <p class="font-mono text-sm tracking-widest text-teal-400 uppercase mb-4">
+        Error 404
+      </p>
+      <h1
+        class="font-heading text-5xl md:text-6xl font-bold text-white mb-6"
+        style="font-family: var(--font-heading)"
+      >
+        This page doesn't exist
+      </h1>
+      <p class="text-lg text-slate-400 mb-10 leading-relaxed">
+        The link may be from the previous version of this site, or the URL might
+        be mistyped. Either way, the home page has everything you're probably
+        looking for.
+      </p>
+      <div class="flex flex-wrap gap-4 justify-center">
+        <a
+          href="/"
+          class="px-6 py-3 rounded-lg bg-teal-500 hover:bg-teal-400 text-navy-950 font-semibold transition-colors"
+        >
+          Back to home
+        </a>
+        <a
+          href="/projects/"
+          class="px-6 py-3 rounded-lg border border-white/10 hover:border-teal-400 text-slate-200 hover:text-teal-400 font-semibold transition-colors"
+        >
+          Browse projects
+        </a>
+        <a
+          href="/blog/"
+          class="px-6 py-3 rounded-lg border border-white/10 hover:border-teal-400 text-slate-200 hover:text-teal-400 font-semibold transition-colors"
+        >
+          Read the blog
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

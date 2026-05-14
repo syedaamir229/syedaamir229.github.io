@@ -1,0 +1,91 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const projects = (await getCollection('projects'))
+  .sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99));
+
+const categories = [...new Set(projects.map((p) => p.data.category))].sort();
+---
+
+<BaseLayout title="Projects" description="Case studies from 10+ years of data engineering, BI, data science, and AI automation work.">
+  <section class="pt-32 pb-16 px-6">
+    <div class="max-w-6xl mx-auto">
+      <h1 class="text-3xl md:text-4xl font-bold mb-4" style="font-family: var(--font-heading)">Projects</h1>
+      <p class="text-slate-400 mb-12 max-w-2xl">
+        Case studies from real work across data architecture, BI modernization, data science, and AI automation.
+      </p>
+
+      <!-- Category filters -->
+      <div class="flex flex-wrap gap-2 mb-10">
+        <button class="proj-cat-btn active text-xs font-mono px-3 py-1.5 rounded border border-teal-500/40 text-teal-400 bg-teal-500/10 transition-colors" data-category="all">
+          All
+        </button>
+        {categories.map((cat) => (
+          <button class="proj-cat-btn text-xs font-mono px-3 py-1.5 rounded border border-white/10 text-slate-400 hover:border-teal-500/40 hover:text-teal-400 transition-colors" data-category={cat}>
+            {cat}
+          </button>
+        ))}
+      </div>
+
+      <!-- Project grid -->
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="projects-grid">
+        {projects.map((project) => (
+          <a
+            href={`/projects/${project.id}/`}
+            class="proj-card group block p-6 rounded-xl border border-white/5 bg-navy-800/40 card-hover"
+            data-category={project.data.category}
+          >
+            <span class="text-xs font-mono text-teal-400 bg-teal-500/10 px-2 py-0.5 rounded">
+              {project.data.category}
+            </span>
+            <h3 class="text-white font-semibold text-lg mt-3 mb-2 group-hover:text-teal-400 transition-colors" style="font-family: var(--font-heading)">
+              {project.data.title}
+            </h3>
+            <p class="text-slate-400 text-sm line-clamp-3 mb-4">
+              {project.data.description}
+            </p>
+            {project.data.metrics.length > 0 && (
+              <div class="flex flex-wrap gap-4 mt-auto pt-3 border-t border-white/5">
+                {project.data.metrics.slice(0, 2).map((m) => (
+                  <div>
+                    <p class="text-sm font-bold text-teal-400">{m.value}</p>
+                    <p class="text-xs text-slate-500">{m.label}</p>
+                  </div>
+                ))}
+              </div>
+            )}
+            {project.data.tags.length > 0 && (
+              <div class="flex flex-wrap gap-1.5 mt-3">
+                {project.data.tags.slice(0, 4).map((tag) => (
+                  <span class="text-xs text-slate-500 border border-white/5 px-1.5 py-0.5 rounded">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            )}
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  document.querySelectorAll('.proj-cat-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.proj-cat-btn').forEach((b) => {
+        b.classList.remove('active', 'border-teal-500/40', 'text-teal-400', 'bg-teal-500/10');
+        b.classList.add('border-white/10', 'text-slate-400');
+      });
+      btn.classList.add('active', 'border-teal-500/40', 'text-teal-400', 'bg-teal-500/10');
+      btn.classList.remove('border-white/10', 'text-slate-400');
+
+      const cat = (btn as HTMLElement).dataset.category;
+      document.querySelectorAll('.proj-card').forEach((card) => {
+        (card as HTMLElement).style.display =
+          cat === 'all' || (card as HTMLElement).dataset.category === cat ? '' : 'none';
+      });
+    });
+  });
+</script>
