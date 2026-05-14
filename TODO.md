@@ -4,18 +4,24 @@ Phased work plan for the portfolio ecosystem. Each phase is designed for one foc
 
 ## Phase 1: Deploy & Quick Polish
 
-**Status**: Not started
+**Status**: Done (2026-05-14)
 **Depends on**: Nothing
 **Goal**: Get the new portfolio live at syedaamir229.github.io
 
-- [ ] Review site in browser, fix any obvious visual/formatting issues
-- [ ] Rename existing GitHub repo `syedaamir229.github.io` to `mkdocs-website-archive`
-- [ ] Archive the renamed repo on GitHub
-- [ ] Create new `syedaamir229.github.io` repo
-- [ ] `git init` in /portfolio, push to new repo
-- [ ] Verify GitHub Pages deployment works
-- [ ] Quick responsive check at 375px, 768px, 1024px, 1440px
-- [ ] Verify RSS feed and sitemap are accessible
+- [x] Review site in browser, fix any obvious visual/formatting issues (Playwright screenshots at 4 viewports + interaction checks)
+- [x] Fix Pipeline component overflowing at 768px and 1024px (bumped no-wrap breakpoint from `md:` to `xl:`)
+- [x] Add branded 404 page, robots.txt, og:image and twitter:image metadata
+- [x] Switch Pages source from legacy gh-pages branch to GitHub Actions
+- [x] `git init` in /portfolio, force-push to existing `syedaamir229.github.io` repo (old MkDocs backed up locally on user laptop)
+- [x] Verify GitHub Pages deployment works (workflow green, all routes 200, 404 page served correctly)
+- [x] Verify RSS feed and sitemap are accessible
+
+**Deferred to later phases:**
+- Proper 1200x630 OG card image (current uses portrait profile photo, cropped in social previews) — Phase 5
+- Archive old MkDocs source as `mkdocs-website-archive` repo if desired (user has local backup) — opportunistic
+- Delete the leftover `gh-pages` branch on remote — opportunistic cleanup
+- Bump GitHub Actions versions to Node 24 compatible (deprecation warning) — Phase 5
+- Lighthouse audit — Phase 5
 
 ## Phase 2: Branding & Design System
 
