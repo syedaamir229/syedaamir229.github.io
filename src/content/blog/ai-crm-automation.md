@@ -1,133 +1,110 @@
 ---
-title: "AI-Powered CRM Automation: Bridging Data Science and Marketing"
+title: "AI-Powered CRM Automation: The Six-Layer CRM Operating System"
 date: 2025-05-19
-description: "How a scenario-based automation platform replaced manual CRM workflows, enabling self-service campaign creation and closed-loop performance tracking."
+description: "How a scenario-based CRM operating system at Shahid replaced manual analyst handoffs, gave CRM operators direct targeting power, and closed the loop from data to activation to measurement."
 categories: ["AI & Automation", "Data Engineering"]
-tags: ["CRM", "CleverTap", "Automation", "Personalization"]
+tags: ["CRM", "CleverTap", "Automation", "Personalization", "Scenario Engine"]
 featured: false
+draft: false
+depth: flagship
+pillar: applied-ai
+linkedin_excerpt: |
+  Monday morning Slack thread, MENA streaming CRM team. "Can we send the Ramadan Episodes-Remaining audience tonight? The Demon Slayer one." Analyst's reply: "I'll have the query ready by Wednesday."
+
+  This is the bottleneck every CRM team in streaming hits. They know exactly which audience they want. They wait days for someone to build it.
+
+  We replaced this loop at Shahid with a scenario engine: a six-layer CRM Operating System where targeting logic is encoded into reusable scenarios the CRM team configures directly, with closed-loop performance back into the data layer.
+
+  The CRM team stopped filing audience tickets. The data team stopped writing SQL for every campaign. Both sides ended up doing higher-value work.
+
+  Full piece on the blog ↓
+  [link]
 ---
 
-Most CRM teams run into the same bottleneck: they know what audiences they want to target, but they depend on data teams to build those audiences every time. This post walks through how a campaign automation platform put targeting power back in the hands of CRM operators.
+A Monday morning Slack thread at Shahid (MBC Group). The CRM lead asked the data team: "Can we send out an Episodes-Remaining audience tonight for the Demon Slayer Ramadan finale? Profiles that watched more than two episodes but did not finish, kids-content excluded, last 30 days." The analyst's reply: "I will have the query ready by Wednesday."
 
-## The Problem
+Wednesday. For a campaign that needed to ship Monday. For a query that, structurally, was the same query the CRM team had asked for fourteen times that month under different titles. By the time the audience was built, the Demon Slayer finale was over. The Ramadan window was over too. The campaign never ran.
 
-At Shahid (MBC Group), CRM campaign setup was a multi-step handoff process. A campaign manager would request a specific audience segment from the data team. An analyst would write SQL, validate the output, and push the list to the CRM platform. This cycle repeated for every campaign, every variation, every schedule.
+This is the bottleneck every CRM team in streaming hits. They know exactly which audience they want. They have to wait days for someone with SQL access to build it. Most data teams accept this as a fact of life and add capacity. The compounding move is to delete the loop.
 
-The issues were predictable:
+**A CRM team is either configuring scenarios or filing tickets. Once it starts filing tickets, every campaign is a negotiation; once it starts configuring scenarios, the data team gets to build infrastructure instead.** The way you get there is not a self-service UI in front of the warehouse. It is a structured operating system that encodes business logic into reusable, composable rules and ships activation as a first-class output.
 
-- **Slow turnaround**: Each campaign required analyst involvement, even for recurring scenarios
-- **Inconsistent targeting**: Without reusable logic, similar campaigns could use different rules
-- **No feedback loop**: Campaign setup and campaign results lived in separate workflows
-- **Scaling limits**: As the number of campaigns grew, the manual process could not keep up
+## Why this matters now
 
-## The Approach
+CRM in MENA streaming is high-cadence, high-cycle. Ramadan release windows, regional finales, AVOD ad-supported launches: the team is shipping multiple campaigns a week, each variant of a scenario the team has run before. Manual analyst handoff is structurally incompatible with that cadence. Either the data team owns the bottleneck and the CRM team waits, or the CRM team owns the bottleneck and the data team shrinks to an audience-building service.
 
-Rather than building a self-service UI from scratch, the focus was on what would create the most leverage: a **scenario engine** that encoded targeting logic into reusable, composable rules.
+Industry-wide, the same pattern shows up. [CleverTap, Braze, and similar customer engagement platforms](https://clevertap.com/) have spent the last five years moving toward composable audience builders, but most teams' actual workflows still depend on analyst-built CSV uploads. The gap is not the activation tool. The gap is the operating system above it that translates the data foundation into reusable scenarios.
 
-### 1. Data Foundation
+The fix that worked at Shahid was a six-layer architecture. Each layer is independent. Skipping a layer collapses the next one.
 
-The platform sits on top of an existing enterprise data model with Gold-layer feature tables:
+## The Six-Layer CRM Operating System
 
-- **Subscriber features**: Tenure, churn risk, content preferences, engagement cohorts
-- **Cluster assignments**: Viewing behavior segments from prior clustering work
-- **Behavior signals**: Recent activity, title exposure, session patterns
-- **Subscription lifecycle**: Movement tracking (new, churned, reactivated, upgraded)
+### Layer 1: Data foundation
 
-This was critical. The automation layer did not need its own data pipeline. It consumed what was already clean and governed.
+The platform sits on top of the enterprise data model with Gold-layer feature tables: subscriber tenure, churn risk, content preferences, engagement cohorts, cluster assignments from prior viewing-behaviour work, recent activity signals, and subscription lifecycle movement (new, churned, reactivated, upgraded).
 
-### 2. Scenario Engine
+This is the layer that decides whether the rest of the system is cheap or expensive. The scenario engine does not need its own data pipeline. It consumes what is already clean and governed by the BI and ML workflows. Teams that try to build CRM automation without this layer end up reverse-engineering a feature store inside their CRM tool, which is the wrong place for it.
 
-The core of the platform is a scenario engine that runs four distinct recommendation scenarios in parallel, each targeting a different user behavior:
+### Layer 2: Scenario engine
 
-- **Clustered Top Titles**: Recommends popular shows among subscribers with similar viewing preferences, matched by behavior cluster, predicted gender, and region. This is collaborative filtering: "people like you watched these."
-- **Episodes Remaining**: Re-engages subscribers who started a series but did not finish it. The system identifies titles where the subscriber has watched more than two episodes but still has episodes remaining, within a configurable recency window.
-- **Ranked Up Titles**: Surfaces content that is climbing in regional popularity week over week. It targets the "what is everyone watching right now" impulse by highlighting titles that moved up in rank but are not yet in the top five.
-- **AVOD Top Titles**: Promotes the most popular ad-supported content per region for non-paying users, ranked by unique viewers with meaningful watch time.
+The core of the system is a set of reusable scenarios, each targeting a different user behaviour. Four scenarios run in parallel at Shahid:
 
-Each scenario also applies standard filters:
+- **Clustered Top Titles.** Recommends popular shows among subscribers in the same behaviour cluster, matched by viewing cluster, predicted gender, and region. Collaborative filtering with explicit cluster boundaries.
+- **Episodes Remaining.** Re-engages subscribers who started a series but did not finish: profiles that watched more than two episodes with episodes remaining, within a configurable recency window.
+- **Ranked Up Titles.** Surfaces content climbing in regional popularity week-over-week. Targets the "what is everyone watching right now" impulse by highlighting titles that moved up in rank but are not yet in the top five.
+- **AVOD Top Titles.** Promotes the most popular ad-supported content per region for non-paying users, ranked by unique viewers with meaningful watch time.
 
-- **Deduplication**: Already-watched content is excluded, and content sent in the last 60 days is not re-sent
-- **Content guards**: Kids content, sports content, and inactive catalog titles are filtered out automatically
-- **Eligibility checks**: Only adult, active profiles are processed
+Each scenario applies standard filters at runtime: deduplication (already-watched content excluded, anything sent in the last 60 days excluded), content guards (kids content, sports content, inactive catalog excluded), eligibility checks (only adult, active profiles processed).
 
-Scenarios are composable by design. A CRM manager can adjust parameters (recency windows, engagement thresholds, candidate pool sizes) without writing SQL, and the platform handles the filtering and ranking logic.
+Scenarios are composable. The CRM team adjusts parameters (recency windows, engagement thresholds, candidate pool sizes) without writing SQL. The system handles the filtering and ranking.
 
-### 3. Profile-to-Account Resolution
+### Layer 3: Profile-to-account resolution
 
-One design challenge was specific to how the CRM platform worked. The delivery channel (CleverTap) targets at the account level, but a single household can have multiple viewing profiles. Recommending content based on the account would lose personalization in multi-profile households.
+The delivery channel (CleverTap) targets at the account level. A single household at Shahid can have multiple viewing profiles. Recommending content based on the account level averages those profiles into noise.
 
-The solution: process recommendations at the profile level for accuracy, then select one profile per account for delivery. The selection method is configurable -- default is the primary profile (highest watch hours), but it can be switched to most recent activity or dominant profile depending on the campaign goal.
+The system processes recommendations at profile level for accuracy, then selects one profile per account for delivery. The selection method is configurable: default is the primary profile (highest watch hours), but it can be switched to most recent activity or dominant profile depending on campaign goal. This is the MENA-specific layer; multi-profile households are not an edge case in this market, they are the default.
 
-### 4. Behavior-Based Prioritization
+### Layer 4: Behaviour-based prioritisation
 
-When an account has recommendations from multiple scenarios, the system selects one. The default mode uses recency of activity:
+When an account has recommendations from multiple scenarios, the system picks one. The default mode is recency-aware:
 
-- Subscribers active in the last 7 days get **Episodes Remaining** (re-engagement works when the habit is fresh)
-- Subscribers active 8-30 days ago get **Ranked Up Titles** (trending content to reignite interest)
-- Subscribers inactive for more than 30 days get **Clustered Top Titles** (discovery via similar profiles)
-- Non-paying users always get **AVOD Top Titles**
+- Subscribers active in the last 7 days get Episodes Remaining (re-engagement works when the habit is fresh).
+- Subscribers active 8 to 30 days ago get Ranked Up Titles (trending content to reignite interest).
+- Subscribers inactive for more than 30 days get Clustered Top Titles (discovery via similar profiles).
+- Non-paying users always get AVOD Top Titles.
 
-This behavior-based prioritization replaced a fixed rotation and improved targeting relevance without additional manual configuration.
+Behaviour-based prioritisation replaced fixed rotation logic. Targeting relevance improved without any additional manual configuration.
 
-### 5. CRM Integration
+### Layer 5: CRM integration
 
-Scenario outputs push directly to **CleverTap** via API. This means:
+Scenario outputs push directly to CleverTap via API on schedule. CRM managers configure activation timing inside CleverTap. Push, email, and SMS channels are all supported through the same audience push. A temporal configuration system handles seasonal overrides (Ramadan content filters, regional priority lists) with auto-activation dates, requiring no code changes for routine seasonal shifts.
 
-- Audiences are pushed on schedule, not manually
-- CRM managers configure activation timing within CleverTap
-- Push, email, and SMS channels are all supported through the same audience push
-- A temporal configuration system handles seasonal overrides (e.g., filtering to region-appropriate content during Ramadan) with auto-activation dates, requiring no code changes
+### Layer 6: Closed-loop performance
 
-### 6. Closed-Loop Performance
+Campaign results flow back from CleverTap into the analytics layer. This is the layer most teams skip. With the loop closed, the team can compare engagement rates across scenario configurations, identify which targeting rules drive the best outcomes, and refine scenarios over time based on actual performance. The sent-content tracking also feeds back into deduplication, ensuring the same subscriber does not receive the same recommendation twice within the lookback window.
 
-Campaign results flow back from CleverTap into the analytics layer. This creates a feedback loop where the team can:
+## What I would build first
 
-- Compare engagement rates across different scenario configurations
-- Identify which targeting rules drive the best outcomes
-- Refine scenarios over time based on actual performance data
+If you have one quarter to ship this, do not start with the scenario engine.
 
-The sent-content tracking also feeds back into deduplication, ensuring the same subscriber does not receive the same recommendation repeatedly within the lookback window.
+Start with Layer 1 and Layer 6. The feature foundation and the closed-loop tracking are the layers that decide whether the next four are buildable. Get the Gold-layer feature tables in place and the CleverTap result feed wired into the analytics layer. Then build one scenario, end-to-end. Episodes Remaining is the right first scenario because it has the highest CRM team demand, the simplest filter logic, and the cleanest evaluation criteria.
 
-## What Made It Work
+Once one scenario is in production with the closed loop working, the next three scenarios are configuration, not engineering. The CRM team starts configuring instead of filing tickets.
 
-A few design decisions that mattered:
+## One MENA-flavored note
 
-**Build on existing data, not new pipelines.** The scenario engine consumes the same Gold-layer tables that power BI and ML workflows. No duplicate data, no sync issues.
+The seasonal-override layer pays for itself the first Ramadan after launch. Content priorities shift inside Ramadan: family content, regional originals, and specific scheduling windows take precedence. Without a declarative override system, every Ramadan turns into a four-week scramble of one-off SQL adjustments. With one, the CRM team activates a Ramadan profile in CleverTap and the scenario engine respects it automatically. Same applies to Eid windows, regional sports finals, and any other recurring content cycle in the calendar.
 
-**Encode domain knowledge, not just data.** The rules in the scenario engine reflect real business logic that CRM managers already use: cluster definitions, recency windows, eligibility criteria. This is not generic ML. It is structured automation of expert knowledge.
+## Closing
 
-**Keep the feedback loop tight.** By connecting campaign setup and campaign results in the same analytics flow, the team can iterate on scenarios with evidence rather than intuition.
+Is your CRM team configuring scenarios or filing tickets?
 
-**Make configuration declarative.** Parameters like deduplication windows, engagement thresholds, and seasonal overrides are config values, not code. This means the CRM team can adjust campaign behavior without engineering involvement.
-
-## The Transferable Pattern
-
-This decision-driven automation pattern is not specific to streaming or CRM. The same architecture works wherever there is:
-
-- A data foundation with user-level features
-- Repeatable targeting or segmentation decisions
-- An activation channel that accepts audience pushes
-- A need for performance tracking
-
-Common applications:
-
-- **E-commerce**: Promotion targeting, cart recovery, lifecycle messaging
-- **SaaS**: Onboarding sequences, upsell campaigns, churn prevention
-- **Fintech**: Product nudges, risk communications, re-engagement flows
-- **Telecom**: Upgrade campaigns, retention offers, usage-based messaging
-
-## Key Takeaway
-
-The most impactful automation is not always the most technically complex. In this case, the value came from encoding existing business knowledge into a structured, reusable system and connecting it end-to-end from data to activation to measurement.
-
-The CRM team went from requesting audiences to configuring scenarios. The data team went from running ad-hoc queries to maintaining a governed automation layer. Both sides benefited.
+A team filing tickets is a team that pays the cost of every campaign upfront, in analyst time, then again on the back-end, in campaign delay. A team configuring scenarios is a team where the data layer earned the right to be infrastructure. The system above turns the data foundation into a CRM operating system that the operators can actually operate. The engineering work is real. The compounding is realer.
 
 ---
 
-*For the full case study, see [CRM Campaign Automation Platform](/projects/jarvis/).*
+> Related case study: [CRM Campaign Automation Platform](/projects/jarvis/)
 
-> **Exploring CRM automation for your team?**
->
-> Read the full case study for the technical details, or reach out if you want to talk through what this could look like for your stack.
->
-> [Let's Talk](https://mail.google.com/mail/?view=cm&fs=1&to=saamir259@gmail.com&su=Let%27s%20work%20together) | [Full Case Study](/projects/jarvis/)
+**Syed Aamir** is a Data & AI Solutions Engineer based in Dubai, building data foundations and applied AI for OTT streaming in the MENA region. Currently at Shahid (MBC Group). Previously delivered enterprise BI across automotive, retail, and financial services with Beinex, Al-Futtaim Technologies, and Scan Technology.
+
+If your team is working through a similar problem, [start a conversation](https://mail.google.com/mail/?view=cm&fs=1&to=saamir259@gmail.com&su=Project%20inquiry) or [connect on LinkedIn](https://www.linkedin.com/in/syedaamiruddin/).

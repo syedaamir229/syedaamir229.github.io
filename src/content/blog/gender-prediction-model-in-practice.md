@@ -1,72 +1,104 @@
 ---
-title: "Gender Prediction Model in Practice: Behavior-Based Inference for Audience Enrichment"
+title: "Gender Prediction in Practice: Inference With Receipts"
 date: 2025-08-11
-description: "How a behavior-based gender inference workflow was built for practical audience enrichment, with guardrails for reliability and downstream usage."
+description: "How a behaviour-based gender inference workflow expanded MENA streaming profile coverage from 22.7% to 100%, with the four guardrails that decide whether inferred data is an asset or a liability."
 categories: ["Data Science"]
-tags: ["Machine Learning", "XGBoost", "Feature Engineering", "Audience Enrichment"]
+tags: ["Machine Learning", "XGBoost", "Feature Engineering", "Audience Enrichment", "Inference"]
 featured: false
+draft: false
+depth: flagship
+pillar: applied-ai
+linkedin_excerpt: |
+  A content planner at an MENA streaming platform asked the analytics team: "What does our female audience over 25 actually watch?"
+
+  The answer the team had to give: "We only have that field for 22.7% of adult profiles."
+
+  Twelve months later we had a behaviour-based inference model in production. 9.5M adult profiles scored. 75% accuracy. 0.81 AUC. Net new gender attribute coverage 22% to 100%.
+
+  The model is the easy part. The hard part is making sure the planning team treats an inferred field like inferred data, not like ground truth.
+
+  Inference With Receipts: four guardrails that decide whether the model is an asset or a liability.
+
+  Full piece on the blog ↓
+  [link]
 ---
 
-Declared profile attributes are often incomplete. A practical inference model can improve coverage, but only if its outputs are validated and used with clear guardrails.
+A content planner at Shahid (MBC Group) asked the analytics team a routine question: "What does our female audience over 25 actually watch?" The answer the team had to give was the wrong shape entirely. "We only have a self-reported gender field for 22.7% of adult profiles. The rest is unknown."
 
-This model used behavioral signals to enrich profile attributes where declared values were missing or unreliable. It was built at Shahid (MBC Group), where only 22.7% of adult profiles had self-reported gender data. The goal was to expand that coverage to 100% of engaged accounts.
+Twelve months later, the answer to the same question was a Power BI report with full coverage across 9.5 million adult profiles, with 5.8 million of those rows being entirely new predictions on profiles that had no gender data at all. The model behind that report achieves 75% accuracy and 0.81 AUC on a held-out validation set restricted to single-adult-profile accounts.
 
-## Problem Setup
+This is the part most teams celebrate. It is also the part that matters least. Building a behaviour-based gender inference model is not hard. Convincing the planning team to treat an inferred field like inferred data, not like ground truth, is the work.
 
-- Important audience attributes were sparsely populated.
-- Shared-account behavior reduced confidence in declared fields.
-- Planning teams needed broader contextual coverage.
+**Inferred attributes are an asset when they ship with receipts. They are a liability the moment they are treated as declared data.** The model is the easy part. The contract around the model is what decides whether the enrichment is usable.
 
-The objective was enrichment for analysis and targeting support, not perfect identity prediction. Content and marketing teams needed usable demographic context to plan campaigns and understand audience composition, but the raw profile data had too many gaps to rely on directly.
+## Why this matters now
 
-## Feature Engineering: What Viewing Behavior Actually Tells You
+Attribute inference is back in the spotlight, in part because explicit demographic collection is under increasing regulatory and platform pressure. [Meta's post-iOS-14 ad-targeting documentation](https://www.facebook.com/business/news/apple-app-tracking-transparency) and similar shifts have pushed advertisers toward inferred attributes. Streaming platforms that depend on declared-attribute targeting are running out of declared data faster than they are gaining it.
 
-The model was built on the premise that what someone watches carries more demographic signal than what they choose to fill in on a profile form. But it is not just about genre preferences. The features that mattered most were content-level attributes tied to viewing sessions.
+MENA streaming has a sharper version of the same problem. Household profile-sharing is structurally higher than Western baselines, profile completion rates are lower, and demographic targeting is essential for both content planning (which Ramadan finale to promote to which segment) and ad operations (which AVOD inventory to allocate to which demographic). Without inference, planning teams are flying half-blind.
 
-The top predictive feature was protagonist gender, accounting for 16.6% of overall feature importance. This makes intuitive sense: the gender of on-screen leads correlates with audience composition, especially for drama and romance content that dominates MENA streaming catalogs. Next came audience affinity scores at 9.3%, which capture how closely a profile's viewing pattern matches known audience clusters. Sub-genre preferences contributed 5.5%, capturing finer distinctions than top-level genre labels alone.
+The framework that worked at Shahid is four guardrails, applied in order, that turn an inference model from a risky enrichment into a published data product.
 
-The broader point: explicit profile fields like age or signup source were far less predictive than behavioral features derived from content metadata. Building those features required joining viewing logs against a content catalog enriched with attributes like cast composition, sub-genre tags, and audience affinity segments. The engineering work to get clean, profile-level behavioral features was as significant as the modeling itself.
+## Inference With Receipts
 
-## Approach
+### Guardrail 1: Behavioural feature design
 
-1. Build robust behavioral features from profile activity.
-2. Train and compare classification candidates.
-3. Evaluate by segment stability and practical consistency.
-4. Publish inferred outputs as controlled downstream fields.
+The model is built on the premise that what someone watches carries more demographic signal than what they choose to fill in on a profile form. The top predictive feature was protagonist gender at 16.6% of feature importance, audience affinity scores at 9.3%, sub-genre preferences at 5.5%. The features that drive accuracy are not raw event signals; they are derived attributes that join viewing logs against a content catalog enriched with cast composition, sub-genre tags, and audience affinity segments.
 
-The final model used XGBoost, achieving 75% accuracy and 0.81 AUC on a validation set of 700K single-adult-profile accounts. That validation set was deliberately restricted to accounts where only one adult profile existed, reducing the noise introduced by shared-account behavior.
+What goes wrong without it: teams build inference on top of incomplete content metadata and produce models whose predictions cannot be defended when challenged. The first time a content lead asks "why is this profile flagged female?" the team has no answer because the features were opaque event aggregations. The receipt for a prediction is the feature that drove it.
 
-## Validation: What "Practical Consistency" Means
+### Guardrail 2: Validation that does not pretend
 
-Accuracy on a held-out test set is table stakes. The harder question for an enrichment model is whether its predictions behave sensibly in production context.
+Accuracy on a held-out test set is table stakes. The harder validation is whether the predictions behave sensibly in production context.
 
-Practical consistency meant three things. First, testing model predictions against known segments: if the model says a profile is female, does that profile's behavior align with what we already know about verified female users in the same cohort? Second, checking stability across different user cohorts and time periods. A model that predicts one way in January and flips in March is worse than useless for planning teams that build campaigns weeks in advance. Third, ensuring predictions did not flip-flop between scoring refreshes. If a profile gets re-scored weekly, the prediction should be stable unless the underlying behavior genuinely changes. Erratic predictions erode trust with downstream consumers faster than slightly lower accuracy would.
+Three checks decide this:
 
-## Scale
+- **Segment consistency.** If the model says a profile is female, the profile's behaviour aligns with verified female users in the same cohort. Sanity check, not a confidence interval.
+- **Cohort and time stability.** A model that predicts one way in January and flips in March is worse than useless for planning teams that build campaigns weeks in advance. Stability across content release cycles is non-negotiable.
+- **Re-score stability.** A profile that gets re-scored weekly should not flip predictions unless behaviour genuinely changed. Erratic re-scoring erodes trust faster than slightly lower accuracy.
 
-The model scored 9.5M adult profiles, expanding demographic coverage from 22.7% to 100% of engaged accounts. Of those, 5.8M were entirely new predictions for profiles with no prior gender data at all. That is the real value: not marginally improving data you already have, but filling in the blanks where you previously had nothing.
+What goes wrong without it: a model that passes ML-team validation but fails business-team validation. The content team sees flip-flopping predictions, starts ignoring the inferred field, and the model is dead in production six months after launch.
 
-The model operates at profile level rather than account level, which matters for a platform where multiple family members often share a single account. Profile-level scoring means you can distinguish viewing patterns within a household rather than averaging them together into noise.
+### Guardrail 3: Explicit-label downstream contracts
 
-## Guardrails That Matter
+Every downstream table carries an `is_inferred` marker and a confidence flag. No consumer of the data is allowed to read the inferred attribute without also reading those two columns. A 75% accurate model is not a 100% accurate model, and downstream dashboards have to surface that uncertainty.
 
-- Keep inferred fields explicitly labeled as inferred. Every downstream table carries a confidence flag and an `is_inferred` marker. No consumer should mistake a model prediction for a declared value.
-- Avoid over-precision in downstream communication. A 75% accurate model should not be presented as ground truth in executive reporting.
-- Monitor drift as behavior patterns change. Viewing habits shift with content releases, Ramadan schedules, and platform feature changes.
-- Restrict high-stakes usage unless confidence and governance support it.
+The contract is what stops the inferred field from quietly becoming "the gender field" three quarters after launch. Without explicit labelling, the BI team will absorb the inferred column into the same templates that read declared data, and the model's predictions will be presented as ground truth in executive reporting.
 
-Beyond the standard controls, a few platform-specific considerations shaped how the model was deployed. Shared accounts are common on MENA streaming platforms like Shahid. When multiple people use the same profile, behavioral signals get mixed, and any single prediction carries lower confidence. The model's confidence scores reflect this: profiles with inconsistent viewing patterns receive lower confidence flags, and downstream consumers are expected to threshold accordingly.
+What goes wrong without it: a 75% accurate model gets cited as a fact in a leadership presentation. The first time the prediction is wrong on a high-profile profile, the program loses credibility. Mark it inferred, every time, on every table.
 
-Cultural context also matters. Viewing patterns in the MENA region do not map neatly onto Western baselines. Content catalogs, family viewing norms, and genre preferences differ meaningfully. A model trained on this platform's data captures those patterns, but it also means that assumptions from other markets about which genres or content attributes are gendered signals do not transfer directly. The feature engineering had to be grounded in this platform's actual data, not imported heuristics.
+### Guardrail 4: Drift monitoring with cultural context
 
-These controls help teams use enrichment responsibly. Inferred attributes expand what you can analyze, but they should never be treated with the same certainty as declared data.
+The hardest guardrail to maintain. Viewing patterns shift with content releases, Ramadan schedules, AVOD launches, regional sports cycles. A drift monitor that assumes stable feature distributions across these shifts will alarm on every cycle and become noise that gets muted.
 
-## Outcome
+The right drift monitor for MENA streaming is cycle-aware: Ramadan and non-Ramadan windows are compared separately, AVOD-launch periods are flagged as known shifts, and re-training is triggered only when within-cycle drift exceeds a threshold. Western-baseline drift heuristics do not transfer because the cultural cycles are different.
 
-Audience analysis became more complete, and planning workflows gained useful context in places where declared attributes were previously missing. The enrichment layer fed into campaign targeting, audience composition reporting, and downstream clustering models that previously operated on incomplete demographic inputs.
+What goes wrong without it: either the model goes stale (no monitoring) or the monitoring becomes noise (wrong baseline). Both end the program.
 
-The broader takeaway is that inference models like this are not replacements for better data collection. They are stop-gap measures that make incomplete data more usable while you work on improving upstream capture. The model filled a real gap, but the long-term play is always to get more users to self-report, reduce friction in profile setup, and build trust that encourages voluntary disclosure. Inference buys you time and coverage. It does not eliminate the need for good data practices upstream.
+## What I would watch first
+
+If you have one dashboard and one alert to set up around an inference model, do not pick accuracy.
+
+Pick re-score stability. The single highest-leverage signal that the model is healthy in production is whether profiles flip predictions between scoring runs. A drop in re-score stability is the first sign of any of three failures: feature pipeline drift, content-metadata corruption, or genuine population shift. Each of those is worth investigating; the stability signal catches them all.
+
+Second priority: a sample-of-the-week qualitative review with the content team. Twenty random profile predictions, walked through with the planning lead, every week. The numbers tell you that the model is statistically sound. The qualitative review tells you whether the predictions are usable.
+
+## One MENA-flavored note
+
+Cultural-context drift in MENA streaming is a real failure mode. Western-baseline assumptions about which genres or content attributes are gendered signals do not transfer. Sports content engagement patterns, family-drama viewing, late-night programming windows: all of these have MENA-specific shapes that a generically trained model will get wrong. The feature engineering had to be grounded in the platform's actual data, not imported heuristics. The same applies to the validation set: testing the model against a global benchmark misses the failure modes that matter in the region.
+
+Shared accounts are also structurally common. When multiple family members use the same profile, behavioural signals mix and prediction confidence drops. The model's confidence scores reflect this, and downstream consumers are expected to threshold accordingly. Profile-level scoring rather than account-level is what makes this tractable.
+
+## Closing
+
+Is your inferred data marked, or is it pretending to be ground truth?
+
+Inferred fields buy you coverage. They do not buy you certainty. The teams that ship inference well treat the model as one component of a contract: the prediction, the confidence flag, the inferred marker, the drift monitor, the qualitative review. The teams that ship it badly ship just the prediction, watch it get absorbed into the same templates as declared data, and pay the credibility cost the first time the prediction is wrong on a profile someone cares about. The guardrails are the difference. The model is the easy part.
 
 ---
 
-*For the full case study, see [Behavior-Based Attribute Inference](/projects/gender-prediction/).*
+> Related case study: [Behaviour-Based Attribute Inference](/projects/gender-prediction/)
+
+**Syed Aamir** is a Data & AI Solutions Engineer based in Dubai, building data foundations and applied AI for OTT streaming in the MENA region. Currently at Shahid (MBC Group). Previously delivered enterprise BI across automotive, retail, and financial services with Beinex, Al-Futtaim Technologies, and Scan Technology.
+
+If your team is working through a similar problem, [start a conversation](https://mail.google.com/mail/?view=cm&fs=1&to=saamir259@gmail.com&su=Project%20inquiry) or [connect on LinkedIn](https://www.linkedin.com/in/syedaamiruddin/).
