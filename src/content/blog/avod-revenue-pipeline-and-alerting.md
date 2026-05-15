@@ -1,64 +1,100 @@
 ---
-title: "AVOD Revenue Pipeline and Alerting: From Manual Tracking to Operating System"
+title: "The Four-Signal AVOD Operating Loop"
 date: 2023-11-20
-description: "How an AVOD revenue operations pipeline connected ad signals, monitoring, and alerts to replace spreadsheet-based tracking."
+description: "How an AVOD revenue operations pipeline at Shahid replaced spreadsheet-heavy tracking with four linked pipelines (inventory, impressions, VAST errors, pacing) and business-impact alerts, and the 14-day refresh decision that earned the team's trust."
 categories: ["Data Engineering", "BI & Analytics"]
-tags: ["AVOD", "Google Ad Manager", "Pipeline", "Alerting", "Slack"]
+tags: ["AVOD", "Google Ad Manager", "Pipeline", "Alerting", "Slack", "Revenue Operations"]
 featured: false
+draft: false
+depth: flagship
+pillar: governed-data
+linkedin_excerpt: |
+  Monday morning Shahid ad-revenue stand-up. Three teams in the room: Ad Ops, Growth, Data & Numbers. Each one had pulled the previous week's revenue total from Google Ad Manager independently. Each had a slightly different number on their slide.
+
+  None of the three were wrong. Each had its own filters, its own date logic, its own categorisation of programmatic versus direct. The discussion turned into a reconciliation meeting. The actual revenue decision the room had walked in to make was postponed.
+
+  We replaced this loop with a single AVOD Operating Loop: four linked pipelines feeding one staging layer, one set of dashboards, one alerting model.
+
+  Inventory. Impressions. VAST Errors. Pacing.
+
+  Full piece on the blog ↓
+  [link]
 ---
 
-AVOD reporting becomes fragile when requests, impressions, pacing, and errors are tracked in disconnected files. The fix is to build one monitored pipeline that connects operational signals to business outcomes.
+A Monday morning ad-revenue stand-up at Shahid (MBC Group). Three teams in the room: Ad Operations, Growth, and the Data & Numbers team. Each had pulled the previous week's revenue total from Google Ad Manager independently. Each had a slightly different number on their slide. Each spent ten minutes explaining their filters.
 
-This system replaced spreadsheet-heavy tracking with a repeatable event-to-revenue workflow at Shahid (MBC Group). The initial build started in November 2023, covering inventory and impressions. A second phase through 2024 added delivery pacing, VAST error categorization, and Slack-based alerting. What follows is not the full case study but the design thinking and lessons that came out of building it.
+None of the three were wrong. They used different programmatic-versus-direct categorisations, different VAST-error inclusion rules, different date-bucketing logic. The thirty-minute meeting turned into a reconciliation exercise. The actual revenue decision the room had come in to make (which campaigns to extend into the next flight) was postponed to a follow-up.
 
-## Before: Fragmented Revenue Operations
+This is the scene every AVOD operations team eventually encounters. The data exists. The dashboards exist. The teams care. They cannot operate from a shared number because there is no shared pipeline underneath. The fix is not better dashboards or more analyst time. It is one monitored pipeline that connects operational signals to business outcomes for all three teams at once.
 
-Three teams -- Ad Ops, Growth, and the Data & Numbers team -- all needed ad revenue data. Each was pulling exports from Google Ad Manager independently, building their own spreadsheets, and arriving at slightly different totals. There was no production pipeline for any of the four data domains: inventory, impressions, pacing, or errors. Pacing shortfalls were discovered during post-campaign reviews. VAST error spikes went unnoticed until someone happened to check. The team could report history, but could not reliably operate in near-real-time cycles.
+**Is your revenue number a measurement or an estimate?** When every team derives its own version from the same source, the answer is "estimate," whether anyone says it out loud or not. The remedy is a single AVOD Operating Loop: four linked pipelines feeding one staging layer, one set of dashboards, one alerting model.
 
-## The Design Decision That Shaped Everything
+## Why this matters now
 
-The first real architectural question was whether to build separate pipelines per team or a shared data layer. Three teams needed the same underlying GAM data, but with different slicing and business logic applied.
+AVOD revenue cycles have tightened in MENA over the last two years. The market has shifted post-2022 toward more ad-supported tiers, more direct-IO deals alongside programmatic, and tighter delivery windows. The window between "this campaign is pacing short" and "the campaign is over" is days, not weeks. A spreadsheet-heavy operating model that surfaces pacing shortfalls during the post-campaign review is no longer a real operating model.
 
-We chose a unified staging layer with derived measures -- a shared raw-to-staging architecture where derivation logic (ad format, ad type, VOD model, device category, content media ID via regex) is applied once at the staging layer. Every downstream consumer reads from the same derived tables.
+[IAB's VAST error taxonomy](https://iabtechlab.com/standards/vast/) and similar industry references make the same point structurally: the operational signals that decide whether AVOD revenue lands are well known. The gap is not the data; it is the pipeline that turns the data into action.
 
-The reasoning was practical. GAM API rate limits make it wasteful to pull the same data multiple times for different teams. More importantly, centralizing the derivation logic meant all three teams would calculate the same revenue totals. That sounds obvious, but discrepancies between teams had been a real source of friction before -- different filters, different date ranges, different ways of categorizing programmatic vs. direct. One staging layer eliminated that entire class of problem.
+## The Four-Signal AVOD Operating Loop
 
-## Four Pipelines, One System
+### Signal 1: Inventory
 
-The implementation used four linked pipelines, each covering a distinct operational signal. They needed to be separate because each has its own source structure, refresh cadence, and downstream consumers -- but they also needed to share dimensions and derivation logic so cross-pipeline analysis actually works.
+What it tracks: sellable ad slots. How much ad space is available to sell, broken down by format (instream, display), content, and country. The supply-side view that Ad Operations uses to understand capacity before booking campaigns.
 
-**Inventory** tracks sell-able ad slots: how much space is available to sell, broken down by format (instream, display), content, and country. This is the supply-side view that Ad Ops uses to understand capacity before booking campaigns.
+What goes wrong without it: campaigns get booked against intuited capacity. The first time a high-value campaign over-books an inventory pocket, the team discovers it after the campaign has already started missing delivery commitments.
 
-**Impressions** covers delivered ads and the revenue they generated. This is the core commercial signal -- what actually ran, what it earned, and how that breaks down across dimensions. It feeds the revenue dashboards that all three teams consume.
+### Signal 2: Impressions
 
-**VAST Errors** categorizes video ad serving failures by error type. When a video ad fails to load or render, the VAST protocol returns an error code. Categorizing and trending these errors lets the team distinguish between transient player issues and systematic delivery problems that need intervention.
+What it tracks: delivered ads and the revenue they generated. The core commercial signal. What actually ran, what it earned, how that breaks down across content, country, ad type, VOD model. This is the pipeline that feeds revenue dashboards for all three teams.
 
-**Delivery Pacing** compares actual delivery against booked commitments -- the ratio of what has been delivered so far to what was promised by the end of the campaign flight. This is the pipeline that feeds alerting, because a pacing shortfall discovered on the last day of a campaign is a missed revenue opportunity.
+The non-obvious part of this signal is settlement. Google Ad Manager impression data does not settle immediately; late-arriving attribution means numbers can shift for up to 14 days after the original event. A daily pipeline that only looks at yesterday's data will always be slightly wrong, and the errors compound over a reporting week.
 
-## The 14-Day Refresh Problem
+The solution is a two-schedule approach. A daily pipeline runs at 7 AM Dubai time to give teams fresh operational numbers for same-day decisions. A Sunday historical refresh re-pulls the previous 14 days to capture corrections and late-arriving data. Monday morning revenue reports reflect final settled figures, not provisional daily numbers. This is a small detail and it is the difference between teams trusting the pipeline and keeping a side spreadsheet "just in case."
 
-One thing that is not obvious about GAM impression data: it does not settle immediately. Late-arriving attribution means numbers can shift for up to 14 days after the original event. A daily pipeline that only looks at yesterday's data will always be slightly wrong -- and the errors compound over a reporting week.
+### Signal 3: VAST errors
 
-The solution was a two-schedule approach. A daily pipeline runs at 7AM to give teams fresh operational numbers for same-day decisions. Then a Sunday historical refresh re-pulls the previous 14 days to capture corrections and late-arriving data. This means the Monday morning revenue reports reflect final settled figures, not provisional daily numbers. It is a small detail, but it is the kind of thing that determines whether teams actually trust the pipeline or keep a side spreadsheet "just in case."
+What it tracks: video ad serving failures by error code, categorised. When a video ad fails to load or render, the VAST protocol returns an error category. Trending these errors lets the team distinguish between transient player issues and systematic delivery problems that need intervention.
 
-## Alert Thresholds: Business Impact, Not Just Technical Anomaly
+What goes wrong without it: error spikes hide inside aggregate impression counts. Revenue looks healthy on the dashboard while an error category is silently eroding effective fill rate. The first signal that something is wrong arrives weeks later, when a CFO asks why the impression numbers and the revenue numbers stopped tracking each other.
 
-The alert design was deliberately built around business impact rather than technical metrics. A technical anomaly alert might fire when error rates exceed a statistical threshold -- useful, but noisy. A business-impact threshold asks a different question: will this affect revenue or campaign delivery?
+### Signal 4: Delivery pacing
 
-For example, a delivery pacing alert does not fire because the pacing ratio dropped by some percentage from the mean. It fires when a campaign's actual delivery rate puts it on track to miss its booked commitment by the end of the flight. That is a concrete business problem -- the Ad Ops team can redistribute inventory or adjust targeting while there is still time to recover. The difference is that teams act on business-impact alerts because the alert itself describes a decision, not just a data point.
+What it tracks: actual delivery against booked commitments. The ratio of what has been delivered so far to what was promised by the end of a campaign flight. This is the pipeline that feeds alerting because a pacing shortfall discovered on the last day of a campaign is a missed revenue opportunity.
 
-VAST error alerts follow a similar logic. A brief spike in timeout errors during a CDN maintenance window is not worth paging anyone about. A sustained increase in a specific error category across a content vertical means something is broken in the ad serving chain and needs investigation.
+The alert here is the most operationally important alert in the whole system. A pacing alert that fires three days before campaign end gives Ad Operations time to redistribute inventory, adjust targeting, or pull additional creative. The same alert fired on the final day is a post-mortem.
 
-## Why This Was a Transition Block
+## Alert thresholds: business impact, not technical anomaly
 
-This project sat between BI-heavy reporting and broader analytics systems. It was not a machine learning project or a real-time streaming system. But it introduced patterns that made later, more complex systems possible:
+The single design decision that decides whether the loop is healthy is what triggers an alert. A technical anomaly alert fires when a metric drifts statistically; it is noisy and gets muted. A business-impact alert fires when a metric drift will affect revenue or campaign delivery; it gets acted on.
 
-- It required data-engineering rigor -- schema normalization, idempotent pipelines, refresh strategies
-- It kept BI usability requirements front and center -- the output had to work in Power BI for non-technical users
-- It introduced operating-model thinking -- detect, alert, act -- that later supported DS and AI systems built on the same data layer
+Pacing alerts at Shahid do not fire because the pacing ratio dropped by some percentage from the mean. They fire when a campaign's actual delivery rate puts it on track to miss its booked commitment by end-of-flight. The alert itself describes a decision, not just a data point. VAST error alerts follow the same logic: a brief spike during a CDN maintenance window is not paged; a sustained shift in a specific error category across a content vertical is.
 
-The two-phase build (core pipelines in late 2023, expansion with pacing alerts and error categorization through 2024) also proved that starting with a solid staging layer makes expansion straightforward. Adding VAST Errors and Delivery Pacing in phase two was mostly about new source ingestion and alert logic -- the derivation layer and dashboard infrastructure were already in place.
+The alert vocabulary is the operating language of the team. Build the loop around the alerts the team will actually act on, not the alerts the dashboard happens to support.
+
+## Where I would start
+
+If your team has zero AVOD pipeline today, do not start with all four signals.
+
+Start with Impressions, including the 14-day settlement refresh. Get all three teams (Ad Ops, Growth, Data & Numbers) consuming the same impression-derived revenue number from the same staging layer. That single move eliminates the most expensive recurring meeting on the team's calendar.
+
+Second move: add Pacing, with one business-impact alert wired into Slack. The first time the alert saves a campaign is the moment the program earns its budget for the next two signals.
+
+Third and fourth: Inventory and VAST Errors. Both compound on top of the foundation laid by Impressions and Pacing, neither pays off without it.
+
+## One MENA-flavored note
+
+Ramadan AVOD windows are a worked example for every signal in the loop. Inventory spikes during Ramadan because content release cadence shifts. Impressions concentrate in late-evening watch windows that compress into a few hours per day. VAST error rates can shift because device mix changes in family-viewing windows. Pacing tightens because flight durations compress around the cycle. A loop built without explicit Ramadan-cycle dimensions in dim-date will misread every signal during the period. Build the cycle awareness into the staging layer; the teams downstream will inherit it.
+
+## Closing
+
+Is your revenue number a measurement or an estimate?
+
+When the answer is "estimate," every Monday standup eats half an hour of reconciliation. When the answer is "measurement," the team operates from a shared number and spends that half hour on the decisions the number was supposed to inform. The four-signal loop above is the change that switches the answer. The pipeline work is real. The compounding (faster reviews, fewer side spreadsheets, alerts the team actually acts on) is realer.
 
 ---
 
-*For the full case study, see [Revenue Operations Data Pipeline & Alerting Platform](/projects/ad-pipeline/).*
+> Related case study: [Revenue Operations Data Pipeline & Alerting Platform](/projects/ad-pipeline/)
+
+**Syed Aamir** is a Data & AI Solutions Engineer based in Dubai, building data foundations and applied AI for OTT streaming in the MENA region. Currently at Shahid (MBC Group). Previously delivered enterprise BI across automotive, retail, and financial services with Beinex, Al-Futtaim Technologies, and Scan Technology.
+
+If your team is working through a similar problem, [start a conversation](https://mail.google.com/mail/?view=cm&fs=1&to=saamir259@gmail.com&su=Project%20inquiry) or [connect on LinkedIn](https://www.linkedin.com/in/syedaamiruddin/).
