@@ -30,19 +30,6 @@ order: 2
 
 **Constraints**: Three heterogeneous data sources (subscription management, content analytics, ad operations) with different schemas and update cadences; model had to serve both Power BI PPU and SSAS live-connection users simultaneously; no disruption to existing reports during migration.
 
-**Impact Metrics**:
-
-- **3 external systems unified** (Evergent subscription management, Youbora content analytics, Google Ad Manager) into one semantic layer previously each team connected to source tables independently with their own logic
-- **4 KPI domains** standardized: Subscriber Base Movement, Subscriber Engagement, Title Performance, Ads Metrics, covering the full breadth of platform reporting
-- **100+ pre-built DAX measures** made available as shared, governed definitions, eliminating the practice of rebuilding the same logic per report
-- **Automated partition refresh strategy** with domain-specific cadences: Engagement (daily, last 1 day), Base Movement (last 5 days), Ad Impressions (last 14 days), replacing manual refresh coordination
-- Metric disputes across teams **reduced to near-zero**: single source of truth for KPI definitions referenced by all business units
-- Report development time **cut by an estimated 60-70%** for new dashboards. Core measures no longer rebuilt from scratch each time
-- **50% improvement in query performance** for reports spanning millions of rows through optimized DAX calculations and data relationships
-- **15 hours per week saved** across analytics teams by reducing dependency on manual data reconciliation
-
-*Verification: Measured through report build cycle comparisons before/after rollout; metric dispute frequency tracked via support request volume.*
-
 The enterprise data model solved integration, but teams were still calculating measures differently inside their own report files. A semantic layer was needed to standardize business logic at a single, governed layer and dramatically speed up report delivery.
 
 ## Challenge

@@ -107,16 +107,22 @@ All sessions strip `--` em-dash substitutes per `BLOG_AUDIT.md` section 3.1 and 
 
 ## Phase 4: Content Quality - Projects
 
-**Status**: Not started
+**Status**: Done (2026-05-15)
 **Depends on**: Phase 1
 **Goal**: Polish project case studies, improve structure
 
-- [ ] Audit all 14 project case studies for formatting issues
-- [ ] Verify all architecture diagrams render correctly (SVGs in /assets/diagrams/)
-- [ ] Improve project page structure: better hero sections, clearer metrics display
-- [ ] Consider adding "lessons learned" or "what I'd do differently" sections
-- [ ] Review project ordering and featured flags
-- [ ] Ensure cross-links between related projects work
+- [x] Audit all project case studies for formatting (no MkDocs leftovers, frontmatter clean)
+- [x] Verify existing 6 architecture diagrams render correctly; brand repaint + 4 new diagrams deferred to Phase 5
+- [x] Project page hero polish: eyebrow uppercase + tracking on Project.astro
+- [x] Add Outcome blockquote standard across all projects
+- [x] Add "When NOT appropriate" reflection blocks to clustering, gender-prediction, profile-features, enterprise-bi-suite
+- [x] Reorder projects: enigma promoted to position 3, earlier consulting moved to order 20-23 for index tiering
+- [x] Delete ml-contributions.md (footnote-tier entry diluting page quality), patterns.md (duplicate of per-project Reusable Pattern sections; pattern-thinking belongs in Phase 3.5 flagship blog rewrites), and orphan content/projects/index.md
+- [x] Add Related Projects footers to 5 projects missing them
+- [x] Refactor FeaturedProjects.astro to query content collection (eliminated hardcoded drift from frontmatter)
+- [x] Tier projects/index.astro into "Recent Work" + "Earlier Consulting" sections with category filter working across both
+
+**Output**: All project content edits + tiered index. Plan at `~/.claude/plans/i-need-your-help-reflective-bunny.md`.
 
 ## Phase 5: Apply Refinements & Implement Audit Punch List
 
@@ -130,6 +136,7 @@ All sessions strip `--` em-dash substitutes per `BLOG_AUDIT.md` section 3.1 and 
 - [ ] Apply imagery: generate assets via Gemini API (key in .env), commit PNGs to `public/assets/`
   - Proper 1200x630 OG card (replaces current portrait profile photo as og:image default)
   - Any hero illustration or section accents decided in 2A
+- [ ] Architecture diagrams: repaint 6 existing SVGs (ad-pipeline, bi-migration, data-model, enigma, jarvis, semantic-layer) into copper/carbon brand palette (carbon-950 bg, copper-500 accents, sage-500 secondary, Space Grotesk + JetBrains Mono fonts per `BRAND_GUIDE.md`). Author 4 new SVGs for profile-features, clustering, gender-prediction, enterprise-bi-suite (grep `<!-- DIAGRAM PENDING -->` in `src/content/projects/` for wired image paths and alt text).
 - [ ] Add logo/wordmark to nav if created
 - [ ] Polish animations and hover effects
 - [ ] Bump GitHub Actions versions in `.github/workflows/deploy.yml` to Node 24 compatible

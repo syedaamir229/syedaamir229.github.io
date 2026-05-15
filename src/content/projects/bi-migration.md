@@ -30,18 +30,6 @@ order: 6
 
 **Constraints**: Migration had to run in parallel with live reporting, with no downtime or data freeze permitted; Data Model 2.0 rollout was happening simultaneously, requiring coordination between data engineering and BI workstreams; report owners had varying levels of technical proficiency, requiring enablement alongside technical migration.
 
-**Impact Metrics**:
-
-- **3 migration phases completed** with zero reporting disruption: tool transition (Tableau to Power BI), data layer alignment (legacy to Data Model 2.0), metric governance (report-level logic to centralized semantic layer)
-- Migrated reporting workloads from **Tableau + legacy data sources** to **Power BI + Databricks Gold layer**, modernizing both the presentation and the underlying architecture in a coordinated sequence
-- Phase 3 semantic-layer transition: report-level DAX logic consolidated into **100+ shared measures**, eliminating duplicated metric definitions across individual report files
-- **Report maintenance burden reduced** significantly after phase 3: updates to KPI definitions now require changes in one place rather than across every report file
-- Enablement sessions delivered to reporting teams across all 3 phases, maintaining productivity during each transition
-- **35% reduction in report maintenance costs** through automation and centralized governance
-- **40% increase in report adoption** among business users through tailored departmental KPI dashboards
-
-*Verification: Report availability tracked throughout migration; metric consolidation measured by count of reports migrated to semantic layer consumption vs. local data model.*
-
 This was not a single tool migration. It was a structured modernization in three coordinated phases that aligned BI tooling, data architecture, and reporting governance while keeping reporting live throughout.
 
 ## Challenge

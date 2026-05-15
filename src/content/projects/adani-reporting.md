@@ -9,24 +9,18 @@ metrics:
     value: "30% improvement"
   - label: "Report Generation Speed"
     value: "25% faster"
-order: 13
+order: 22
 ---
 
 # Financial & Sales Reporting Platform
+
+> **Outcome:** Recurring finance and sales reporting moved from manual spreadsheet consolidation to Alteryx + Tableau workflows, with 30% better data flow efficiency and 25% faster report generation.
 
 **Organization**: Adani Enterprises (via Scan Technology LLC)
 **Role**: BI Consultant
 **Timeline**: May 2017 - December 2017
 **Industry**: Conglomerate / Financial Services
 **Ownership**: Primary implementer for data workflow automation and dashboard delivery
-
-**Impact Metrics**:
-
-- Improved report accessibility for finance and sales stakeholders
-- Reduced recurring report preparation effort through automation
-- Replaced manual spreadsheet consolidation with standardized reporting flows
-- **30% improvement in data flow efficiency** through Alteryx-based data modeling and integration
-- **25% faster report generation** through optimized SQL queries and data models
 
 Finance and sales reporting depended on manual spreadsheet operations, which slowed cycles and reduced confidence in recurring outputs.
 
@@ -64,6 +58,8 @@ This manual-to-automated reporting transition applies across many sectors:
 - **Sales operations**: Pipeline and performance reporting automation
 - **Shared services**: Standardized reporting for cross-functional teams
 
-## Additional Context
+---
 
-- Delivered as part of early consulting engagements focused on practical BI modernization
+## Related Projects
+
+[Enterprise BI Suite (Consulting)](/projects/enterprise-bi-suite/) | [Executive KPI Dashboard Suite](/projects/jlr-dashboards/) | [BI Modernization Roadmap](/projects/bi-migration/)

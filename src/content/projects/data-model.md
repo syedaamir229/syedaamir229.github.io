@@ -30,19 +30,6 @@ order: 1
 
 **Constraints**: Source system schemas varied significantly across vendors (viewing from Youbora, subscriptions from Evergent, content metadata from Mediagenix/GA, ads from GAM); data volumes were growing rapidly and ad hoc query patterns were already causing instability; model had to serve both BI and data science use cases without creating separate ETL workstreams.
 
-**Impact Metrics**:
-
-- **5 source systems integrated** into a unified model: Youbora (viewing analytics), Evergent (subscription management), Mediagenix/Google Analytics (content metadata), Google Ad Manager (ad data), AWS S3 (raw storage layer)
-- **~15 tables** delivered: fact tables (viewing events, subscriptions), dimension tables (user, content, package, device, partner, address), and feature store tables (user-level and user-content behavioral features)
-- **2-layer architecture** (Silver: normalized fact/dim tables; Gold: derived feature store) allowing BI workloads and ML models to consume from appropriate layers without coupling
-- Metric disputes across teams **eliminated** for core KPIs (subscriber counts, engagement metrics, churn/movement) previously different teams used different SQL logic and produced conflicting numbers
-- Model became the **single shared foundation** for all downstream work: Semantic Layer, Revenue Ops Pipeline, Jarvis CRM Automation, and Enigma AI Platform
-- **30% faster data retrieval** through standardized data structures, optimized table relationships, and indexing strategies
-- **99% data accuracy** for cross-functional teams accessing curated data, improving decision-making efficiency
-- Scaled to handle a **5x increase in data volume** with zero downtime during high-traffic periods
-
-*Verification: Model adoption tracked by downstream project dependencies; metric consistency validated through cross-team reporting alignment.*
-
 A unified enterprise data model was required to stop conflicting numbers across teams. Source systems were disconnected, and each team used separate SQL logic to calculate similar metrics, creating reporting friction and analysis delays.
 
 ## Challenge

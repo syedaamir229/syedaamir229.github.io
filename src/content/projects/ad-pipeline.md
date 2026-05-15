@@ -30,18 +30,6 @@ order: 5
 
 **Constraints**: GAM API rate limits required careful ingestion scheduling; ad impression data settles over 14 days due to late-arriving attribution, requiring a weekly historical refresh on top of daily runs; multiple teams (Ad Ops, Growth, Data) needed different views of the same underlying data without separate pipelines.
 
-**Impact Metrics**:
-
-- **4 production pipelines** built and operationalized: Inventory, Impressions, VAST Errors, Delivery Pacing, replacing ad hoc spreadsheet workflows for all four areas
-- **3 teams** now share a single data layer (Ad Ops, Growth, Data & Numbers), previously each team tracked revenue in separate exports with no cross-team consistency
-- **9 raw + 10 derived measures** standardized across instream and display formats (SVOD and AVOD), including inventory, impressions, revenue, drop-off, and error rates
-- Pacing and VAST error issues now surfaced **same-day via Slack alerts**, previously discovered during post-campaign review or weekly reporting cycles
-- **Daily pipeline runs at 7AM** + 14-day historical refresh every Sunday to capture late-arriving GAM attribution data
-- Content-level and country-level revenue slicing enabled for the first time
-- **25% reduction in data processing times** through streamlined ETL for ad data ingestion
-
-*Verification: Pipeline run history tracked in Databricks Jobs; alert delivery confirmed via Slack channel audit; data adoption measured by BI report query volume.*
-
 Revenue tracking was fragmented before this build. Inventory, impressions, pacing, and error data were tracked in separate spreadsheets with no automated pipeline, no cross-source analysis, and no proactive alerting.
 
 ## Challenge

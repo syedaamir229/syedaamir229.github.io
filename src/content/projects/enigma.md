@@ -13,7 +13,7 @@ metrics:
     value: "5"
   - label: "Genie Spaces + Agent"
     value: "2 + 1"
-order: 4
+order: 3
 ---
 
 # Voice-of-Customer Intelligence Platform
@@ -29,16 +29,6 @@ order: 4
 **Ownership**: Key contributor to system design and implementation; contributed to ingestion pipelines, Genie space configuration, and agent routing logic
 
 **Constraints**: Multilingual content (Arabic/English) with no off-the-shelf translation pipeline; confidentiality requirements prevented use of third-party LLM APIs for raw comment data; tight SLA requirement (insights available by 12PM daily) driven by content team's morning review cycle.
-
-**Impact Metrics**:
-
-- Unified **4 social/platform sources** (Twitter, Facebook, YouTube, platform Shorts) into a single queryable model, previously tracked in separate exports with no cross-source analysis
-- Reduced time to access audience sentiment from **hours of manual analysis to seconds** via natural language query
-- **5 NLP enrichments** applied at ingestion: translation, sentiment, profanity detection, URL-to-title mapping, platform normalization, eliminating ad hoc per-platform prep work
-- Daily pipeline SLAs met: raw ingestion pre-10AM, enriched data available <1hr after ingestion, vector index rebuilt pre-12PM
-- Deployed **2 Genie spaces** + 1 LangGraph Supervisor Agent, enabling non-technical teams to query engagement KPIs and comment themes without SQL dependency
-
-*Verification: Pipeline SLAs tracked via Databricks Jobs monitoring; query adoption measured through app session logs.*
 
 Social feedback existed at scale but remained difficult to analyze consistently: scattered across platforms, mostly in Arabic, and requiring analyst effort to surface any pattern.
 

@@ -1,34 +1,20 @@
 ---
-const projects = [
-  {
-    title: 'Enterprise Data Model',
-    description: 'Consolidated four source systems into one governed data model at Shahid (MBC Group), resolving metric disputes and becoming the foundation for semantic layers, ML, and AI.',
-    tags: ['Databricks', 'PySpark', 'Delta Lake'],
-    metric: 'Foundation for 100+ KPIs',
-    href: '/projects/data-model/',
-  },
-  {
-    title: 'Semantic Layer & KPI Framework',
-    description: 'Built a governed semantic layer with 100+ DAX measures serving finance, marketing, and content teams. Migrated from Power BI Premium to SSAS Tabular at scale.',
-    tags: ['SSAS', 'DAX', 'Power BI'],
-    metric: '100+ governed measures',
-    href: '/projects/semantic-layer/',
-  },
-  {
-    title: 'CRM Automation Platform',
-    description: 'Replaced manual audience-building with a governed scenario engine. CRM teams now configure and launch campaigns independently through CleverTap.',
-    tags: ['Python', 'CleverTap', 'Databricks'],
-    metric: 'Manual to self-serve',
-    href: '/projects/jarvis/',
-  },
-  {
-    title: 'Voice-of-Customer Intelligence',
-    description: 'GenAI-powered multilingual NLP platform unifying support, review, and social signals with a conversational interface for non-technical teams.',
-    tags: ['GenAI', 'NLP', 'Databricks Genie'],
-    metric: 'Arabic + English NLP',
-    href: '/projects/enigma/',
-  },
-];
+import { getCollection } from 'astro:content';
+
+const projects = (await getCollection('projects'))
+  .filter((p) => p.data.featured)
+  .sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99))
+  .slice(0, 4)
+  .map((p) => {
+    const heroMetric = p.data.metrics?.[0];
+    return {
+      title: p.data.title,
+      description: p.data.description,
+      tags: (p.data.tags ?? []).slice(0, 3),
+      metric: heroMetric ? `${heroMetric.value} ${heroMetric.label}`.trim() : null,
+      href: `/projects/${p.id}/`,
+    };
+  });
 ---
 
 <section class="py-16 px-6 reveal">
@@ -44,11 +30,13 @@ const projects = [
     <div class="grid md:grid-cols-2 gap-6">
       {projects.map((project) => (
         <a href={project.href} class="group block p-6 rounded-xl border border-white/5 bg-navy-800/40 card-hover">
-          <div class="flex items-center gap-2 mb-3">
-            <span class="text-xs font-mono text-teal-400 bg-teal-500/10 px-2 py-0.5 rounded">
-              {project.metric}
-            </span>
-          </div>
+          {project.metric && (
+            <div class="flex items-center gap-2 mb-3">
+              <span class="text-xs font-mono text-teal-400 bg-teal-500/10 px-2 py-0.5 rounded">
+                {project.metric}
+              </span>
+            </div>
+          )}
           <h3 class="text-white font-semibold text-lg mb-2 group-hover:text-teal-400 transition-colors" style="font-family: var(--font-heading)">
             {project.title}
           </h3>

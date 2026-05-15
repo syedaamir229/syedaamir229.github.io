@@ -2,10 +2,16 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 
-const projects = (await getCollection('projects'))
+const allProjects = (await getCollection('projects'))
   .sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99));
 
-const categories = [...new Set(projects.map((p) => p.data.category))].sort();
+const recentProjects = allProjects.filter((p) => (p.data.order ?? 99) < 20);
+const earlierProjects = allProjects.filter((p) => {
+  const o = p.data.order ?? 99;
+  return o >= 20 && o < 100;
+});
+
+const categories = [...new Set(allProjects.map((p) => p.data.category))].sort();
 ---
 
 <BaseLayout title="Projects" description="Case studies from 10+ years of data engineering, BI, data science, and AI automation work.">
@@ -28,50 +34,104 @@ const categories = [...new Set(projects.map((p) => p.data.category))].sort();
         ))}
       </div>
 
-      <!-- Project grid -->
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="projects-grid">
-        {projects.map((project) => (
-          <a
-            href={`/projects/${project.id}/`}
-            class="proj-card group block p-6 rounded-xl border border-white/5 bg-navy-800/40 card-hover"
-            data-category={project.data.category}
-          >
-            <span class="text-xs font-mono text-teal-400 bg-teal-500/10 px-2 py-0.5 rounded">
-              {project.data.category}
-            </span>
-            <h3 class="text-white font-semibold text-lg mt-3 mb-2 group-hover:text-teal-400 transition-colors" style="font-family: var(--font-heading)">
-              {project.data.title}
-            </h3>
-            <p class="text-slate-400 text-sm line-clamp-3 mb-4">
-              {project.data.description}
-            </p>
-            {project.data.metrics.length > 0 && (
-              <div class="flex flex-wrap gap-4 mt-auto pt-3 border-t border-white/5">
-                {project.data.metrics.slice(0, 2).map((m) => (
-                  <div>
-                    <p class="text-sm font-bold text-teal-400">{m.value}</p>
-                    <p class="text-xs text-slate-500">{m.label}</p>
-                  </div>
-                ))}
-              </div>
-            )}
-            {project.data.tags.length > 0 && (
-              <div class="flex flex-wrap gap-1.5 mt-3">
-                {project.data.tags.slice(0, 4).map((tag) => (
-                  <span class="text-xs text-slate-500 border border-white/5 px-1.5 py-0.5 rounded">
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            )}
-          </a>
-        ))}
+      <!-- Recent Work -->
+      <div class="proj-section" data-section="recent">
+        <h2 class="proj-section-heading text-[11px] font-mono text-teal-400 uppercase tracking-[0.18em] mb-4">
+          Recent Work
+        </h2>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+          {recentProjects.map((project) => (
+            <a
+              href={`/projects/${project.id}/`}
+              class="proj-card group block p-6 rounded-xl border border-white/5 bg-navy-800/40 card-hover"
+              data-category={project.data.category}
+            >
+              <span class="text-xs font-mono text-teal-400 bg-teal-500/10 px-2 py-0.5 rounded">
+                {project.data.category}
+              </span>
+              <h3 class="text-white font-semibold text-lg mt-3 mb-2 group-hover:text-teal-400 transition-colors" style="font-family: var(--font-heading)">
+                {project.data.title}
+              </h3>
+              <p class="text-slate-400 text-sm line-clamp-3 mb-4">
+                {project.data.description}
+              </p>
+              {project.data.metrics.length > 0 && (
+                <div class="flex flex-wrap gap-4 mt-auto pt-3 border-t border-white/5">
+                  {project.data.metrics.slice(0, 2).map((m) => (
+                    <div>
+                      <p class="text-sm font-bold text-teal-400">{m.value}</p>
+                      <p class="text-xs text-slate-500">{m.label}</p>
+                    </div>
+                  ))}
+                </div>
+              )}
+              {project.data.tags.length > 0 && (
+                <div class="flex flex-wrap gap-1.5 mt-3">
+                  {project.data.tags.slice(0, 4).map((tag) => (
+                    <span class="text-xs text-slate-500 border border-white/5 px-1.5 py-0.5 rounded">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </a>
+          ))}
+        </div>
       </div>
+
+      <!-- Earlier Consulting -->
+      {earlierProjects.length > 0 && (
+        <div class="proj-section" data-section="earlier">
+          <h2 class="proj-section-heading text-[11px] font-mono text-slate-500 uppercase tracking-[0.18em] mb-2">
+            Earlier Consulting
+          </h2>
+          <p class="text-slate-500 text-sm mb-6 max-w-2xl">
+            Pre-Shahid engagements from 2017 to 2022 across enterprise BI, finance, automotive, and government.
+          </p>
+          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mb-16">
+            {earlierProjects.map((project) => (
+              <a
+                href={`/projects/${project.id}/`}
+                class="proj-card group block p-4 rounded-lg border border-white/5 bg-navy-800/20 card-hover"
+                data-category={project.data.category}
+              >
+                <span class="text-[10px] font-mono text-slate-500 uppercase tracking-[0.15em]">
+                  {project.data.category}
+                </span>
+                <h3 class="text-slate-200 font-semibold text-base mt-2 mb-1.5 group-hover:text-teal-400 transition-colors" style="font-family: var(--font-heading)">
+                  {project.data.title}
+                </h3>
+                <p class="text-slate-500 text-xs line-clamp-2">
+                  {project.data.description}
+                </p>
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+
     </div>
   </section>
 </BaseLayout>
 
 <script>
+  function applyFilter(cat: string) {
+    document.querySelectorAll('.proj-card').forEach((card) => {
+      const el = card as HTMLElement;
+      el.style.display = cat === 'all' || el.dataset.category === cat ? '' : 'none';
+    });
+
+    document.querySelectorAll('.proj-section').forEach((section) => {
+      const sectionEl = section as HTMLElement;
+      const visibleCards = sectionEl.querySelectorAll<HTMLElement>('.proj-card').length === 0
+        ? 0
+        : Array.from(sectionEl.querySelectorAll<HTMLElement>('.proj-card')).filter(
+            (c) => c.style.display !== 'none',
+          ).length;
+      sectionEl.style.display = visibleCards === 0 ? 'none' : '';
+    });
+  }
+
   document.querySelectorAll('.proj-cat-btn').forEach((btn) => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('.proj-cat-btn').forEach((b) => {
@@ -81,11 +141,8 @@ const categories = [...new Set(projects.map((p) => p.data.category))].sort();
       btn.classList.add('active', 'border-teal-500/40', 'text-teal-400', 'bg-teal-500/10');
       btn.classList.remove('border-white/10', 'text-slate-400');
 
-      const cat = (btn as HTMLElement).dataset.category;
-      document.querySelectorAll('.proj-card').forEach((card) => {
-        (card as HTMLElement).style.display =
-          cat === 'all' || (card as HTMLElement).dataset.category === cat ? '' : 'none';
-      });
+      const cat = (btn as HTMLElement).dataset.category ?? 'all';
+      applyFilter(cat);
     });
   });
 </script>

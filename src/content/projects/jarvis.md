@@ -13,7 +13,7 @@ metrics:
     value: "7"
   - label: "Deduplication Window"
     value: "60 days"
-order: 3
+order: 4
 ---
 
 # CRM Campaign Automation Platform
@@ -29,17 +29,6 @@ order: 3
 **Ownership**: Key contributor to scenario logic, pipeline architecture, and CRM integration; worked within the data science and engineering team
 
 **Constraints**: CleverTap's API targets accounts (not individual profiles), creating a mismatch with profile-level viewing behavior in multi-profile households. Required daily batch completion before CRM send schedules. Seasonal events (Ramadan) required content-filter overrides without redeployment.
-
-**Impact Metrics**:
-
-- **Millions of adult profiles** processed daily across 4 recommendation scenarios, previously required manual audience builds per campaign
-- **4 targeting scenarios** running in parallel (Clustered, Episodes Remaining, Ranked Up, AVOD) replacing a single undifferentiated blast approach
-- **7 regional segments** supported with region-specific trending logic, previously MENA-wide targeting with no regional differentiation
-- **60-day deduplication window** prevents notification fatigue: same content not re-recommended within 60 days per profile
-- Seasonal content overrides (e.g., Ramadan filter) activate and deactivate automatically on configured dates with **zero code changes or deployments** required
-- Campaign audience build time reduced from **multi-day analyst requests to daily automated execution**
-
-*Verification: Pipeline run logs in Databricks Jobs; recommendation volume tracked per scenario in output tables; deduplication compliance verified via `infra_sent_content` table audit.*
 
 Campaign operations relied on manual coordination. CRM teams depended on data analysts to build audiences and schedule recurring pushes, creating a bottleneck that limited campaign frequency and consistency.
 

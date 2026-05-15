@@ -9,24 +9,18 @@ metrics:
     value: "30%"
   - label: "Manual Reporting Reduction"
     value: "20%"
-order: 12
+order: 21
 ---
 
 # Executive KPI Dashboard Suite
+
+> **Outcome:** Executive review cycles shifted from static reports to interactive drill-down workflows, lifting data accessibility 30% and cutting manual reporting effort 20%.
 
 **Organization**: Jaguar & Land Rover (via Scan Technology LLC)
 **Role**: BI Consultant
 **Timeline**: February 2017 - May 2017
 **Industry**: Automotive
 **Ownership**: Primary dashboard developer for design, interaction flow, and business handover
-
-**Impact Metrics**:
-
-- Improved executive visibility with drill-down reporting paths
-- Increased self-service exploration for business users
-- Reduced dependency on static report requests
-- **30% improvement in data accessibility and decision-making speed** through interactive KPI visualizations
-- **20% reduction in manual reporting efforts** by automating data extraction and visualization
 
 Executive teams needed faster access to KPI performance with the ability to drill into key drivers during decision cycles.
 
@@ -62,6 +56,8 @@ The same executive dashboard approach works across industries:
 - **Manufacturing**: Throughput and quality KPI tracking
 - **Services**: Operational performance and SLA monitoring
 
-## Additional Context
+---
 
-- Delivered as a concise executive analytics engagement with strong business adoption
+## Related Projects
+
+[Enterprise BI Suite (Consulting)](/projects/enterprise-bi-suite/) | [Financial & Sales Reporting Platform](/projects/adani-reporting/) | [Multi-Department BI Architecture](/projects/alfuttaim-bi/)

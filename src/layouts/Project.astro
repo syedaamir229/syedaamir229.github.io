@@ -17,10 +17,10 @@ const { title, description, category, tags = [], metrics = [] } = Astro.props;
     <div class="max-w-4xl mx-auto">
       <!-- Header -->
       <header class="mb-12">
-        <span class="text-xs font-mono text-teal-400 bg-teal-500/10 px-2.5 py-1 rounded">
+        <span class="text-[11px] font-mono text-teal-400 uppercase tracking-[0.18em]">
           {category}
         </span>
-        <h1 class="text-3xl md:text-4xl font-bold mt-4 mb-4 leading-tight" style="font-family: var(--font-heading)">
+        <h1 class="text-3xl md:text-4xl font-bold mt-3 mb-4 leading-tight" style="font-family: var(--font-heading)">
           {title}
         </h1>
         <p class="text-slate-400 text-lg">{description}</p>

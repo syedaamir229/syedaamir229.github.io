@@ -9,24 +9,18 @@ metrics:
     value: "30%"
   - label: "Report Generation Time Reduction"
     value: "50%"
-order: 14
+order: 23
 ---
 
 # Multi-Department BI Architecture
+
+> **Outcome:** Multi-department reporting standardised onto Tableau against consolidated SQL Server sources, lifting data accessibility 30% and cutting report generation time 50%.
 
 **Organization**: Al-Futtaim Technologies
 **Role**: BI Consultant
 **Timeline**: May 2018 - December 2018
 **Industry**: Enterprise IT / Retail Conglomerate
 **Ownership**: Contributor role across dashboard delivery and cross-department reporting support
-
-**Impact Metrics**:
-
-- Helped standardize reporting patterns across departments
-- Improved data accessibility for business users
-- Supported faster recurring report generation workflows
-- **30% improvement in data accessibility** through consolidation of data from multiple legacy systems
-- **50% reduction in report generation time** by converting legacy reports to dynamic Tableau visualizations
 
 Multiple departments required aligned reporting practices and repeatable dashboard delivery standards.
 
@@ -63,6 +57,8 @@ This cross-department standardization pattern is useful in any large organizatio
 - **Retail operations**: Functional reporting alignment across teams
 - **IT-enabled services**: Standard dashboards with governed definitions
 
-## Additional Context
+---
 
-- Delivered in a collaborative consulting setup with shared responsibilities
+## Related Projects
+
+[Enterprise BI Suite (Consulting)](/projects/enterprise-bi-suite/) | [Executive KPI Dashboard Suite](/projects/jlr-dashboards/) | [Financial & Sales Reporting Platform](/projects/adani-reporting/)

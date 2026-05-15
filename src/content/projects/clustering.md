@@ -14,20 +14,13 @@ order: 8
 
 # Viewing Behavior Clustering
 
+> **Outcome:** 12 behavior-based audience segments derived from 7.5M scored profiles, replacing demographic and plan-type segmentation with activation-ready cluster definitions used by content strategy and CRM automation.
+
 **Organization**: Shahid (MBC Group)
 **Role**: Data Science & Advanced Analytics
 **Timeline**: 2024
 **Industry**: Media & Entertainment (Data Science)
 **Ownership**: Key contributor to feature selection, clustering workflow design, validation, and activation
-
-**Impact Metrics**:
-
-- Built **K-means clustering model** using combined viewing behavior tags and content semantic embeddings
-- Identified **12 distinct audience segments** with clear behavioral and content preference patterns
-- Scored **7.5M active profiles** across the platform
-- Dual-signal approach: engagement tag matrix (viewing hours by mood, sub-genre, dialect) combined with semantic synopsis embeddings from content descriptions
-- Clusters integrated into the **Semantic Layer** and used by Jarvis CRM automation for targeted recommendations
-- Segments include: Platform Flagships, Social Dramas, Kids, GCC Social & Lighthearted, Sports & Current Affairs, Egyptian Comedies, and more
 
 Audience segmentation was broad before this work. Teams relied on simple dimensions such as plan type or geography, which did not capture real user behavior patterns.
 
@@ -45,6 +38,14 @@ Audience segmentation was broad before this work. Teams relied on simple dimensi
 - Refined feature inputs and segment definitions until clusters were stable and interpretable
 - Mapped clusters into business-friendly segment profiles for activation
 - Published segment outputs for campaign targeting and content strategy use
+
+## Architecture Overview
+
+<!-- DIAGRAM PENDING: Phase 5 SVG authoring -->
+
+![Viewing Behavior Clustering: profile features and content semantic embeddings feed a K-means clustering job that emits 12 audience segments, written back to the Semantic Layer and consumed by Jarvis CRM automation and Power BI content-strategy dashboards](/assets/diagrams/clustering.svg)
+
+Two signals feed the model: a behaviour matrix of viewing hours by mood, sub-genre, and dialect; and semantic embeddings from content synopses. K-means runs on the combined space. The 12 resulting segments are checked for stability across runs and labelled with business-friendly names before being written back into the Semantic Layer.
 
 ## Results & Impact
 
@@ -69,7 +70,10 @@ Behavior-first clustering is relevant across many domains:
 - **Gaming**: Player archetypes for retention and progression strategies
 - **SaaS**: Product usage segments for onboarding and expansion motions
 
-## Additional Context
+**When this pattern is NOT appropriate**: Skip clustering if your audience is small enough to manage with hand-defined segments (under ~100k users), or if your activation channels can't act on cluster-level differences. The maintenance cost of stable, interpretable clusters at scale is real, and it only pays back when behavioral signals are genuinely richer than demographic ones.
 
-- Delivered as one of the first advanced analytics projects after core BI foundation work
-- Segment outputs were designed for activation, not only analysis
+---
+
+## Related Projects
+
+[Profile-Level Feature Store](/projects/profile-features/) | [CRM Campaign Automation Platform](/projects/jarvis/) | [Behavior-Based Attribute Inference](/projects/gender-prediction/) | [Enterprise Data Model](/projects/data-model/)
