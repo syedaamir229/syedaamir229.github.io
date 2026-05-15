@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brand Preview — Warm Intelligence Direction</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    /* ── Design Tokens ─────────────────────────────────── */
+    :root {
+      --carbon-950: #0F0E0B;
+      --carbon-900: #1A1714;
+      --carbon-800: #241F1B;
+      --carbon-700: #2E2823;
+      --carbon-600: #3D3229;
+
+      --copper-500: #C87533;
+      --copper-400: #D98F4E;
+      --copper-300: #E8AC72;
+      --copper-200: #F2CAAA;
+
+      --sage-500:   #8FAF8B;
+      --sage-400:   #A8C4A4;
+
+      --cream-100:  #F0EDE8;
+      --cream-200:  #D9D4CC;
+      --muted-500:  #9C9189;
+      --muted-600:  #6B5F57;
+
+      --font-heading: 'Space Grotesk', system-ui, sans-serif;
+      --font-body:    'DM Sans', system-ui, sans-serif;
+      --font-mono:    'JetBrains Mono', monospace;
+    }
+
+    /* ── Reset ─────────────────────────────────────────── */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--carbon-950);
+      color: var(--cream-100);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Grain overlay ──────────────────────────────────── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      pointer-events: none;
+      opacity: 0.045;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      background-size: 200px 200px;
+    }
+
+    /* ── Shared layout ──────────────────────────────────── */
+    .inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 64px;
+    }
+
+    .eyebrow {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--copper-500);
+      margin-bottom: 28px;
+    }
+
+    .eyebrow--sage { color: var(--sage-500); }
+
+    /* ── Section 1: Hero ────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 140px 0 120px;
+      border-bottom: 1px solid var(--carbon-700);
+    }
+
+    .hero__content { max-width: 960px; }
+
+    .hero__heading {
+      font-family: var(--font-heading);
+      font-size: clamp(56px, 8.5vw, 114px);
+      font-weight: 700;
+      line-height: 1.0;
+      letter-spacing: -0.025em;
+      color: var(--cream-100);
+      margin-bottom: 36px;
+    }
+
+    .hero__heading em {
+      font-style: italic;
+      color: var(--copper-400);
+    }
+
+    .hero__sub {
+      font-size: 18px;
+      color: var(--muted-500);
+      max-width: 540px;
+      line-height: 1.75;
+      margin-bottom: 56px;
+      font-weight: 300;
+    }
+
+    .hero__actions { display: flex; gap: 20px; align-items: center; }
+
+    .btn {
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      padding: 15px 32px;
+      text-decoration: none;
+      display: inline-block;
+      transition: opacity 0.2s;
+    }
+    .btn:hover { opacity: 0.85; }
+
+    .btn--primary {
+      background: var(--copper-500);
+      color: var(--carbon-950);
+    }
+
+    .btn--ghost {
+      border: 1px solid var(--carbon-600);
+      color: var(--cream-200);
+    }
+
+    .hero__meta {
+      margin-top: 96px;
+      padding-top: 40px;
+      border-top: 1px solid var(--carbon-700);
+      display: flex;
+      gap: 64px;
+    }
+
+    .hero__stat-value {
+      font-family: var(--font-heading);
+      font-size: 40px;
+      font-weight: 700;
+      color: var(--cream-100);
+      line-height: 1.1;
+    }
+
+    .hero__stat-label {
+      font-size: 13px;
+      color: var(--muted-500);
+      margin-top: 6px;
+    }
+
+    /* ── Section 2: Services ────────────────────────────── */
+    .services {
+      background: var(--carbon-900);
+      padding: 128px 0;
+      border-bottom: 1px solid var(--carbon-700);
+    }
+
+    .services__header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      margin-bottom: 80px;
+      align-items: end;
+    }
+
+    .services__heading {
+      font-family: var(--font-heading);
+      font-size: clamp(32px, 3.5vw, 52px);
+      font-weight: 600;
+      line-height: 1.15;
+      color: var(--cream-100);
+    }
+
+    .services__intro {
+      font-size: 16px;
+      color: var(--muted-500);
+      line-height: 1.8;
+    }
+
+    .services__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+
+    .card {
+      background: var(--carbon-800);
+      padding: 48px 40px 56px;
+    }
+
+    .card__num {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--copper-500);
+      letter-spacing: 0.15em;
+      margin-bottom: 32px;
+    }
+
+    .card__title {
+      font-family: var(--font-heading);
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--cream-100);
+      line-height: 1.25;
+      margin-bottom: 16px;
+    }
+
+    .card__body {
+      font-size: 14px;
+      color: var(--muted-500);
+      line-height: 1.75;
+    }
+
+    .card__tag {
+      display: inline-block;
+      margin-top: 28px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--sage-500);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border: 1px solid var(--sage-500);
+      padding: 4px 10px;
+      opacity: 0.7;
+    }
+
+    /* ── Section 3: CTA / Statement ─────────────────────── */
+    .statement {
+      padding: 160px 0;
+      border-bottom: 1px solid var(--carbon-700);
+    }
+
+    .statement__heading {
+      font-family: var(--font-heading);
+      font-size: clamp(40px, 5.5vw, 80px);
+      font-weight: 700;
+      font-style: italic;
+      line-height: 1.1;
+      color: var(--cream-100);
+      max-width: 820px;
+      margin-bottom: 56px;
+    }
+
+    .statement__heading span { color: var(--copper-400); font-style: normal; }
+
+    .statement__cta { display: flex; gap: 20px; align-items: center; }
+
+    .statement__link {
+      font-size: 14px;
+      color: var(--muted-500);
+      text-decoration: none;
+      border-bottom: 1px solid var(--carbon-600);
+      padding-bottom: 2px;
+    }
+
+    /* ── Section 4: Token Palette ───────────────────────── */
+    .tokens {
+      background: var(--carbon-900);
+      padding: 128px 0;
+      border-bottom: 1px solid var(--carbon-700);
+    }
+
+    .tokens__heading {
+      font-family: var(--font-heading);
+      font-size: 36px;
+      font-weight: 600;
+      color: var(--cream-100);
+      margin-bottom: 64px;
+    }
+
+    .palette-row {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 40px;
+    }
+
+    .swatch { flex: 1; }
+
+    .swatch__block {
+      height: 72px;
+      margin-bottom: 10px;
+    }
+
+    .swatch__name {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--muted-500);
+      letter-spacing: 0.06em;
+    }
+
+    .swatch__hex {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--cream-200);
+      margin-top: 3px;
+    }
+
+    /* ── Section 5: Typography Specimen ─────────────────── */
+    .type-section {
+      padding: 128px 0;
+    }
+
+    .type-row {
+      border-top: 1px solid var(--carbon-700);
+      padding: 56px 0;
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+
+    .type-meta { padding-top: 4px; }
+
+    .type-meta__role {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--sage-500);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .type-meta__name {
+      font-size: 13px;
+      color: var(--muted-500);
+    }
+
+    .specimen-display {
+      font-family: var(--font-heading);
+      font-size: clamp(52px, 7vw, 96px);
+      font-weight: 700;
+      line-height: 1.0;
+      color: var(--cream-100);
+      letter-spacing: -0.025em;
+    }
+
+    .specimen-display--italic {
+      font-style: italic;
+      color: var(--copper-400);
+    }
+
+    .specimen-subhead {
+      font-family: var(--font-heading);
+      font-size: 32px;
+      font-weight: 500;
+      color: var(--cream-200);
+      line-height: 1.25;
+      max-width: 640px;
+    }
+
+    .specimen-body {
+      font-size: 17px;
+      color: var(--cream-200);
+      line-height: 1.8;
+      max-width: 640px;
+      font-weight: 300;
+    }
+
+    .specimen-mono {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      color: var(--copper-300);
+      line-height: 1.9;
+      letter-spacing: 0.02em;
+    }
+
+    /* ── Nav (decorative) ───────────────────────────────── */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(15, 14, 11, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--carbon-700);
+      padding: 20px 0;
+    }
+
+    .nav__inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 64px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav__logo {
+      font-family: var(--font-heading);
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--cream-100);
+      letter-spacing: -0.02em;
+    }
+
+    .nav__logo span {
+      font-style: italic;
+      color: var(--copper-400);
+    }
+
+    .nav__links {
+      display: flex;
+      gap: 40px;
+      list-style: none;
+    }
+
+    .nav__links a {
+      font-size: 14px;
+      color: var(--muted-500);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav__links a:hover { color: var(--cream-100); }
+
+    .nav__cta {
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--copper-500);
+      text-decoration: none;
+      border: 1px solid var(--copper-500);
+      padding: 9px 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav class="nav">
+    <div class="nav__inner">
+      <div class="nav__logo">[Company<span>Name</span>]</div>
+      <ul class="nav__links">
+        <li><a href="#">Work</a></li>
+        <li><a href="#">Services</a></li>
+        <li><a href="#">Courses</a></li>
+        <li><a href="#">About</a></li>
+      </ul>
+      <a href="#" class="nav__cta">Let's Talk</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="inner">
+      <div class="hero__content">
+        <div class="eyebrow">Data &amp; AI Consulting — Dubai, UAE</div>
+        <h1 class="hero__heading">
+          Your business,<br>
+          <em>run by AI.</em>
+        </h1>
+        <p class="hero__sub">
+          We build the intelligence layer that lets your business scale without scaling your headcount. Enterprise data architecture, AI transformation, and the frameworks to make it last.
+        </p>
+        <div class="hero__actions">
+          <a href="#" class="btn btn--primary">Let's Talk</a>
+          <a href="#" class="btn btn--ghost">View Case Studies</a>
+        </div>
+        <div class="hero__meta">
+          <div>
+            <div class="hero__stat-value">10M+</div>
+            <div class="hero__stat-label">Subscriber profiles governed</div>
+          </div>
+          <div>
+            <div class="hero__stat-value">100+</div>
+            <div class="hero__stat-label">KPIs governed across platforms</div>
+          </div>
+          <div>
+            <div class="hero__stat-value">10+</div>
+            <div class="hero__stat-label">Years in enterprise data & AI</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="services">
+    <div class="inner">
+      <div class="services__header">
+        <div>
+          <div class="eyebrow eyebrow--sage">What we do</div>
+          <h2 class="services__heading">
+            We don't just implement AI.<br>
+            We build the foundation it runs on.
+          </h2>
+        </div>
+        <p class="services__intro">
+          Most businesses are stuck with basic ChatGPT use cases. We move you past that — to AI departments that run operations, pipelines that govern data at scale, and teams that know how to keep it all working.
+        </p>
+      </div>
+      <div class="services__grid">
+        <div class="card">
+          <div class="card__num">01 /</div>
+          <h3 class="card__title">Data Architecture &amp; Engineering</h3>
+          <p class="card__body">Enterprise data models, medallion architectures, and governed pipelines. The foundation every analytics and AI initiative runs on.</p>
+          <span class="card__tag">MENA Enterprise</span>
+        </div>
+        <div class="card">
+          <div class="card__num">02 /</div>
+          <h3 class="card__title">AI Transformation</h3>
+          <p class="card__body">We wire the Business Brain into your operations. AI-powered departments for marketing, sales, and onboarding — without proportional headcount growth.</p>
+          <span class="card__tag">AIF Framework</span>
+        </div>
+        <div class="card">
+          <div class="card__num">03 /</div>
+          <h3 class="card__title">Courses &amp; Frameworks</h3>
+          <p class="card__body">The AI First Framework, taught and implemented. For teams ready to move beyond demos and build AI infrastructure that actually scales.</p>
+          <span class="card__tag">Global</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Statement / CTA -->
+  <section class="statement">
+    <div class="inner">
+      <p class="statement__heading">
+        "Stop hiring to <span>scale.</span><br>
+        Start wiring."
+      </p>
+      <div class="statement__cta">
+        <a href="#" class="btn btn--primary">Start the conversation</a>
+        <a href="#" class="statement__link">Download CV</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Colour Tokens -->
+  <section class="tokens">
+    <div class="inner">
+      <h2 class="tokens__heading">Colour system</h2>
+
+      <div class="palette-row">
+        <div class="swatch">
+          <div class="swatch__block" style="background:#0F0E0B; outline:1px solid #2E2823;"></div>
+          <div class="swatch__name">Carbon 950</div>
+          <div class="swatch__hex">#0F0E0B</div>
+        </div>
+        <div class="swatch">
+          <div class="swatch__block" style="background:#1A1714;"></div>
+          <div class="swatch__name">Carbon 900</div>
+          <div class="swatch__hex">#1A1714</div>
+        </div>
+        <div class="swatch">
+          <div class="swatch__block" style="background:#241F1B;"></div>
+          <div class="swatch__name">Carbon 800</div>
+          <div class="swatch__hex">#241F1B</div>
+        </div>
+        <div class="swatch">
+          <div class="swatch__block" style="background:#2E2823;"></div>
+          <div class="swatch__name">Carbon 700</div>
+          <div class="swatch__hex">#2E2823</div>
+        </div>
+        <div class="swatch">
+          <div class="swatch__block" style="background:#C87533;"></div>
+          <div class="swatch__name">Copper 500</div>
+          <div class="swatch__hex">#C87533</div>
+        </div>
+        <div class="swatch">
+          <div class="swatch__block" style="background:#D98F4E;"></div>
+          <div class="swatch__name">Copper 400</div>
+          <div class="swatch__hex">#D98F4E</div>
+        </div>
+        <div class="swatch">
+          <div class="swatch__block" style="background:#E8AC72;"></div>
+          <div class="swatch__name">Copper 300</div>
+          <div class="swatch__hex">#E8AC72</div>
+        </div>
+        <div class="swatch">
+          <div class="swatch__block" style="background:#8FAF8B;"></div>
+          <div class="swatch__name">Sage 500</div>
+          <div class="swatch__hex">#8FAF8B</div>
+        </div>
+        <div class="swatch">
+          <div class="swatch__block" style="background:#A8C4A4;"></div>
+          <div class="swatch__name">Sage 400</div>
+          <div class="swatch__hex">#A8C4A4</div>
+        </div>
+        <div class="swatch">
+          <div class="swatch__block" style="background:#F0EDE8; outline:1px solid #2E2823;"></div>
+          <div class="swatch__name">Cream 100</div>
+          <div class="swatch__hex">#F0EDE8</div>
+        </div>
+        <div class="swatch">
+          <div class="swatch__block" style="background:#9C9189;"></div>
+          <div class="swatch__name">Muted 500</div>
+          <div class="swatch__hex">#9C9189</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Typography Specimen -->
+  <section class="type-section">
+    <div class="inner">
+
+      <div class="type-row">
+        <div class="type-meta">
+          <div class="type-meta__role">Display</div>
+          <div class="type-meta__name">Space Grotesk 700<br>Hero headings</div>
+        </div>
+        <div>
+          <div class="specimen-display">Intelligence</div>
+          <div class="specimen-display specimen-display--italic">by design.</div>
+        </div>
+      </div>
+
+      <div class="type-row">
+        <div class="type-meta">
+          <div class="type-meta__role">Subheading</div>
+          <div class="type-meta__name">Space Grotesk 500<br>Section titles</div>
+        </div>
+        <div class="specimen-subhead">
+          We build the data foundation that every analytics and AI initiative depends on.
+        </div>
+      </div>
+
+      <div class="type-row">
+        <div class="type-meta">
+          <div class="type-meta__role">Body</div>
+          <div class="type-meta__name">DM Sans 300<br>Running copy</div>
+        </div>
+        <p class="specimen-body">
+          Most organisations in the MENA region have invested in data tools without investing in data architecture. The result is a sprawl of dashboards that nobody trusts and pipelines that break every quarter. We fix the foundation first — then the intelligence layer on top of it actually works.
+        </p>
+      </div>
+
+      <div class="type-row">
+        <div class="type-meta">
+          <div class="type-meta__role">Code / Mono</div>
+          <div class="type-meta__name">JetBrains Mono<br>Technical content</div>
+        </div>
+        <div class="specimen-mono">
+          // AI First Framework — Step 2<br>
+          wire_business_brain(context, goals, processes)<br>
+          <br>
+          # Result: AI departments that run your operations<br>
+          output → marketing_agent + sales_agent + ops_agent
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</body>
+</html>
