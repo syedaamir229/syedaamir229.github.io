@@ -1,114 +1,122 @@
 ---
-title: "Building a Scalable Data Model: Lessons from a Streaming Platform"
-date: 2022-10-15
-description: "Practical lessons from building an enterprise data model at Shahid (MBC Group), from disconnected sources to a unified Silver and Gold architecture."
+title: "The Five Rules of a Compounding Data Model"
+date: 2026-05-15
+description: "Most data models are scoped like projects that end. The ones that compound are designed like infrastructure. Five rules from the enterprise model that became the foundation for every BI, ML, and AI build that came after."
 categories: ["Data Engineering"]
-tags: ["Databricks", "Data Modeling", "Delta Lake", "Dimensional Modeling"]
+tags: ["Databricks", "Data Modeling", "Delta Lake", "Dimensional Modeling", "Data Foundations"]
 featured: true
+draft: false
+depth: flagship
+pillar: governed-data
+linkedin_excerpt: |
+  Leadership review. Three teams. Three different "active subscribers" numbers. Same KPI, same source data, same quarter. Twenty minutes of the meeting were spent reconciling. None of it was spent on the decision the room had walked in to make.
+
+  This is the scene that gets every data-model project funded. It is also the scene that gets it scoped wrong. The word used in kickoff is "project." The word that should be used is "infrastructure."
+
+  Four years later the model we built that quarter at Shahid (MBC Group) is still the foundation under the semantic layer, the ML feature store, the CRM automation, and the voice-of-customer agent. Nothing rebuilt it.
+
+  Five rules made that compounding possible:
+
+  1. Start with the grain, not the dashboard
+  2. Movement tracking is worth the complexity
+  3. Surrogate keys everywhere
+  4. Feature tables belong in the model
+  5. Build for the next consumer
+
+  Full piece on the blog ↓
+  [link]
 ---
 
-Every data team eventually hits the same wall: different teams, different queries, different numbers. This post covers the design of a layered data model that unified reporting at Shahid (MBC Group) and became the foundation for everything that came after, including semantic layers, ML features, and AI automation.
+The leadership review at Shahid (MBC Group), early 2022. The slide deck opened with active-subscribers for the quarter. The subscriptions team had one number on it. The content team had reproduced the same metric independently and had a slightly higher one. The ad-ops team had pulled it for their own pacing model and had a lower one. None of the three numbers were technically wrong. Each had been computed against a different filter assumption: trial users in or out, internal accounts in or out, profiles counted once or per device.
 
-## Why the Model Mattered
+Twenty minutes of the meeting were spent deciding which number to use as the headline for the quarter. None of it was spent on the decision the room had walked in to make.
 
-At Shahid (MBC Group), data lived in separate systems. Subscriptions came from one platform. Viewing data from another. Content metadata from a third. Ad delivery data from yet another.
+This is the scene that gets every enterprise-data-model project funded. It is also the scene that gets it scoped wrong. The word used in the kickoff is "project." The word that should be used is "infrastructure."
 
-Each team wrote their own SQL to answer their own questions. The result was predictable: the same metric, calculated three different ways, producing three different numbers. Leadership meetings turned into reconciliation exercises instead of decision-making sessions.
+**Most data teams treat the data model as a one-time project. The teams that compound treat it as infrastructure.** Four years later, the enterprise model we built at Shahid that quarter is still the foundation under the semantic layer, the ML feature store, the CRM automation platform, and the voice-of-customer agent. None of those layers needed to rebuild it. That is what compounding looks like.
 
-The fix was not a dashboard or a new tool. It was a shared, governed data layer that every downstream consumer could trust.
+## Why this matters now
 
-## The Architecture
+Data-model investment quietly loses budget every year because it does not photograph well. Nobody points at a Silver-layer star schema and asks for a demo. Then the AI workload arrives and the team that skipped the model spends six months of every AI initiative rebuilding it badly.
 
-### Bronze Layer: Raw Ingestion
+The [dbt 2025 State of Analytics Engineering Report](https://www.getdbt.com/resources/state-of-analytics-engineering-2025) makes the picture explicit: 80% of data practitioners now use AI in some form, and data quality is the most critical challenge they report. The teams shipping AI in production are the ones whose data foundation can carry it.
 
-Source systems land in Delta Lake tables on S3 with minimal transformation. The goal is capture, not cleanup:
+The rules that produce a compounding model are not new. They are five disciplines that most teams apply two or three at a time, then wonder why the model does not survive its third use case.
 
-- `raw_views`: play events from the video analytics platform
-- `raw_subscriptions`: subscription events from the billing system
-- `raw_content`: content metadata from the catalog system
-- `raw_ad_events`: ad delivery data from Google Ad Manager
+![Diagram of the Five Rules of a Compounding Data Model arranged as a sequence, with each rule labelled on a warm carbon background with copper accents, and a copper call-out indicating that the data model is infrastructure, not a project](/assets/blog/scalable-data-model-five-rules.png)
 
-Schema enforcement happens at ingestion. Data quality checks run on arrival. But the Bronze layer preserves the raw structure with no business logic applied yet.
+*Each rule is independent. Together they turn a data-model build from a one-time project into a foundation that survives every downstream use case.*
 
-### Silver Layer: Standardized Model
+## The Five Rules
 
-This is where the real modeling happens. The Silver layer implements a dimensional model with clear fact and dimension relationships.
+### Rule 1: Start with the grain, not the dashboard
 
-**Fact tables:**
+The standard scoping move is to start with "what reports do we need?" and work backwards. This produces a model shaped like the current dashboard, not like the underlying business. The first time the dashboard changes, the model loses meaning.
 
-- `fact_view`: one row per play event, each with a unique view ID linked to subscriber, content, device, and address dimensions
-- `fact_subscription`: one row per subscription record, with lifecycle tracking (new, renewed, cancelled, reactivated)
-- `fact_ad_events`: ad inventory, impressions, errors, and revenue
+The compounding move is to start with the grain of each fact table. What is the lowest-level event the business actually generates? For viewing data at Shahid, the grain is a single play event, a unique view with subscriber, content, device, address, and subscription identifiers attached. For subscriptions, it is a single subscription record with lifecycle state. For ad operations, it is a single inventory or impression event.
 
-**Dimension tables:**
+The grain is the rock you build on. A fact table with a clear grain produces every aggregate the business will ever ask for. A fact table with a fuzzy grain ("one row per session, sort of") produces aggregates that disagree with each other for reasons no one can explain.
 
-- `dim_user`: subscriber profiles with status tracking (registered, subscribed, anonymous, inactive)
-- `dim_content`: content hierarchy (series, season, episode, movie) with parent-child relationships linking episodes to seasons to shows
-- `dim_package`: subscription package details, tiers, and a package hierarchy index to support upgrade and downgrade calculations
-- `dim_device`: device metadata (type, model, vendor)
+What goes wrong without it: the team ships a model that matches the launch dashboard. The first replatform of the dashboard, or the first new consumer (the ML feature store, the AI agent), requires rebuilding the model from raw events. Every downstream consumer pays the same cost again.
 
-A key design decision was **subscriber movement tracking**. Instead of storing only the current state, the model tracks transitions: who upgraded, who churned, who came back. The `daily_movement` table captures these events (new, churned, reactivated, upgraded, downgraded) at a daily grain, making lifecycle analytics possible without complex window functions at query time.
+### Rule 2: Movement tracking is worth the complexity
 
-The content hierarchy also required careful design. Content metadata came from multiple catalog systems, and the model needed to represent the relationship between episodes, seasons, and shows consistently. Getting this hierarchy right was critical because downstream consumers needed to aggregate viewing data at different levels: per-episode for engagement analysis, per-season for completion tracking, and per-show for content investment decisions.
+Most data models record state. The compounding ones record transitions.
 
-### Gold Layer: Aggregates and Features
+At Shahid the highest-leverage modelling decision was treating subscriber transitions as a first-class fact: who became a subscriber today, who churned, who reactivated, who upgraded, who downgraded. The `daily_movement` fact table records these transitions at a daily grain, with explicit flags like `is_acquisition`, `is_reconnect`, `is_winback` on each subscription record. Movement queries that used to be hours of window-function SQL became a `WHERE` clause.
 
-The Gold layer serves two audiences:
+The complexity cost is real. Movement tables require careful idempotency, careful late-arrival handling, and careful reconciliation between billing-system reality and the platform's observed state. The payoff is that every churn, retention, and lifecycle question across BI, ML, and AI runs against the same governed source. Different teams stop producing different churn numbers because there is no other churn number to produce.
 
-1. **BI teams** get pre-aggregated metrics: daily movements, content performance summaries, regional breakdowns
-2. **Data science** gets feature tables: user-level features (tenure, engagement cohort, churn risk score, content preferences, hours consumed by genre) and user-content features (binge indicators, content viewing cohorts, completion rates)
+What goes wrong without it: every team writes its own churn definition. The churn dashboard, the churn ML model, and the CRM winback campaign all run on slightly different logic. Leadership stops trusting any of them, and the data team gets blamed for an organisational failure that was actually a modelling failure.
 
-This dual-purpose design meant the same governed data fed both reporting and ML, with no divergence and no separate pipelines. A subscriber's churn risk cohort in a Power BI dashboard was the same value that fed the clustering model, because both consumed the same Gold-layer table.
+### Rule 3: Surrogate keys everywhere
 
-## Five Lessons Learned
+Every entity in the model gets a generated surrogate key. Source-system IDs are preserved on the row but never used as join keys. This sounds like dogma. It is actually insurance.
 
-### 1. Start with the Grain, Not the Dashboard
+The billing platform at Shahid migrated subscriber IDs twice over the lifetime of the model. The catalog system changed content identifiers when a new metadata vendor took over. Each of these would have broken every downstream query that joined on the source ID directly. None of them did, because every join was on the generated `dwh_user_id` or `dwh_content_id`, and the model absorbed the source-system change as a single mapping update in the dimension table.
 
-It is tempting to start with "what reports do we need?" and work backward. Starting with the grain of the fact tables is far more effective. What is the lowest-level event that needs to be captured? Everything else builds up from there.
+The cost is one column per dimension. The benefit is that source-system reality can change without breaking consumer queries. Over a multi-year horizon that benefit pays back every time a source platform migrates, replatforms, or gets replaced.
 
-For viewing data, the grain was a single play event (a unique view). For subscriptions, it was a single subscription record. Getting this right early saved months of rework later.
+What goes wrong without it: the model becomes brittle in a way that is invisible until a source-system change happens. Then it breaks everywhere at once, and the recovery work expands to touch every downstream consumer.
 
-### 2. Movement Tracking Is Worth the Complexity
+### Rule 4: Feature tables belong in the model
 
-Tracking subscriber transitions (new, churned, reactivated, upgraded, downgraded) at the model level was one of the highest-value decisions. Before this, calculating churn required complex queries that different teams implemented differently. After, it was a column. The subscription fact table carried flags like `is_acquisition`, `is_reconnect`, and `is_winback` directly on the record, which meant movement analysis that previously took hours of SQL work became a simple filter.
+Feature engineering usually lives in notebooks. ML teams build their own feature store, BI teams build their own measure layer, and the two diverge over time. By year two, the same subscriber's "engagement cohort" means one thing on a Power BI dashboard and a slightly different thing in a clustering model, and nobody can explain the gap.
 
-### 3. Surrogate Keys Everywhere
+The compounding move is to promote feature tables to first-class Gold-layer objects. At Shahid the user-level feature table and the user-content feature table sit alongside the fact tables and the dimension tables, on the same refresh cadence, with the same governance. The "engagement cohort" column the dashboard reads is the same column the gender prediction model reads. The Voice-of-Customer agent and the CRM scenario engine both query it. Drift is structurally impossible because there is only one source.
 
-Every entity gets a generated surrogate key. Source system IDs are preserved but never used as join keys. This insulates the model from source system changes. When the billing platform migrated IDs, the model absorbed it without breaking downstream queries.
+What goes wrong without it: the BI/ML mismatch. The dashboard says 12,000 at-risk subscribers, the model flags 15,000, the leadership team treats both as unreliable, the data team spends two quarters reconciling and three quarters rebuilding. Solved by putting the feature table in the model from day one, not from year three.
 
-### 4. Feature Tables Belong in the Model
+### Rule 5: Build for the next consumer, not the current report
 
-Feature engineering often lives in notebooks, disconnected from the data model. By making feature tables first-class Gold-layer objects, the team ensured that ML features stayed consistent with BI metrics. A subscriber's "engagement cohort" meant the same thing in a Power BI dashboard and a clustering model.
+The launch dashboard is the worst possible target to optimise for. It is the first consumer, not the only one. The compounding move is to shape the model around business entities (a subscriber, a play event, a subscription transition) rather than the current report's filter logic.
 
-### 5. Build for the Next Consumer
+The Shahid model was scoped for reporting in 2022. It went on to power the semantic layer in 2023, the ML feature store in 2024, the CRM automation platform in 2025, and a voice-of-customer agent in 2025-2026. None of those were predicted at scoping time. The model survived all of them because it was shaped around the business, not the launch dashboard.
 
-The model was designed for reporting, but it turned out to be the foundation for the semantic layer, the ML feature store, and the CRM automation platform. This happened not because the next use cases were predicted, but because the model was designed around business entities rather than report requirements.
+What goes wrong without it: each new use case spawns a parallel model. The data team ends up maintaining three or four overlapping models, each with subtly different definitions, each producing slightly different numbers. Maintenance grows linearly with use cases.
 
-## The Pattern
+## What I would actually build first
 
-This architecture pattern works for any organization with multiple source systems and multiple consumers:
+Start with the two highest-pain fact tables. At Shahid those were play events and subscription transitions. Get the grain right, get the surrogate keys in, ship them. Do not build a hundred-table model in week one.
 
-| Component | Streaming | Retail | SaaS | Fintech |
-|-----------|-----------|--------|------|---------|
-| Core fact | Views, Subscriptions | Orders, Cart Events | Usage Events, Subscriptions | Transactions, Applications |
-| Key dimension | Content, Subscribers | Products, Customers | Features, Accounts | Products, Customers |
-| Movement tracking | Subscriber lifecycle | Customer lifecycle | Account lifecycle | Account lifecycle |
-| Feature layer | Viewing behavior | Purchase behavior | Product usage | Risk signals |
+Then add the movement table. Movement tracking is the highest-leverage modelling decision and the one most teams defer to year two. Build it first.
 
-The specifics change, but the architecture stays the same: capture raw, model in Silver, aggregate and featurize in Gold.
+Then promote one feature table to Gold. Pick the one the most consumers will share (at Shahid, the user-level feature table). Get BI and ML consuming the same column on day one. The drift that would have appeared in year two never appears.
 
-## Key Takeaway
+## One MENA-flavored note
 
-A data model is not a one-time project. It is infrastructure. The initial build took months, but the payoff compounded over years. Every subsequent project, from semantic layers to ML features to AI automation, built on this foundation rather than starting from scratch.
+One entity in particular pays back the modelling investment in Arabic-OTT: the household. MENA streaming households share profiles aggressively, and the same account can carry two or three distinct consumption patterns. Teams that model only the account spend year two explaining why "household engagement" is a hard query. Teams that promote the profile to a first-class dimension on day one have it ready as a `GROUP BY`. The foundation choice on day one is the choice every consumer inherits.
 
-If a team is still reconciling numbers in meetings, the fix is not a better dashboard. It is a shared data model that everyone trusts.
+## Closing
+
+Is your data model a project that ended, or infrastructure that compounds?
+
+The teams whose models are projects ship a beautiful Silver-layer schema, declare victory, and watch every new use case rebuild the foundation. The teams whose models are infrastructure stack the semantic layer, the feature store, the CRM automation, and the AI agent on the same foundation, in sequence, without rebuilding what is underneath. The five rules above are the difference. Each one is well known. Applying all five together is what most teams do not do.
 
 ---
 
-*For the full case study, see [Enterprise Data Model](/projects/data-model/).*
+> Related case study: [Enterprise Data Model](/projects/data-model/)
 
-> **Building a data model for your team?**
->
-> Read the full case study for the architecture details, or get in touch if you want to talk through your specific setup.
->
-> [Let's Talk](https://mail.google.com/mail/?view=cm&fs=1&to=saamir259@gmail.com&su=Let%27s%20work%20together) | [Full Case Study](/projects/data-model/)
+**Syed Aamir** is a Data & AI Solutions Engineer based in Dubai, building data foundations and applied AI for OTT streaming in the MENA region. Currently at Shahid (MBC Group). Previously delivered enterprise BI across automotive, retail, and financial services with Beinex, Al-Futtaim Technologies, and Scan Technology.
+
+If your team is working through a similar problem, [start a conversation](https://mail.google.com/mail/?view=cm&fs=1&to=saamir259@gmail.com&su=Project%20inquiry) or [connect on LinkedIn](https://www.linkedin.com/in/syedaamiruddin/).
