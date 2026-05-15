@@ -1,50 +1,55 @@
 ---
-title: "Semantic Layer Series Part 2 of 6: Architecture and Data Flow Blueprint"
+title: "Semantic Layer Series Part 2 of 6: The Three Ownership Layers"
 date: 2023-07-10
-description: "A practical architecture blueprint for semantic layers: source model boundaries, tabular build flow, deployment artifacts, and consumer patterns."
+description: "The architecture decision that decides whether a semantic layer scales: drawing clean ownership boundaries between data engineering, metric engineering, and report engineering before the first measure ships."
 categories: ["BI & Analytics", "Data Engineering"]
-tags: ["Semantic Layer", "SSAS", "Architecture", "Data Flow"]
+tags: ["Semantic Layer", "SSAS", "Architecture", "Data Flow", "Ownership"]
 featured: false
+draft: false
+depth: deep-dive
+pillar: governed-data
+series: semantic-layer
+series_part: 2
+linkedin_excerpt: |
+  Friday-evening deploy of a new semantic-model release. Two report owners watch the partition state get reset. Saturday morning: dashboards stale. The on-call message goes out late.
+
+  The fix was not a smarter deployment script. It was an ownership-boundary problem in disguise. Data engineering, metric engineering, and report engineering had been three responsibilities living on two people, and a release that touched all three ran without anyone watching the layer most likely to break.
+
+  The Three Ownership Layers separate the work cleanly. Each layer has a named owner, a defined release path, and a contract with the layers above and below.
+
+  Full piece on the blog ↓
+  [link]
 ---
 
-A semantic layer only works if architecture boundaries are clear. Many implementations fail because they mix data engineering responsibilities, metric engineering responsibilities, and report development responsibilities in one place.
+A Friday-evening deploy of a semantic-model release at Shahid. The deployment script ran. The retain-partitions-and-roles flag in the wizard had not been checked. Saturday morning every fact table was empty. Sunday was restore-from-backup. Monday's dashboards were wrong, and Monday's leadership meeting happened anyway.
 
-This implementation used a clean separation: curated tables feed the semantic model, the model owns KPI logic, and reports consume measures through live connections.
+That incident did not happen because the script was wrong or the model was wrong. It happened because data engineering, metric engineering, and report engineering had been three responsibilities living on two people, and the release that touched all three layers ran without anyone watching the one most likely to break.
+
+**Most semantic-layer failures look like deployment failures and turn out to be ownership-boundary failures.** A semantic layer only works when ownership is split into three clean layers, each with a named owner, a defined release path, and a contract with the layers above and below. Mixing the three roles is where teams accumulate the operating risk that eventually surfaces as an outage.
 
 ![Semantic layer architecture and data flow](/assets/diagrams/semantic-series-02-architecture-flow.svg)
 
 *Clear boundaries between data preparation, semantic model build, and report consumption keep ownership and quality controls simple.*
 
-## Layer Boundaries
+## The Three Ownership Layers
 
-### 1. Curated table layer
+### Layer 1: Data engineering owns curated tables
 
-This layer contains conformed fact and dimension tables, plus selected staging helper tables where needed for model efficiency.
+This layer contains conformed fact and dimension tables plus the staging helpers needed for model efficiency. At Shahid the relevant table families are lifecycle facts (`fact_subscriptions`, the daily movement table), engagement facts (`fact_engagement`), ad facts (`fact_ad_events`), and conformed dimensions (`dim_subscriber`, `dim_content`, `dim_device`, `dim_date` with explicit Ramadan flags).
 
-Common table families:
+The semantic layer does not correct broken upstream pipelines. It consumes governed inputs. Crossing this boundary (writing measure logic that compensates for a broken Silver-layer join, for example) is how the semantic layer absorbs every upstream problem and becomes unmaintainable.
 
-- lifecycle facts (`fact_subscriptions`, movement tables)
-- engagement facts (`fact_engagement`)
-- ad facts (`fact_ad_events`)
-- conformed dimensions (`dim_subscriber`, `dim_content`, `dim_device`)
+### Layer 2: Metric engineering owns the semantic model
 
-The semantic layer should not correct broken upstream pipelines. It should consume governed inputs.
+This is where metrics become reusable products: the tabular project definition, relationships and hierarchies, base and business measures, role-based access, partition strategy. Build outputs are packaged as deployment artifacts so releases are controlled and reproducible.
 
-### 2. Semantic model build layer
+The discipline here is that no measure logic crosses into Layer 1 (no upstream data fixes) or Layer 3 (no report-local copies of a measure). The owner of this layer is the only person authorising measure changes.
 
-This is where metrics become reusable products:
+### Layer 3: Report engineering owns consumption
 
-- tabular project definition
-- relationships and hierarchies
-- base and business measures
-- role-based access
-- partition strategy
+Report developers connect live to the model and focus on layout, narrative, and decision support. KPI logic stays in the semantic model. The report consumes measures by name and adds zero local DAX.
 
-Build outputs are packaged as deployment artifacts to keep releases controlled and reproducible.
-
-### 3. Consumption layer
-
-Report developers connect live to the model and focus on layout, storytelling, and decision support. KPI logic remains in the semantic model.
+The boundary that fails most often is the one between Layer 2 and Layer 3. When report developers re-author measures locally, the semantic model loses its single-source-of-truth status, and Layer 2's owner inherits a maintenance burden that does not show up in their backlog.
 
 ## End-to-End Data Flow
 
@@ -156,16 +161,18 @@ If grain is unstable, stop and fix upstream. Do not encode data corrections insi
 - no local KPI formulas remain in pilot reports
 - refresh pipeline completes within agreed SLA
 
-## Key Takeaway
+## Closing
 
-Architecture quality is what makes semantic layers sustainable. If boundaries are clear and deployment controls are disciplined, teams can scale metric coverage without scaling confusion.
+Where does your semantic-layer ownership stop, and where does it leak?
+
+When the answer is "the team owns everything from staging to report layout," the layer is not ownership-clean and the next outage is already on the schedule. When the boundaries are explicit and a named owner sits at each layer, the deployment script can run on a Friday evening and the dashboards still come up on Monday morning.
+
+The next post in the series, [Part 3: The Three-Layer DAX Stack](/blog/semantic-layer-03-kpi-engineering-with-dax/), walks through how measure logic is engineered once the ownership boundary at Layer 2 is enforced.
 
 ---
 
-*For the full case study, see [Enterprise Semantic Layer & KPI Framework](/projects/semantic-layer/).*
+> Related case study: [Enterprise Semantic Layer & KPI Framework](/projects/semantic-layer/)
 
-> **Continue the series**
->
-> Next: how KPI logic is engineered in DAX, including measure layering and time-intelligence design.
->
-> [Read Part 3](/blog/semantic-layer-03-kpi-engineering-with-dax/) | [View Case Study](/projects/semantic-layer/)
+**Syed Aamir** is a Data & AI Solutions Engineer based in Dubai, building data foundations and applied AI for OTT streaming in the MENA region. Currently at Shahid (MBC Group). Previously delivered enterprise BI across automotive, retail, and financial services with Beinex, Al-Futtaim Technologies, and Scan Technology.
+
+If your team is working through a similar problem, [start a conversation](https://mail.google.com/mail/?view=cm&fs=1&to=saamir259@gmail.com&su=Project%20inquiry) or [connect on LinkedIn](https://www.linkedin.com/in/syedaamiruddin/).

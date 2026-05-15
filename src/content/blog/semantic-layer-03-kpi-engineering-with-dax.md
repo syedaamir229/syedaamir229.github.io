@@ -1,60 +1,55 @@
 ---
-title: "Semantic Layer Series Part 3 of 6: KPI Engineering with DAX That Scales"
+title: "Semantic Layer Series Part 3 of 6: The Three-Layer DAX Stack"
 date: 2023-09-11
-description: "How to structure DAX measure layers for semantic models so KPI logic stays reusable, testable, and fast for report consumers."
+description: "Why DAX measure design is what decides whether a semantic layer scales: build the measure logic in three layers (base, business, consumption), or watch the same KPI appear in three different shapes across the report estate."
 categories: ["BI & Analytics", "Data Modeling"]
 tags: ["DAX", "Semantic Layer", "KPI", "Power BI", "SSAS"]
 featured: false
+draft: false
+depth: deep-dive
+pillar: governed-data
+series: semantic-layer
+series_part: 3
+linkedin_excerpt: |
+  Dashboard owner discovers their `churn_rate` measure is three different things in three different reports. Same name. Different filters. Different denominators. Same source data.
+
+  This is the moment most semantic-layer projects fail to recover from. The model is in place. The dashboards are live. The DAX has drifted because there is no measure-engineering discipline above the model.
+
+  The Three-Layer DAX Stack stops the drift. Base measures, business measures, consumption logic. Each layer references the layer below. Nothing skips a layer.
+
+  Full piece on the blog ↓
+  [link]
 ---
 
-Most semantic-layer quality issues are measure-engineering issues. If DAX logic is inconsistent, overloaded, or hard to debug, trust drops even when the underlying data model is strong.
+A dashboard owner at Shahid pulled the DAX behind `churn_rate` across three of their highest-traffic reports. Three different formulas. One used `DIVIDE` with a default of zero; one used `DIVIDE` without a fallback; one wrapped the calculation in an `IF` that swapped behaviour during quarter-end. None of them produced the same number for the same period.
 
-A reliable pattern is to build measures in layers: base aggregations first, business logic second, and consumption logic last.
+The model was already in place. The dashboards were live. The DAX had drifted because there was no measure-engineering discipline above the model. Drift in DAX is the failure mode that is hardest to detect because the model itself looks healthy; the symptoms only surface when a senior stakeholder compares the same KPI across two reports and finds the gap.
+
+**Most semantic-layer quality issues are measure-engineering issues.** If the DAX is inconsistent, overloaded, or hard to debug, trust drops even when the underlying data model is strong. The remedy is a three-layer measure pattern where every measure declares which layer it lives in and what it references.
 
 ![DAX measure layering pattern](/assets/diagrams/semantic-series-03-kpi-engineering.svg)
 
 *Layered measure design keeps KPI logic maintainable and reduces duplicated logic across dashboards.*
 
-## Measure Layering Pattern
+## The Three-Layer DAX Stack
 
 ### Layer 1: Base measures
 
-Base measures are direct aggregations from fact tables. They should be simple, explicit, and reusable.
+Direct aggregations from fact tables. Simple, explicit, reusable. At Shahid the base measures cover `plays`, `watchers`, `subscription_revenue`, `impressions`, `seconds_watched`, AVOD-specific `avod_impressions` and `vast_errors`. No business assumptions. No conditional logic. Pure aggregation.
 
-Examples:
-
-- `plays`
-- `watchers`
-- `subscription_revenue`
-- `impressions`
-
-These are the building blocks. Avoid business assumptions in this layer.
+The constraint is what makes the layer useful. A base measure that includes a filter or a conditional is no longer a base measure; it is a business measure pretending to be a base measure, and the consumer who builds a business measure on top of it will inherit the hidden filter.
 
 ### Layer 2: Business measures
 
-Business measures encode KPI semantics using base measures.
+KPI semantics expressed as ratios, differences, or compositions of base measures. `net_adds`, `churn_rate`, `ARPU`, `retention_rate`, `playtime_hrs`. This is where most governance value lives because these formulas represent shared business language.
 
-Examples:
-
-- `net_adds`
-- `churn_rate`
-- `ARPU`
-- `retention_rate`
-
-This is where most governance value lives because these formulas represent shared business language.
+The discipline at this layer: every business measure has a published contract (definition, inclusions, exclusions, validation query) and references only base measures, never raw columns.
 
 ### Layer 3: Consumption logic
 
-Consumption logic applies time windows, lifecycle slices, and dynamic user selections.
+Time windows, lifecycle slices, dynamic user selections. MTD, QTD, YTD variants. Comparison periods. Dynamic KPI selectors. Segment-specific cuts.
 
-Examples:
-
-- MTD/QTD/YTD variants
-- comparison periods
-- dynamic KPI selectors
-- segment-specific cuts
-
-This layer should reference business measures, not raw columns.
+This layer references business measures, not raw columns. A Ramadan-window churn cut, a Ramadan-versus-non-Ramadan ARPU comparison, a Q1-versus-Q1 watch-hours variance: all of these belong here, all of them reference the Layer 2 measure underneath.
 
 ## Technical Practices That Helped
 
@@ -167,16 +162,18 @@ For each KPI change, run this matrix:
 
 If one check fails, do not promote the measure change.
 
-## Key Takeaway
+## Closing
 
-DAX engineering in a semantic layer is not about writing clever formulas. It is about building reliable metric products that hundreds of report queries can reuse without drift.
+Are your DAX measures a library or a graveyard?
+
+A library has organised layers, named owners, and dependency graphs that hold. A graveyard has measures with similar names doing different things in different reports, and no one alive who can explain why. The Three-Layer DAX Stack is what keeps the library from turning into the graveyard. The discipline is the layer constraint; the payoff is that hundreds of report queries reuse the same governed measure without drift.
+
+The next post in the series, [Part 4: The Three Release Gates](/blog/semantic-layer-04-governance-and-deployment/), covers what happens after the measures are written: how releases are gated and how the model is deployed without resetting partitions and roles.
 
 ---
 
-*For the full case study, see [Enterprise Semantic Layer & KPI Framework](/projects/semantic-layer/).*
+> Related case study: [Enterprise Semantic Layer & KPI Framework](/projects/semantic-layer/)
 
-> **Continue the series**
->
-> Next: governance and deployment controls that keep KPI logic stable in production.
->
-> [Read Part 4](/blog/semantic-layer-04-governance-and-deployment/) | [View Case Study](/projects/semantic-layer/)
+**Syed Aamir** is a Data & AI Solutions Engineer based in Dubai, building data foundations and applied AI for OTT streaming in the MENA region. Currently at Shahid (MBC Group). Previously delivered enterprise BI across automotive, retail, and financial services with Beinex, Al-Futtaim Technologies, and Scan Technology.
+
+If your team is working through a similar problem, [start a conversation](https://mail.google.com/mail/?view=cm&fs=1&to=saamir259@gmail.com&su=Project%20inquiry) or [connect on LinkedIn](https://www.linkedin.com/in/syedaamiruddin/).
