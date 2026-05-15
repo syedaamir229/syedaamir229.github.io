@@ -1,66 +1,101 @@
 ---
-title: "BI to Data Science: The Transition I Actually Lived"
+title: "BI to Data Science: The Three Ways the Transition Dies"
 date: 2025-03-17
-description: "A transition narrative on moving from BI ownership to data science delivery while preserving metric trust, business context, and stakeholder confidence."
+description: "A first-person account of the six-month overlap between BI ownership and data science delivery, and the three failure patterns that kill most transitions before they compound."
 categories: ["Career", "Data Science"]
 tags: ["Career", "BI", "Data Science", "Transition"]
 featured: false
+draft: false
+depth: flagship
+pillar: bi-to-ai
+linkedin_excerpt: |
+  Friday afternoon Slack channel during my BI-to-DS overlap period. Two messages within an hour: "the engagement dashboard is broken for AVOD" and "the gender prediction model is returning nulls for half the profiles."
+
+  Same channel. Same engineer. Same governed tables underneath. Two different stakeholders waiting on me.
+
+  This is the moment most BI-to-DS transitions die. The temptation is to declare one side legacy and one side current, drop one, focus on the other.
+
+  The Three Ways BI-to-DS Transitions Die:
+  1. Building a parallel ML data model
+  2. Dropping BI responsibilities too early
+  3. Treating model accuracy as the only success metric
+
+  Full piece on the blog ↓
+  [link]
 ---
 
-The move from BI to data science was not a clean handoff from one role to another. It was a transition period where both responsibilities coexisted.
+A Friday afternoon Slack channel during my BI-to-DS overlap period at Shahid (MBC Group). Two messages within an hour. The first: "the AVOD engagement dashboard is showing zero for last week." The second: "the gender prediction model is returning nulls for half the active profiles."
 
-## The Overlap Period
+Same channel. Same engineer. Same governed tables underneath. Two different stakeholders, both waiting on me, both with reasonable expectations about turnaround. The afternoon turned into a forced ranking: which side gets the next two hours of attention, and which side gets a Monday-morning apology.
 
-For roughly six months, my weeks had a predictable split. Mornings were still BI -- fielding dashboard requests, fixing broken refreshes, reviewing metric definitions with stakeholders. Afternoons shifted toward feature engineering, writing transformation logic against the same subscriber tables I already knew well, but now shaping them for model inputs instead of report filters.
+This is the moment most BI-to-DS transitions die. The temptation is to declare one side legacy and one side current, drop one, focus on the other. The data team becomes a DS team that lost its dashboards, or a BI team that wishes it was doing ML. Neither outcome is the one you wanted when you started the transition.
 
-The dual-role tension was real but manageable. The BI side had established processes and stakeholder expectations. The data science side was exploratory and less predictable. Some weeks the balance tipped heavily toward BI when a critical reporting cycle hit. Other weeks I could spend full days on feature pipelines. The key was that neither side was neglected long enough to lose trust.
+**A transition is not a handoff. It is a six-month overlap where both responsibilities have to stay healthy.** Drop either side and you do not get a better team; you get a team with one capability and a credibility gap.
 
-Working at Shahid (MBC Group) meant the data volumes and business urgency were high on both fronts. Dashboards powered weekly executive reviews. Models were expected to drive subscriber retention and personalization. There was no luxury of pausing one to focus on the other.
+## The overlap period
 
-## What Changed
+For roughly six months, my weeks had a predictable split. Mornings were BI: fielding dashboard requests, fixing broken refreshes, reviewing metric definitions with stakeholders. Afternoons shifted toward feature engineering, writing transformation logic against the same subscriber tables I already knew, but now shaping them for model inputs instead of report filters.
 
-- **Deliverables shifted from dashboards to models and features.** The first ML deliverable was a behavior-based gender inference model -- predicting subscriber gender from viewing patterns when demographic data was missing. It was a classification problem, but the harder work was building the behavioral features that made it useful. After that came viewing cluster models for content personalization, and eventually a profile-level feature store that enriched subscriber records across multiple downstream systems.
+The dual-role tension was real but manageable. BI had established processes and stakeholder expectations. DS was exploratory and less predictable. Some weeks the balance tipped toward BI when a critical reporting cycle hit. Other weeks I could spend full days on feature pipelines. The discipline was that neither side could go neglected long enough to lose trust.
 
-- **Evaluation moved from visual validation to model diagnostics and segment behavior.** Instead of checking whether a chart looked right, I was evaluating precision-recall tradeoffs, checking whether model predictions held across subscriber segments, and validating that inferred attributes aligned with known ground-truth samples.
+Working at Shahid meant the data volumes and business urgency were high on both fronts. Dashboards powered weekly executive reviews. Models were expected to drive subscriber retention and personalisation. There was no luxury of pausing one to focus on the other.
 
-- **Success criteria expanded from reporting speed to decision impact.** A good dashboard was one that loaded fast, showed accurate numbers, and answered the business question. A good model had to do all of that and also change a downstream decision -- trigger a CRM campaign, adjust a content recommendation, or flag an at-risk subscriber for intervention.
+## What changed
 
-## What Did Not Change
+Deliverables shifted from dashboards to models and features. The first ML deliverable was a behaviour-based gender inference model: predicting subscriber gender from viewing patterns when demographic data was missing. The classification problem was the easy part. The harder work was building the behavioural features that made it useful. After that came viewing cluster models for content personalisation, and eventually the profile-level feature store that enriched subscriber records across multiple downstream systems.
 
-- Data-model discipline stayed central.
-- Stakeholder translation remained critical.
-- Metric trust was still non-negotiable.
+Evaluation moved from visual validation to model diagnostics and segment behaviour. Instead of checking whether a chart looked right, I was evaluating precision-recall trade-offs, checking whether predictions held across subscriber segments, and validating that inferred attributes aligned with known ground-truth samples.
 
-The biggest misconception is that BI skills become irrelevant in DS work. In practice, they reduce failure risk. Knowing how to build governed dimension tables, how to define lifecycle logic consistently, and how to communicate metric limitations to business stakeholders -- these are exactly the skills that prevent ML projects from producing outputs nobody trusts.
+Success criteria expanded from reporting speed to decision impact. A good dashboard loaded fast, showed accurate numbers, answered the business question. A good model had to do all of that and also change a downstream decision: trigger a CRM campaign, adjust a content recommendation, or flag an at-risk subscriber for intervention.
 
-## Turning Point
+## What did not change
 
-The transition became durable once feature engineering and inference workflows started sharing the same governed entities as BI. The clearest example was subscriber-level features powering both a churn dashboard and a churn prediction model. The churn dashboard showed monthly attrition rates by plan type, region, and tenure. The churn model used the same `dim_subscriber` table -- with lifecycle status, subscription start date, and plan history -- as input features. Same governed tables, different outputs. When a stakeholder asked "why does the model say this subscriber is at risk?" I could point to the same fields they already saw in the dashboard. That traceability made the model's outputs credible to teams that were used to dashboard-level clarity.
+Data-model discipline stayed central. Stakeholder translation stayed critical. Metric trust stayed non-negotiable.
 
-## Anti-Patterns to Avoid
+The biggest misconception in this transition is that BI skills become irrelevant in DS work. In practice they reduce failure risk. Knowing how to build governed dimension tables, how to define lifecycle logic consistently, and how to communicate metric limitations to business stakeholders are exactly the skills that prevent ML projects from producing outputs nobody trusts.
 
-A few things go wrong when this kind of transition is not handled carefully:
+## The Three Ways BI-to-DS Transitions Die
 
-1. **Building an ML pipeline with its own data model.** This is the most common failure. The data science team creates its own subscriber table with slightly different lifecycle definitions, different date cutoffs, or a different way of handling trial accounts. The model works fine in isolation, but its numbers disagree with the BI dashboards. Stakeholders notice. Trust erodes. The fix is to enforce shared entity definitions from day one.
+### 1. Building a parallel ML data model
 
-2. **Dropping BI responsibilities too early.** If the dashboards stop being maintained or metric definitions drift while attention shifts to ML, business teams lose confidence in the data function overall. They will not trust model outputs from someone whose dashboards started breaking. The overlap period exists for a reason -- it builds credibility for the new work by preserving trust in the existing work.
+This is the most common failure. The data-science workstream creates its own subscriber table with slightly different lifecycle definitions, different date cutoffs, or a different way of handling trial accounts. The model works fine in isolation, but its numbers disagree with the BI dashboards. Stakeholders notice. Trust erodes silently. By month four, the data team is in reconciliation meetings instead of building.
 
-3. **Treating model accuracy as the only success metric.** A model can have strong accuracy on a holdout set and still fail in production because the output format does not match what downstream systems need, or because the predictions are not actionable at the business cadence. Validating operational fit matters as much as validating statistical performance.
+The fix is to enforce shared entity definitions from day one. Same `dim_subscriber`, same lifecycle flags, same date spine for both dashboards and models. The 15,000-versus-12,000 churn count gap that ends transitions starts here.
 
-## Practical Advice for Similar Transitions
+### 2. Dropping BI responsibilities too early
 
-- **Do not drop BI foundations too early.** Keep maintaining the dashboards, keep attending the metric review meetings, keep answering the ad-hoc questions. The trust you have built in BI is transferable to DS, but only if it is not abandoned. A well-maintained dashboard is proof that you understand the data -- and that proof matters when you start asking stakeholders to trust a model.
+If dashboards stop being maintained or metric definitions drift while attention shifts to ML, business teams lose confidence in the data function overall. They will not trust model outputs from someone whose dashboards started breaking on their watch. The overlap period exists for a reason: it builds credibility for the new work by preserving trust in the existing work.
 
-- **Keep one source of truth for key entities and lifecycle logic.** This means subscriber definitions, event taxonomies, date spine logic, and segment rules should live in governed tables that both BI and DS consume. If you let each workstream define its own version of "active subscriber," you will spend more time reconciling numbers than building models.
+This is the failure mode that feels productive while it is happening. The DS work feels new and ambitious. The BI work feels routine. Dropping the routine to focus on the ambitious looks like prioritisation. It is actually a credibility transfer in the wrong direction.
 
-- **Pair model metrics with business-readiness checks.** An F1 score is necessary but not sufficient. Before calling a model ready, check whether its output can be consumed by the activation layer -- CRM tools, recommendation engines, or operational dashboards. If the output needs manual transformation before it is useful, it is not ready.
+### 3. Treating model accuracy as the only success metric
 
-- **Communicate limitations as clearly as results.** When presenting model outputs, lead with what the model does not cover. Stakeholders respect transparency more than inflated claims. If the model works well for one subscriber segment but poorly for another, say so upfront. That honesty is what separates a sustainable ML practice from a demo that never gets deployed.
+A model can have strong accuracy on a holdout set and still fail in production because the output format does not match the consuming system, or because the predictions are not actionable at the business cadence. Validating operational fit matters as much as validating statistical performance. The classifier that scores 0.81 AUC and cannot be ingested by the CRM tool is a project that did not ship.
 
-## What Came After
+## What I would do first in the overlap
 
-This transition phase set up the later AI automation systems. The governed data layer, the shared entity definitions, the trust-preserving habits -- all of these became the foundation for CRM automation, profile enrichment, and operational ML at scale.
+If you can do one thing in your overlap period to make the transition durable, share entity definitions from week one.
+
+Every model the DS workstream builds should consume the same governed dimension tables the BI dashboards read. Not "a subscriber table." The subscriber table. When stakeholders ask why the model says one thing and the dashboard says another, the answer should trace to the same row, the same column, the same definition. The trust that compounds in BI for years is the same trust that lets a model output land in a leadership review without being challenged on first principles.
+
+## The turning point
+
+The transition became durable once feature engineering and inference workflows started sharing the same governed entities as BI. The clearest example was subscriber-level features powering both the churn dashboard and the churn prediction model. Same `dim_subscriber` table, with lifecycle status, subscription start date, and plan history, as the input on both sides. When a stakeholder asked "why does the model say this subscriber is at risk?" the answer pointed to fields they already saw in the dashboard. That traceability made the model's outputs credible to teams that were used to dashboard-level clarity.
+
+## One MENA-flavored note
+
+The credibility transfer matters more in MENA, not because the technical work is different but because the trust networks are smaller and the same stakeholders see both sides of the data function. The executive who reviews dashboards in the Monday meeting is often the same one who hears the ML pitch on Wednesday. If the Monday dashboard was broken, Wednesday's pitch starts at a deficit. Keeping both sides healthy through the overlap is not optional in markets where the audience for both is the same room.
+
+## Closing
+
+Are you transitioning, or are you abandoning?
+
+A transition is six months of overlap, two sides of the work alive at once, both stakeholders kept whole. Abandonment is dropping the BI work to chase ML and discovering eight months in that nobody trusts the model because the dashboards stopped being maintained. The transition pattern requires more discipline. It also produces the only outcome you actually wanted when you started: a team that can deliver both, on a foundation that compounds.
 
 ---
 
-*This post reflects a real career transition. For project examples from both sides, see [Enterprise Data Model](/projects/data-model/) and [Behavior-Based Attribute Inference](/projects/gender-prediction/).*
+> Related case study: [Enterprise Data Model](/projects/data-model/) | [Behaviour-Based Attribute Inference](/projects/gender-prediction/)
+
+**Syed Aamir** is a Data & AI Solutions Engineer based in Dubai, building data foundations and applied AI for OTT streaming in the MENA region. Currently at Shahid (MBC Group). Previously delivered enterprise BI across automotive, retail, and financial services with Beinex, Al-Futtaim Technologies, and Scan Technology.
+
+If your team is working through a similar problem, [start a conversation](https://mail.google.com/mail/?view=cm&fs=1&to=saamir259@gmail.com&su=Project%20inquiry) or [connect on LinkedIn](https://www.linkedin.com/in/syedaamiruddin/).
