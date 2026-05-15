@@ -80,11 +80,11 @@ Phased work plan for the portfolio ecosystem. Each phase is designed for one foc
 
 ## Phase 3.5: Top 5 Blog Rewrites (Execution)
 
-**Status**: Not started
+**Status**: In progress (Rewrite 1 done 2026-05-15)
 **Depends on**: Phase 3 (audit + voice spec)
 **Goal**: Execute the top 5 priorities from `BLOG_AUDIT.md` — one focused session per Flagship Strategic rewrite, one batched session for any short refreshes.
 
-- [ ] **Rewrite 1**: Write new flagship intro post "Why Most Semantic Layers Fail" (1,400 words, `governed-data` pillar, funnels into Semantic Layer Series Part 1)
+- [x] **Rewrite 1**: Write new flagship intro post "Why Most Semantic Layers Fail" (1,698 words, `governed-data` pillar, funnels into Semantic Layer Series Part 1; Gemini four-trap diagram at `public/assets/blog/why-most-semantic-layers-fail-four-traps.png`; new optional frontmatter fields `depth`, `pillar`, `linkedin_excerpt`, `series`, `series_part` added to content schema)
 - [ ] **Rewrite 2**: `bi-to-ai-journey.md` — promote to flagship-grade with "The Compounding Stack" framework + Gemini-generated diagram (`bi-to-ai` pillar)
 - [ ] **Rewrite 3**: `enigma-voice-of-customer-intelligence.md` — Technical Deep Dive rewrite centering "The Voice-of-Customer Stack" + the two-Genie-space insight (`applied-ai` pillar). Strip 22 em-dash substitutes.
 - [ ] **Rewrite 4**: `scalable-data-model.md` — Flagship Strategic rewrite with "The Five Rules of a Compounding Data Model" framework (`governed-data` pillar)

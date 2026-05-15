@@ -11,6 +11,11 @@ const blog = defineCollection({
     tags: z.array(z.string()).default([]),
     featured: z.boolean().default(false),
     draft: z.boolean().default(false),
+    depth: z.enum(['flagship', 'deep-dive']).optional(),
+    pillar: z.enum(['governed-data', 'applied-ai', 'bi-to-ai']).optional(),
+    linkedin_excerpt: z.string().optional(),
+    series: z.string().optional(),
+    series_part: z.number().optional(),
   }),
 });
 
