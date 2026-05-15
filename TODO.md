@@ -80,30 +80,28 @@ Phased work plan for the portfolio ecosystem. Each phase is designed for one foc
 
 ## Phase 3.5: Top 5 Blog Rewrites (Execution)
 
-**Status**: In progress (Rewrite 1 done 2026-05-15)
+**Status**: Done (2026-05-15)
 **Depends on**: Phase 3 (audit + voice spec)
 **Goal**: Execute the top 5 priorities from `BLOG_AUDIT.md` — one focused session per Flagship Strategic rewrite, one batched session for any short refreshes.
 
-- [x] **Rewrite 1**: Write new flagship intro post "Why Most Semantic Layers Fail" (1,698 words, `governed-data` pillar, funnels into Semantic Layer Series Part 1; Gemini four-trap diagram at `public/assets/blog/why-most-semantic-layers-fail-four-traps.png`; new optional frontmatter fields `depth`, `pillar`, `linkedin_excerpt`, `series`, `series_part` added to content schema)
-- [ ] **Rewrite 2**: `bi-to-ai-journey.md` — promote to flagship-grade with "The Compounding Stack" framework + Gemini-generated diagram (`bi-to-ai` pillar)
-- [ ] **Rewrite 3**: `enigma-voice-of-customer-intelligence.md` — Technical Deep Dive rewrite centering "The Voice-of-Customer Stack" + the two-Genie-space insight (`applied-ai` pillar). Strip 22 em-dash substitutes.
-- [ ] **Rewrite 4**: `scalable-data-model.md` — Flagship Strategic rewrite with "The Five Rules of a Compounding Data Model" framework (`governed-data` pillar)
-- [ ] **Rewrite 5**: `semantic-layer-01-why-governed-metrics.md` — refresh and reposition as Part 1 of the packaged series
-
-Each session follows the 8-step Rewrite Workflow in `BLOG_STRATEGY.md` section 8.
+- [x] **Rewrite 1**: New flagship intro post "Why Most Semantic Layers Fail" (1,698 words, `governed-data` pillar, funnels into Semantic Layer Series Part 1; Gemini four-trap diagram; new optional frontmatter fields added to content schema)
+- [x] **Rewrite 2**: `bi-to-ai-journey.md` rewritten as Flagship Strategic with the Compounding Stack framework (1,695 words, `bi-to-ai` pillar, Gemini stack diagram)
+- [x] **Rewrite 3**: `enigma-voice-of-customer-intelligence.md` rewritten as Technical Deep Dive centred on the Voice-of-Customer Stack and the two-Genie-space decision (2,823 words, `applied-ai` pillar, Gemini architecture diagram, all 25 `--` stripped)
+- [x] **Rewrite 4**: `scalable-data-model.md` rewritten as Flagship Strategic with the Five Rules of a Compounding Data Model (1,806 words, `governed-data` pillar, Gemini five-rules diagram)
+- [x] **Rewrite 5**: `semantic-layer-01-why-governed-metrics.md` refreshed and repositioned as Series Part 1 with the Conflict-First Rollout (1,498 words, series + series_part frontmatter wired)
 
 ## Phase 3.6: Remaining Refreshes (Batched)
 
-**Status**: Not started
+**Status**: Done (2026-05-15)
 **Depends on**: Phase 3.5
 **Goal**: Refresh the remaining 10 posts in shape-matched batches.
 
-- [ ] Session A — Applied AI batch: refresh `ai-crm-automation.md`, `gender-prediction-model-in-practice.md`
-- [ ] Session B — BI-to-AI batch: refresh `bi-to-data-science-bridge-patterns.md`, `bi-to-data-science-transition-story.md`
-- [ ] Session C — Governed Data batch: refresh `avod-revenue-pipeline-and-alerting.md`, `bi-modernization-lessons.md`
-- [ ] Session D — Semantic Series batch: refresh Parts 2-6 in one focused session (shared voice patterns and source PDF)
+- [x] Session A — Applied AI batch: `ai-crm-automation.md` (named The Six-Layer CRM Operating System) and `gender-prediction-model-in-practice.md` (named Inference With Receipts)
+- [x] Session B — BI-to-AI batch: `bi-to-data-science-bridge-patterns.md` (four named patterns reframed around the leadership-review conflict) and `bi-to-data-science-transition-story.md` (named The Three Ways BI-to-DS Transitions Die)
+- [x] Session C — Governed Data batch: `avod-revenue-pipeline-and-alerting.md` (named The Four-Signal AVOD Operating Loop, 13 `--` stripped) and `bi-modernization-lessons.md` (named The Three-Phase Migration Sequence, 14 `--` stripped)
+- [x] Session D — Semantic Series batch: Parts 2-6 refreshed with named frameworks (Three Ownership Layers / Three-Layer DAX Stack / Three Release Gates / Six-Stage Refresh Loop + Five-Step Backfill / Weekly Optimization Cycle), series frontmatter wired, Part 6 closes out the series arc
 
-All sessions strip `--` em-dash substitutes per `BLOG_AUDIT.md` section 3.1 and add the author bio + CTA block per `BLOG_VOICE.md` section 5.
+All sessions stripped `--` em-dash substitutes and added the author bio + CTA block per `BLOG_VOICE.md` section 5. New optional frontmatter fields (`depth`, `pillar`, `linkedin_excerpt`, `series`, `series_part`) are now wired across the full blog estate.
 
 ## Phase 4: Content Quality - Projects
 
