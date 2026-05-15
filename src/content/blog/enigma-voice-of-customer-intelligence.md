@@ -1,103 +1,158 @@
 ---
-title: "Enigma: Building a Voice-of-Customer Intelligence Platform"
-date: 2025-09-15
-description: "How a multilingual voice-of-customer platform combined ingestion, translation, Genie spaces, and retrieval workflows for self-serve insight access."
+title: "Enigma: Building a Voice-of-Customer Stack for Multilingual Streaming"
+date: 2026-05-15
+description: "How we turned scattered, Arabic-language audience feedback from four platforms into a system that answers content-team questions in seconds, and why the non-obvious move was splitting the Genie spaces in two."
 categories: ["AI & Automation", "Data Science"]
-tags: ["NLP", "LangGraph", "FAISS", "Databricks", "Arabic", "Sentiment Analysis"]
+tags: ["NLP", "LangGraph", "FAISS", "Databricks", "Arabic", "Sentiment Analysis", "RAG", "Genie"]
 featured: true
+draft: false
+depth: deep-dive
+pillar: applied-ai
+linkedin_excerpt: |
+  The Tuesday morning of a Ramadan finale episode launch. The content lead asked: "What is the audience saying?" The analyst answered: "Give me three days."
+
+  Three days. For a question whose answer was already sitting in Twitter, Facebook, YouTube, and our own Shorts comments, mostly in Arabic, in four different schemas, with no shared link back to a title.
+
+  We built a platform that answers questions like that in seconds. The non-obvious move was not LLMs or vector search.
+
+  It was splitting Genie spaces in two. One for quantitative comment questions ("how many comments did Title X get?"). One for engagement metrics ("playtime trends for Title X?"). A LangGraph supervisor agent routes between them.
+
+  Most teams build one Genie space that does everything. That is where they hit a wall.
+
+  Full piece on the blog ↓
+  [link]
 ---
 
-Large volumes of social feedback are only useful if teams can query them quickly and consistently. This post walks through how we turned multilingual, unstructured audience commentary from four platforms into a practical decision-support system -- one where non-technical stakeholders could get answers in seconds instead of waiting days.
+The Tuesday morning of a Ramadan finale episode launch at Shahid (MBC Group). The content lead opened a meeting with one question: "What is the audience saying about it?" The analyst on the call answered: "Give me three days."
 
-## The Problem: Arabic Social Feedback at Scale
+Three days. For a question whose answer was already sitting in Twitter, Facebook, YouTube, and our own Shorts comments, mostly in Arabic, in four different schemas, with no shared link back to a title. Three days to manually pull exports, sample-translate, hand-tag sentiment, aggregate, and assemble a slide deck. By the time the answer arrived, the content team had moved on to the next release. The cycle would repeat with the next finale, and the next.
 
-At Shahid (MBC Group), audience feedback arrived constantly -- comments on social posts, replies to promotional tweets, reactions to short-form video content, YouTube commentary. The volume was not the issue. The issue was that none of it was practically usable.
+This is the scene every voice-of-customer system either solves or pretends to solve. The pretending usually looks like a sentiment dashboard with cross-platform volume charts that nobody opens. The dashboard tells you that volume spiked. It does not tell you what people actually said.
 
-The feedback was scattered across four platforms (Twitter, Facebook, YouTube, and the platform's own Shorts feature), each with its own schema, export format, and API behavior. The majority of comments were in Arabic, which limited direct analysis for parts of the leadership team. And there was no unified identifier linking a comment back to a specific title, season, or content entity across sources.
+**Voice of customer is solved when product managers stop filing data requests, not when sentiment dashboards exist.** The path from "the volume spiked" to "here is the actual feedback, here is the sentiment, here is the title-level breakdown, here is the platform comparison" used to require an analyst between the question and the answer. Removing that analyst is the work. Everything else is decoration.
 
-The result was a familiar pattern: analysts would manually pull exports, translate samples, tag sentiment by hand, and compile findings into slide decks. This worked when the content catalog was small. It did not scale. By the time a sentiment report was assembled, the content team had already moved on to the next release cycle.
+## Why this matters now
 
-The goal was not to build a research tool for data scientists. It was to give product managers, content leads, and executives a way to ask "what are audiences saying about this title?" and get a structured, cross-platform answer without filing a data request.
+The pressure on audience-feedback systems is going up, not down. In Arabic-OTT specifically, content windows are tighter (finale episodes, Ramadan release cycles, AVOD ad slots that move weekly), and the cost of a slow feedback loop is concrete: a content lead green-lights a follow-up the audience did not actually want, or pulls a winner that was performing.
 
-## Architecture: Bronze, Silver, Gold with NLP at Every Layer
+Across the broader industry the same picture holds. [Atlan's recent write-up on semantic layers](https://atlan.com/know/semantic-layer/) makes the point cleanly: "every BI tool, every notebook, and every AI agent maintains its own translation logic, and when those translations drift, data teams spend days reconciling reports instead of building new ones." For voice of customer the failure is sharper, because there is no central translation logic to begin with. Twitter's `tweet_id` and YouTube's `video_id` and a Shahid `dwh_parent_id` do not naturally align. Without a stack that resolves them, every analyst query is a custom join.
 
-The platform followed a three-layer ingestion architecture built on Databricks and Delta Lake, designed to move raw social data through progressive stages of cleaning, enrichment, and semantic modeling.
+So the projects get scoped. They start. And then most of them get stuck inside Bronze, with a beautiful raw-ingestion pipeline and no usable consumption layer. Or they ship a sentiment dashboard and never get to natural-language query. Or they wire up one Genie space, watch it hallucinate SQL on mixed schemas, and quietly retreat.
 
-**Bronze (Raw Ingestion):** Each source -- Twitter posts and threaded replies, Facebook posts and comments via Funnel exports, YouTube video comments, and platform Shorts comments -- landed in its own raw Delta table with minimal schema enforcement. These tables served as the audit trail and reprocessing source. Daily ingestion jobs ran on a pre-10 AM SLA (Dubai time).
+The pattern that worked at Shahid was a five-layer stack with one non-obvious split inside it. The split is the part most teams skip.
 
-**Silver (Cleaning and Enrichment):** This is where the heavy lifting happened. Raw text went through a five-stage NLP enrichment pipeline:
+![Architecture diagram of the Voice-of-Customer Stack: four social sources feed Bronze ingestion, five-stage NLP enrichment in Silver, a Gold semantic model with dim_post and fact_comment, then two specialized Genie spaces (Comments and Engagement) plus a FAISS vector index, all routed by a LangGraph Supervisor Agent and exposed through a Databricks App](/assets/blog/enigma-voice-of-customer-stack.png)
 
-1. **Arabic-to-English translation** -- making all content queryable regardless of source language
-2. **Sentiment scoring** -- classifying each comment as positive, neutral, or negative
-3. **Profanity detection** -- flagging inappropriate content for moderation workflows
-4. **URL extraction and title mapping** -- parsing URLs from comment text and resolving them to internal content identifiers (mapping to a `dwh_parent_id` so every comment could be traced back to a specific show or season)
-5. **Platform normalization** -- standardizing field names, timestamp formats, and source labels across all four platforms
+*The Voice-of-Customer Stack. Five layers, one supervisor agent, two Genie spaces. The two-Genie split is the architectural decision that makes the rest of the system work.*
 
-Each source had its own staging table in the Silver layer, with enrichment applied consistently regardless of origin.
+## The Voice-of-Customer Stack
 
-**Gold (Semantic Model):** The final layer consolidated everything into two core tables -- a post-level dimension table (`dim_post`) and a fully enriched comment-level fact table (`fact_comment`) -- plus an additional enriched table carrying extra metadata for LLM workflows. These tables powered everything downstream: Genie spaces, the FAISS vector index, the Supervisor Agent, and the application APIs.
+### Layer 1: Bronze multi-source ingestion
 
-The entire pipeline operated on daily scheduled jobs with clear SLAs: raw ingestion before 10 AM, enriched fact tables within one hour of ingestion, and the vector index rebuilt before 12 PM -- all timed so that insights were available before the content team's morning review cycle.
+**What it is.** A raw Delta table per source, with minimal schema enforcement, landing daily before a 10 AM Dubai-time SLA. Four sources at Shahid: Twitter posts and threaded replies, Facebook posts and comments (via Funnel exports), YouTube video comments, and Shahid Shorts comments. Each table is the audit trail and the reprocessing source.
 
-## Two Genie Spaces, Not One
+**Why it matters.** Bronze is the layer where you make peace with the fact that every platform's API is different. Twitter returns thread-shape JSON with parent-child relationships. Facebook via Funnel ships flattened CSV-style exports with timestamp formats that change by tenant. YouTube's Data API rate-limits aggressively and forces paginated reads. Shahid Shorts comments come from internal Delta tables on a four-hour SLA. Trying to standardise these at ingestion is how teams burn three months and ship nothing.
 
-An early and important architectural decision was to split query interfaces into two specialized Genie spaces rather than building a single general-purpose one.
+**What goes wrong without it.** Without a raw-Delta layer, every downstream enrichment job depends on a fragile direct-from-API path. One API change and the whole pipeline breaks. The Bronze table is what lets you reprocess a missed day without re-hitting the source API.
 
-**Comments Genie** handled quantitative insights derived from comment data: sentiment distribution across platforms, comment volume trends over time, profanity rates by content type, and title-level comment behavior for specific shows, seasons, or episodes. It was built on the enriched comment fact table and configured with curated sample prompts, field-level metadata, and explicit instructions to guide LLM-to-SQL generation.
+**Implementation note.** Each Bronze table writes through a Databricks job scheduled per source. Idempotency is enforced via a composite key of `source_platform`, `external_id`, and `ingested_at`. Retention on Bronze is open-ended: this is the audit copy.
 
-**Engagement Genie** covered a different domain entirely: user engagement metrics like plays, playtime, first-watch behavior, and trends segmented by subscription type, geography, device, and demographics. It sat on top of a star schema with a fact table and multiple dimension tables (address, content, device, package, demographics).
+### Layer 2: Silver NLP enrichment
 
-The reason for the split was practical: LLM-to-SQL reliability degrades when a single Genie space covers divergent schemas and query intents. A question about "sentiment on Title X" and a question about "playtime trends for Title X" hit completely different tables with different join patterns. Keeping them separate reduced hallucination risk and improved query accuracy. Each space had its own curated instructions, sample queries, and allowed filters.
+**What it is.** A five-stage enrichment pipeline that turns raw comment text into structured, queryable signal. The five stages, in order:
 
-Both Genie spaces were consumed by the Supervisor Agent (described below) and were also available directly to analysts and leadership who wanted structured, SQL-backed answers without writing queries themselves.
+1. **Arabic-to-English translation.** All comment text is translated to English in addition to the original. Translated text is what the vector index and the Genie SQL run on. Original text is preserved on the row.
+2. **Sentiment scoring.** Each comment is classified as positive, neutral, or negative. The score is per-comment, not per-thread.
+3. **Profanity detection.** Comments are flagged for moderation workflows. This is required for any internal UI that will display real audience comments to product managers.
+4. **URL extraction and title mapping.** Comments often contain URLs that point back to a Shahid page. Each URL is parsed and resolved to an internal `dwh_parent_id`, the same identifier used by the BI semantic layer. This is the most important enrichment in the entire pipeline, because it is the join key that makes the rest of the system possible.
+5. **Platform normalisation.** Field names, timestamp formats, and source labels are standardised across all four platforms. After Silver, a downstream consumer cannot tell which platform a comment came from without reading the `source_platform` column.
 
-## The Supervisor Agent and Routing Logic
+**Why it matters.** This is the layer that pays the dividend on the whole project. The translation stage means a non-Arabic-speaking executive can ask a Genie space a question and get an answer. The URL-to-title mapping is what makes "comments about Title X" a one-column filter instead of a five-table join. The platform normalisation is what makes "comments across all sources" a single query.
 
-On top of the Genie spaces and the FAISS vector index sat a LangGraph Supervisor Agent -- an orchestration layer that classified incoming queries and routed them to the right tool.
+**What goes wrong without it.** Without translation, half the data is unreachable. Without URL-to-title mapping, every title-level query is a custom SQL join against a URL parser. Without platform normalisation, every cross-source analysis is a UNION ALL of incompatible schemas. Teams that skip this layer ship a Bronze-to-Genie shortcut and end up with a Genie space that hallucinates titles because it never had a clean join key.
 
-When a user asked a question, the agent determined whether the query was:
+**Implementation note.** Translation runs through a fine-tuned model hosted on Databricks Model Serving. Sentiment and profanity run as PySpark UDFs on the same job. URL extraction uses a Python parser with platform-specific URL patterns. Each enrichment writes back to a per-source Silver table; consolidation happens in Gold.
 
-- **Quantitative** (e.g., "how many comments did Title X get last week?") -- routed to the appropriate Genie space for SQL execution
-- **Qualitative** (e.g., "what are people saying about the ending of Season 2?") -- routed to the FAISS vector index for semantic retrieval over translated comment embeddings
-- **Hybrid** -- requiring both a structured KPI answer and a narrative summary, in which case both tools were called and the results synthesized
+### Layer 3: Gold semantic model
 
-This routing mattered because without it, users had to know which interface to use for which type of question. The Supervisor Agent removed that cognitive overhead. A content lead could ask a mixed question and get back both the numbers and the narrative, without understanding the underlying architecture.
+**What it is.** Two core tables and one LLM-specific enrichment.
 
-The vector index itself used FAISS stored in Unity Catalog Volumes rather than a managed vector database. This was a deliberate cost-efficiency decision: the query volume did not justify managed vector search overhead, and a daily rebuild cycle met the SLA at significantly lower cost while Unity Catalog still provided lineage and access control.
+- `dim_post`: post-level dimension table with `dwh_parent_id`, `title_name`, `season_number`, `episode_number`, `source_platform`, `posted_at`, and original post text.
+- `fact_comment`: fully enriched comment-level fact table with sentiment, profanity flag, translated text, original text, parent post foreign key, and the resolved `dwh_parent_id`.
+- A third enriched table carries LLM-specific metadata: short summaries of comment clusters, theme tags, and engagement signal aggregations. This is what the Comments Genie reads from.
 
-## The Databricks App: Three Query Modes
+**Why it matters.** Gold is the consumption interface. Every downstream component (the two Genie spaces, the FAISS vector index, the Supervisor Agent, the Databricks App APIs) reads from these tables. No downstream component reads from Bronze or Silver. This is the discipline that keeps the system simple.
 
-The user-facing layer was a Databricks App built with React on the frontend and FastAPI on the backend, deployed as a single bundle through GitLab CI/CD.
+**What goes wrong without it.** Without a clean Gold layer, the Genie spaces have to navigate enrichment-stage schemas with intermediate columns. LLM-to-SQL accuracy collapses because the model cannot reason about which columns to use. The vector index ingests inconsistent enrichment depths across sources. The app APIs hit Silver and inherit every enrichment artifact.
 
-The app exposed three interaction modes:
+**Implementation note.** Gold tables are partitioned by `data_date`, the date the comment was created. Retention is rolling. Refresh runs after Silver completes, before 12 PM, giving the content team a full freshness pass by their morning review cycle.
 
-1. **Title Chat** -- a title-focused workspace where users selected a specific show or season from a dropdown, then saw sentiment distribution charts, comment clusters, and engagement KPIs at a glance. A chat panel let them ask follow-up questions about that title, with the Supervisor Agent automatically routing to SQL or vector search as needed.
+### Layer 4: Two specialised Genie spaces, not one
 
-2. **General Chat** -- a free-form conversational interface for open-ended exploration. Users could ask about cross-platform trends, compare audience behavior across titles, or surface complaint patterns without constraining the query to a single title.
+This is the non-obvious move. It is also the architectural decision that makes the rest of the system work.
 
-3. **Custom Post Research** -- built in direct response to a recurring leadership request. A user could paste a Twitter URL or post ID, and the system would fetch all replies, run them through the Supervisor Agent and vector index, and return top themes, sentiment interpretation, and evidence-backed narrative. This turned what had been a multi-day manual analysis into an automated workflow.
+**What it is.** Two Databricks Genie spaces, each scoped to one query domain:
 
-The UI was intentionally minimal -- charts rendered via Plotly, responses formatted as structured Markdown, and session state preserved to avoid resets. The goal was to let stakeholders get to insight with as few interactions as possible.
+- **Comments Genie.** LLM-to-SQL over the enriched comment fact table. Answers questions like "how many comments did the Ramadan finale of Title X get on Twitter last week?", "what is the sentiment distribution across platforms for the last 30 days?", "what percentage of YouTube comments on Title Y were flagged for profanity?". Configured with curated sample prompts, field-level metadata, allowed filter clauses, and an explicit "always filter on date greater than or equal to 2025" instruction that scopes the Genie to active content cycles.
 
-## What Changed
+- **Engagement Genie.** LLM-to-SQL over a star schema with a fact-engagement table and dimension tables for address, content, device, package, and demographics. Answers questions like "what are playtime trends for Title X by demographic over the last quarter?", "how does first-watch behaviour differ across devices for the latest Ramadan release?".
 
-Before this platform, audience insight workflows required analyst involvement at every step: pulling exports, translating, tagging, aggregating, and presenting. The typical turnaround for a sentiment report on a new title was measured in days.
+**Why it matters.** LLM-to-SQL reliability is brittle in a specific way: it degrades sharply when a single Genie space covers divergent schemas and divergent query intents. A question about "sentiment on Title X" and a question about "playtime trends for Title X" hit completely different tables, with completely different join patterns, with completely different filter conventions. A single Genie space presented with both has to choose at runtime which schema to traverse, and the choice gets wrong often enough to break trust.
 
-After deployment:
+Splitting the spaces lets each Genie ship with a curated set of instructions, sample prompts, and join conventions for one schema. Accuracy goes up. Hallucination goes down. The supervisor agent (next layer) picks the right space at routing time, so the user never has to know which to pick.
 
-- **Time to insight dropped from hours of manual work to seconds** via natural language query, with enriched data available daily before the content team's morning review
-- **Cross-source analysis became possible for the first time** -- comment volume, sentiment, and engagement trends could be compared across Twitter, Facebook, YouTube, and Shorts in a single interface
-- **SQL dependency dropped significantly** -- two Genie spaces provided self-service analytics for non-technical stakeholders, reducing ad hoc analyst query requests
-- **Four social and platform sources were unified** into a single queryable model, eliminating the separate-export workflow that had been the default
+**What goes wrong without it.** Teams that ship a single general-purpose Genie space watch it hallucinate column names on mixed-intent questions, then add more instructions to the space to compensate, then watch the instructions interact, then quietly retreat to writing SQL by hand. This is the most common architectural mistake in voice-of-customer projects I have seen.
 
-The platform pattern -- multi-source ingestion, NLP enrichment at the Silver layer, a unified semantic model, and natural language query interfaces -- is directly transferable to any organization dealing with high-volume unstructured feedback: retail reviews, hospitality service feedback, financial services complaint intelligence, or healthcare patient sentiment. The specific tools (Databricks, FAISS, LangGraph) are implementation choices. The architecture holds regardless.
+**Implementation note.** Each Genie is configured with table descriptions, field-level comments, allowed filters, sample prompts, and explicit instructions. Sample prompts are the single highest-leverage knob: curated examples increase LLM-to-SQL accuracy more than any metadata tweak. Both Genies are consumed by the Supervisor Agent and are also available directly to analysts who want structured answers without writing SQL themselves.
+
+### Layer 5: Supervisor Agent and routing layer
+
+**What it is.** A LangGraph Supervisor Agent that sits in front of the two Genie spaces and the FAISS vector index, classifies each incoming query, and routes it to the right tool. Three routing decisions:
+
+- **Quantitative** ("how many comments did Title X get last week?") routes to the appropriate Genie space.
+- **Qualitative** ("what are people actually saying about the ending of Season 2?") routes to the FAISS vector index, which runs semantic retrieval over the translated comment embeddings.
+- **Hybrid** ("how many comments did Title X get and what are the dominant themes?") triggers both, with results synthesised in the response.
+
+**Why it matters.** Routing removes the cognitive overhead of knowing which interface to use. A content lead asks a mixed question and gets back both the structured KPI answer and the narrative summary, without understanding the underlying architecture. The agent also enforces a fallback contract: if the vector index returns no matches, the agent says so explicitly instead of hallucinating a narrative. If the Genie space returns an empty result set, the agent says so instead of returning a fabricated SQL answer.
+
+**What goes wrong without it.** Without the supervisor, users have to choose between SQL-style questions and free-text questions every time. Adoption falls off a cliff because the interface itself is a barrier. The advantage of the multi-tool architecture is lost.
+
+**Implementation note.** The FAISS vector index sits in Unity Catalog Volumes, not in a managed vector database. This is a deliberate cost decision: query volume did not justify the overhead of managed vector search, and a daily rebuild cycle (before 12 PM) met the SLA at significantly lower cost. Unity Catalog still provides lineage and access control. The FAISS index is rebuilt over the translated comment embeddings each morning.
+
+## The Databricks App: three modes, one supervisor
+
+On top of the stack sits a Databricks App built with React on the frontend and FastAPI on the backend, deployed through GitLab CI/CD. Three modes:
+
+- **Title Chat.** A title-focused workspace where a user picks a show or season from a dropdown and sees sentiment distribution, comment clusters, and engagement KPIs at a glance. A chat panel below the dashboard accepts follow-up questions, routed by the Supervisor Agent.
+- **General Chat.** Free-form conversational interface for cross-platform exploration without title constraint.
+- **Custom Post Research.** Built in direct response to a recurring leadership request: paste a Twitter URL or post ID, the system fetches all replies, runs them through the supervisor agent and vector index, returns top themes, sentiment interpretation, and evidence-backed narrative. A multi-day manual analysis becomes a one-minute click-through.
+
+The UI is intentionally minimal. Plotly for charts. Markdown for structured responses. Session state preserved so the user does not lose context between questions.
+
+## What I would build first
+
+If you have raw social comments landing in a Delta table today, the highest-leverage next move is not LLMs. It is the URL-to-title mapping in the Silver layer.
+
+That is where the dividend compounds. Once every comment carries a `dwh_parent_id`, every downstream question becomes a one-column filter. Title-level sentiment is a `GROUP BY`. Cross-platform comparison is a `UNION ALL`. The Genie spaces become tractable. The vector index becomes filterable. Without this enrichment, the rest of the stack is a kit of expensive parts that do not snap together.
+
+Second move: split the Genie spaces by query intent before the first stakeholder asks a mixed question. Splitting after the fact is harder than starting split, because the instructions and sample prompts accumulate around the single-space assumption.
+
+Third move: build the supervisor agent thin. The agent is a router, not a reasoner. Every line of logic added to the agent is a line you will debug at midnight when a leadership query returns the wrong answer.
+
+## One MENA-flavored note
+
+Arabic-OTT made two parts of this stack non-negotiable. Translation is non-optional because half the comments are Arabic and half the leadership team is not Arabic-first. The dim-date and content-cycle filters had to recognise Ramadan content windows because content release patterns shift inside the cycle and a generic time-grain filter would aggregate across structurally different periods. Both of these are easy to retrofit, and both are easier to bake in from day one. Teams building voice-of-customer in a single-language single-cycle market often discover this when they try to extend into MENA later.
+
+## Closing
+
+Your feedback data is either an asset you can query or a queue your analysts work down. Which one is yours?
+
+The teams that treat it as a queue ship dashboards, hire more analysts, and watch the queue grow. The teams that treat it as an asset build the stack: Bronze ingestion that survives API changes, Silver enrichment with title mapping as the load-bearing join, a clean Gold semantic model, two specialised Genie spaces, and a thin supervisor agent that routes by intent. The architectural decision that makes the asset version work is the split into two Genie spaces. Most teams skip it and end up with a single space that hallucinates SQL on mixed-intent queries. The work is in the split.
 
 ---
 
-*For the full case study, see [Voice-of-Customer Intelligence Platform](/projects/enigma/).*
+> Related case study: [Voice-of-Customer Intelligence Platform](/projects/enigma/)
 
-> **Building something similar?**
->
-> If your team is sitting on unstructured feedback data -- social comments, support tickets, reviews -- and needs a way to make it queryable without SQL, happy to share what worked here.
->
-> [Let's Talk](https://mail.google.com/mail/?view=cm&fs=1&to=saamir259@gmail.com&su=Let%27s%20work%20together) | [Full Case Study](/projects/enigma/)
+**Syed Aamir** is a Data & AI Solutions Engineer based in Dubai, building data foundations and applied AI for OTT streaming in the MENA region. Currently at Shahid (MBC Group). Previously delivered enterprise BI across automotive, retail, and financial services with Beinex, Al-Futtaim Technologies, and Scan Technology.
+
+If your team is working through a similar problem, [start a conversation](https://mail.google.com/mail/?view=cm&fs=1&to=saamir259@gmail.com&su=Project%20inquiry) or [connect on LinkedIn](https://www.linkedin.com/in/syedaamiruddin/).
