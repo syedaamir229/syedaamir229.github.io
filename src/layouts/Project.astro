@@ -7,14 +7,23 @@ interface Props {
   category: string;
   tags?: string[];
   metrics?: { label: string; value: string }[];
+  prev?: { id: string; title: string } | null;
+  next?: { id: string; title: string } | null;
 }
 
-const { title, description, category, tags = [], metrics = [] } = Astro.props;
+const { title, description, category, tags = [], metrics = [], prev = null, next = null } = Astro.props;
 ---
 
 <BaseLayout title={title} description={description}>
   <article class="pt-32 pb-16 px-6">
     <div class="max-w-4xl mx-auto">
+      <!-- Breadcrumb -->
+      <nav class="mb-8 text-xs font-mono text-muted-500" aria-label="Breadcrumb">
+        <a href="/projects/" class="hover:text-copper-400 transition-colors">
+          &larr; All projects
+        </a>
+      </nav>
+
       <!-- Header -->
       <header class="mb-12">
         <span class="text-[11px] font-mono text-copper-400 uppercase tracking-[0.18em]">
@@ -52,8 +61,40 @@ const { title, description, category, tags = [], metrics = [] } = Astro.props;
         <slot />
       </div>
 
+      <!-- Prev / Next nav -->
+      {(prev || next) && (
+        <nav class="mt-16 pt-8 border-t border-cream-100/5 grid sm:grid-cols-2 gap-4" aria-label="Project navigation">
+          {prev ? (
+            <a
+              href={`/projects/${prev.id}/`}
+              class="group block p-4 rounded-lg border border-cream-100/5 bg-carbon-900/40 hover:border-copper-500/40 transition-colors"
+            >
+              <p class="text-[10px] font-mono text-muted-500 uppercase tracking-[0.18em] mb-1">
+                &larr; Previous
+              </p>
+              <p class="text-sm font-semibold text-cream-100 group-hover:text-copper-400 transition-colors" style="font-family: var(--font-heading)">
+                {prev.title}
+              </p>
+            </a>
+          ) : <div></div>}
+          {next ? (
+            <a
+              href={`/projects/${next.id}/`}
+              class="group block p-4 rounded-lg border border-cream-100/5 bg-carbon-900/40 hover:border-copper-500/40 transition-colors sm:text-right"
+            >
+              <p class="text-[10px] font-mono text-muted-500 uppercase tracking-[0.18em] mb-1">
+                Next &rarr;
+              </p>
+              <p class="text-sm font-semibold text-cream-100 group-hover:text-copper-400 transition-colors" style="font-family: var(--font-heading)">
+                {next.title}
+              </p>
+            </a>
+          ) : <div></div>}
+        </nav>
+      )}
+
       <!-- Back link -->
-      <div class="mt-16 pt-8 border-t border-cream-100/5">
+      <div class="mt-10 text-center">
         <a href="/projects/" class="text-copper-400 hover:text-copper-300 text-sm font-medium transition-colors">
           &larr; Back to all projects
         </a>

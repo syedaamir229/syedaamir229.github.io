@@ -19,11 +19,16 @@ const projects = (await getCollection('projects'))
 
 <section class="py-16 px-6 reveal">
   <div class="max-w-6xl mx-auto">
-    <div class="flex items-center justify-between mb-12">
-      <h2 class="text-2xl md:text-3xl font-bold" style="font-family: var(--font-heading)">
-        Featured Work
-      </h2>
-      <a href="/projects/" class="text-copper-400 hover:text-copper-300 text-sm font-medium transition-colors">
+    <div class="flex items-start justify-between gap-6 mb-10">
+      <div>
+        <h2 class="text-2xl md:text-3xl font-bold mb-2" style="font-family: var(--font-heading)">
+          Featured Work
+        </h2>
+        <p class="text-muted-500 text-sm max-w-xl">
+          Selected projects from 10 years of delivery across data platforms, analytics, and AI automation.
+        </p>
+      </div>
+      <a href="/projects/" class="shrink-0 text-copper-400 hover:text-copper-300 text-sm font-medium transition-colors mt-1">
         View all &rarr;
       </a>
     </div>

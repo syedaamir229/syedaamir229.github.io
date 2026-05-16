@@ -141,9 +141,25 @@ Split into sub-sessions to keep each one scoped:
 
 **Known follow-ups (out of scope for 5A):** Pipeline chip gradients still use original cyan/violet — handled by 5B redesign. Hero italic accent and gradient-text are global brand changes that look correct.
 
-### Phase 5B: Component redesigns (UX punch list)
-- [ ] Pipeline redesign per `docs/inspiration/pipeline-reference.png` (richer vertical layout)
-- [ ] Any other component briefs from `UX_AUDIT.md` (Hero, MetricsStrip, FeaturedProjects, Timeline)
+### Phase 5B: Component redesigns (UX punch list) (Done 2026-05-16)
+
+- [x] Pipeline rebuilt as vertical card stack per UX_AUDIT 5.1: 7 stages with eyebrow + title + description + tools, copper-bordered active stage on AI & Automation, mobile=desktop layout
+- [x] Hero: demote View Case Studies to ghost text link, promote Let's Talk as the only primary CTA. Add Currently: Assistant Analytics Manager, Shahid (MBC Group) one-liner
+- [x] Hero photo: w-64 h-80 → w-56 h-56 square, object-top crop, border-2 border-copper-500/30 replacing the cream-100/10 border
+- [x] Remove MetricsStrip from `src/pages/index.astro` (component file left in place but unwired)
+- [x] Timeline section heading on home: Experience → Career Path
+- [x] FeaturedProjects: add intro sentence under Featured Work heading; keep View all link
+- [x] Certifications: add Verified credentials. Click any badge to verify. subtitle
+- [x] CapabilityCard section title: What I Do → Where I Work
+- [x] Nav reorder via `NAV_LINKS` in config.ts: Projects / Experience / Blog
+- [x] Category filter rows on /blog and /projects: horizontal scroll at mobile, wrap at md+
+- [x] Project detail: Back to Projects breadcrumb at top + Previous / Next project nav at bottom (driven by `order` field in `[...slug].astro`)
+- [x] Blog post footer CTA satisfied at markdown level by Phase 3 author bio block at the end of every post; no layout-level repeat
+
+**Out of scope for 5B (gated on assets or external work):**
+- Employer logo strip (needs sourced logos)
+- Testimonials block (gated on outreach)
+- Photo retake (only worth doing if user wants higher-fidelity headshot at 224px)
 
 ### Phase 5C: Imagery via Gemini
 - [ ] 1200x630 OG card (replaces current portrait profile photo as og:image default)

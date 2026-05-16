@@ -23,15 +23,17 @@ const categories = [...new Set(allProjects.map((p) => p.data.category))].sort();
       </p>
 
       <!-- Category filters -->
-      <div class="flex flex-wrap gap-2 mb-10">
-        <button class="proj-cat-btn active text-xs font-mono px-3 py-1.5 rounded border border-copper-500/40 text-copper-400 bg-copper-500/10 transition-colors" data-category="all">
-          All
-        </button>
-        {categories.map((cat) => (
-          <button class="proj-cat-btn text-xs font-mono px-3 py-1.5 rounded border border-cream-100/10 text-muted-500 hover:border-copper-500/40 hover:text-copper-400 transition-colors" data-category={cat}>
-            {cat}
+      <div class="filter-row -mx-6 px-6 md:mx-0 md:px-0 mb-10 overflow-x-auto md:overflow-visible">
+        <div class="flex gap-2 md:flex-wrap whitespace-nowrap pb-1">
+          <button class="proj-cat-btn active shrink-0 text-xs font-mono px-3 py-1.5 rounded border border-copper-500/40 text-copper-400 bg-copper-500/10 transition-colors" data-category="all">
+            All
           </button>
-        ))}
+          {categories.map((cat) => (
+            <button class="proj-cat-btn shrink-0 text-xs font-mono px-3 py-1.5 rounded border border-cream-100/10 text-muted-500 hover:border-copper-500/40 hover:text-copper-400 transition-colors" data-category={cat}>
+              {cat}
+            </button>
+          ))}
+        </div>
       </div>
 
       <!-- Recent Work -->

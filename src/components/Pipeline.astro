@@ -1,34 +1,132 @@
 ---
 const stages = [
-  { label: 'Data Sources', color: 'from-orange-400 to-orange-500' },
-  { label: 'Ingestion & Storage', color: 'from-rose-400 to-rose-500' },
-  { label: 'Data Modeling', color: 'from-purple-400 to-purple-500' },
-  { label: 'Semantic Layer', color: 'from-blue-400 to-blue-500' },
-  { label: 'Analytics & BI', color: 'from-copper-400 to-copper-500' },
-  { label: 'Data Science', color: 'from-emerald-400 to-emerald-500' },
-  { label: 'AI & Automation', color: 'from-cyan-400 to-cyan-500' },
+  {
+    eyebrow: 'Source Systems',
+    title: 'Data Ingestion',
+    description: 'APIs, event streams, app stores, CRM exports, and subscription platforms.',
+    tools: ['REST APIs', 'Kafka', 'App Stores', 'CRM'],
+    icon: 'M4 6h16M4 12h16M4 18h16',
+  },
+  {
+    eyebrow: 'Ingestion & Storage',
+    title: 'Pipelines & Lakehouses',
+    description: 'Batch and streaming ingestion into governed lakehouses with full lineage.',
+    tools: ['Databricks', 'Delta Lake', 'AWS S3', 'SSIS'],
+    icon: 'M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4',
+  },
+  {
+    eyebrow: 'Data Modeling',
+    title: 'Enterprise Data Models',
+    description: 'Medallion architecture, star schema, and governed models at subscriber scale.',
+    tools: ['PySpark', 'Delta Lake', 'Star Schema'],
+    icon: 'M3 7l9-4 9 4M3 7v10l9 4 9-4V7M3 7l9 4 9-4M12 11v10',
+  },
+  {
+    eyebrow: 'Semantic Layer',
+    title: 'SSAS / VertiPaq Engine',
+    description: '300GB+ in-memory semantic layer with governed DAX measures.',
+    tools: ['SSAS Tabular', 'DAX', 'Databricks'],
+    icon: 'M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z',
+  },
+  {
+    eyebrow: 'Analytics & BI',
+    title: 'Dashboards & Reporting',
+    description: 'Self-serve reporting for finance, marketing, and operations teams.',
+    tools: ['Power BI Premium', 'Tableau', 'DAX'],
+    icon: 'M3 3v18h18M9 17V9m4 8v-5m4 5V6',
+  },
+  {
+    eyebrow: 'Data Science & ML',
+    title: 'Models & Feature Stores',
+    description: 'Behavioral segmentation, attribute inference, and profile feature stores.',
+    tools: ['MLflow', 'scikit-learn', 'Python', 'Databricks'],
+    icon: 'M12 2a7 7 0 017 7c0 2.38-1.19 4.47-3 5.74V17a2 2 0 01-2 2h-4a2 2 0 01-2-2v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 017-7z',
+  },
+  {
+    eyebrow: 'AI & Automation',
+    title: 'Intelligent Systems',
+    description: 'GenAI platforms, CRM automation, and multilingual NLP for Arabic and English.',
+    tools: ['GenAI', 'RAG', 'Databricks Genie', 'OpenAI'],
+    icon: 'M12 2a2 2 0 012 2v1h3a2 2 0 012 2v10a2 2 0 01-2 2H7a2 2 0 01-2-2V7a2 2 0 012-2h3V4a2 2 0 012-2zM9 12h.01M15 12h.01M10 16h4',
+    active: true,
+  },
 ];
 ---
 
-<section class="py-16 px-6 reveal">
-  <div class="max-w-6xl mx-auto">
-    <div class="flex flex-wrap justify-center gap-3 xl:gap-0 xl:flex-nowrap items-center">
+<section class="py-20 px-6 reveal">
+  <div class="max-w-3xl mx-auto">
+    <div class="mb-12">
+      <p class="text-[11px] font-mono text-copper-400 uppercase tracking-[0.18em] mb-3">
+        How I Work
+      </p>
+      <h2 class="text-3xl md:text-4xl font-bold leading-tight" style="font-family: var(--font-heading)">
+        From raw data to production-grade AI.
+      </h2>
+    </div>
+
+    <div class="relative">
       {stages.map((stage, i) => (
-        <div
-          class="pipeline-stage flex items-center opacity-0"
-          style={`animation: fade-in-up 0.5s ease forwards; animation-delay: ${i * 0.15}s;`}
-        >
-          <div class={`bg-gradient-to-r ${stage.color} text-cream-100 text-xs font-semibold px-4 py-2 rounded-lg whitespace-nowrap shadow-lg`}>
-            {stage.label}
+        <div class="pipeline-stage relative opacity-0" style={`animation: fade-in-up 0.5s ease forwards; animation-delay: ${i * 0.08}s;`}>
+          <div
+            class:list={[
+              'relative rounded-xl p-5 md:p-6 transition-colors',
+              stage.active
+                ? 'border-2 border-copper-500/60 bg-carbon-800/60 shadow-[0_8px_32px_rgba(200,117,51,0.12)]'
+                : 'border border-cream-100/8 bg-carbon-900/40',
+            ]}
+          >
+            <div class="flex items-start gap-4">
+              <div
+                class:list={[
+                  'shrink-0 w-10 h-10 rounded-lg flex items-center justify-center mt-0.5',
+                  stage.active
+                    ? 'bg-copper-500/20'
+                    : 'bg-carbon-700/60',
+                ]}
+              >
+                <svg
+                  class:list={[
+                    'w-5 h-5',
+                    stage.active ? 'text-copper-400' : 'text-sage-500',
+                  ]}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                >
+                  <path stroke-linecap="round" stroke-linejoin="round" d={stage.icon} />
+                </svg>
+              </div>
+
+              <div class="min-w-0 flex-1">
+                <p
+                  class:list={[
+                    'text-[10.5px] font-mono uppercase tracking-[0.18em] mb-1.5',
+                    stage.active ? 'text-copper-400' : 'text-sage-500',
+                  ]}
+                >
+                  {stage.eyebrow}
+                </p>
+                <h3 class="text-cream-100 font-semibold text-lg leading-tight mb-2" style="font-family: var(--font-heading)">
+                  {stage.title}
+                </h3>
+                <p class="text-muted-500 text-sm leading-relaxed mb-3">
+                  {stage.description}
+                </p>
+                <p class="text-[11px] font-mono text-muted-500">
+                  {stage.tools.join(' · ')}
+                </p>
+              </div>
+            </div>
           </div>
+
           {i < stages.length - 1 && (
-            <div class="hidden xl:block w-6 h-px bg-gradient-to-r from-white/20 to-white/5 mx-1"></div>
+            <div class="flex justify-center my-2 ml-7" aria-hidden="true">
+              <div class="w-px h-6 bg-gradient-to-b from-copper-500/30 to-cream-100/5"></div>
+            </div>
           )}
         </div>
       ))}
     </div>
-    <p class="text-center text-muted-500 text-xs font-mono mt-4 tracking-wider uppercase">
-      Source to Outcome
-    </p>
   </div>
 </section>
