@@ -161,9 +161,10 @@ Split into sub-sessions to keep each one scoped:
 - Testimonials block (gated on outreach)
 - Photo retake (only worth doing if user wants higher-fidelity headshot at 224px)
 
-### Phase 5C: Imagery via Gemini
-- [ ] 1200x630 OG card (replaces current portrait profile photo as og:image default)
-- [ ] Any hero illustration / section accents decided in `UX_AUDIT.md`
+### Phase 5C: Imagery via Gemini (Done 2026-05-16)
+
+- [x] 1200x630 OG card generated via Gemini 2.5 Flash Image with copper/carbon brand prompt; saved to `public/assets/og-card.png` and wired as the default `og:image` / `twitter:image` in `BaseLayout.astro` (replaces the portrait JPEG)
+- [x] Hero illustration / section accents: scoped out in `UX_AUDIT.md` 6.1 (SKIP) since the hero photo stays
 
 ### Phase 5D: Architecture diagrams
 - [ ] Repaint 6 existing SVGs (ad-pipeline, bi-migration, data-model, enigma, jarvis, semantic-layer) into copper/carbon brand palette (carbon-950 bg, copper-500 accents, sage-500 secondary, Space Grotesk + JetBrains Mono per `BRAND_GUIDE.md`)
