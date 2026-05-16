@@ -4,7 +4,7 @@ const stages = [
   { label: 'Ingestion & Storage', color: 'from-rose-400 to-rose-500' },
   { label: 'Data Modeling', color: 'from-purple-400 to-purple-500' },
   { label: 'Semantic Layer', color: 'from-blue-400 to-blue-500' },
-  { label: 'Analytics & BI', color: 'from-teal-400 to-teal-500' },
+  { label: 'Analytics & BI', color: 'from-copper-400 to-copper-500' },
   { label: 'Data Science', color: 'from-emerald-400 to-emerald-500' },
   { label: 'AI & Automation', color: 'from-cyan-400 to-cyan-500' },
 ];
@@ -18,7 +18,7 @@ const stages = [
           class="pipeline-stage flex items-center opacity-0"
           style={`animation: fade-in-up 0.5s ease forwards; animation-delay: ${i * 0.15}s;`}
         >
-          <div class={`bg-gradient-to-r ${stage.color} text-white text-xs font-semibold px-4 py-2 rounded-lg whitespace-nowrap shadow-lg`}>
+          <div class={`bg-gradient-to-r ${stage.color} text-cream-100 text-xs font-semibold px-4 py-2 rounded-lg whitespace-nowrap shadow-lg`}>
             {stage.label}
           </div>
           {i < stages.length - 1 && (
@@ -27,7 +27,7 @@ const stages = [
         </div>
       ))}
     </div>
-    <p class="text-center text-slate-500 text-xs font-mono mt-4 tracking-wider uppercase">
+    <p class="text-center text-muted-500 text-xs font-mono mt-4 tracking-wider uppercase">
       Source to Outcome
     </p>
   </div>

@@ -23,29 +23,29 @@ const projects = (await getCollection('projects'))
       <h2 class="text-2xl md:text-3xl font-bold" style="font-family: var(--font-heading)">
         Featured Work
       </h2>
-      <a href="/projects/" class="text-teal-400 hover:text-teal-300 text-sm font-medium transition-colors">
+      <a href="/projects/" class="text-copper-400 hover:text-copper-300 text-sm font-medium transition-colors">
         View all &rarr;
       </a>
     </div>
     <div class="grid md:grid-cols-2 gap-6">
       {projects.map((project) => (
-        <a href={project.href} class="group block p-6 rounded-xl border border-white/5 bg-navy-800/40 card-hover">
+        <a href={project.href} class="group block p-6 rounded-xl border border-cream-100/5 bg-carbon-800/40 card-hover">
           {project.metric && (
             <div class="flex items-center gap-2 mb-3">
-              <span class="text-xs font-mono text-teal-400 bg-teal-500/10 px-2 py-0.5 rounded">
+              <span class="text-xs font-mono text-copper-400 bg-copper-500/10 px-2 py-0.5 rounded">
                 {project.metric}
               </span>
             </div>
           )}
-          <h3 class="text-white font-semibold text-lg mb-2 group-hover:text-teal-400 transition-colors" style="font-family: var(--font-heading)">
+          <h3 class="text-cream-100 font-semibold text-lg mb-2 group-hover:text-copper-400 transition-colors" style="font-family: var(--font-heading)">
             {project.title}
           </h3>
-          <p class="text-slate-400 text-sm leading-relaxed mb-4">
+          <p class="text-muted-500 text-sm leading-relaxed mb-4">
             {project.description}
           </p>
           <div class="flex flex-wrap gap-2">
             {project.tags.map((tag) => (
-              <span class="text-xs text-slate-500 border border-white/5 px-2 py-0.5 rounded">
+              <span class="text-xs text-muted-500 border border-cream-100/5 px-2 py-0.5 rounded">
                 {tag}
               </span>
             ))}

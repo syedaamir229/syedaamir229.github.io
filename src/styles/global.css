@@ -1,21 +1,32 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&family=JetBrains+Mono:wght@400;500&display=swap');
 @import "tailwindcss";
 
 /* ---- Design Tokens ---- */
 @theme {
-  --color-navy-950: #060b18;
-  --color-navy-900: #0a0e17;
-  --color-navy-800: #111827;
-  --color-navy-700: #1a2234;
-  --color-navy-600: #243049;
-  --color-teal-500: #0f9b8e;
-  --color-teal-400: #16c2b0;
-  --color-teal-300: #5eead4;
-  --color-slate-400: #94a3b8;
-  --color-slate-300: #cbd5e1;
-  --color-slate-200: #e2e8f0;
+  /* Backgrounds */
+  --color-carbon-950: #0F0E0B;
+  --color-carbon-900: #1A1714;
+  --color-carbon-800: #241F1B;
+  --color-carbon-700: #2E2823;
+  --color-carbon-600: #3D3229;
 
-  --font-heading: 'Outfit', system-ui, sans-serif;
+  /* Primary accent */
+  --color-copper-500: #C87533;
+  --color-copper-400: #D98F4E;
+  --color-copper-300: #E8AC72;
+  --color-copper-200: #F2CAAA;
+
+  /* Secondary accent */
+  --color-sage-500: #8FAF8B;
+  --color-sage-400: #A8C4A4;
+
+  /* Text */
+  --color-cream-100: #F0EDE8;
+  --color-cream-200: #D9D4CC;
+  --color-muted-500: #9C9189;
+  --color-muted-600: #6B5F57;
+
+  --font-heading: 'Space Grotesk', system-ui, sans-serif;
   --font-body: 'DM Sans', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 }
@@ -27,15 +38,16 @@ html {
 
 body {
   font-family: var(--font-body);
-  background-color: var(--color-navy-950);
-  color: var(--color-slate-200);
+  background-color: var(--color-carbon-950);
+  color: var(--color-cream-100);
   line-height: 1.7;
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
-  color: #fff;
+  color: var(--color-cream-100);
   line-height: 1.2;
+  letter-spacing: -0.025em;
 }
 
 code, pre {
@@ -43,13 +55,13 @@ code, pre {
 }
 
 a {
-  color: var(--color-teal-400);
+  color: var(--color-copper-400);
   text-decoration: none;
   transition: color 0.2s ease;
 }
 
 a:hover {
-  color: var(--color-teal-300);
+  color: var(--color-copper-300);
 }
 
 /* ---- Grain Overlay ---- */
@@ -59,10 +71,10 @@ body::before {
   inset: 0;
   z-index: 9999;
   pointer-events: none;
-  opacity: 0.03;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  opacity: 0.045;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
   background-repeat: repeat;
-  background-size: 256px 256px;
+  background-size: 200px 200px;
 }
 
 /* ---- Scroll Reveal Animation ---- */
@@ -79,15 +91,15 @@ body::before {
 
 /* ---- Glassmorphism ---- */
 .glass {
-  background: rgba(10, 14, 23, 0.7);
+  background: rgba(26, 23, 20, 0.7);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--color-carbon-700);
 }
 
 /* ---- Gradient Text ---- */
 .gradient-text {
-  background: linear-gradient(135deg, var(--color-teal-400), var(--color-teal-300), #38bdf8);
+  background: linear-gradient(135deg, var(--color-copper-500), var(--color-copper-300));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -100,8 +112,8 @@ body::before {
 
 .card-hover:hover {
   transform: translateY(-4px);
-  box-shadow: 0 8px 32px rgba(15, 155, 142, 0.1);
-  border-color: rgba(22, 194, 176, 0.3);
+  box-shadow: 0 8px 32px rgba(200, 117, 51, 0.12);
+  border-color: rgba(200, 117, 51, 0.3);
 }
 
 /* ---- Prose (blog content) ---- */
@@ -138,20 +150,20 @@ body::before {
 }
 
 .prose strong {
-  color: #fff;
+  color: var(--color-cream-100);
 }
 
 .prose blockquote {
-  border-left: 3px solid var(--color-teal-500);
+  border-left: 3px solid var(--color-copper-500);
   padding-left: 1rem;
   margin: 1.5rem 0;
-  color: var(--color-slate-300);
+  color: var(--color-cream-200);
   font-style: italic;
 }
 
 .prose pre {
-  background: var(--color-navy-800);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: var(--color-carbon-800);
+  border: 1px solid var(--color-carbon-700);
   border-radius: 0.75rem;
   padding: 1.25rem;
   overflow-x: auto;
@@ -159,16 +171,16 @@ body::before {
 }
 
 .prose code:not(pre code) {
-  background: rgba(22, 194, 176, 0.1);
+  background: rgba(200, 117, 51, 0.1);
   padding: 0.15rem 0.4rem;
   border-radius: 0.25rem;
   font-size: 0.875em;
-  color: var(--color-teal-300);
+  color: var(--color-copper-300);
 }
 
 .prose img {
   border-radius: 0.75rem;
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--color-carbon-700);
   margin: 1.5rem 0;
 }
 
@@ -179,14 +191,14 @@ body::before {
 }
 
 .prose th, .prose td {
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--color-carbon-700);
   padding: 0.75rem 1rem;
   text-align: left;
 }
 
 .prose th {
-  background: var(--color-navy-800);
-  color: #fff;
+  background: var(--color-carbon-800);
+  color: var(--color-cream-100);
   font-weight: 600;
 }
 

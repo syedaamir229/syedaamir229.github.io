@@ -4,9 +4,9 @@ import { NAV_LINKS, SITE } from '../config';
 const currentPath = Astro.url.pathname;
 ---
 
-<nav class="glass fixed top-0 left-0 right-0 z-50 border-b border-white/5">
+<nav class="glass fixed top-0 left-0 right-0 z-50 border-b border-cream-100/5">
   <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-    <a href="/" class="font-heading text-lg font-bold text-white hover:text-teal-400 transition-colors" style="font-family: var(--font-heading)">
+    <a href="/" class="font-heading text-lg font-bold text-cream-100 hover:text-copper-400 transition-colors" style="font-family: var(--font-heading)">
       {SITE.name}
     </a>
 
@@ -18,8 +18,8 @@ const currentPath = Astro.url.pathname;
           class:list={[
             'text-sm font-medium transition-colors',
             currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href))
-              ? 'text-teal-400'
-              : 'text-slate-400 hover:text-white',
+              ? 'text-copper-400'
+              : 'text-muted-500 hover:text-cream-100',
           ]}
         >
           {link.label}
@@ -30,7 +30,7 @@ const currentPath = Astro.url.pathname;
     <!-- Mobile menu button -->
     <button
       id="mobile-menu-btn"
-      class="md:hidden text-slate-400 hover:text-white transition-colors"
+      class="md:hidden text-muted-500 hover:text-cream-100 transition-colors"
       aria-label="Toggle menu"
     >
       <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -40,15 +40,15 @@ const currentPath = Astro.url.pathname;
   </div>
 
   <!-- Mobile menu -->
-  <div id="mobile-menu" class="hidden md:hidden border-t border-white/5 pb-4">
+  <div id="mobile-menu" class="hidden md:hidden border-t border-cream-100/5 pb-4">
     {NAV_LINKS.map((link) => (
       <a
         href={link.href}
         class:list={[
           'block px-6 py-3 text-sm font-medium transition-colors',
           currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href))
-            ? 'text-teal-400'
-            : 'text-slate-400 hover:text-white',
+            ? 'text-copper-400'
+            : 'text-muted-500 hover:text-cream-100',
         ]}
       >
         {link.label}

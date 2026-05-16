@@ -18,17 +18,17 @@ const categories = [...new Set(allProjects.map((p) => p.data.category))].sort();
   <section class="pt-32 pb-16 px-6">
     <div class="max-w-6xl mx-auto">
       <h1 class="text-3xl md:text-4xl font-bold mb-4" style="font-family: var(--font-heading)">Projects</h1>
-      <p class="text-slate-400 mb-12 max-w-2xl">
+      <p class="text-muted-500 mb-12 max-w-2xl">
         Case studies from real work across data architecture, BI modernization, data science, and AI automation.
       </p>
 
       <!-- Category filters -->
       <div class="flex flex-wrap gap-2 mb-10">
-        <button class="proj-cat-btn active text-xs font-mono px-3 py-1.5 rounded border border-teal-500/40 text-teal-400 bg-teal-500/10 transition-colors" data-category="all">
+        <button class="proj-cat-btn active text-xs font-mono px-3 py-1.5 rounded border border-copper-500/40 text-copper-400 bg-copper-500/10 transition-colors" data-category="all">
           All
         </button>
         {categories.map((cat) => (
-          <button class="proj-cat-btn text-xs font-mono px-3 py-1.5 rounded border border-white/10 text-slate-400 hover:border-teal-500/40 hover:text-teal-400 transition-colors" data-category={cat}>
+          <button class="proj-cat-btn text-xs font-mono px-3 py-1.5 rounded border border-cream-100/10 text-muted-500 hover:border-copper-500/40 hover:text-copper-400 transition-colors" data-category={cat}>
             {cat}
           </button>
         ))}
@@ -36,31 +36,31 @@ const categories = [...new Set(allProjects.map((p) => p.data.category))].sort();
 
       <!-- Recent Work -->
       <div class="proj-section" data-section="recent">
-        <h2 class="proj-section-heading text-[11px] font-mono text-teal-400 uppercase tracking-[0.18em] mb-4">
+        <h2 class="proj-section-heading text-[11px] font-mono text-copper-400 uppercase tracking-[0.18em] mb-4">
           Recent Work
         </h2>
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
           {recentProjects.map((project) => (
             <a
               href={`/projects/${project.id}/`}
-              class="proj-card group block p-6 rounded-xl border border-white/5 bg-navy-800/40 card-hover"
+              class="proj-card group block p-6 rounded-xl border border-cream-100/5 bg-carbon-800/40 card-hover"
               data-category={project.data.category}
             >
-              <span class="text-xs font-mono text-teal-400 bg-teal-500/10 px-2 py-0.5 rounded">
+              <span class="text-xs font-mono text-copper-400 bg-copper-500/10 px-2 py-0.5 rounded">
                 {project.data.category}
               </span>
-              <h3 class="text-white font-semibold text-lg mt-3 mb-2 group-hover:text-teal-400 transition-colors" style="font-family: var(--font-heading)">
+              <h3 class="text-cream-100 font-semibold text-lg mt-3 mb-2 group-hover:text-copper-400 transition-colors" style="font-family: var(--font-heading)">
                 {project.data.title}
               </h3>
-              <p class="text-slate-400 text-sm line-clamp-3 mb-4">
+              <p class="text-muted-500 text-sm line-clamp-3 mb-4">
                 {project.data.description}
               </p>
               {project.data.metrics.length > 0 && (
-                <div class="flex flex-wrap gap-4 mt-auto pt-3 border-t border-white/5">
+                <div class="flex flex-wrap gap-4 mt-auto pt-3 border-t border-cream-100/5">
                   {project.data.metrics.slice(0, 2).map((m) => (
                     <div>
-                      <p class="text-sm font-bold text-teal-400">{m.value}</p>
-                      <p class="text-xs text-slate-500">{m.label}</p>
+                      <p class="text-sm font-bold text-copper-400">{m.value}</p>
+                      <p class="text-xs text-muted-500">{m.label}</p>
                     </div>
                   ))}
                 </div>
@@ -68,7 +68,7 @@ const categories = [...new Set(allProjects.map((p) => p.data.category))].sort();
               {project.data.tags.length > 0 && (
                 <div class="flex flex-wrap gap-1.5 mt-3">
                   {project.data.tags.slice(0, 4).map((tag) => (
-                    <span class="text-xs text-slate-500 border border-white/5 px-1.5 py-0.5 rounded">
+                    <span class="text-xs text-muted-500 border border-cream-100/5 px-1.5 py-0.5 rounded">
                       {tag}
                     </span>
                   ))}
@@ -82,26 +82,26 @@ const categories = [...new Set(allProjects.map((p) => p.data.category))].sort();
       <!-- Earlier Consulting -->
       {earlierProjects.length > 0 && (
         <div class="proj-section" data-section="earlier">
-          <h2 class="proj-section-heading text-[11px] font-mono text-slate-500 uppercase tracking-[0.18em] mb-2">
+          <h2 class="proj-section-heading text-[11px] font-mono text-muted-500 uppercase tracking-[0.18em] mb-2">
             Earlier Consulting
           </h2>
-          <p class="text-slate-500 text-sm mb-6 max-w-2xl">
+          <p class="text-muted-500 text-sm mb-6 max-w-2xl">
             Pre-Shahid engagements from 2017 to 2022 across enterprise BI, finance, automotive, and government.
           </p>
           <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mb-16">
             {earlierProjects.map((project) => (
               <a
                 href={`/projects/${project.id}/`}
-                class="proj-card group block p-4 rounded-lg border border-white/5 bg-navy-800/20 card-hover"
+                class="proj-card group block p-4 rounded-lg border border-cream-100/5 bg-carbon-800/20 card-hover"
                 data-category={project.data.category}
               >
-                <span class="text-[10px] font-mono text-slate-500 uppercase tracking-[0.15em]">
+                <span class="text-[10px] font-mono text-muted-500 uppercase tracking-[0.15em]">
                   {project.data.category}
                 </span>
-                <h3 class="text-slate-200 font-semibold text-base mt-2 mb-1.5 group-hover:text-teal-400 transition-colors" style="font-family: var(--font-heading)">
+                <h3 class="text-cream-100 font-semibold text-base mt-2 mb-1.5 group-hover:text-copper-400 transition-colors" style="font-family: var(--font-heading)">
                   {project.data.title}
                 </h3>
-                <p class="text-slate-500 text-xs line-clamp-2">
+                <p class="text-muted-500 text-xs line-clamp-2">
                   {project.data.description}
                 </p>
               </a>
@@ -135,11 +135,11 @@ const categories = [...new Set(allProjects.map((p) => p.data.category))].sort();
   document.querySelectorAll('.proj-cat-btn').forEach((btn) => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('.proj-cat-btn').forEach((b) => {
-        b.classList.remove('active', 'border-teal-500/40', 'text-teal-400', 'bg-teal-500/10');
-        b.classList.add('border-white/10', 'text-slate-400');
+        b.classList.remove('active', 'border-copper-500/40', 'text-copper-400', 'bg-copper-500/10');
+        b.classList.add('border-cream-100/10', 'text-muted-500');
       });
-      btn.classList.add('active', 'border-teal-500/40', 'text-teal-400', 'bg-teal-500/10');
-      btn.classList.remove('border-white/10', 'text-slate-400');
+      btn.classList.add('active', 'border-copper-500/40', 'text-copper-400', 'bg-copper-500/10');
+      btn.classList.remove('border-cream-100/10', 'text-muted-500');
 
       const cat = (btn as HTMLElement).dataset.category ?? 'all';
       applyFilter(cat);

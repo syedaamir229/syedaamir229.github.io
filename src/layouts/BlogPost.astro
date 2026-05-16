@@ -29,7 +29,7 @@ const formattedDate = date.toLocaleDateString('en-US', {
       <header class="mb-12">
         <div class="flex flex-wrap gap-2 mb-4">
           {categories.map((cat) => (
-            <span class="text-xs font-mono text-teal-400 bg-teal-500/10 px-2.5 py-1 rounded">
+            <span class="text-xs font-mono text-copper-400 bg-copper-500/10 px-2.5 py-1 rounded">
               {cat}
             </span>
           ))}
@@ -37,9 +37,9 @@ const formattedDate = date.toLocaleDateString('en-US', {
         <h1 class="text-3xl md:text-4xl font-bold mb-4 leading-tight" style="font-family: var(--font-heading)">
           {title}
         </h1>
-        <div class="flex items-center gap-4 text-sm text-slate-400">
+        <div class="flex items-center gap-4 text-sm text-muted-500">
           <time datetime={date.toISOString()}>{formattedDate}</time>
-          <span class="text-slate-600">&middot;</span>
+          <span class="text-muted-600">&middot;</span>
           <span>Syed Aamir</span>
         </div>
       </header>
@@ -50,8 +50,8 @@ const formattedDate = date.toLocaleDateString('en-US', {
       </div>
 
       <!-- Back link -->
-      <div class="mt-16 pt-8 border-t border-white/5">
-        <a href="/blog/" class="text-teal-400 hover:text-teal-300 text-sm font-medium transition-colors">
+      <div class="mt-16 pt-8 border-t border-cream-100/5">
+        <a href="/blog/" class="text-copper-400 hover:text-copper-300 text-sm font-medium transition-colors">
           &larr; Back to all posts
         </a>
       </div>

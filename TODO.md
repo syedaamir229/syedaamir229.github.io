@@ -124,18 +124,37 @@ All sessions stripped `--` em-dash substitutes and added the author bio + CTA bl
 
 ## Phase 5: Apply Refinements & Implement Audit Punch List
 
-**Status**: Not started
+**Status**: In progress (5A done 2026-05-16)
 **Depends on**: Phase 2A (UX punch list) + Phase 2B (brand tokens)
 **Goal**: Implement the audit decisions and apply brand identity across the portfolio
 
-- [ ] Implement component redesigns from Phase 2A punch list (Pipeline first, then any others)
-- [ ] Update design tokens in global.css based on `BRAND_GUIDE.md`
-- [ ] Update fonts if changed in Phase 2B
-- [ ] Apply imagery: generate assets via Gemini API (key in .env), commit PNGs to `public/assets/`
-  - Proper 1200x630 OG card (replaces current portrait profile photo as og:image default)
-  - Any hero illustration or section accents decided in 2A
-- [ ] Architecture diagrams: repaint 6 existing SVGs (ad-pipeline, bi-migration, data-model, enigma, jarvis, semantic-layer) into copper/carbon brand palette (carbon-950 bg, copper-500 accents, sage-500 secondary, Space Grotesk + JetBrains Mono fonts per `BRAND_GUIDE.md`). Author 4 new SVGs for profile-features, clustering, gender-prediction, enterprise-bi-suite (grep `<!-- DIAGRAM PENDING -->` in `src/content/projects/` for wired image paths and alt text).
-- [ ] Add logo/wordmark to nav if created
+Split into sub-sessions to keep each one scoped:
+
+### Phase 5A: Brand token swap (Done 2026-05-16)
+
+- [x] Replace `@theme` block in `src/styles/global.css` with copper/carbon palette from `BRAND_GUIDE.md`
+- [x] Swap font import from Outfit to Space Grotesk; bump grain opacity 0.03 → 0.045
+- [x] Update base body/heading colours, link colours, glass/gradient-text/card-hover/prose styles to new tokens
+- [x] Mechanical rename across 16 component/page files: navy-* → carbon-*, teal-* → copper-*, slate-{200,300} → cream-{100,200}, slate-{400,500} → muted-500, slate-600 → muted-600
+- [x] Replace `text-white` → `text-cream-100` and `border-white/N` → `border-cream-100/N` per "no white" brand rule
+- [x] Verify production build passes; Playwright responsive check (4 viewports × 7 routes) reports no overflow
+
+**Known follow-ups (out of scope for 5A):** Pipeline chip gradients still use original cyan/violet — handled by 5B redesign. Hero italic accent and gradient-text are global brand changes that look correct.
+
+### Phase 5B: Component redesigns (UX punch list)
+- [ ] Pipeline redesign per `docs/inspiration/pipeline-reference.png` (richer vertical layout)
+- [ ] Any other component briefs from `UX_AUDIT.md` (Hero, MetricsStrip, FeaturedProjects, Timeline)
+
+### Phase 5C: Imagery via Gemini
+- [ ] 1200x630 OG card (replaces current portrait profile photo as og:image default)
+- [ ] Any hero illustration / section accents decided in `UX_AUDIT.md`
+
+### Phase 5D: Architecture diagrams
+- [ ] Repaint 6 existing SVGs (ad-pipeline, bi-migration, data-model, enigma, jarvis, semantic-layer) into copper/carbon brand palette (carbon-950 bg, copper-500 accents, sage-500 secondary, Space Grotesk + JetBrains Mono per `BRAND_GUIDE.md`)
+- [ ] Author 4 new SVGs for profile-features, clustering, gender-prediction, enterprise-bi-suite (grep `<!-- DIAGRAM PENDING -->` in `src/content/projects/` for wired image paths and alt text)
+
+### Phase 5E: Polish & audit
+- [ ] Add logo/wordmark to nav if created (blocked on Phase 2B company name)
 - [ ] Polish animations and hover effects
 - [ ] Bump GitHub Actions versions in `.github/workflows/deploy.yml` to Node 24 compatible
 - [ ] Run Lighthouse audit (target: >90 on all categories)
