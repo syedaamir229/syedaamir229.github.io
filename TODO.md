@@ -124,7 +124,7 @@ All sessions stripped `--` em-dash substitutes and added the author bio + CTA bl
 
 ## Phase 5: Apply Refinements & Implement Audit Punch List
 
-**Status**: In progress (5A done 2026-05-16)
+**Status**: Done 2026-05-16
 **Depends on**: Phase 2A (UX punch list) + Phase 2B (brand tokens)
 **Goal**: Implement the audit decisions and apply brand identity across the portfolio
 
