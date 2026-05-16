@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 440" font-family="Space Grotesk, system-ui, sans-serif">
+  <defs>
+    <marker id="biArr" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#C87533"/>
+    </marker>
+  </defs>
+
+  <rect width="960" height="440" rx="12" fill="#0F0E0B"/>
+  <text x="480" y="35" text-anchor="middle" font-size="16" font-weight="700" fill="#F0EDE8">Enterprise BI Suite</text>
+
+  <!-- Source systems -->
+  <rect x="30" y="80" width="170" height="240" rx="8" fill="#1A1714" stroke="#C87533" stroke-width="1.5"/>
+  <text x="115" y="105" text-anchor="middle" font-size="11" font-weight="600" fill="#C87533">Source Systems</text>
+
+  <rect x="45" y="125" width="140" height="40" rx="6" fill="#241F1B" stroke="#C87533" stroke-width="1"/>
+  <text x="115" y="142" text-anchor="middle" font-size="10" fill="#F0EDE8">HR &amp; Payroll</text>
+  <text x="115" y="156" text-anchor="middle" font-size="8" fill="#9C9189">SuccessFactors, Oracle HCM</text>
+
+  <rect x="45" y="170" width="140" height="40" rx="6" fill="#241F1B" stroke="#C87533" stroke-width="1"/>
+  <text x="115" y="187" text-anchor="middle" font-size="10" fill="#F0EDE8">Finance</text>
+  <text x="115" y="201" text-anchor="middle" font-size="8" fill="#9C9189">SAP GL, AP/AR</text>
+
+  <rect x="45" y="215" width="140" height="40" rx="6" fill="#241F1B" stroke="#C87533" stroke-width="1"/>
+  <text x="115" y="232" text-anchor="middle" font-size="10" fill="#F0EDE8">Supply Chain</text>
+  <text x="115" y="246" text-anchor="middle" font-size="8" fill="#9C9189">SAP MM, WMS exports</text>
+
+  <rect x="45" y="260" width="140" height="40" rx="6" fill="#241F1B" stroke="#C87533" stroke-width="1"/>
+  <text x="115" y="277" text-anchor="middle" font-size="10" fill="#F0EDE8">Operational Apps</text>
+  <text x="115" y="291" text-anchor="middle" font-size="8" fill="#9C9189">CRM, helpdesk, ticketing</text>
+
+  <line x1="200" y1="200" x2="240" y2="200" stroke="#C87533" stroke-width="2" marker-end="url(#biArr)"/>
+
+  <!-- SSIS ETL -->
+  <rect x="250" y="140" width="170" height="120" rx="10" fill="#241F1B" stroke="#C87533" stroke-width="2"/>
+  <text x="335" y="168" text-anchor="middle" font-size="13" font-weight="700" fill="#F0EDE8">SSIS ETL</text>
+  <text x="335" y="186" text-anchor="middle" font-size="9" fill="#D98F4E">scheduled packages</text>
+
+  <rect x="265" y="200" width="140" height="22" rx="4" fill="#2E2823" stroke="#C87533" stroke-width="1"/>
+  <text x="335" y="215" text-anchor="middle" font-size="9" fill="#F0EDE8">incremental extracts</text>
+
+  <rect x="265" y="228" width="140" height="22" rx="4" fill="#2E2823" stroke="#C87533" stroke-width="1"/>
+  <text x="335" y="243" text-anchor="middle" font-size="9" fill="#F0EDE8">SCD-2 dimensions</text>
+
+  <line x1="420" y1="200" x2="460" y2="200" stroke="#C87533" stroke-width="2" marker-end="url(#biArr)"/>
+
+  <!-- SQL Server warehouse -->
+  <rect x="470" y="120" width="180" height="160" rx="10" fill="#241F1B" stroke="#C87533" stroke-width="2"/>
+  <text x="560" y="148" text-anchor="middle" font-size="13" font-weight="700" fill="#F0EDE8">SQL Server Warehouse</text>
+  <text x="560" y="166" text-anchor="middle" font-size="9" fill="#D98F4E">conformed dimensional model</text>
+
+  <rect x="488" y="180" width="144" height="22" rx="4" fill="#2E2823" stroke="#C87533" stroke-width="1"/>
+  <text x="560" y="195" text-anchor="middle" font-size="9" fill="#F0EDE8">fact_headcount</text>
+
+  <rect x="488" y="208" width="144" height="22" rx="4" fill="#2E2823" stroke="#C87533" stroke-width="1"/>
+  <text x="560" y="223" text-anchor="middle" font-size="9" fill="#F0EDE8">fact_gl_postings</text>
+
+  <rect x="488" y="236" width="144" height="22" rx="4" fill="#2E2823" stroke="#C87533" stroke-width="1"/>
+  <text x="560" y="251" text-anchor="middle" font-size="9" fill="#F0EDE8">dim_employee, dim_cost_centre</text>
+
+  <!-- Arrows out -->
+  <line x1="650" y1="170" x2="690" y2="135" stroke="#C87533" stroke-width="2" marker-end="url(#biArr)"/>
+  <line x1="650" y1="230" x2="690" y2="265" stroke="#C87533" stroke-width="2" marker-end="url(#biArr)"/>
+
+  <!-- Tableau -->
+  <rect x="700" y="95" width="200" height="80" rx="10" fill="#241F1B" stroke="#C87533" stroke-width="1.5"/>
+  <text x="800" y="120" text-anchor="middle" font-size="12" font-weight="700" fill="#F0EDE8">Tableau</text>
+  <text x="800" y="138" text-anchor="middle" font-size="9" fill="#D98F4E">finance &amp; supply chain</text>
+  <text x="800" y="158" text-anchor="middle" font-size="8" fill="#9C9189">live SQL connection</text>
+
+  <!-- Power BI -->
+  <rect x="700" y="230" width="200" height="80" rx="10" fill="#241F1B" stroke="#C87533" stroke-width="1.5"/>
+  <text x="800" y="255" text-anchor="middle" font-size="12" font-weight="700" fill="#F0EDE8">Power BI</text>
+  <text x="800" y="273" text-anchor="middle" font-size="9" fill="#D98F4E">HR &amp; ops dashboards</text>
+  <text x="800" y="293" text-anchor="middle" font-size="8" fill="#9C9189">import + DAX measures</text>
+
+  <!-- Governance + workshops layer (below) -->
+  <rect x="40" y="345" width="880" height="60" rx="10" fill="#1A1714" stroke="#8FAF8B" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <text x="480" y="370" text-anchor="middle" font-size="11" font-weight="600" fill="#8FAF8B">Cross-Departmental Governance + Self-Service Enablement</text>
+  <text x="480" y="388" text-anchor="middle" font-size="9" fill="#9C9189">Power BI workshops &#183; KPI sign-off &#183; report stewardship &#183; quarterly reviews</text>
+
+  <!-- Footer -->
+  <text x="480" y="425" text-anchor="middle" font-size="10" fill="#9C9189">SSIS + SQL Server + Tableau + Power BI</text>
+</svg>

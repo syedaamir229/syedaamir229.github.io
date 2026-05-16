@@ -43,7 +43,6 @@ Account-level aggregation hid meaningful differences between profiles. Targeting
 
 ## Architecture Overview
 
-<!-- DIAGRAM PENDING: Phase 5 SVG authoring -->
 
 ![Profile-Level Feature Store: viewing event data and account-level signals from the Gold layer feed an incremental feature pipeline that emits 6 categories of profile-level features (identity, content consumption, engagement quality, household dynamics, behavioral patterns, AI predictions), consumed by Jarvis CRM, clustering, attribute inference, and analytics reporting](/assets/diagrams/profile-features.svg)
 

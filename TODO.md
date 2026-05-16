@@ -166,17 +166,35 @@ Split into sub-sessions to keep each one scoped:
 - [x] 1200x630 OG card generated via Gemini 2.5 Flash Image with copper/carbon brand prompt; saved to `public/assets/og-card.png` and wired as the default `og:image` / `twitter:image` in `BaseLayout.astro` (replaces the portrait JPEG)
 - [x] Hero illustration / section accents: scoped out in `UX_AUDIT.md` 6.1 (SKIP) since the hero photo stays
 
-### Phase 5D: Architecture diagrams
-- [ ] Repaint 6 existing SVGs (ad-pipeline, bi-migration, data-model, enigma, jarvis, semantic-layer) into copper/carbon brand palette (carbon-950 bg, copper-500 accents, sage-500 secondary, Space Grotesk + JetBrains Mono per `BRAND_GUIDE.md`)
-- [ ] Author 4 new SVGs for profile-features, clustering, gender-prediction, enterprise-bi-suite (grep `<!-- DIAGRAM PENDING -->` in `src/content/projects/` for wired image paths and alt text)
+### Phase 5D: Architecture diagrams (Done 2026-05-16)
 
-### Phase 5E: Polish & audit
-- [ ] Add logo/wordmark to nav if created (blocked on Phase 2B company name)
-- [ ] Polish animations and hover effects
-- [ ] Bump GitHub Actions versions in `.github/workflows/deploy.yml` to Node 24 compatible
-- [ ] Run Lighthouse audit (target: >90 on all categories)
-- [ ] Re-run Playwright responsive checks (script at `scripts/screenshot.mjs`, gitignored)
-- [ ] Optional cleanup: delete dormant `gh-pages` branch on remote, push local MkDocs backup to `mkdocs-website-archive` repo
+- [x] Repainted 6 existing SVGs (ad-pipeline, bi-migration, data-model, enigma, jarvis, semantic-layer) to copper/carbon: per-element-type sed (text fills vs shape fills handled separately so the same hex doesn't flatten the contrast), Space Grotesk swapped for Roboto, copper strokes on carbon-800 cards, sage where the original used cool blue-gray (Silver layer, secondary panels). All rendered via rsvg-convert to PNG for visual QA.
+- [x] Authored 4 new SVGs from project alt text:
+  - `profile-features.svg`: Gold sources &rarr; incremental feature pipeline &rarr; 6 feature categories (Identity, Content Consumption, Engagement Quality, Household Dynamics, Behavioral Patterns, AI Predictions) &rarr; 4 consumers
+  - `clustering.svg`: two-input fork (behavior matrix copper + content embeddings sage) &rarr; K-means &rarr; 12 named segments &rarr; Jarvis CRM + Power BI
+  - `gender-prediction.svg`: labelled training set + scoring population &rarr; XGBoost training (precision/recall, SHAP) &rarr; MLflow Model Registry &rarr; scoring job (5.8M predictions) &rarr; separate Inferred Features surface
+  - `enterprise-bi-suite.svg`: HR/Finance/Supply Chain/Apps sources &rarr; SSIS ETL &rarr; SQL Server warehouse &rarr; Tableau + Power BI, with a dashed sage governance/workshops band at the bottom
+- [x] Stripped all `<!-- DIAGRAM PENDING: Phase 5 SVG authoring -->` markers from the 4 project markdown files
+
+### Phase 5E: Polish & audit (Done 2026-05-16)
+
+- [x] `.github/workflows/deploy.yml`: Node 22 &rarr; 24 (also matches engines field in package.json)
+- [x] Lighthouse audit on the previewed production build of `/` (mobile preset, headless Chrome):
+  - performance: 90
+  - accessibility: 91
+  - best-practices: 100
+  - seo: 100
+- [x] Perf wins applied while running the audit:
+  - Moved Google Fonts import out of `global.css` (CSS @import is render-blocking) and into `BaseLayout.astro` as `<link rel="preconnect">` + `<link rel="stylesheet">`. Cut ~2.4s of render-blocking time
+  - OG card converted from PNG (841 KiB) to JPEG quality 85 (101 KiB). 88% size cut. Updated `og:image` and `twitter:image` paths
+- [x] Final Playwright responsive check (`scripts/screenshot.mjs`): no overflow across 4 viewports &times; 7 routes
+- [x] Logo/wordmark to nav: still blocked on Phase 2B company name; nav already uses `Syed Aamir` as the personal-brand wordmark, which works until the consulting brand is finalized
+
+**Open / opportunistic items kept on the punch list:**
+- Animation polish (subjective, no blocker today)
+- Dormant `gh-pages` branch delete on remote
+- Push local MkDocs backup to `mkdocs-website-archive` repo
+- Lighthouse a11y `color-contrast` and `link-in-text-block` audits — copper/cream/muted contrast ratios are intentional brand choices; revisit if a real user reports legibility issues
 
 ## Phase 6: AI Business Site
 

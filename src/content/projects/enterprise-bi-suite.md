@@ -47,7 +47,6 @@ The engagement started as a short dashboard assignment and evolved into full BI 
 
 ## Architecture Overview
 
-<!-- DIAGRAM PENDING: Phase 5 SVG authoring -->
 
 ![Enterprise BI Suite: HR, payroll, finance, and supply chain source systems flow through SSIS ETL into a SQL Server warehouse, feeding Tableau and Power BI dashboard suites with cross-departmental governance and self-service enablement workshops](/assets/diagrams/enterprise-bi-suite.svg)
 

@@ -44,7 +44,6 @@ Declared profile attributes were incomplete for a meaningful portion of users. A
 
 ## Architecture Overview
 
-<!-- DIAGRAM PENDING: Phase 5 SVG authoring -->
 
 ![Behavior-Based Attribute Inference: behavioral features (protagonist gender, audience affinity, sub-genre preferences) from the profile feature store feed an XGBoost training and validation loop tracked in MLflow, with the registered model producing 5.8M new predictions written back as controlled features for analytics and targeting](/assets/diagrams/gender-prediction.svg)
 

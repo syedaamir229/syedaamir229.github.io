@@ -41,7 +41,6 @@ Audience segmentation was broad before this work. Teams relied on simple dimensi
 
 ## Architecture Overview
 
-<!-- DIAGRAM PENDING: Phase 5 SVG authoring -->
 
 ![Viewing Behavior Clustering: profile features and content semantic embeddings feed a K-means clustering job that emits 12 audience segments, written back to the Semantic Layer and consumed by Jarvis CRM automation and Power BI content-strategy dashboards](/assets/diagrams/clustering.svg)
 
