@@ -161,7 +161,18 @@ For UI-affecting changes, also run `npm run dev` and check the affected page in 
 - Hover and focus states work.
 - Mobile and desktop viewports both render correctly (use the browser device toolbar).
 
-The system prompt rule applies: type checking and tests verify code correctness, not feature correctness. If you cannot test the UI visually, say so explicitly rather than claiming success.
+Type checks verify code correctness, not feature correctness. If you cannot test the UI visually, say so explicitly rather than claiming success.
+
+### SVG diagrams: extra verification step
+
+After editing or generating any SVG diagram (in `public/assets/projects/` or `public/assets/blog/`):
+
+1. Keep the dev server running across iterations. Killing and restarting between every edit is slow and breaks flow.
+2. Take a **focused screenshot of the SVG region**, not a full-page thumbnail. Full-page screenshots are too compressed to spot label overflow, broken alignment, or wrong palette.
+3. Read the screenshot back and visually confirm: no label overflow, palette matches the brand tokens, every element legible.
+4. Only move on once the focused screenshot looks right.
+
+This step is mandatory because compressed thumbnails have shipped broken diagrams in the past.
 
 ## Memory store
 

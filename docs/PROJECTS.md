@@ -163,6 +163,17 @@ Diagrams live at `public/assets/projects/<slug>.svg`. They are standalone SVG fi
 
 If you change the site palette later, regenerate or hand-edit the SVG files. Colors are baked in, not theme-driven.
 
+### Verify the diagram visually
+
+After saving or modifying any project SVG:
+
+1. Keep `npm run dev` running across iterations.
+2. Take a **focused screenshot of the SVG region**, not a full-page thumbnail. Compressed thumbnails hide label overflow, broken alignment, and palette drift.
+3. Confirm visually: no label overflow, palette matches brand tokens above, every label legible at the rendered size.
+4. Only move on once the focused screenshot looks right.
+
+This step is mandatory because broken diagrams have shipped in the past when only the full-page thumbnail was checked.
+
 ---
 
 ## 6. What the layout renders automatically

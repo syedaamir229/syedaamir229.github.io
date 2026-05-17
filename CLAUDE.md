@@ -44,6 +44,12 @@ Memory store: `~/.claude/projects/-Users-syedaamir-Repositories-Personal-portfol
 - **Per-surface voice specs**: [docs/SITE.md](docs/SITE.md) (landing), [docs/BLOG.md](docs/BLOG.md) (per blog post), [docs/PROJECTS.md](docs/PROJECTS.md) (per project case study).
 - **Blog strategy** (pillars, cadence, distribution): [docs/BLOG_STRATEGY.md](docs/BLOG_STRATEGY.md).
 
+## Working in this repo
+
+- **One phase per session.** [TODO.md](TODO.md) lists work in named phases; the repo grew through 5+ of them. Pick one phase, finish it, commit, push. Scope creep into other phases produces context bloat and incomplete commits. If you discover something out-of-phase that matters, log it as a separate task and stay in the current phase.
+- **Verify visually before declaring UI work done.** Build success is necessary but not sufficient. For any change that affects rendering, run `npm run dev` and confirm the affected page in the browser at desktop and mobile widths. Type checks and tests verify correctness of code, not of features.
+- **CLAUDE.md is split across folders for progressive loading.** If you grow it past one screen, split into a nested CLAUDE.md at the natural folder boundary rather than expanding the root file. The root is for orientation; nested files own the conventions that apply only when working in that area.
+
 ## Deployment
 
 The site deploys to GitHub Pages via GitHub Actions on push to `main`. Workflow at [.github/workflows/deploy.yml](.github/workflows/deploy.yml).
