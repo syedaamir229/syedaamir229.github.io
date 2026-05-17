@@ -1,0 +1,46 @@
+---
+import type { SeriesInfo } from '../../lib/series';
+
+interface Props {
+  seriesInfo: SeriesInfo;
+}
+
+const { seriesInfo } = Astro.props;
+---
+
+{(seriesInfo.prev || seriesInfo.next) && (
+  <nav
+    class="mt-16 pt-8 border-t border-cream-100/5 grid gap-4 md:grid-cols-2"
+    aria-label="Series navigation"
+  >
+    {seriesInfo.prev && (
+      <a
+        href={`/blog/${seriesInfo.prev.slug}/`}
+        class="block p-5 rounded-lg border border-navy-700 hover:border-cyan-500/40 transition-colors group"
+      >
+        <div class="text-xs font-mono text-muted-500 mb-1.5">
+          &larr; Previous &middot; Part {seriesInfo.prev.part}
+        </div>
+        <div class="text-cream-100 text-sm leading-snug group-hover:text-cyan-300 transition-colors">
+          {seriesInfo.prev.title}
+        </div>
+      </a>
+    )}
+    {seriesInfo.next && (
+      <a
+        href={`/blog/${seriesInfo.next.slug}/`}
+        class:list={[
+          'block p-5 rounded-lg border border-navy-700 hover:border-cyan-500/40 transition-colors group md:text-right',
+          !seriesInfo.prev && 'md:col-start-2',
+        ]}
+      >
+        <div class="text-xs font-mono text-muted-500 mb-1.5">
+          Next &middot; Part {seriesInfo.next.part} &rarr;
+        </div>
+        <div class="text-cream-100 text-sm leading-snug group-hover:text-cyan-300 transition-colors">
+          {seriesInfo.next.title}
+        </div>
+      </a>
+    )}
+  </nav>
+)}

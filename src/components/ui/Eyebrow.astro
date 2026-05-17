@@ -1,0 +1,19 @@
+---
+type Size = 'xs' | 'sm';
+
+interface Props {
+  size?: Size;
+  class?: string;
+  tone?: 'accent' | 'muted';
+  as?: 'p' | 'span' | 'h3';
+}
+
+const { size = 'sm', class: className = '', tone = 'accent', as: Tag = 'p' } = Astro.props;
+
+const sizeClass = size === 'xs' ? 'text-xxs' : 'text-tiny';
+const toneClass = tone === 'muted' ? 'text-muted-500' : 'text-cyan-400';
+---
+
+<Tag class:list={['font-mono uppercase tracking-[0.18em]', sizeClass, toneClass, className]}>
+  <slot />
+</Tag>

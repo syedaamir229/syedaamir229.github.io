@@ -1,20 +1,24 @@
 ---
 import '../styles/global.css';
-import Nav from '../components/Nav.astro';
-import Footer from '../components/Footer.astro';
+import Nav from '../components/layout/Nav.astro';
+import Footer from '../components/layout/Footer.astro';
 import { SITE } from '../config';
+import { getPersonSchema } from '../lib/personSchema';
 
 interface Props {
   title?: string;
   description?: string;
-  image?: string;
+  ogImage?: string;
 }
 
-const { title, description, image } = Astro.props;
-const pageTitle = title ? `${title} | ${SITE.name}` : `${SITE.name} - ${SITE.title}`;
+const { title, description, ogImage: ogImageProp } = Astro.props;
+const pageTitle = title
+  ? `${title}${SITE.titleSeparator}${SITE.name}`
+  : `${SITE.name}${SITE.titleSeparator}${SITE.title}`;
 const pageDescription = description || SITE.description;
 const canonicalURL = new URL(Astro.url.pathname, SITE.url);
-const ogImage = new URL(image ?? '/assets/og-card.jpg', SITE.url).toString();
+const ogImage = new URL(ogImageProp ?? SITE.ogImage, SITE.url).toString();
+const personSchema = getPersonSchema();
 ---
 
 <!doctype html>
@@ -26,14 +30,16 @@ const ogImage = new URL(image ?? '/assets/og-card.jpg', SITE.url).toString();
     <title>{pageTitle}</title>
     <meta name="description" content={pageDescription} />
     <link rel="canonical" href={canonicalURL} />
-    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2" />
+    <link rel="icon" type="image/png" href="/favicon.png?v=2" />
+    <link rel="shortcut icon" href="/favicon.ico?v=2" sizes="any" />
 
     <!-- Fonts: preconnect + non-blocking load -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&family=JetBrains+Mono:wght@400;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=JetBrains+Mono:wght@400;500&display=swap"
     />
 
     <!-- Open Graph -->
@@ -52,27 +58,7 @@ const ogImage = new URL(image ?? '/assets/og-card.jpg', SITE.url).toString();
     <meta name="twitter:image" content={ogImage} />
 
     <!-- Schema.org -->
-    <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": SITE.name,
-      "url": SITE.url,
-      "sameAs": [
-        "https://www.linkedin.com/in/syedaamiruddin/",
-        "https://public.tableau.com/app/profile/syed.aamir/vizzes"
-      ],
-      "jobTitle": SITE.title,
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Dubai",
-        "addressCountry": "UAE"
-      },
-      "alumniOf": {
-        "@type": "CollegeOrUniversity",
-        "name": "BITS Pilani Dubai Campus"
-      },
-      "knowsAbout": ["Data Engineering", "Business Intelligence", "Machine Learning", "Artificial Intelligence", "Databricks", "Power BI", "Python", "GenAI"]
-    })} />
+    <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
   </head>
   <body class="min-h-screen flex flex-col">
     <Nav />
@@ -82,18 +68,7 @@ const ogImage = new URL(image ?? '/assets/og-card.jpg', SITE.url).toString();
     <Footer />
 
     <script>
-      // Scroll reveal
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add('visible');
-            }
-          });
-        },
-        { threshold: 0.1 }
-      );
-      document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+      import '../scripts/scrollReveal';
     </script>
   </body>
 </html>

@@ -1,5 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Eyebrow from '../components/ui/Eyebrow.astro';
+import Button from '../components/ui/Button.astro';
 ---
 
 <BaseLayout
@@ -8,13 +10,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 >
   <section class="min-h-[70vh] flex items-center justify-center px-6 pt-24 pb-16">
     <div class="max-w-2xl text-center">
-      <p class="font-mono text-sm tracking-widest text-copper-400 uppercase mb-4">
-        Error 404
-      </p>
-      <h1
-        class="font-heading text-5xl md:text-6xl font-bold text-cream-100 mb-6"
-        style="font-family: var(--font-heading)"
-      >
+      <Eyebrow class="mb-4">Error 404</Eyebrow>
+      <h1 class="text-5xl md:text-6xl font-bold text-cream-100 mb-6">
         This page doesn't exist
       </h1>
       <p class="text-lg text-muted-500 mb-10 leading-relaxed">
@@ -23,24 +20,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         looking for.
       </p>
       <div class="flex flex-wrap gap-4 justify-center">
-        <a
-          href="/"
-          class="px-6 py-3 rounded-lg bg-copper-500 hover:bg-copper-400 text-carbon-950 font-semibold transition-colors"
-        >
-          Back to home
-        </a>
-        <a
-          href="/projects/"
-          class="px-6 py-3 rounded-lg border border-cream-100/10 hover:border-copper-400 text-cream-100 hover:text-copper-400 font-semibold transition-colors"
-        >
-          Browse projects
-        </a>
-        <a
-          href="/blog/"
-          class="px-6 py-3 rounded-lg border border-cream-100/10 hover:border-copper-400 text-cream-100 hover:text-copper-400 font-semibold transition-colors"
-        >
-          Read the blog
-        </a>
+        <Button variant="primary" href="/">Back to home</Button>
+        <Button variant="outline" href="/projects/">Browse projects</Button>
+        <Button variant="outline" href="/blog/">Read the blog</Button>
       </div>
     </div>
   </section>

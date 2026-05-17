@@ -1,12 +1,15 @@
 ---
-import { NAV_LINKS, SITE } from '../config';
+import { NAV_LINKS, SITE } from '../../config';
+import Icon from '../ui/Icon.astro';
 
 const currentPath = Astro.url.pathname;
+const isActive = (href: string) =>
+  currentPath === href || (href !== '/' && currentPath.startsWith(href));
 ---
 
 <nav class="glass fixed top-0 left-0 right-0 z-50 border-b border-cream-100/5">
   <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-    <a href="/" class="font-heading text-lg font-bold text-cream-100 hover:text-copper-400 transition-colors" style="font-family: var(--font-heading)">
+    <a href="/" class="font-heading text-lg font-bold text-cream-100 hover:text-cyan-400 transition-colors">
       {SITE.name}
     </a>
 
@@ -17,9 +20,7 @@ const currentPath = Astro.url.pathname;
           href={link.href}
           class:list={[
             'text-sm font-medium transition-colors',
-            currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href))
-              ? 'text-copper-400'
-              : 'text-muted-500 hover:text-cream-100',
+            isActive(link.href) ? 'text-cyan-400' : 'text-muted-500 hover:text-cream-100',
           ]}
         >
           {link.label}
@@ -46,9 +47,7 @@ const currentPath = Astro.url.pathname;
         href={link.href}
         class:list={[
           'block px-6 py-3 text-sm font-medium transition-colors',
-          currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href))
-            ? 'text-copper-400'
-            : 'text-muted-500 hover:text-cream-100',
+          isActive(link.href) ? 'text-cyan-400' : 'text-muted-500 hover:text-cream-100',
         ]}
       >
         {link.label}
@@ -58,16 +57,5 @@ const currentPath = Astro.url.pathname;
 </nav>
 
 <script>
-  const btn = document.getElementById('mobile-menu-btn');
-  const menu = document.getElementById('mobile-menu');
-  const icon = document.getElementById('menu-icon');
-  btn?.addEventListener('click', () => {
-    const open = menu?.classList.toggle('hidden') === false;
-    if (icon) {
-      icon.setAttribute('d', open
-        ? 'M6 18L18 6M6 6l12 12'
-        : 'M4 6h16M4 12h16M4 18h16'
-      );
-    }
-  });
+  import '../../scripts/mobileMenu';
 </script>

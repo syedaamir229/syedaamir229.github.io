@@ -1,0 +1,43 @@
+---
+import Eyebrow from './Eyebrow.astro';
+
+interface Props {
+  eyebrow: string;
+  title: string;
+  description?: string;
+  align?: 'left' | 'center';
+  maxWidth?: 'narrow' | 'wide';
+}
+
+const {
+  eyebrow,
+  title,
+  description,
+  align = 'left',
+  maxWidth = 'wide',
+} = Astro.props;
+
+const containerClass = maxWidth === 'narrow' ? 'max-w-2xl' : 'max-w-6xl';
+const alignClass = align === 'center' ? 'text-center mx-auto' : '';
+---
+
+<section class="pt-32 pb-12 px-6">
+  <div class:list={[containerClass, 'mx-auto', alignClass]}>
+    <Eyebrow class="mb-3">{eyebrow}</Eyebrow>
+    <h1 class:list={[
+      'text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-4',
+      align === 'center' && 'max-w-3xl mx-auto',
+    ]}>
+      {title}
+    </h1>
+    {description && (
+      <p class:list={[
+        'text-muted-500 text-base leading-relaxed max-w-2xl',
+        align === 'center' && 'mx-auto',
+      ]}>
+        {description}
+      </p>
+    )}
+    <slot />
+  </div>
+</section>

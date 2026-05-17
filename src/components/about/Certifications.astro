@@ -1,0 +1,55 @@
+---
+import { ACTIVE_CERTS, PAST_CERTS } from '../../data/certifications';
+import SectionHeader from '../ui/SectionHeader.astro';
+import Eyebrow from '../ui/Eyebrow.astro';
+---
+
+<section id="certifications" class="py-16 px-6 reveal">
+  <div class="max-w-5xl mx-auto">
+    <SectionHeader
+      eyebrow="Credentials"
+      title="Certifications"
+      description="Active credentials and earlier ones kept for context."
+    />
+
+    <Eyebrow tone="muted" class="mb-5 block">Active</Eyebrow>
+    <div class="grid md:grid-cols-2 gap-4 mb-14">
+      {ACTIVE_CERTS.map((cert) => (
+        <a
+          href={cert.url}
+          target="_blank"
+          rel="noopener"
+          class="group flex items-start gap-4 p-5 rounded-xl border border-cream-100/5 bg-navy-800/40 hover:border-cyan-500/30 transition-colors"
+        >
+          <img
+            src={cert.badge}
+            alt={cert.name}
+            width="80"
+            height="80"
+            class="shrink-0 w-20 h-20 rounded-lg opacity-90 group-hover:opacity-100 transition-opacity"
+            loading="lazy"
+          />
+          <div class="min-w-0 flex-1">
+            <Eyebrow size="xs" class="mb-1.5">{cert.issuer}</Eyebrow>
+            <h4 class="text-cream-100 font-semibold text-sm leading-snug mb-3">
+              {cert.name}
+            </h4>
+            <span class="text-xs text-cyan-400 inline-flex items-center gap-1 group-hover:text-cyan-300 transition-colors">
+              Verify
+              <span class="transition-transform group-hover:translate-x-0.5">&rarr;</span>
+            </span>
+          </div>
+        </a>
+      ))}
+    </div>
+
+    <Eyebrow tone="muted" class="mb-5 block">Earlier</Eyebrow>
+    <div class="flex flex-wrap gap-2">
+      {PAST_CERTS.map((cert) => (
+        <span class="text-xs px-2.5 py-1 rounded-md bg-navy-800/60 text-muted-500 border border-cream-100/5">
+          {cert}
+        </span>
+      ))}
+    </div>
+  </div>
+</section>

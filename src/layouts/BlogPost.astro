@@ -1,58 +1,36 @@
 ---
+import type { CollectionEntry } from 'astro:content';
 import BaseLayout from './BaseLayout.astro';
+import PostHeader from '../components/blog/PostHeader.astro';
+import SeriesNav from '../components/blog/SeriesNav.astro';
+import type { SeriesInfo } from '../lib/series';
 
 interface Props {
-  title: string;
-  date: Date;
-  description: string;
-  categories?: string[];
+  post: CollectionEntry<'blog'>;
+  readingTime: number;
+  seriesInfo: SeriesInfo | null;
 }
 
-const { title, date, description, categories = [] } = Astro.props;
-
-function readingTime(content: string) {
-  const words = content.split(/\s+/).length;
-  return Math.max(1, Math.ceil(words / 200));
-}
-
-const formattedDate = date.toLocaleDateString('en-US', {
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric',
-});
+const { post, readingTime, seriesInfo } = Astro.props;
 ---
 
-<BaseLayout title={title} description={description}>
+<BaseLayout title={post.data.title} description={post.data.description}>
   <article class="pt-32 pb-16 px-6">
     <div class="max-w-3xl mx-auto">
-      <!-- Header -->
-      <header class="mb-12">
-        <div class="flex flex-wrap gap-2 mb-4">
-          {categories.map((cat) => (
-            <span class="text-xs font-mono text-copper-400 bg-copper-500/10 px-2.5 py-1 rounded">
-              {cat}
-            </span>
-          ))}
-        </div>
-        <h1 class="text-3xl md:text-4xl font-bold mb-4 leading-tight" style="font-family: var(--font-heading)">
-          {title}
-        </h1>
-        <div class="flex items-center gap-4 text-sm text-muted-500">
-          <time datetime={date.toISOString()}>{formattedDate}</time>
-          <span class="text-muted-600">&middot;</span>
-          <span>Syed Aamir</span>
-        </div>
-      </header>
+      <PostHeader post={post} readingTime={readingTime} seriesInfo={seriesInfo} />
 
-      <!-- Content -->
       <div class="prose">
         <slot />
       </div>
 
-      <!-- Back link -->
+      {seriesInfo && <SeriesNav seriesInfo={seriesInfo} />}
+
       <div class="mt-16 pt-8 border-t border-cream-100/5">
-        <a href="/blog/" class="text-copper-400 hover:text-copper-300 text-sm font-medium transition-colors">
-          &larr; Back to all posts
+        <a
+          href="/blog/"
+          class="text-cyan-400 hover:text-cyan-300 text-sm font-medium transition-colors"
+        >
+          &larr; All posts
         </a>
       </div>
     </div>

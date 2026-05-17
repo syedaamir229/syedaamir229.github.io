@@ -1,38 +1,58 @@
 ---
-import { CAPABILITIES } from '../config';
+import type { Capability } from '../../data/capabilities';
+import Eyebrow from '../ui/Eyebrow.astro';
+import Icon from '../ui/Icon.astro';
 
-const icons: Record<string, string> = {
-  database: 'M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4',
-  chart: 'M3 3v18h18M9 17V9m4 8v-5m4 5V6',
-  brain: 'M12 2a7 7 0 017 7c0 2.38-1.19 4.47-3 5.74V17a2 2 0 01-2 2h-4a2 2 0 01-2-2v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 017-7zm-1 18h2m-3 2h4',
-  robot: 'M12 2a2 2 0 012 2v1h3a2 2 0 012 2v10a2 2 0 01-2 2H7a2 2 0 01-2-2V7a2 2 0 012-2h3V4a2 2 0 012-2zM9 12h.01M15 12h.01M10 16h4',
-};
+interface Props {
+  capability: Capability;
+}
+
+const { capability: cap } = Astro.props;
 ---
 
-<section class="py-16 px-6 reveal">
-  <div class="max-w-6xl mx-auto">
-    <h2 class="text-2xl md:text-3xl font-bold text-center mb-12" style="font-family: var(--font-heading)">
-      Where I Work
-    </h2>
-    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-      {CAPABILITIES.map((cap) => (
-        <a
-          href={cap.link}
-          class="group block p-6 rounded-xl border border-cream-100/5 bg-carbon-800/40 card-hover"
-        >
-          <div class="w-10 h-10 rounded-lg bg-copper-500/10 flex items-center justify-center mb-4 group-hover:bg-copper-500/20 transition-colors">
-            <svg class="w-5 h-5 text-copper-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
-              <path stroke-linecap="round" stroke-linejoin="round" d={icons[cap.icon]} />
-            </svg>
-          </div>
-          <h3 class="text-cream-100 font-semibold mb-2 text-sm" style="font-family: var(--font-heading)">
-            {cap.title}
-          </h3>
-          <p class="text-muted-500 text-sm leading-relaxed">
-            {cap.description}
-          </p>
-        </a>
-      ))}
+<div class="flex flex-col p-6 md:p-7 rounded-xl border border-cream-100/5 bg-navy-800/40 transition-colors hover:border-cyan-500/30">
+  <div class="flex items-start gap-4 mb-5">
+    <div class="shrink-0 w-10 h-10 rounded-lg bg-cyan-500/10 flex items-center justify-center">
+      <Icon name={cap.icon} class="w-5 h-5 text-cyan-400" />
+    </div>
+    <div class="min-w-0 flex-1">
+      <Eyebrow size="xs" class="mb-1.5">{cap.title}</Eyebrow>
+      <h3 class="text-cream-100 font-semibold text-lg leading-snug">
+        {cap.headline}
+      </h3>
     </div>
   </div>
-</section>
+
+  <ul class="space-y-3 mb-6 flex-1">
+    {cap.deliverables.map((item) => (
+      <li class="flex items-start gap-2.5 text-sm leading-relaxed">
+        <svg class="shrink-0 w-3.5 h-3.5 text-cyan-400/70 mt-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+        </svg>
+        <span>
+          <span class="text-cream-100 font-semibold">{item.label}.</span>
+          <span class="text-muted-500"> {item.text}</span>
+        </span>
+      </li>
+    ))}
+  </ul>
+
+  <div class="pt-4 border-t border-cream-100/5 space-y-2">
+    <a
+      href={cap.heroLink}
+      class="group/link inline-flex items-baseline gap-1.5 text-sm text-cyan-400 hover:text-cyan-300 transition-colors"
+    >
+      <span class="text-muted-500 font-mono text-xxs uppercase tracking-[0.16em] mr-1">Recent proof</span>
+      <span class="font-medium">{cap.heroTitle}</span>
+      <span class="transition-transform group-hover/link:translate-x-0.5">&rarr;</span>
+    </a>
+    {cap.allWorkLink && (
+      <a
+        href={cap.allWorkLink}
+        class="group/link2 block text-xs text-muted-500 hover:text-cyan-400 transition-colors"
+      >
+        {cap.allWorkLabel} <span class="transition-transform inline-block group-hover/link2:translate-x-0.5">&rarr;</span>
+      </a>
+    )}
+  </div>
+</div>

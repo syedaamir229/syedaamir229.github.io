@@ -1,0 +1,27 @@
+---
+import FilterChip from './FilterChip.astro';
+
+interface Props {
+  categories: readonly string[] | string[];
+  defaultCategory?: string;
+  filterScope?: string;
+}
+
+const {
+  categories,
+  defaultCategory = 'all',
+} = Astro.props;
+---
+
+<div class="mb-10">
+  <div class="flex flex-wrap gap-2">
+    <FilterChip category="all" active={defaultCategory === 'all'}>All</FilterChip>
+    {categories.map((cat) => (
+      <FilterChip category={cat} active={cat === defaultCategory}>{cat}</FilterChip>
+    ))}
+  </div>
+</div>
+
+<script>
+  import '../../scripts/categoryFilter';
+</script>

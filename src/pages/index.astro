@@ -1,20 +1,14 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Hero from '../components/Hero.astro';
-import Pipeline from '../components/Pipeline.astro';
-import CapabilityCard from '../components/CapabilityCard.astro';
-import FeaturedProjects from '../components/FeaturedProjects.astro';
-import Timeline from '../components/Timeline.astro';
-import Certifications from '../components/Certifications.astro';
-import CTA from '../components/CTA.astro';
+import Hero from '../components/home/Hero.astro';
+import Pipeline from '../components/home/Pipeline.astro';
+import Capabilities from '../components/home/Capabilities.astro';
+import FeaturedProjects from '../components/home/FeaturedProjects.astro';
 ---
 
 <BaseLayout>
   <Hero />
   <Pipeline />
-  <CapabilityCard />
+  <Capabilities />
   <FeaturedProjects />
-  <Timeline />
-  <Certifications />
-  <CTA />
 </BaseLayout>

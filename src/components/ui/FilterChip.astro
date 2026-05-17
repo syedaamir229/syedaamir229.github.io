@@ -1,0 +1,18 @@
+---
+interface Props {
+  category: string;
+  active?: boolean;
+}
+
+const { category, active = false } = Astro.props;
+
+const baseClass =
+  'category-filter-btn shrink-0 text-xs font-mono px-3 py-1.5 rounded transition-colors';
+const stateClass = active
+  ? 'active border border-cyan-500/40 text-cyan-400 bg-cyan-500/10'
+  : 'border border-cream-100/10 text-muted-500 hover:border-cyan-500/40 hover:text-cyan-400';
+---
+
+<button class:list={[baseClass, stateClass]} data-category={category}>
+  <slot />
+</button>

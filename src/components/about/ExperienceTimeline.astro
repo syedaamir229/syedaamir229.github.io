@@ -1,0 +1,60 @@
+---
+import { EXPERIENCE } from '../../data/experience';
+import SectionHeader from '../ui/SectionHeader.astro';
+---
+
+<section class="py-16 px-6 reveal">
+  <div class="max-w-5xl mx-auto">
+    <SectionHeader
+      eyebrow="Track Record"
+      title="Professional experience"
+      description="Companies, roles, and the work I owned in each."
+    />
+
+    <div class="relative">
+      <div class="absolute left-4 top-0 bottom-0 w-px bg-gradient-to-b from-cyan-500/60 via-cyan-500/20 to-transparent"></div>
+
+      <div class="space-y-12">
+        {EXPERIENCE.map((company) => (
+          <div class="relative pl-12">
+            <div class:list={[
+              'absolute left-2.5 top-1.5 w-3 h-3 rounded-full border-2',
+              company.current ? 'border-cyan-400 bg-cyan-400/20' : 'border-muted-600 bg-navy-900',
+            ]} />
+
+            <div class="mb-2">
+              <h3 class="text-cream-100 font-bold text-lg">{company.company}</h3>
+              <p class="text-xs text-muted-500">{company.tenure} &middot; {company.location}</p>
+            </div>
+
+            <div class="space-y-6">
+              {company.roles.map((role) => (
+                <div class="p-4 rounded-lg border border-cream-100/5 bg-navy-800/30">
+                  <h4 class="text-cream-100 font-semibold text-sm">{role.title}</h4>
+                  <p class="text-xs text-muted-500 mb-3">{role.period}</p>
+                  <ul class="space-y-1.5">
+                    {role.bullets.map((b) => (
+                      <li class="text-sm text-muted-500 flex items-start gap-2">
+                        <span class="text-cyan-500 mt-1 shrink-0 text-xs">&bull;</span>
+                        <span>{b}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  {role.projects.length > 0 && (
+                    <div class="flex flex-wrap gap-2 mt-3 pt-3 border-t border-cream-100/5">
+                      {role.projects.map((p) => (
+                        <a href={p.href} class="text-xs text-cyan-400 hover:text-cyan-300 transition-colors">
+                          {p.name}
+                        </a>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

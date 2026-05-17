@@ -1,66 +1,75 @@
 @import "tailwindcss";
 
 /* ---- Design Tokens ---- */
+/* Palette: Ocean cyan (deep sea cyan-teal, welcoming-but-technical).
+   Typography: Inter (Stripe/Vercel-tier neutral competence) + JetBrains Mono.
+   The legacy token names (copper, carbon) describe role, not hue. */
 @theme {
   /* Backgrounds */
-  --color-carbon-950: #0F0E0B;
-  --color-carbon-900: #1A1714;
-  --color-carbon-800: #241F1B;
-  --color-carbon-700: #2E2823;
-  --color-carbon-600: #3D3229;
+  --color-navy-950: #050B14;
+  --color-navy-900: #0A1220;
+  --color-navy-800: #122033;
+  --color-navy-700: #1E3148;
+  --color-navy-600: #2A4561;
 
   /* Primary accent */
-  --color-copper-500: #C87533;
-  --color-copper-400: #D98F4E;
-  --color-copper-300: #E8AC72;
-  --color-copper-200: #F2CAAA;
-
-  /* Secondary accent */
-  --color-sage-500: #8FAF8B;
-  --color-sage-400: #A8C4A4;
+  --color-cyan-500: #06B6D4;
+  --color-cyan-400: #22D3EE;
+  --color-cyan-300: #67E8F9;
+  --color-cyan-200: #A5F3FC;
 
   /* Text */
-  --color-cream-100: #F0EDE8;
-  --color-cream-200: #D9D4CC;
-  --color-muted-500: #9C9189;
-  --color-muted-600: #6B5F57;
+  --color-cream-100: #E2E8F0;
+  --color-cream-200: #CBD5E1;
+  --color-muted-500: #94A3B8;
+  --color-muted-600: #64748B;
 
-  --font-heading: 'Space Grotesk', system-ui, sans-serif;
-  --font-body: 'DM Sans', system-ui, sans-serif;
+  --font-heading: 'Inter', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
+
+  /* Tight type scale for eyebrows and overlines */
+  --text-xxs: 0.625rem;   /* 10px */
+  --text-tiny: 0.6875rem; /* 11px */
 }
 
 /* ---- Base Styles ---- */
-html {
-  scroll-behavior: smooth;
-}
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
 
-body {
-  font-family: var(--font-body);
-  background-color: var(--color-carbon-950);
-  color: var(--color-cream-100);
-  line-height: 1.7;
-}
+  body {
+    font-family: var(--font-body);
+    background-color: var(--color-navy-950);
+    color: var(--color-cream-100);
+    line-height: 1.7;
+  }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-heading);
-  color: var(--color-cream-100);
-  line-height: 1.2;
-  letter-spacing: -0.025em;
-}
+  /* Hairline rule between consecutive top-level sections. */
+  main > section + section {
+    border-top: 1px solid color-mix(in srgb, var(--color-cream-100) 5%, transparent);
+  }
 
-code, pre {
-  font-family: var(--font-mono);
-}
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    color: var(--color-cream-100);
+    line-height: 1.2;
+    letter-spacing: -0.025em;
+  }
 
-a {
-  color: var(--color-copper-400);
-  text-decoration: none;
-  transition: color 0.2s ease;
-}
+  code, pre {
+    font-family: var(--font-mono);
+  }
 
-a:hover {
-  color: var(--color-copper-300);
+  a {
+    color: var(--color-cyan-400);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  a:hover {
+    color: var(--color-cyan-300);
+  }
 }
 
 /* ---- Grain Overlay ---- */
@@ -90,15 +99,15 @@ body::before {
 
 /* ---- Glassmorphism ---- */
 .glass {
-  background: rgba(26, 23, 20, 0.7);
+  background: color-mix(in srgb, var(--color-navy-950) 70%, transparent);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--color-carbon-700);
+  border: 1px solid var(--color-navy-700);
 }
 
 /* ---- Gradient Text ---- */
 .gradient-text {
-  background: linear-gradient(135deg, var(--color-copper-500), var(--color-copper-300));
+  background: linear-gradient(135deg, var(--color-cyan-500), var(--color-cyan-300));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -111,28 +120,41 @@ body::before {
 
 .card-hover:hover {
   transform: translateY(-4px);
-  box-shadow: 0 8px 32px rgba(200, 117, 51, 0.12);
-  border-color: rgba(200, 117, 51, 0.3);
+  box-shadow: 0 8px 32px color-mix(in srgb, var(--color-cyan-500) 12%, transparent);
+  border-color: color-mix(in srgb, var(--color-cyan-500) 30%, transparent);
 }
 
 /* ---- Prose (blog content) ---- */
 .prose {
   max-width: 72ch;
-  line-height: 1.8;
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  color: var(--color-cream-200);
 }
 
 .prose h2 {
-  margin-top: 2.5rem;
-  margin-bottom: 1rem;
+  margin-top: 3rem;
+  margin-bottom: 1.25rem;
+  padding-top: 1.75rem;
+  border-top: 1px solid color-mix(in srgb, var(--color-cream-100) 6%, transparent);
   font-size: 1.5rem;
   font-weight: 700;
+  color: var(--color-cream-100);
+}
+
+.prose > h2:first-child,
+.prose > :first-child + h2 {
+  margin-top: 2.25rem;
+  padding-top: 0;
+  border-top: 0;
 }
 
 .prose h3 {
   margin-top: 2rem;
   margin-bottom: 0.75rem;
-  font-size: 1.25rem;
+  font-size: 1.2rem;
   font-weight: 600;
+  color: var(--color-cream-100);
 }
 
 .prose p {
@@ -144,25 +166,55 @@ body::before {
   padding-left: 1.5rem;
 }
 
+.prose ul { list-style: disc outside; }
+.prose ol { list-style: decimal outside; }
+.prose ul ul { list-style: circle outside; }
+
 .prose li {
   margin-bottom: 0.5rem;
+  padding-left: 0.25rem;
+}
+
+.prose li::marker {
+  color: var(--color-cyan-400);
 }
 
 .prose strong {
   color: var(--color-cream-100);
+  font-weight: 600;
 }
 
 .prose blockquote {
-  border-left: 3px solid var(--color-copper-500);
-  padding-left: 1rem;
+  border-left: 3px solid var(--color-cyan-500);
+  padding: 0.85rem 1.25rem;
   margin: 1.5rem 0;
   color: var(--color-cream-200);
-  font-style: italic;
+  background: color-mix(in srgb, var(--color-cyan-500) 4%, transparent);
+  border-radius: 0 0.25rem 0.25rem 0;
+  font-size: 0.97em;
+}
+
+.prose blockquote > * {
+  margin-bottom: 0.4rem;
+}
+
+.prose blockquote > *:last-child {
+  margin-bottom: 0;
+}
+
+.prose blockquote ul {
+  margin-top: 0.15rem;
+  padding-left: 1.25rem;
+}
+
+.prose blockquote li {
+  margin-bottom: 0.15rem;
+  line-height: 1.55;
 }
 
 .prose pre {
-  background: var(--color-carbon-800);
-  border: 1px solid var(--color-carbon-700);
+  background: var(--color-navy-800);
+  border: 1px solid var(--color-navy-700);
   border-radius: 0.75rem;
   padding: 1.25rem;
   overflow-x: auto;
@@ -170,16 +222,16 @@ body::before {
 }
 
 .prose code:not(pre code) {
-  background: rgba(200, 117, 51, 0.1);
+  background: color-mix(in srgb, var(--color-cyan-500) 10%, transparent);
   padding: 0.15rem 0.4rem;
   border-radius: 0.25rem;
   font-size: 0.875em;
-  color: var(--color-copper-300);
+  color: var(--color-cyan-300);
 }
 
 .prose img {
   border-radius: 0.75rem;
-  border: 1px solid var(--color-carbon-700);
+  border: 1px solid var(--color-navy-700);
   margin: 1.5rem 0;
 }
 
@@ -190,15 +242,90 @@ body::before {
 }
 
 .prose th, .prose td {
-  border: 1px solid var(--color-carbon-700);
+  border: 1px solid var(--color-navy-700);
   padding: 0.75rem 1rem;
   text-align: left;
 }
 
 .prose th {
-  background: var(--color-carbon-800);
+  background: var(--color-navy-800);
   color: var(--color-cream-100);
   font-weight: 600;
+}
+
+/* ---- Prose Project Variant ----
+   Layered on top of .prose for project case-study pages.
+   Tighter rhythm, lighter section transitions, no editorial top-borders.
+   Wrapped in @layer components so Tailwind utilities can still override
+   inside child components (Decision cards, TOC, etc.). */
+@layer components {
+  .prose-project {
+    max-width: none;
+    font-size: 1rem;
+    line-height: 1.55;
+    color: var(--color-cream-200);
+  }
+
+  .prose-project h2 {
+    margin-top: 2.5rem;
+    margin-bottom: 0.5rem;
+    padding-top: 0;
+    border-top: 0;
+    font-size: 1.35rem;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    scroll-margin-top: 6rem;
+  }
+
+  .prose-project > h2:first-child,
+  .prose-project > :first-child + h2 {
+    margin-top: 1.5rem;
+  }
+
+  .prose-project h3 {
+    margin-top: 1.75rem;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    scroll-margin-top: 6rem;
+  }
+
+  .prose-project p {
+    margin-bottom: 0.9rem;
+  }
+
+  .prose-project ul,
+  .prose-project ol {
+    margin-bottom: 0.9rem;
+    padding-left: 1.25rem;
+  }
+
+  .prose-project li {
+    margin-bottom: 0.35rem;
+    line-height: 1.55;
+  }
+
+  .prose-project blockquote {
+    border-left: 2px solid color-mix(in srgb, var(--color-cyan-500) 60%, transparent);
+    background: transparent;
+    padding: 0.25rem 0 0.25rem 1rem;
+    margin: 1rem 0;
+    font-size: 0.97em;
+    border-radius: 0;
+  }
+
+  .prose-project pre,
+  .prose-project img,
+  .prose-project table {
+    margin: 1.25rem 0;
+  }
+
+  /* Diagrams break out of the reading column. */
+  .prose-project .full-bleed {
+    max-width: none;
+    width: 100%;
+  }
+
 }
 
 /* ---- Stagger Animation ---- */
@@ -215,4 +342,28 @@ body::before {
 
 .animate-fade-in-up {
   animation: fade-in-up 0.6s ease forwards;
+}
+
+/* ---- Reduced-motion ---- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal,
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .card-hover { transition: none; }
+  .card-hover:hover {
+    transform: none;
+    box-shadow: none;
+  }
+  .animate-fade-in-up {
+    animation: none;
+    opacity: 1;
+  }
+  .pipeline-stage {
+    animation: none !important;
+    opacity: 1 !important;
+  }
 }

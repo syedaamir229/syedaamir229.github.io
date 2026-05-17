@@ -1,0 +1,44 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import type { SeriesInfo } from '../../lib/series';
+import { SITE } from '../../config';
+import Tag from '../ui/Tag.astro';
+
+interface Props {
+  post: CollectionEntry<'blog'>;
+  readingTime: number;
+  seriesInfo: SeriesInfo | null;
+}
+
+const { post, readingTime, seriesInfo } = Astro.props;
+const { title, description, categories, date } = post.data;
+const formattedDate = date.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<header class="mb-12">
+  <div class="flex flex-wrap gap-2 mb-5">
+    {categories.map((cat) => <Tag class="px-2.5 py-1">{cat}</Tag>)}
+    {seriesInfo && (
+      <Tag variant="series">
+        Part {seriesInfo.part} of {seriesInfo.total} &middot; {seriesInfo.label}
+      </Tag>
+    )}
+  </div>
+  <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-5 leading-tight">
+    {title}
+  </h1>
+  <p class="text-cream-200 text-lg leading-relaxed mb-6">
+    {description}
+  </p>
+  <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted-500">
+    <time datetime={date.toISOString()}>{formattedDate}</time>
+    <span class="text-muted-600">&middot;</span>
+    <span>{readingTime} min read</span>
+    <span class="text-muted-600">&middot;</span>
+    <span>{SITE.author}</span>
+  </div>
+</header>

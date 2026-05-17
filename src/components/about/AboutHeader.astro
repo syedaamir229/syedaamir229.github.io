@@ -1,0 +1,25 @@
+---
+import PageHeader from '../ui/PageHeader.astro';
+import Eyebrow from '../ui/Eyebrow.astro';
+
+const facts = [
+  { label: 'Now', text: 'AI automation and advanced analytics at MBC Shahid (MBC Group).' },
+  { label: 'Scope', text: '10+ years across analytics, BI architecture, data science, and AI automation.' },
+  { label: 'Industries', text: 'Media, retail, automotive, government, enterprise consulting.' },
+];
+---
+
+<PageHeader
+  eyebrow="About"
+  title="Ten years shipping data and AI in production."
+  description="From BI consulting to GenAI agents, across media, retail, government, and automotive."
+>
+  <div class="grid sm:grid-cols-3 gap-6 pt-8 mt-10 border-t border-cream-100/5">
+    {facts.map((fact) => (
+      <div>
+        <Eyebrow size="xs" class="mb-2">{fact.label}</Eyebrow>
+        <p class="text-sm text-cream-200 leading-relaxed">{fact.text}</p>
+      </div>
+    ))}
+  </div>
+</PageHeader>
