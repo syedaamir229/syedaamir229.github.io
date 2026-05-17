@@ -50,7 +50,7 @@ This enrichment pattern is relevant when customer profiles are incomplete:
 - **Advertising**: Audience enrichment for campaign planning
 - **Healthcare engagement**: Behavioral enrichment for communication strategies
 
-**When this pattern is NOT appropriate**: Don't infer attributes that downstream consumers will treat as ground truth. If your reporting layer can't distinguish a self-reported value from a model prediction, the inference adds risk without uplift. Same applies if your declared coverage is already above 80% — the marginal lift from inference rarely justifies the model maintenance burden.
+**When this pattern is NOT appropriate**: Don't infer attributes that downstream consumers will treat as ground truth. If your reporting layer can't distinguish a self-reported value from a model prediction, the inference adds risk without uplift. Same applies if your declared coverage is already above 80%: the marginal lift from inference rarely justifies the model maintenance burden.
 
 ## Tech Stack
 

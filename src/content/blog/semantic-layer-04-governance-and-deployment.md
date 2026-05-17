@@ -115,5 +115,3 @@ Rollback Plan: previous artifact + targeted model reprocess
 If your model deployed today and broke production, would you know how to roll back?
 
 If the answer requires "let me ask the engineer who built it," the rollback path is not documented and the third release gate is missing. If the answer is "yes, here is the previous artefact and the partition refresh sequence," the gates are doing their work. The model is the part that gets attention. The release discipline is the part that decides whether the model survives the next deploy.
-
-The next post in the series, [Part 5: The Six-Stage Refresh Loop](/blog/semantic-layer-05-refresh-and-troubleshooting/), covers what happens between releases: how refresh automation is structured, what fails most often, and the Five-Step Backfill that recovers a missed day.

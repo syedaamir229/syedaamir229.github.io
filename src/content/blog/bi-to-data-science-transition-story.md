@@ -1,6 +1,6 @@
 ---
 title: "BI to Data Science: The Three Ways the Transition Dies"
-date: 2025-03-17
+date: 2025-12-08
 description: "A first-person account of the six-month overlap between BI ownership and data science delivery, and the three failure patterns that kill most transitions before they compound."
 categories: ["Career", "Data Science"]
 draft: false

@@ -22,13 +22,13 @@ The model was already in place. The dashboards were live. The DAX had drifted be
 
 ### Layer 1: Base measures
 
-Direct aggregations from fact tables. Simple, explicit, reusable. At Shahid the base measures cover `plays`, `watchers`, `subscription_revenue`, `impressions`, `seconds_watched`, AVOD-specific `avod_impressions` and `vast_errors`. No business assumptions. No conditional logic. Pure aggregation.
+Direct aggregations from fact tables. Simple, explicit, reusable. At Shahid the base measures cover `plays`, `watchers`, `seconds_watched`, AVOD-specific `impressions` and `vast_errors`. No business assumptions. No conditional logic. Pure aggregation.
 
 The constraint is what makes the layer useful. A base measure that includes a filter or a conditional is no longer a base measure; it is a business measure pretending to be a base measure, and the consumer who builds a business measure on top of it will inherit the hidden filter.
 
 ### Layer 2: Business measures
 
-KPI semantics expressed as ratios, differences, or compositions of base measures. `net_adds`, `churn_rate`, `ARPU`, `retention_rate`, `playtime_hrs`. This is where most governance value lives because these formulas represent shared business language.
+KPI semantics expressed as ratios, differences, or compositions of base measures. `net_adds`, `churn_rate`, `retention_rate`, `playtime_hrs`. This is where most governance value lives because these formulas represent shared business language.
 
 The discipline at this layer: every business measure has a published contract (definition, inclusions, exclusions, validation query) and references only base measures, never raw columns.
 
@@ -154,5 +154,3 @@ If one check fails, do not promote the measure change.
 Are your DAX measures a library or a graveyard?
 
 A library has organised layers, named owners, and dependency graphs that hold. A graveyard has measures with similar names doing different things in different reports, and no one alive who can explain why. The Three-Layer DAX Stack is what keeps the library from turning into the graveyard. The discipline is the layer constraint; the payoff is that hundreds of report queries reuse the same governed measure without drift.
-
-The next post in the series, [Part 4: The Three Release Gates](/blog/semantic-layer-04-governance-and-deployment/), covers what happens after the measures are written: how releases are gated and how the model is deployed without resetting partitions and roles.

@@ -1,12 +1,12 @@
 ---
 title: "Why Most Semantic Layers Fail"
-date: 2026-05-15
+date: 2026-03-16
 description: "Most semantic-layer programs collapse because they are scoped like engineering projects when they need to be run like governance products. Here is the four-trap pattern, and the move that breaks it."
 categories: ["Data Governance"]
 draft: false
 ---
 
-The first Monday of a quarterly review at Shahid (MBC Group). Three slides on screen. Three different numbers for "monthly active subscribers" in May. The subscriptions team had one count. The engagement team had a higher one. The ad-ops team had a lower one. None of them were technically wrong. Each had been calculated against a different filter assumption: trial users included or excluded, internal accounts in or out, household-shared profiles counted once or per device.
+The first Monday of a quarterly review at MBC Shahid (MBC Group). Three slides on screen. Three different numbers for "monthly active subscribers" in May. The subscriptions team had one count. The engagement team had a higher one. The ad-ops team had a lower one. None of them were technically wrong. Each had been calculated against a different filter assumption: trial users included or excluded, internal accounts in or out, household-shared profiles counted once or per device.
 
 Twenty minutes of that meeting was spent deciding which number to use as the headline. None of it was spent on the actual decision the leadership team had walked into the room to make.
 
@@ -42,7 +42,7 @@ So the projects get funded. They start. And then most of them collapse into one 
 
 **Why it kills the program.** Business attention has a half-life. A rollout that delivers nothing for six months has already lost half its sponsorship. By twelve months it is a budget line nobody can defend. The most common cause of semantic-layer cancellation is not a technical failure. It is a calendar failure.
 
-**What to do instead.** Start with the 20 to 30 KPIs that trigger the most reconciliation effort. At Shahid these clustered across four domains: subscriber base movement, engagement, title performance, and ad operations. Not one hundred KPIs at once. Ship a pilot dataset against three or four high-pain dashboards in six weeks. Then expand by domain, not by table. Each expansion is a release that the sponsor can point to.
+**What to do instead.** Start with the 20 to 30 KPIs that trigger the most reconciliation effort. At MBC Shahid these clustered across four domains: subscriber base movement, engagement, title performance, and ad operations. Not one hundred KPIs at once. Ship a pilot dataset against three or four high-pain dashboards in six weeks. Then expand by domain, not by table. Each expansion is a release that the sponsor can point to.
 
 ### Trap 3: The Orphan KPI Problem
 
@@ -58,7 +58,7 @@ So the projects get funded. They start. And then most of them collapse into one 
 
 **Why it kills the program.** The failure mode that destroys trust most efficiently is not "the model is slow" or "this measure is wrong." It is "the entire layer was unavailable for a day and the business reported anyway." After one of these incidents, every team in the building rebuilds local logic as insurance, and the deal is off.
 
-**What to do instead.** Codify release discipline before the first production deploy. Retain partitions and roles. Run dual reporting for one or two refresh cycles after every model change. Document a rollback path that takes minutes, not days. At Shahid the partition strategy ran on tiered cadences: one-day for engagement, five-day for subscriber base movement, fourteen-day for ad impressions because programmatic ad attribution settles over a fourteen-day window. Each cadence had its own rollback procedure, written down before anyone touched production.
+**What to do instead.** Codify release discipline before the first production deploy. Retain partitions and roles. Run dual reporting for one or two refresh cycles after every model change. Document a rollback path that takes minutes, not days. At MBC Shahid the partition strategy ran on tiered cadences: one-day for engagement, five-day for subscriber base movement, fourteen-day for ad impressions because programmatic ad attribution settles over a fourteen-day window. Each cadence had its own rollback procedure, written down before anyone touched production.
 
 ## What I'd actually do first
 
@@ -70,10 +70,8 @@ Three things follow from the matrix. The semantic-layer scope shrinks from "rebu
 
 ## One MENA-flavored note
 
-In Arabic-OTT there is a practical reason the conflict-first rollout pays off quickly: the Ramadan cycle. Pre-Ramadan, in-Ramadan, and post-Ramadan windows shift content launches, subscription patterns, ad inventory, and engagement curves. Every "monthly active" or "average watch time" KPI you build needs a time-grain stance on these windows. The dim-date table at Shahid carries explicit Ramadan flags (minus-90 days, in-Ramadan, plus-90 days) so that every measure can answer the same question consistently across the cycle. If this is not solved in the semantic layer, every team solves it in their own report file. That is the Orphan KPI Problem in slow motion, on an annual schedule.
+In Arabic-OTT there is a practical reason the conflict-first rollout pays off quickly: the Ramadan cycle. Pre-Ramadan, in-Ramadan, and post-Ramadan windows shift content launches, subscription patterns, ad inventory, and engagement curves. Every "monthly active" or "average watch time" KPI you build needs a time-grain stance on these windows. The dim-date table at MBC Shahid carries explicit Ramadan flags (minus-30 days, in-Ramadan, plus-30 days) so that every measure can answer the same question consistently across the cycle. If this is not solved in the semantic layer, every team solves it in their own report file. That is the Orphan KPI Problem in slow motion, on an annual schedule.
 
 ## Closing
 
 Is your semantic layer a strategic asset or a maintenance liability? The teams that treat it as a maintenance liability ship a beautiful dataset, lose sponsorship, and watch adoption collapse. The teams that treat it as a strategic asset run it as a product: owners per domain, versioned releases, conflict-first scope, deployment discipline.
-
-The first piece of the series, [Part 1: Why Governed Metrics Become Non-Negotiable](/blog/semantic-layer-01-why-governed-metrics/), walks through the conflict-first rollout in detail: what the first six weeks look like, how the KPI contract is structured, and what the operating model looks like once the pilot dataset is in production.

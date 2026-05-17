@@ -1,7 +1,7 @@
 ---
 title: "The Four-Signal AVOD Operating Loop"
-date: 2023-11-20
-description: "How an AVOD ad inventory and revenue pipeline at MBC Shahid replaced spreadsheet-heavy tracking with four linked pipelines (inventory, impressions, VAST errors, pacing) and business-impact alerts, and the 14-day refresh decision that earned the team's trust."
+date: 2024-06-25
+description: "How an AVOD ad inventory and revenue pipeline at Shahid replaced spreadsheet-heavy tracking with four linked pipelines (inventory, impressions, VAST errors, pacing) and business-impact alerts, and the 14-day refresh decision that earned the team's trust."
 categories: ["Data Engineering", "BI & Analytics"]
 draft: false
 ---
@@ -52,7 +52,7 @@ The alert here is the most operationally important alert in the whole system. A 
 
 The single design decision that decides whether the loop is healthy is what triggers an alert. A technical anomaly alert fires when a metric drifts statistically; it is noisy and gets muted. A business-impact alert fires when a metric drift will affect revenue or campaign delivery; it gets acted on.
 
-Pacing alerts at Shahid do not fire because the pacing ratio dropped by some percentage from the mean. They fire when a campaign's actual delivery rate puts it on track to miss its booked commitment by end-of-flight. The alert itself describes a decision, not just a data point. VAST error alerts follow the same logic: a brief spike during a CDN maintenance window is not paged; a sustained shift in a specific error category across a content vertical is.
+Pacing alerts at Shahid do not fire because the pacing ratio dropped by some percentage from the mean. They fire when a campaign's actual delivery rate puts it on track to miss its booked commitment by end-of-flight. The alert itself describes a decision, not just a data point. VAST error alerts follow the same logic: a brief spike is not paged; a sustained shift in a specific error category across a content vertical is.
 
 The alert vocabulary is the operating language of the team. Build the loop around the alerts the team will actually act on, not the alerts the dashboard happens to support.
 

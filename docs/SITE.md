@@ -81,7 +81,7 @@ Specifically:
 
 Use universal entities instead: customers, transactions, operations, finance, marketing, sales, risk, intent, records, content, accounts.
 
-The Pipeline section on the home page ("How I Work") is the model for tone here — it already does vertical-agnostic well. Read it before editing other landing copy.
+The Pipeline section on the home page ("How I Work") is the model for tone here: it already does vertical-agnostic well. Read it before editing other landing copy.
 
 **Project case studies and blog posts are the opposite**: vertical-specific is the brand. They are evidence, not pitch.
 

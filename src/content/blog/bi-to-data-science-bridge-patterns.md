@@ -1,12 +1,12 @@
 ---
 title: "BI to Data Science Bridge Patterns: Four Moves That Stop the Numbers from Diverging"
-date: 2025-01-13
-description: "Four technical bridge patterns from a BI-to-DS transition at Shahid: shared entities, careful feature promotion, use-first validation, and role evolution. The patterns that stop the dashboard from disagreeing with the model."
+date: 2026-01-12
+description: "Four technical bridge patterns from a BI-to-DS transition at MBC Shahid: shared entities, careful feature promotion, use-first validation, and role evolution. The patterns that stop the dashboard from disagreeing with the model."
 categories: ["Data Science", "BI & Analytics"]
 draft: false
 ---
 
-A quarterly leadership review at Shahid (MBC Group). The churn prediction model flagged roughly 15,000 subscribers as at-risk for the upcoming quarter. The churn dashboard, which the business team had relied on for months, showed about 12,000. The executive in the room asked the question that ends BI-to-DS transitions: "Which number is the right one?"
+A quarterly leadership review at MBC Shahid (MBC Group). The churn prediction model flagged roughly 15,000 subscribers as at-risk for the upcoming quarter. The churn dashboard, which the business team had relied on for months, showed about 12,000. The executive in the room asked the question that ends BI-to-DS transitions: "Which number is the right one?"
 
 Neither was wrong. The model used a 30-day inactivity window to classify churn risk. The dashboard used a billing-cycle definition that only counted subscribers who had actually lapsed. Both were defensible. Both produced different numbers. 3,000 of those names were now in dispute.
 
@@ -18,7 +18,7 @@ This is the conflict every BI-to-DS transition accumulates quietly until a leade
 
 Data science pipelines should reuse the same governed business entities that power BI: subscriber and account identifiers, lifecycle event definitions, consistent date and segment dimensions.
 
-The concrete artefact at Shahid was `dim_subscriber`. The table holds lifecycle status, plan type, registration date, tenure band, and region. On the BI side it powers dashboard filters. On the DS side the same fields become input features for the churn prediction model. Plan type and tenure are strong predictors. Lifecycle status determines which subscribers are eligible for scoring at all. Because both systems consume the same table, the "15K vs 12K" gap stops existing.
+The concrete artefact at MBC Shahid was `dim_subscriber`. The table holds lifecycle status, plan type, registration date, tenure band, and region. On the BI side it powers dashboard filters. On the DS side the same fields become input features for the churn prediction model. Plan type and tenure are strong predictors. Lifecycle status determines which subscribers are eligible for scoring at all. Because both systems consume the same table, the "15K vs 12K" gap stops existing.
 
 What goes wrong without it: every model the DS team ships has its own subscriber definition, each one slightly different from the dashboards. Every leadership conversation about the model becomes a reconciliation conversation. Trust erodes silently until a single visible disagreement surfaces all the invisible ones.
 
@@ -46,7 +46,7 @@ What goes wrong without it: the model ships, the CRM team cannot consume it, the
 
 The transition worked when responsibilities became explicit. BI accountability stayed focused on metric trust and communication: maintaining dashboards, attending review meetings, ensuring definitions stayed consistent. DS expanded on experimentation and inference: building features, training models, evaluating predictions against business outcomes. Both shared the same governed data foundation, so neither side duplicated entity logic or reconciled conflicting numbers.
 
-The temptation during a BI-to-DS transition is to treat it as a tooling upgrade: swap Tableau for a notebook, swap SQL for Python. That misses the point. The real shift is in what you are accountable for. BI accountability is accurate, timely reporting. DS accountability is measurable decision impact. Both need the same data trust underneath, but the outputs and success criteria differ. Making that distinction explicit in role definitions, project scoping, and stakeholder communication is what made the phase sustainable.
+The temptation during a BI-to-DS transition is to treat it as a tooling upgrade: swap Power BI for a notebook, swap SQL for Python. That misses the point. The real shift is in what you are accountable for. BI accountability is accurate, timely reporting. DS accountability is measurable decision impact. Both need the same data trust underneath, but the outputs and success criteria differ. Making that distinction explicit in role definitions, project scoping, and stakeholder communication is what made the phase sustainable.
 
 What goes wrong without it: a tooling-only transition produces a team that owns notebooks but does not own decisions. The ML output is presented to the business, the business does not know what to do with it, and the program quietly winds down.
 

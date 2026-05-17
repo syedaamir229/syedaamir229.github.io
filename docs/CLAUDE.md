@@ -8,8 +8,8 @@ Five files. Each owns one thing. Loads cleanly because of the access-pattern spl
 |---|---|---|
 | [BRAND.md](BRAND.md) | Visual identity (palette, type, surface, texture) and tone principles. Source of truth for both. | When changing colors, fonts, voice, or anything brand-defining. Every other spec inherits from this. |
 | [SITE.md](SITE.md) | Landing-surface copy rules (home, capability cards, hero, section heads, CTAs). | When editing home-page copy or any non-blog, non-project copy. |
-| [BLOG.md](BLOG.md) | Per-post writing spec: depth tiers, seven-part structure, frontmatter, image rules, checklist. | Every time you write a blog post. |
-| [BLOG_STRATEGY.md](BLOG_STRATEGY.md) | Pillars, cadence, distribution, rewrite workflow, agent plan. | When deciding what to write next or how the blog connects to the rest of the brand. Rare. |
+| [BLOG.md](BLOG.md) | Per-post writing spec: two post shapes, seven-part structure, frontmatter, image rules, checklist. | Every time you write a blog post. |
+| [BLOG_STRATEGY.md](BLOG_STRATEGY.md) | Positioning and content pillars. | When deciding what to write next or where a post lands in the topic mix. Rare. |
 | [PROJECTS.md](PROJECTS.md) | Per-project case-study spec: frontmatter, body structure, diagram conventions, checklist. | Every time you add a project case study. |
 
 ## Dependency graph
@@ -52,4 +52,3 @@ If you rename one of the five, update:
 
 - Cross-references in the other four docs.
 - Cross-references in [../CLAUDE.md](../CLAUDE.md) and the nested CLAUDE.md files.
-- Memory entries under `~/.claude/projects/.../memory/` that reference the old name.

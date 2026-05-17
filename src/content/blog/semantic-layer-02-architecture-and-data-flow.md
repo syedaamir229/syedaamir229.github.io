@@ -153,5 +153,3 @@ If grain is unstable, stop and fix upstream. Do not encode data corrections insi
 Where does your semantic-layer ownership stop, and where does it leak?
 
 When the answer is "the team owns everything from staging to report layout," the layer is not ownership-clean and the next outage is already on the schedule. When the boundaries are explicit and a named owner sits at each layer, the deployment script can run on a Friday evening and the dashboards still come up on Monday morning.
-
-The next post in the series, [Part 3: The Three-Layer DAX Stack](/blog/semantic-layer-03-kpi-engineering-with-dax/), walks through how measure logic is engineered once the ownership boundary at Layer 2 is enforced.

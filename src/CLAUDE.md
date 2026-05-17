@@ -73,7 +73,7 @@ import { getPersonSchema } from '../lib/personSchema';
 ## Anti-patterns to avoid
 
 - **Inline SVGs.** Use `<Icon name="...">`. If the icon does not exist yet, add it to [components/ui/Icon.astro](components/ui/Icon.astro) once, then reuse.
-- **Inline `style="font-family: var(--font-heading)"` on `<h1>`-`<h6>`.** The base layer applies it automatically. Same goes for the `font-heading` class on headings — it is redundant on heading tags.
+- **Inline `style="font-family: var(--font-heading)"` on `<h1>`-`<h6>`.** The base layer applies it automatically. Same goes for the `font-heading` class on headings: it is redundant on heading tags.
 - **Hand-rolled mono uppercase eyebrows.** No `text-[11px] font-mono uppercase tracking-[0.18em]` strings. Use `<Eyebrow>`.
 - **Hand-rolled pill or button class strings.** No `inline-flex items-center gap-2 px-6 py-3 bg-cyan-500 ...`. Use `<Button>` with a variant.
 - **`border-t` on adjacent `<section>` elements.** A 1px cream-tinted top border is auto-applied to adjacent sections inside `<main>` via the `@layer base` rule in `global.css`. Adding one manually doubles up.
@@ -86,15 +86,15 @@ import { getPersonSchema } from '../lib/personSchema';
 - All `h1`-`h6` get `font-heading` (Inter) + tight tracking via `@layer base`.
 - Adjacent `<section>` elements inside `<main>` get a hairline cream-tinted top border.
 - `.reveal` elements fade in on viewport entry via an IntersectionObserver in [scripts/scrollReveal.ts](scripts/scrollReveal.ts). Add `class="reveal"` to opt in; respects `prefers-reduced-motion`.
-- `body::before` paints a low-opacity grain overlay across every page. Load-bearing for the brand — do not remove.
+- `body::before` paints a low-opacity grain overlay across every page. Load-bearing for the brand: do not remove.
 
 ## Common tasks
 
 ### Add a blog post
 
 1. Create `src/content/blog/<slug>.md`.
-2. Fill frontmatter per [docs/BLOG.md section 4](../docs/BLOG.md#4-frontmatter). `categories` must be in [data/categories.ts](data/categories.ts) `BLOG_CATEGORIES`.
-3. Write per [docs/BLOG.md section 3](../docs/BLOG.md#3-post-structure-mandatory-seven-parts).
+2. Fill frontmatter per [docs/BLOG.md section 5](../docs/BLOG.md#5-frontmatter). `categories` must be in [data/categories.ts](data/categories.ts) `BLOG_CATEGORIES`.
+3. Write per [docs/BLOG.md section 3](../docs/BLOG.md#3-post-structure-mandatory-seven-parts). Build a fact ledger and cite external claims per [section 4](../docs/BLOG.md#4-sourcing-facts-and-citations).
 4. Run `npm run build` and `npm run dev`, check `/blog/<slug>/`.
 
 ### Add a project case study
@@ -124,7 +124,7 @@ import { getPersonSchema } from '../lib/personSchema';
 
 1. File: `src/data/<name>.ts`.
 2. Export typed interfaces alongside the data.
-3. If the data is referenced in more than one place, make it the single source of truth — never duplicate the values.
+3. If the data is referenced in more than one place, make it the single source of truth. Never duplicate the values.
 
 ### Add a client script
 
@@ -173,7 +173,3 @@ After editing or generating any SVG diagram (in `public/assets/projects/` or `pu
 4. Only move on once the focused screenshot looks right.
 
 This step is mandatory because compressed thumbnails have shipped broken diagrams in the past.
-
-## Memory store
-
-Cross-session preferences and project decisions live in `~/.claude/projects/-Users-syedaamir-Repositories-Personal-portfolio/memory/`. The index file (`MEMORY.md`) is always loaded into context. Read entries you have not seen recently before making decisions about workflow or scope.

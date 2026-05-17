@@ -10,7 +10,7 @@ series_part: 1
 
 Most teams do not decide to build a semantic layer on day one. They get pushed there. The push usually arrives in a leadership review where two dashboards show different numbers for the same KPI and nobody can explain the gap in five minutes.
 
-At MBC Shahid (MBC Group), the trigger was specific. A quarterly review with the subscriptions team, the engagement team, and the ad-ops team each running their own "active subscribers" number off the same source data. Three slightly different definitions: trial users in or out, profile-level or account-level. Twenty minutes of the meeting were spent reconciling. The actual decision the room had walked in to make went unspoken.
+At Shahid (MBC Group), the trigger was specific. A quarterly review with the partner team, the engagement team, and the ad-ops team each running their own "active subscribers" number off the same source data. Two slightly different definitions: trial users in or out, profile-level or account-level. Twenty minutes of the meeting were spent reconciling. The actual decision the room had walked in to make went unspoken.
 
 The fix that came out of that meeting was not a tool selection or a new dashboard. It was a governed semantic layer that every downstream consumer could trust. But the failure mode hiding in that sentence is the assumption that "build the semantic layer" means "pick the platform and start modelling." It does not.
 
@@ -33,7 +33,7 @@ The biggest cost is hidden. Decision latency increases because every leadership 
 
 ## What the semantic layer fixes
 
-A semantic layer centralises business logic in one model that every report consumes. In the MBC Shahid build, the initial v1 was Power BI Premium hosting governed measures on top of Gold-layer tables from the enterprise data model. Reports consumed measures via live connections instead of authoring formulas locally. A year later v2 migrated the model to SSAS Tabular for memory-pressure reasons, but the dashboards never changed: same measures, same names, same definitions, just a backend pointer change.
+A semantic layer centralises business logic in one model that every report consumes. In the Shahid build, the initial v1 was Power BI Premium hosting governed measures on top of Gold-layer tables from the enterprise data model. Reports consumed measures via live connections instead of authoring formulas locally. A year later v2 migrated the model to SSAS Tabular for memory-pressure reasons, but the dashboards never changed: same measures, same names, same definitions, just a backend pointer change.
 
 The core behaviour changes:
 
@@ -46,11 +46,11 @@ This shifts effort from repeated report authoring to model stewardship, which is
 
 ## The Conflict-First Rollout
 
-A semantic-layer rollout fails when it is treated as only a technical migration. The rollout that worked at MBC Shahid had four moves, in order. Each one is unglamorous. Skipping any of them undoes the rest.
+A semantic-layer rollout fails when it is treated as only a technical migration. The rollout that worked at Shahid had four moves, in order. Each one is unglamorous. Skipping any of them undoes the rest.
 
 ### Move 1: Start with high-conflict KPIs
 
-Do not migrate every measure immediately. Start with the 20 to 30 KPIs that trigger the most reconciliation effort. At MBC Shahid these clustered across four domains: subscriber base movement (churn rate, net adds, active base), engagement (playtime, completion rate, watch hours), monetisation (ad fill rate, AVOD impressions), and content performance.
+Do not migrate every measure immediately. Start with the 20 to 30 KPIs that trigger the most reconciliation effort. At Shahid these clustered across four domains: subscriber base movement (churn rate, net adds, active base), engagement (playtime, completion rate, watch hours), monetisation (ad fill rate, AVOD impressions), and content performance.
 
 The discipline here is honesty. The most painful KPIs are usually the ones the most political teams own. Migrating them first is not a comfortable conversation. It is the conversation that proves the program is real.
 
@@ -126,4 +126,4 @@ The Ramadan content cycle makes Move 3 (publish definitions with implementation 
 
 Which of the twenty KPIs in your business are the ones nobody trusts?
 
-If the list comes to mind in under a minute, you have your conflict-matrix scope. The rest of the program is a sequence of decisions that follows from that scope. The next post in the series, [Part 2: Architecture and Data Flow](/blog/semantic-layer-02-architecture-and-data-flow/), walks through what the model looks like once the conflict map is in place: how Gold tables feed the semantic model, where partition cadences come from, and how ownership boundaries are drawn between data engineering, metric engineering, and report engineering.
+If the list comes to mind in under a minute, you have your conflict-matrix scope. The rest of the program is a sequence of decisions that follows from that scope.

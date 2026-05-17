@@ -1,12 +1,12 @@
 ---
 title: "From BI to AI: My Ten-Year Compounding Stack"
-date: 2026-05-15
+date: 2026-05-18
 description: "Ten years from Tableau dashboards in a Dubai consulting firm to NLP platforms running on multilingual streaming feedback. The progression is not four careers. It is one stack that compounded."
 categories: ["Career"]
 draft: false
 ---
 
-Early 2025. I sat down to build a behaviour-based gender prediction model for Shahid (MBC Group). The textbook approach to attribute inference starts with raw event data, designs features from scratch, and pretends none of that work already exists in the organisation.
+Early 2025. I sat down to build a behaviour-based gender prediction model for MBC Shahid (MBC Group). The textbook approach to attribute inference starts with raw event data, designs features from scratch, and pretends none of that work already exists in the organisation.
 
 What sat in front of me on day one was a Gold-layer subscriber feature table that had been built three years earlier as part of the enterprise data model. Profile lifecycle, watch behaviour, content preferences, device patterns: all already shaped, all already governed, all already wired into Power BI dashboards. The hardest part of any ML pipeline, the feature engineering, was 90% done before the project started.
 
@@ -26,7 +26,7 @@ The [dbt 2025 State of Analytics Engineering Report](https://www.getdbt.com/reso
 
 ## The Compounding Stack
 
-### Layer 1: Data Foundations (2016 to 2022)
+### Layer 1: Data Foundations
 
 **What it is.** Modelled, governed, source-of-truth data layers. Fact and dimension tables with the grain set correctly the first time. Surrogate keys, slowly changing dimensions, lifecycle tracking. The unglamorous part of the work.
 
@@ -36,7 +36,7 @@ The [dbt 2025 State of Analytics Engineering Report](https://www.getdbt.com/reso
 
 This was the 2016 to 2022 phase of my own work: Tableau dashboards at Scan Technology, multi-department BI at Al-Futtaim, enterprise BI architecture for HHRC at Beinex. At the time it felt like "just BI." It was not. It was the foundation that made every later phase possible.
 
-### Layer 2: Analytics Maturity (2022 to 2024)
+### Layer 2: Analytics Maturity
 
 **What it is.** A semantic layer on top of the data foundation. Governed KPIs, owned per domain, consumed via live connections. A metric vocabulary the whole organisation shares.
 
@@ -44,11 +44,11 @@ This was the 2016 to 2022 phase of my own work: Tableau dashboards at Scan Techn
 
 **What goes wrong without it.** Without a metric vocabulary, AI is optimising toward unmeasurable goals. You can train a propensity model, but if "high-value subscriber" means four different things in four different reports, the model is solving the wrong problem. The metric drift is invisible until it is shipped.
 
-The Shahid semantic-layer build (Power BI Premium model in 2023, migrated to SSAS Tabular in 2024) was this phase for me. 100+ governed DAX measures across subscriber base movement, engagement, title performance, and ad operations. By the time the gender prediction model was scoped in 2025, every feature it needed had a governed definition.
+The MBC Shahid semantic-layer build (Power BI Premium model in 2023, migrated to SSAS Tabular in 2024) was this phase for me. 100+ governed DAX measures across subscriber base movement, engagement, title performance, and ad operations. By the time the gender prediction model was scoped in 2025, every feature it needed had a governed definition.
 
 ### Layer 3: Data Science
 
-**What it is.** Models that consume the same feature tables as BI. The profile-level feature store at Shahid is the artefact of this layer: subscriber-level features that power both the engagement dashboard and the gender prediction model.
+**What it is.** Models that consume the same feature tables as BI. The profile-level feature store at MBC Shahid is the artefact of this layer: subscriber-level features that power both the engagement dashboard and the gender prediction model.
 
 **Why it compounds.** This is where the dividend from layers 1 and 2 actually gets paid. The feature engineering you did for the BI dashboard is the feature engineering for the ML model. Bug fixes in the dashboard propagate to the model. New features added for one consumer are available to the other.
 
@@ -64,7 +64,7 @@ This phase was the gender prediction model, the viewing behaviour clustering wor
 
 **What goes wrong without it.** Without the lower three layers, AI automation is buggy heuristics. A scenario engine pushes the wrong audience because the audience definition disagrees with the dashboard. A voice-of-customer agent answers the wrong question because the underlying engagement table is not governed. The failure is not the automation. The failure is what it sits on.
 
-Jarvis (the CRM automation platform) and Enigma (the voice-of-customer platform) are the artefacts of this layer at Shahid. Both are thin compared to the work underneath them.
+The CRM automation platform and The voice-of-customer platform are the artefacts of this layer at MBC Shahid. Both are thin compared to the work underneath them.
 
 ## What I would tell my earlier self
 

@@ -1,6 +1,6 @@
 ---
 title: "AI-Powered CRM Automation: The Six-Layer CRM Operating System"
-date: 2025-05-19
+date: 2025-11-10
 description: "How a scenario-based CRM operating system at Shahid replaced manual analyst handoffs, gave CRM operators direct targeting power, and closed the loop from data to activation to measurement."
 categories: ["AI & Automation", "Data Engineering"]
 draft: false

@@ -26,7 +26,7 @@ The framework that worked at Shahid is four guardrails, applied in order, that t
 
 ### Guardrail 1: Behavioural feature design
 
-The model is built on the premise that what someone watches carries more demographic signal than what they choose to fill in on a profile form. The top predictive feature was protagonist gender at 16.6% of feature importance, audience affinity scores at 9.3%, sub-genre preferences at 5.5%. The features that drive accuracy are not raw event signals; they are derived attributes that join viewing logs against a content catalog enriched with cast composition, sub-genre tags, and audience affinity segments.
+The model is built on the premise that what someone watches carries more demographic signal than what they choose to fill in on a profile form. The top predictive feature was protagonist gender followed by audience affinity scores and sub-genre preferences. The features that drive accuracy are not raw event signals; they are derived attributes that join viewing logs against a content catalog enriched with cast composition, sub-genre tags, and audience affinity segments.
 
 What goes wrong without it: teams build inference on top of incomplete content metadata and produce models whose predictions cannot be defended when challenged. The first time a content lead asks "why is this profile flagged female?" the team has no answer because the features were opaque event aggregations. The receipt for a prediction is the feature that drove it.
 

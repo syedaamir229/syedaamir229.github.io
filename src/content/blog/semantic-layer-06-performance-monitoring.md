@@ -106,32 +106,6 @@ A weekly cycle is enough for continuous improvement. The cycle has four stages a
 
 Over time this rhythm produces measurable stability gains and shrinks the volume of incidents that surface to leadership. The cycle's value is compounding: the team that runs it for a year has a different model than the team that does not.
 
-## Monitoring Implementation Blueprint
-
-Set up one central telemetry table per signal family so performance trends can be queried historically.
-
-```sql
-CREATE TABLE IF NOT EXISTS ops.semantic_query_metrics (
-  metric_ts TIMESTAMP,
-  report_name STRING,
-  query_name STRING,
-  duration_ms BIGINT,
-  rows_scanned BIGINT,
-  status STRING
-);
-```
-
-```sql
-CREATE TABLE IF NOT EXISTS ops.semantic_refresh_metrics (
-  run_ts TIMESTAMP,
-  table_name STRING,
-  partition_name STRING,
-  duration_sec BIGINT,
-  rows_processed BIGINT,
-  status STRING
-);
-```
-
 ## Alert Rules You Can Start With
 
 1. refresh failure alert immediately on first failure

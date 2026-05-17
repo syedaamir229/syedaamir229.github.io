@@ -130,7 +130,7 @@ Use a controlled metadata update in your operations store.
 
 ```sql
 UPDATE ops.last_created_partition_details
-SET date_of_last_partition = DATE '2026-04-30'
+SET date_of_last_partition = DATE '2024-01-31'
 WHERE table_name = 'fact_engagement';
 ```
 
@@ -151,5 +151,3 @@ WHERE table_name = 'fact_engagement';
 Is your refresh a process, or a person?
 
 When the answer is a person, the program is one absence away from a stale-data incident. When the answer is a process, any engineer on the team can run the Six-Stage Refresh Loop or the Five-Step Backfill from a written runbook, and the model recovers without a leadership escalation. The model is the part that gets attention. The refresh loop is the part that decides whether the model is reliable enough to be trusted.
-
-The final post in the series, [Part 6: The Weekly Optimization Cycle](/blog/semantic-layer-06-performance-monitoring/), covers what happens after refresh is stable: how performance is monitored, how slow queries are surfaced, and how the team keeps the model fast as KPI volume grows.

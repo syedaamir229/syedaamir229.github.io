@@ -1,6 +1,6 @@
 # Brand
 
-The single source of truth for identity across every surface: portfolio, future AI consulting site, blog, project case studies, social posts.
+The single source of truth for identity across every surface: portfolio, blog, project case studies, social posts.
 
 Identity has two layers: **visual** (colors, type, surface, texture) and **tonal** (voice, sentence patterns, words to use and avoid). This document owns both. Surface-specific operational specs (BLOG.md, PROJECTS.md, SITE.md) refer up here for tone and inherit it; they only describe what is unique to that surface.
 
@@ -66,7 +66,7 @@ The type stack is defined in `src/styles/global.css`. Heading and body share the
 ### Typography rules
 
 - **Eyebrows**: always JetBrains Mono, uppercase, `0.18em` tracking. Use the `<Eyebrow>` primitive (sm = 11px, xs = 10px). Cyan tone by default; muted tone for low-emphasis labels ("On this page", "Earlier", "Active").
-- **Heading family is auto-applied** to `h1`-`h6` via the `@layer base` rule in `global.css`. Do not add `class="font-heading"` or `style="font-family: var(--font-heading)"` to headings — it is redundant.
+- **Heading family is auto-applied** to `h1`-`h6` via the `@layer base` rule in `global.css`. Do not add `class="font-heading"` or `style="font-family: var(--font-heading)"` to headings; it is redundant.
 - **Line height**: headings 1.0 to 1.2 (set in base layer); body 1.7 (set on `body`).
 - **Letter spacing**: headings `-0.025em` (set in base layer); body 0; eyebrows `+0.18em`.
 - **No serifs** anywhere: no Fraunces, no Playfair, no Garamond.
@@ -147,7 +147,7 @@ Landing-surface copy (home page, capability cards, section subheads, hero, CTAs)
 
 Use universal entities: customers, transactions, operations, finance, marketing, sales, risk, intent, records, content, accounts.
 
-**Project case studies and blog posts are the opposite**: stay vertical-specific. They are evidence, not pitch. MENA / OTT / Shahid context is the brand's defensible differentiator and should be structural in posts about delivered work.
+**Project case studies and blog posts are the opposite**: stay vertical-specific. They are evidence, not pitch. MENA / OTT / MBC Shahid context is the brand's defensible differentiator and should be structural in posts about delivered work.
 
 ---
 
@@ -162,7 +162,58 @@ Use universal entities: customers, transactions, operations, finance, marketing,
 
 ---
 
-## 7. What not to do
+## 7. Diagrams
+
+Blog post and project case-study diagrams are **hand-coded SVGs**, written directly as XML and checked into the repo. There is no design-tool export pipeline. The same workflow applies whether a human or Claude writes the markup.
+
+### Where they live
+
+| Surface | Path | Naming |
+|---|---|---|
+| Blog | `public/assets/blog/<post-slug>-<image-name>.svg` | One or more per post when a diagram earns its place |
+| Project case study | `public/assets/projects/<slug>.svg` | Exactly one per case study (the Architecture Overview diagram) |
+
+### Diagram palette
+
+Subset of section 2 that diagrams typically need. Colors are baked into the SVG, not theme-driven. If the site palette changes, regenerate or hand-edit the files.
+
+| Use | Hex | Token |
+|---|---|---|
+| Background (first `<rect>` filling the viewBox) | `#050B14` | `--color-navy-950` |
+| Card surfaces | `#0A1220`, `#122033` | `--color-navy-900`, `--color-navy-800` |
+| Borders / strokes | `#2A4561` | `--color-navy-600` |
+| Accent stroke / fill | `#06B6D4` | `--color-cyan-500` |
+| Soft accent fill | `rgba(6,182,212,0.06)` | cyan-500 at 6% |
+| Primary text | `#E2E8F0` | `--color-cream-100` |
+| Secondary text | `#94A3B8` | `--color-muted-500` |
+| Arrowheads, low-emphasis strokes | `#94A3B8` | `--color-muted-500` |
+
+### SVG conventions
+
+- First child is a `<rect>` covering the viewBox with `fill="#050B14"` (the navy background). Diagrams render correctly when opened standalone, not just when embedded in a page.
+- Set `font-family="Inter, system-ui, sans-serif"` on the root `<svg>` element.
+- Use `viewBox` with explicit dimensions; do not set fixed `width` / `height`.
+- Aspect ratio: 16:9 for architecture flows, 4:3 or 1:1 for concept illustrations.
+
+### Verify the rendered output
+
+After writing or editing any SVG, run:
+
+```bash
+npm run verify:diagram public/assets/blog/<file>.svg
+```
+
+The script opens the SVG in headless Chromium via Playwright, screenshots the rendered output, and saves a PNG to `screenshots/diagrams/<file>.png` (gitignored). Read that PNG back and confirm:
+
+- Navy background, cyan accents, palette matches the tokens above.
+- No label overflow, no misalignment, no clipped elements.
+- Every label legible at rendered size.
+
+This step is mandatory because reading the SVG markup is not the same as seeing it render. Broken diagrams have shipped before when only the XML was reviewed.
+
+---
+
+## 8. What not to do
 
 - No electric blue, purple, magenta, or neon accents.
 - No white backgrounds. No light-mode variant (not in scope for either site).
@@ -180,4 +231,4 @@ Use universal entities: customers, transactions, operations, finance, marketing,
 - **Voice in practice for blog posts**: see [BLOG.md](BLOG.md). It inherits tone from this doc; structure is its own concern.
 - **Voice in practice for landing copy**: see [SITE.md](SITE.md).
 - **Voice in practice for project case studies**: see [PROJECTS.md](PROJECTS.md).
-- **Brand strategy for the blog** (pillars, distribution, cadence): see [BLOG_STRATEGY.md](BLOG_STRATEGY.md).
+- **Brand strategy for the blog** (positioning and content pillars): see [BLOG_STRATEGY.md](BLOG_STRATEGY.md).

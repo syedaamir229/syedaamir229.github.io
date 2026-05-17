@@ -127,9 +127,8 @@ appropriate** paragraph so readers can self-disqualify.
 
 ### Section notes
 
-- **Challenge prelude**: fold what used to be a separate "Constraints" field into the opening sentence. Constraints and Challenge answer the same question; they share one heading.
 - **Key Decisions**: each decision is an H3 (`### Decision N: Title`) followed by the four bold-label paragraphs (`**Problem**` optional, `**Options considered**`, `**Chosen**`, `**Why**`). Skip the whole section if there are no decisions worth documenting.
-- **Approach**: 4 to 6 bullets of what was built. No decisions here — those live in Key Decisions above.
+- **Approach**: 4 to 6 bullets of what was built. No decisions here; those live in Key Decisions above.
 - **Architecture Overview**: one image + one caption paragraph. Use a self-explanatory alt text that does not depend on outside context.
 - **Results & Impact**: outcomes from the user/business perspective. What changed, not what was built.
 - **Reusable Pattern**: this separates a case study from a war story. Show the reader how to apply the pattern in their own context, then disqualify cases where it does not fit.
@@ -141,38 +140,13 @@ appropriate** paragraph so readers can self-disqualify.
 
 ## 5. Architecture diagrams
 
-Diagrams live at `public/assets/projects/<slug>.svg`. They are standalone SVG files with palette colors baked in (not theme-driven).
+Every case study has exactly one Architecture Overview diagram in the H2 slot of the same name. No exceptions: a case study without a diagram is incomplete.
 
-### Adding a new diagram
+- **File path**: `public/assets/projects/<slug>.svg`.
+- **Markdown reference**: `![Alt text covering the flow shown in the diagram.](/assets/projects/<slug>.svg)`.
+- **Caption**: one prose paragraph directly below the image, explaining the flow in words for readers who skim the diagram.
 
-1. Build the SVG in your tool of choice (Figma, Inkscape, Excalidraw, hand-written).
-2. Export as SVG, save to `public/assets/projects/<slug>.svg`.
-3. Use the brand palette so the diagram matches the page. Full palette in [BRAND.md section 2](BRAND.md#2-color-system). The colors most diagrams need:
-
-   | Use | Hex | Token |
-   |---|---|---|
-   | Background | `#050B14` | `--color-navy-950` |
-   | Card surfaces | `#0A1220`, `#122033` | `--color-navy-900`, `--color-navy-800` |
-   | Borders / strokes | `#2A4561` | `--color-navy-600` |
-   | Accent stroke / fill | `#06B6D4` | `--color-cyan-500` |
-   | Soft accent fill | `rgba(6,182,212,0.06)` | cyan-500 at 6% |
-   | Primary text | `#E2E8F0` | `--color-cream-100` |
-   | Secondary text | `#94A3B8` | `--color-muted-500` |
-
-4. Reference it from the markdown body: `![alt text](/assets/projects/<slug>.svg)`
-
-If you change the site palette later, regenerate or hand-edit the SVG files. Colors are baked in, not theme-driven.
-
-### Verify the diagram visually
-
-After saving or modifying any project SVG:
-
-1. Keep `npm run dev` running across iterations.
-2. Take a **focused screenshot of the SVG region**, not a full-page thumbnail. Compressed thumbnails hide label overflow, broken alignment, and palette drift.
-3. Confirm visually: no label overflow, palette matches brand tokens above, every label legible at the rendered size.
-4. Only move on once the focused screenshot looks right.
-
-This step is mandatory because broken diagrams have shipped in the past when only the full-page thumbnail was checked.
+For how to build the SVG and verify the rendered output, see [BRAND.md section 7](BRAND.md#7-diagrams). Same workflow as blog diagrams: hand-coded SVG XML, brand palette baked in, verified via `npm run verify:diagram <path>` and reading the resulting PNG.
 
 ---
 
@@ -194,7 +168,7 @@ Tone and word choice follow [BRAND.md section 5](BRAND.md#5-voice-and-tone-appli
 
 - **Concise.** Bullets should be readable in ~2 seconds each.
 - **Quantitative where possible.** "Saved 15 hours per week" beats "saved significant time".
-- **MENA / OTT context is on-brand.** Use vertical-specific vocabulary (episodes, series, subscriptions, playback, dialectal Arabic) — project case studies are evidence, not pitch, so they stay vertical-specific. Contrast with landing copy (see [SITE.md](SITE.md)) which is vertical-agnostic.
+- **MENA / OTT context is on-brand.** Use vertical-specific vocabulary (episodes, series, subscriptions, playback, dialectal Arabic). Project case studies are evidence, not pitch, so they stay vertical-specific. Contrast with landing copy (see [SITE.md](SITE.md)) which is vertical-agnostic.
 - **CV verbs are welcome here.** "Built", "designed", "stood up", "delivered" all work inside the case-study body. They do not work on the listing card description (where the change-for-the-business framing wins).
 
 ---

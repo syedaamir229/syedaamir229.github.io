@@ -1,28 +1,28 @@
 ---
 title: "Enigma: Building a Voice-of-Customer Stack for Multilingual Streaming"
-date: 2026-05-15
+date: 2026-04-13
 description: "How we turned scattered, Arabic-language audience feedback from four platforms into a system that answers content-team questions in seconds, and why the non-obvious move was splitting the Genie spaces in two."
 categories: ["AI & Automation", "Data Science"]
 draft: false
 ---
 
-The Tuesday morning of a Ramadan finale episode launch at Shahid (MBC Group). The content lead opened a meeting with one question: "What is the audience saying about it?" The analyst on the call answered: "Give me three days."
+The Tuesday morning of a Ramadan finale episode launch at MBC Shahid (MBC Group). The content lead opened a meeting with one question: "What is the audience saying about it?" The analyst on the call answered: "Give me three days."
 
 Three days. For a question whose answer was already sitting in Twitter, Facebook, YouTube, and our own Shorts comments, mostly in Arabic, in four different schemas, with no shared link back to a title. Three days to manually pull exports, sample-translate, hand-tag sentiment, aggregate, and assemble a slide deck. By the time the answer arrived, the content team had moved on to the next release. The cycle would repeat with the next finale, and the next.
 
 This is the scene every voice-of-customer system either solves or pretends to solve. The pretending usually looks like a sentiment dashboard with cross-platform volume charts that nobody opens. The dashboard tells you that volume spiked. It does not tell you what people actually said.
 
-**Voice of customer is solved when product managers stop filing data requests, not when sentiment dashboards exist.** The path from "the volume spiked" to "here is the actual feedback, here is the sentiment, here is the title-level breakdown, here is the platform comparison" used to require an analyst between the question and the answer. Removing that analyst is the work. Everything else is decoration.
+**Voice of customer is solved when product managers stop filing data requests, not when sentiment dashboards exist.** The path from "the volume spiked" to "here is the actual feedback, here is the sentiment, here is the title-level breakdown, here is the platform comparison" used to require an analyst between the question and the answer.
 
 ## Why this matters now
 
 The pressure on audience-feedback systems is going up, not down. In Arabic-OTT specifically, content windows are tighter (finale episodes, Ramadan release cycles, AVOD ad slots that move weekly), and the cost of a slow feedback loop is concrete: a content lead green-lights a follow-up the audience did not actually want, or pulls a winner that was performing.
 
-Across the broader industry the same picture holds. [Atlan's recent write-up on semantic layers](https://atlan.com/know/semantic-layer/) makes the point cleanly: "every BI tool, every notebook, and every AI agent maintains its own translation logic, and when those translations drift, data teams spend days reconciling reports instead of building new ones." For voice of customer the failure is sharper, because there is no central translation logic to begin with. Twitter's `tweet_id` and YouTube's `video_id` and a Shahid `dwh_parent_id` do not naturally align. Without a stack that resolves them, every analyst query is a custom join.
+Across the broader industry the same picture holds. [Atlan's recent write-up on semantic layers](https://atlan.com/know/semantic-layer/) makes the point cleanly: "every BI tool, every notebook, and every AI agent maintains its own translation logic, and when those translations drift, data teams spend days reconciling reports instead of building new ones." For voice of customer the failure is sharper, because there is no central translation logic to begin with. Twitter's `tweet_id` and YouTube's `video_id` and an MBC Shahid `dwh_parent_id` do not naturally align. Without a stack that resolves them, every analyst query is a custom join.
 
 So the projects get scoped. They start. And then most of them get stuck inside Bronze, with a beautiful raw-ingestion pipeline and no usable consumption layer. Or they ship a sentiment dashboard and never get to natural-language query. Or they wire up one Genie space, watch it hallucinate SQL on mixed schemas, and quietly retreat.
 
-The pattern that worked at Shahid was a five-layer stack with one non-obvious split inside it. The split is the part most teams skip.
+The pattern that worked at MBC Shahid was a five-layer stack with one non-obvious split inside it. The split is the part most teams skip.
 
 ![Architecture diagram of the Voice-of-Customer Stack: four social sources feed Bronze ingestion, five-stage NLP enrichment in Silver, a Gold semantic model with dim_post and fact_comment, then two specialized Genie spaces (Comments and Engagement) plus a Databricks Vector Search index, all routed by a LangGraph Supervisor Agent and exposed through a Databricks App](/assets/blog/enigma-voice-of-customer-stack.svg)
 
@@ -32,7 +32,7 @@ The pattern that worked at Shahid was a five-layer stack with one non-obvious sp
 
 ### Layer 1: Bronze multi-source ingestion
 
-**What it is.** A raw Delta table per source, with minimal schema enforcement, landing daily before a 10 AM Dubai-time SLA. Four sources at Shahid: Twitter posts and threaded replies, Facebook posts and comments (via Funnel exports), YouTube video comments, and Shahid Shorts comments. Each table is the audit trail and the reprocessing source.
+**What it is.** A raw Delta table per source, with minimal schema enforcement, landing daily before a 10 AM Dubai-time. Four sources at MBC Shahid: Twitter posts and threaded replies, Facebook posts and comments (via Funnel exports), YouTube video comments, and Shahid Shorts comments. Each table is the audit trail and the reprocessing source.
 
 **Why it matters.** Bronze is the layer where you make peace with the fact that every platform's API is different. Twitter returns thread-shape JSON with parent-child relationships. Facebook via Funnel ships flattened CSV-style exports with timestamp formats that change by tenant. YouTube's Data API rate-limits aggressively and forces paginated reads. Shahid Shorts comments come from internal Delta tables on a four-hour SLA. Trying to standardise these at ingestion is how teams burn three months and ship nothing.
 
@@ -47,14 +47,14 @@ The pattern that worked at Shahid was a five-layer stack with one non-obvious sp
 1. **Arabic-to-English translation.** All comment text is translated to English in addition to the original. Translated text is what the vector index and the Genie SQL run on. Original text is preserved on the row.
 2. **Sentiment scoring.** Each comment is classified as positive, neutral, or negative. The score is per-comment, not per-thread.
 3. **Profanity detection.** Comments are flagged for moderation workflows. This is required for any internal UI that will display real audience comments to product managers.
-4. **URL extraction and title mapping.** Comments often contain URLs that point back to a Shahid page. Each URL is parsed and resolved to an internal `dwh_parent_id`, the same identifier used by the BI semantic layer. This is the most important enrichment in the entire pipeline, because it is the join key that makes the rest of the system possible.
+4. **URL extraction and title mapping.** Comments often contain URLs that point back to an MBC Shahid page. Each URL is parsed and resolved to an internal `dwh_parent_id`, the same identifier used by the BI semantic layer. This is the most important enrichment in the entire pipeline, because it is the join key that makes the rest of the system possible.
 5. **Platform normalisation.** Field names, timestamp formats, and source labels are standardised across all four platforms. After Silver, a downstream consumer cannot tell which platform a comment came from without reading the `source_platform` column.
 
 **Why it matters.** This is the layer that pays the dividend on the whole project. The translation stage means a non-Arabic-speaking executive can ask a Genie space a question and get an answer. The URL-to-title mapping is what makes "comments about Title X" a one-column filter instead of a five-table join. The platform normalisation is what makes "comments across all sources" a single query.
 
 **What goes wrong without it.** Without translation, half the data is unreachable. Without URL-to-title mapping, every title-level query is a custom SQL join against a URL parser. Without platform normalisation, every cross-source analysis is a UNION ALL of incompatible schemas. Teams that skip this layer ship a Bronze-to-Genie shortcut and end up with a Genie space that hallucinates titles because it never had a clean join key.
 
-**Implementation note.** Translation runs through Azure OpenAI's `gpt-4.1-mini` deployment, called from a PySpark UDF with a Shahid-specific system prompt that instructs the model to translate OTT content terminology directly and return `null` for gibberish or untranslatable input. Sentiment and profanity run as PySpark UDFs on the same job. URL extraction uses a Python parser with platform-specific URL patterns. Each enrichment writes back to a per-source Silver table; consolidation happens in Gold.
+**Implementation note.** Translation runs through Azure OpenAI's deployment, called from a PySpark UDF with an MBC Shahid-specific system prompt that instructs the model to translate OTT content terminology directly and return `null` for gibberish or untranslatable input. Sentiment and profanity run as PySpark UDFs on the same job. URL extraction uses a Python parser with platform-specific URL patterns. Each enrichment writes back to a per-source Silver table; consolidation happens in Gold.
 
 ### Layer 3: Gold semantic model
 
@@ -68,7 +68,7 @@ The pattern that worked at Shahid was a five-layer stack with one non-obvious sp
 
 **What goes wrong without it.** Without a clean Gold layer, the Genie spaces have to navigate enrichment-stage schemas with intermediate columns. LLM-to-SQL accuracy collapses because the model cannot reason about which columns to use. The vector index ingests inconsistent enrichment depths across sources. The app APIs hit Silver and inherit every enrichment artifact.
 
-**Implementation note.** Gold tables are partitioned by `data_date`, the date the comment was created. Retention is rolling. Refresh runs after Silver completes, before 12 PM, giving the content team a full freshness pass by their morning review cycle.
+**Implementation note.** Gold tables are partitioned by `data_date`, the date the comment was created. Retention is rolling. Refresh runs after Silver completes, before 10 AM, giving the content team a full freshness pass by their morning review cycle.
 
 ### Layer 4: Two specialised Genie spaces, not one
 
@@ -100,7 +100,7 @@ Splitting the spaces lets each Genie ship with a curated set of instructions, sa
 
 **What goes wrong without it.** Without the supervisor, users have to choose between SQL-style questions and free-text questions every time. Adoption falls off a cliff because the interface itself is a barrier. The advantage of the multi-tool architecture is lost.
 
-**Implementation note.** The vector index is a Databricks Vector Search index in Unity Catalog, queried via the managed API. The index is refreshed over the translated comment embeddings on a daily cadence aligned to the 12 PM SLA. Unity Catalog provides lineage and access control natively, and the managed service handles scaling and authentication without bespoke setup.
+**Implementation note.** The vector index is a Databricks Vector Search index in Unity Catalog, queried via the managed API. The index is refreshed over the translated comment embeddings on a daily cadence aligned to the 10 AM SLA. Unity Catalog provides lineage and access control natively, and the managed service handles scaling and authentication without bespoke setup.
 
 ## The Databricks App: three modes, one supervisor
 
