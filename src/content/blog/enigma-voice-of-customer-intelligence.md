@@ -3,24 +3,7 @@ title: "Enigma: Building a Voice-of-Customer Stack for Multilingual Streaming"
 date: 2026-05-15
 description: "How we turned scattered, Arabic-language audience feedback from four platforms into a system that answers content-team questions in seconds, and why the non-obvious move was splitting the Genie spaces in two."
 categories: ["AI & Automation", "Data Science"]
-tags: ["NLP", "LangGraph", "FAISS", "Databricks", "Arabic", "Sentiment Analysis", "RAG", "Genie"]
-featured: true
 draft: false
-depth: deep-dive
-pillar: applied-ai
-linkedin_excerpt: |
-  The Tuesday morning of a Ramadan finale episode launch. The content lead asked: "What is the audience saying?" The analyst answered: "Give me three days."
-
-  Three days. For a question whose answer was already sitting in Twitter, Facebook, YouTube, and our own Shorts comments, mostly in Arabic, in four different schemas, with no shared link back to a title.
-
-  We built a platform that answers questions like that in seconds. The non-obvious move was not LLMs or vector search.
-
-  It was splitting Genie spaces in two. One for quantitative comment questions ("how many comments did Title X get?"). One for engagement metrics ("playtime trends for Title X?"). A LangGraph supervisor agent routes between them.
-
-  Most teams build one Genie space that does everything. That is where they hit a wall.
-
-  Full piece on the blog ↓
-  [link]
 ---
 
 The Tuesday morning of a Ramadan finale episode launch at Shahid (MBC Group). The content lead opened a meeting with one question: "What is the audience saying about it?" The analyst on the call answered: "Give me three days."
@@ -41,9 +24,9 @@ So the projects get scoped. They start. And then most of them get stuck inside B
 
 The pattern that worked at Shahid was a five-layer stack with one non-obvious split inside it. The split is the part most teams skip.
 
-![Architecture diagram of the Voice-of-Customer Stack: four social sources feed Bronze ingestion, five-stage NLP enrichment in Silver, a Gold semantic model with dim_post and fact_comment, then two specialized Genie spaces (Comments and Engagement) plus a FAISS vector index, all routed by a LangGraph Supervisor Agent and exposed through a Databricks App](/assets/blog/enigma-voice-of-customer-stack.png)
+![Architecture diagram of the Voice-of-Customer Stack: four social sources feed Bronze ingestion, five-stage NLP enrichment in Silver, a Gold semantic model with dim_post and fact_comment, then two specialized Genie spaces (Comments and Engagement) plus a Databricks Vector Search index, all routed by a LangGraph Supervisor Agent and exposed through a Databricks App](/assets/blog/enigma-voice-of-customer-stack.svg)
 
-*The Voice-of-Customer Stack. Five layers, one supervisor agent, two Genie spaces. The two-Genie split is the architectural decision that makes the rest of the system work.*
+*The Voice-of-Customer Stack. Five layers, two specialized Genie spaces, and a managed Databricks Vector Search index, all routed by a LangGraph supervisor agent. The two-Genie split is the architectural decision that makes the rest of the system work.*
 
 ## The Voice-of-Customer Stack
 
@@ -71,7 +54,7 @@ The pattern that worked at Shahid was a five-layer stack with one non-obvious sp
 
 **What goes wrong without it.** Without translation, half the data is unreachable. Without URL-to-title mapping, every title-level query is a custom SQL join against a URL parser. Without platform normalisation, every cross-source analysis is a UNION ALL of incompatible schemas. Teams that skip this layer ship a Bronze-to-Genie shortcut and end up with a Genie space that hallucinates titles because it never had a clean join key.
 
-**Implementation note.** Translation runs through a fine-tuned model hosted on Databricks Model Serving. Sentiment and profanity run as PySpark UDFs on the same job. URL extraction uses a Python parser with platform-specific URL patterns. Each enrichment writes back to a per-source Silver table; consolidation happens in Gold.
+**Implementation note.** Translation runs through Azure OpenAI's `gpt-4.1-mini` deployment, called from a PySpark UDF with a Shahid-specific system prompt that instructs the model to translate OTT content terminology directly and return `null` for gibberish or untranslatable input. Sentiment and profanity run as PySpark UDFs on the same job. URL extraction uses a Python parser with platform-specific URL patterns. Each enrichment writes back to a per-source Silver table; consolidation happens in Gold.
 
 ### Layer 3: Gold semantic model
 
@@ -81,7 +64,7 @@ The pattern that worked at Shahid was a five-layer stack with one non-obvious sp
 - `fact_comment`: fully enriched comment-level fact table with sentiment, profanity flag, translated text, original text, parent post foreign key, and the resolved `dwh_parent_id`.
 - A third enriched table carries LLM-specific metadata: short summaries of comment clusters, theme tags, and engagement signal aggregations. This is what the Comments Genie reads from.
 
-**Why it matters.** Gold is the consumption interface. Every downstream component (the two Genie spaces, the FAISS vector index, the Supervisor Agent, the Databricks App APIs) reads from these tables. No downstream component reads from Bronze or Silver. This is the discipline that keeps the system simple.
+**Why it matters.** Gold is the consumption interface. Every downstream component (the two Genie spaces, the Databricks Vector Search index, the Supervisor Agent, the Databricks App APIs) reads from these tables. No downstream component reads from Bronze or Silver. This is the discipline that keeps the system simple.
 
 **What goes wrong without it.** Without a clean Gold layer, the Genie spaces have to navigate enrichment-stage schemas with intermediate columns. LLM-to-SQL accuracy collapses because the model cannot reason about which columns to use. The vector index ingests inconsistent enrichment depths across sources. The app APIs hit Silver and inherit every enrichment artifact.
 
@@ -107,17 +90,17 @@ Splitting the spaces lets each Genie ship with a curated set of instructions, sa
 
 ### Layer 5: Supervisor Agent and routing layer
 
-**What it is.** A LangGraph Supervisor Agent that sits in front of the two Genie spaces and the FAISS vector index, classifies each incoming query, and routes it to the right tool. Three routing decisions:
+**What it is.** A LangGraph Supervisor Agent that sits in front of the two Genie spaces and the Databricks Vector Search index, classifies each incoming query, and routes it to the right tool. Three routing decisions:
 
 - **Quantitative** ("how many comments did Title X get last week?") routes to the appropriate Genie space.
-- **Qualitative** ("what are people actually saying about the ending of Season 2?") routes to the FAISS vector index, which runs semantic retrieval over the translated comment embeddings.
+- **Qualitative** ("what are people actually saying about the ending of Season 2?") routes to the Databricks Vector Search index, which runs semantic retrieval over the translated comment embeddings.
 - **Hybrid** ("how many comments did Title X get and what are the dominant themes?") triggers both, with results synthesised in the response.
 
 **Why it matters.** Routing removes the cognitive overhead of knowing which interface to use. A content lead asks a mixed question and gets back both the structured KPI answer and the narrative summary, without understanding the underlying architecture. The agent also enforces a fallback contract: if the vector index returns no matches, the agent says so explicitly instead of hallucinating a narrative. If the Genie space returns an empty result set, the agent says so instead of returning a fabricated SQL answer.
 
 **What goes wrong without it.** Without the supervisor, users have to choose between SQL-style questions and free-text questions every time. Adoption falls off a cliff because the interface itself is a barrier. The advantage of the multi-tool architecture is lost.
 
-**Implementation note.** The FAISS vector index sits in Unity Catalog Volumes, not in a managed vector database. This is a deliberate cost decision: query volume did not justify the overhead of managed vector search, and a daily rebuild cycle (before 12 PM) met the SLA at significantly lower cost. Unity Catalog still provides lineage and access control. The FAISS index is rebuilt over the translated comment embeddings each morning.
+**Implementation note.** The vector index is a Databricks Vector Search index in Unity Catalog, queried via the managed API. The index is refreshed over the translated comment embeddings on a daily cadence aligned to the 12 PM SLA. Unity Catalog provides lineage and access control natively, and the managed service handles scaling and authentication without bespoke setup.
 
 ## The Databricks App: three modes, one supervisor
 
@@ -148,11 +131,3 @@ Arabic-OTT made two parts of this stack non-negotiable. Translation is non-optio
 Your feedback data is either an asset you can query or a queue your analysts work down. Which one is yours?
 
 The teams that treat it as a queue ship dashboards, hire more analysts, and watch the queue grow. The teams that treat it as an asset build the stack: Bronze ingestion that survives API changes, Silver enrichment with title mapping as the load-bearing join, a clean Gold semantic model, two specialised Genie spaces, and a thin supervisor agent that routes by intent. The architectural decision that makes the asset version work is the split into two Genie spaces. Most teams skip it and end up with a single space that hallucinates SQL on mixed-intent queries. The work is in the split.
-
----
-
-> Related case study: [Voice-of-Customer Intelligence Platform](/projects/enigma/)
-
-**Syed Aamir** is a Data & AI Solutions Engineer based in Dubai, building data foundations and applied AI for OTT streaming in the MENA region. Currently at Shahid (MBC Group). Previously delivered enterprise BI across automotive, retail, and financial services with Beinex, Al-Futtaim Technologies, and Scan Technology.
-
-If your team is working through a similar problem, [start a conversation](https://mail.google.com/mail/?view=cm&fs=1&to=saamir259@gmail.com&su=Project%20inquiry) or [connect on LinkedIn](https://www.linkedin.com/in/syedaamiruddin/).

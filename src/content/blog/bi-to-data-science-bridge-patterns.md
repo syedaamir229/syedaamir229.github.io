@@ -3,25 +3,7 @@ title: "BI to Data Science Bridge Patterns: Four Moves That Stop the Numbers fro
 date: 2025-01-13
 description: "Four technical bridge patterns from a BI-to-DS transition at Shahid: shared entities, careful feature promotion, use-first validation, and role evolution. The patterns that stop the dashboard from disagreeing with the model."
 categories: ["Data Science", "BI & Analytics"]
-tags: ["Data Science", "BI", "Feature Engineering", "Data Modeling", "Career"]
-featured: false
 draft: false
-depth: flagship
-pillar: bi-to-ai
-linkedin_excerpt: |
-  Quarterly leadership review at an MENA streaming platform. The churn prediction model flagged 15,000 subscribers as at-risk for the upcoming quarter. The churn dashboard, which the business team had relied on for months, showed about 12,000.
-
-  Neither number was wrong. They used different definitions of "active subscriber" downstream. The gap was 3,000 names of people the business now did not know whether to trust.
-
-  This conflict is the one most BI-to-DS transitions accumulate quietly until a leadership review surfaces it. Four bridge patterns stop the accumulation before it shows up in the room.
-
-  1. Keep shared business entities
-  2. Promote metrics to features carefully
-  3. Validate for use, not just for score
-  4. Evolve roles, not just tools
-
-  Full piece on the blog ↓
-  [link]
 ---
 
 A quarterly leadership review at Shahid (MBC Group). The churn prediction model flagged roughly 15,000 subscribers as at-risk for the upcoming quarter. The churn dashboard, which the business team had relied on for months, showed about 12,000. The executive in the room asked the question that ends BI-to-DS transitions: "Which number is the right one?"
@@ -83,11 +65,3 @@ In MENA streaming, the entity that pays back the most from shared definitions is
 Are your model numbers explainable from your dashboard, or are they a parallel reality?
 
 When the answer is parallel, every executive review eventually surfaces a "which number is right?" conversation, and the data team gets blamed for an organisational failure that was actually a modelling-discipline failure. When the answer is explainable, the model and the dashboard are two views into the same governed foundation, and a leadership question about either traces back to a definition both sides already trust.
-
----
-
-> Related case study: [CRM Campaign Automation Platform](/projects/jarvis/) | [Profile Feature Store](/projects/profile-features/)
-
-**Syed Aamir** is a Data & AI Solutions Engineer based in Dubai, building data foundations and applied AI for OTT streaming in the MENA region. Currently at Shahid (MBC Group). Previously delivered enterprise BI across automotive, retail, and financial services with Beinex, Al-Futtaim Technologies, and Scan Technology.
-
-If your team is working through a similar problem, [start a conversation](https://mail.google.com/mail/?view=cm&fs=1&to=saamir259@gmail.com&su=Project%20inquiry) or [connect on LinkedIn](https://www.linkedin.com/in/syedaamiruddin/).

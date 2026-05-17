@@ -3,22 +3,9 @@ title: "Semantic Layer Series Part 3 of 6: The Three-Layer DAX Stack"
 date: 2023-09-11
 description: "Why DAX measure design is what decides whether a semantic layer scales: build the measure logic in three layers (base, business, consumption), or watch the same KPI appear in three different shapes across the report estate."
 categories: ["BI & Analytics", "Data Modeling"]
-tags: ["DAX", "Semantic Layer", "KPI", "Power BI", "SSAS"]
-featured: false
 draft: false
-depth: deep-dive
-pillar: governed-data
 series: semantic-layer
 series_part: 3
-linkedin_excerpt: |
-  Dashboard owner discovers their `churn_rate` measure is three different things in three different reports. Same name. Different filters. Different denominators. Same source data.
-
-  This is the moment most semantic-layer projects fail to recover from. The model is in place. The dashboards are live. The DAX has drifted because there is no measure-engineering discipline above the model.
-
-  The Three-Layer DAX Stack stops the drift. Base measures, business measures, consumption logic. Each layer references the layer below. Nothing skips a layer.
-
-  Full piece on the blog ↓
-  [link]
 ---
 
 A dashboard owner at Shahid pulled the DAX behind `churn_rate` across three of their highest-traffic reports. Three different formulas. One used `DIVIDE` with a default of zero; one used `DIVIDE` without a fallback; one wrapped the calculation in an `IF` that swapped behaviour during quarter-end. None of them produced the same number for the same period.
@@ -27,7 +14,7 @@ The model was already in place. The dashboards were live. The DAX had drifted be
 
 **Most semantic-layer quality issues are measure-engineering issues.** If the DAX is inconsistent, overloaded, or hard to debug, trust drops even when the underlying data model is strong. The remedy is a three-layer measure pattern where every measure declares which layer it lives in and what it references.
 
-![DAX measure layering pattern](/assets/diagrams/semantic-series-03-kpi-engineering.svg)
+![KPI Engineering Stack: Base Measures feed Business Measures (net_adds, churn_rate, ARPU, retention, engagement_index) which feed the Consumption Layer (time intelligence, lifecycle cuts, self-service field parameters, governed report templates).](/assets/blog/semantic-series-03-kpi-engineering.svg)
 
 *Layered measure design keeps KPI logic maintainable and reduces duplicated logic across dashboards.*
 
@@ -169,11 +156,3 @@ Are your DAX measures a library or a graveyard?
 A library has organised layers, named owners, and dependency graphs that hold. A graveyard has measures with similar names doing different things in different reports, and no one alive who can explain why. The Three-Layer DAX Stack is what keeps the library from turning into the graveyard. The discipline is the layer constraint; the payoff is that hundreds of report queries reuse the same governed measure without drift.
 
 The next post in the series, [Part 4: The Three Release Gates](/blog/semantic-layer-04-governance-and-deployment/), covers what happens after the measures are written: how releases are gated and how the model is deployed without resetting partitions and roles.
-
----
-
-> Related case study: [Enterprise Semantic Layer & KPI Framework](/projects/semantic-layer/)
-
-**Syed Aamir** is a Data & AI Solutions Engineer based in Dubai, building data foundations and applied AI for OTT streaming in the MENA region. Currently at Shahid (MBC Group). Previously delivered enterprise BI across automotive, retail, and financial services with Beinex, Al-Futtaim Technologies, and Scan Technology.
-
-If your team is working through a similar problem, [start a conversation](https://mail.google.com/mail/?view=cm&fs=1&to=saamir259@gmail.com&su=Project%20inquiry) or [connect on LinkedIn](https://www.linkedin.com/in/syedaamiruddin/).

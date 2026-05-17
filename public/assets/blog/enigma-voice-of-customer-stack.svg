@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" font-family="Inter, system-ui, sans-serif">
+  <defs>
+    <marker id="up" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#06B6D4"/>
+    </marker>
+    <marker id="down" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#94A3B8"/>
+    </marker>
+  </defs>
+
+  <rect width="1200" height="720" rx="12" fill="#050B14"/>
+  <text x="600" y="34" text-anchor="middle" font-size="18" font-weight="700" fill="#E2E8F0">Voice-of-Customer Stack</text>
+  <text x="600" y="54" text-anchor="middle" font-size="11" fill="#94A3B8">Two specialized Genie spaces and a managed vector index, routed by a supervisor agent</text>
+
+  <!-- Layer 6: Databricks App (top) -->
+  <rect x="40" y="78" width="1120" height="72" rx="10" fill="#122033" stroke="#06B6D4" stroke-width="2"/>
+  <text x="600" y="100" text-anchor="middle" font-size="12" font-weight="700" fill="#E2E8F0">Databricks App</text>
+  <text x="600" y="115" text-anchor="middle" font-size="9" fill="#94A3B8">React + FastAPI</text>
+  <rect x="120" y="124" width="280" height="22" rx="5" fill="#1E3148" stroke="#06B6D4"/>
+  <text x="260" y="139" text-anchor="middle" font-size="9" fill="#22D3EE">Title Chat</text>
+  <rect x="460" y="124" width="280" height="22" rx="5" fill="#1E3148" stroke="#06B6D4"/>
+  <text x="600" y="139" text-anchor="middle" font-size="9" fill="#22D3EE">General Chat</text>
+  <rect x="800" y="124" width="280" height="22" rx="5" fill="#1E3148" stroke="#06B6D4"/>
+  <text x="940" y="139" text-anchor="middle" font-size="9" fill="#22D3EE">Custom Post Research</text>
+
+  <!-- Down arrow to Supervisor (query routing) -->
+  <line x1="600" y1="150" x2="600" y2="178" stroke="#94A3B8" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#down)"/>
+
+  <!-- Layer 5: Supervisor Agent -->
+  <rect x="420" y="184" width="360" height="64" rx="10" fill="#122033" stroke="#06B6D4" stroke-width="2"/>
+  <text x="600" y="207" text-anchor="middle" font-size="13" font-weight="700" fill="#E2E8F0">LangGraph Supervisor Agent</text>
+  <text x="600" y="225" text-anchor="middle" font-size="9" fill="#22D3EE">Classifies intent: quantitative / qualitative / hybrid</text>
+  <text x="600" y="239" text-anchor="middle" font-size="9" fill="#94A3B8">Routes to Genie spaces or vector index, enforces fallback contract</text>
+
+  <!-- Down arrows from supervisor to retrieval tools (query routing) -->
+  <line x1="500" y1="248" x2="200" y2="274" stroke="#94A3B8" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#down)"/>
+  <line x1="600" y1="248" x2="600" y2="274" stroke="#94A3B8" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#down)"/>
+  <line x1="700" y1="248" x2="1000" y2="274" stroke="#94A3B8" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#down)"/>
+
+  <!-- Layer 4: Retrieval tools -->
+  <rect x="60" y="280" width="280" height="92" rx="10" fill="rgba(6,182,212,0.06)" stroke="#06B6D4" stroke-width="1.5"/>
+  <text x="200" y="304" text-anchor="middle" font-size="12" font-weight="700" fill="#06B6D4">Comments Genie</text>
+  <text x="200" y="324" text-anchor="middle" font-size="9" fill="#22D3EE">LLM-to-SQL over fact_comment</text>
+  <text x="200" y="340" text-anchor="middle" font-size="9" fill="#94A3B8">Sentiment, volume, profanity rate</text>
+  <text x="200" y="356" text-anchor="middle" font-size="9" fill="#94A3B8">"How many comments did Title X get?"</text>
+
+  <rect x="460" y="280" width="280" height="92" rx="10" fill="rgba(6,182,212,0.06)" stroke="#06B6D4" stroke-width="1.5"/>
+  <text x="600" y="304" text-anchor="middle" font-size="12" font-weight="700" fill="#06B6D4">Engagement Genie</text>
+  <text x="600" y="324" text-anchor="middle" font-size="9" fill="#22D3EE">LLM-to-SQL over engagement star schema</text>
+  <text x="600" y="340" text-anchor="middle" font-size="9" fill="#94A3B8">Playtime, device, demographic cuts</text>
+  <text x="600" y="356" text-anchor="middle" font-size="9" fill="#94A3B8">"Playtime trends for Title X by device?"</text>
+
+  <rect x="860" y="280" width="280" height="92" rx="10" fill="rgba(6,182,212,0.06)" stroke="#06B6D4" stroke-width="1.5"/>
+  <text x="1000" y="304" text-anchor="middle" font-size="12" font-weight="700" fill="#06B6D4">Databricks Vector Search</text>
+  <text x="1000" y="324" text-anchor="middle" font-size="9" fill="#22D3EE">Managed semantic index in Unity Catalog</text>
+  <text x="1000" y="340" text-anchor="middle" font-size="9" fill="#94A3B8">Embeddings over translated comments</text>
+  <text x="1000" y="356" text-anchor="middle" font-size="9" fill="#94A3B8">"What are people saying about the ending?"</text>
+
+  <!-- Up arrows from Gold to retrieval tools (data flow) -->
+  <line x1="200" y1="430" x2="200" y2="378" stroke="#06B6D4" stroke-width="2" marker-end="url(#up)"/>
+  <line x1="600" y1="430" x2="600" y2="378" stroke="#06B6D4" stroke-width="2" marker-end="url(#up)"/>
+  <line x1="1000" y1="430" x2="1000" y2="378" stroke="#06B6D4" stroke-width="2" marker-end="url(#up)"/>
+
+  <!-- Layer 3: Gold semantic model -->
+  <rect x="40" y="432" width="1120" height="86" rx="10" fill="#0A1220" stroke="#06B6D4" stroke-width="1.5"/>
+  <text x="600" y="454" text-anchor="middle" font-size="12" font-weight="700" fill="#E2E8F0">Gold Semantic Model</text>
+  <rect x="80" y="468" width="320" height="38" rx="6" fill="#122033" stroke="#06B6D4"/>
+  <text x="240" y="485" text-anchor="middle" font-size="10" font-weight="500" fill="#22D3EE">dim_post</text>
+  <text x="240" y="499" text-anchor="middle" font-size="8" fill="#94A3B8">dwh_parent_id, title_name, season, episode</text>
+
+  <rect x="440" y="468" width="320" height="38" rx="6" fill="#122033" stroke="#06B6D4"/>
+  <text x="600" y="485" text-anchor="middle" font-size="10" font-weight="500" fill="#22D3EE">fact_comment</text>
+  <text x="600" y="499" text-anchor="middle" font-size="8" fill="#94A3B8">sentiment, profanity, translated_text, dwh_parent_id</text>
+
+  <rect x="800" y="468" width="320" height="38" rx="6" fill="#122033" stroke="#06B6D4"/>
+  <text x="960" y="485" text-anchor="middle" font-size="10" font-weight="500" fill="#22D3EE">comment_llm_enriched</text>
+  <text x="960" y="499" text-anchor="middle" font-size="8" fill="#94A3B8">cluster summaries, theme tags, signal aggregates</text>
+
+  <!-- Up arrow Silver to Gold -->
+  <line x1="600" y1="558" x2="600" y2="522" stroke="#06B6D4" stroke-width="2" marker-end="url(#up)"/>
+
+  <!-- Layer 2: Silver NLP enrichment -->
+  <rect x="40" y="560" width="1120" height="68" rx="10" fill="#0A1220" stroke="#06B6D4" stroke-width="1.5"/>
+  <text x="600" y="580" text-anchor="middle" font-size="12" font-weight="700" fill="#E2E8F0">Silver NLP Enrichment</text>
+  <rect x="60" y="592" width="210" height="28" rx="5" fill="#122033" stroke="#06B6D4"/>
+  <text x="165" y="610" text-anchor="middle" font-size="9" fill="#22D3EE">Arabic - English translation</text>
+
+  <rect x="280" y="592" width="200" height="28" rx="5" fill="#122033" stroke="#06B6D4"/>
+  <text x="380" y="610" text-anchor="middle" font-size="9" fill="#22D3EE">Sentiment scoring</text>
+
+  <rect x="490" y="592" width="200" height="28" rx="5" fill="#122033" stroke="#06B6D4"/>
+  <text x="590" y="610" text-anchor="middle" font-size="9" fill="#22D3EE">Profanity detection</text>
+
+  <rect x="700" y="592" width="220" height="28" rx="5" fill="#122033" stroke="#06B6D4"/>
+  <text x="810" y="610" text-anchor="middle" font-size="9" fill="#22D3EE">URL - title mapping</text>
+
+  <rect x="930" y="592" width="210" height="28" rx="5" fill="#122033" stroke="#06B6D4"/>
+  <text x="1035" y="610" text-anchor="middle" font-size="9" fill="#22D3EE">Platform normalisation</text>
+
+  <!-- Up arrow Bronze to Silver -->
+  <line x1="600" y1="668" x2="600" y2="632" stroke="#06B6D4" stroke-width="2" marker-end="url(#up)"/>
+
+  <!-- Layer 1: Bronze sources -->
+  <rect x="40" y="670" width="1120" height="44" rx="10" fill="#0A1220" stroke="#2A4561"/>
+  <rect x="60" y="678" width="260" height="28" rx="5" fill="#122033" stroke="#2A4561"/>
+  <text x="190" y="697" text-anchor="middle" font-size="10" fill="#E2E8F0">Twitter</text>
+
+  <rect x="335" y="678" width="260" height="28" rx="5" fill="#122033" stroke="#2A4561"/>
+  <text x="465" y="697" text-anchor="middle" font-size="10" fill="#E2E8F0">Facebook</text>
+
+  <rect x="605" y="678" width="260" height="28" rx="5" fill="#122033" stroke="#2A4561"/>
+  <text x="735" y="697" text-anchor="middle" font-size="10" fill="#E2E8F0">YouTube</text>
+
+  <rect x="880" y="678" width="260" height="28" rx="5" fill="#122033" stroke="#2A4561"/>
+  <text x="1010" y="697" text-anchor="middle" font-size="10" fill="#E2E8F0">Shahid Shorts</text>
+
+  <!-- Side legend -->
+  <line x1="40" y1="60" x2="60" y2="60" stroke="#06B6D4" stroke-width="2"/>
+  <text x="68" y="63" font-size="9" fill="#94A3B8">data flow</text>
+  <line x1="140" y1="60" x2="160" y2="60" stroke="#94A3B8" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="168" y="63" font-size="9" fill="#94A3B8">query routing</text>
+</svg>

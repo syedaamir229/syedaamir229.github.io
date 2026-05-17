@@ -3,22 +3,7 @@ title: "AI-Powered CRM Automation: The Six-Layer CRM Operating System"
 date: 2025-05-19
 description: "How a scenario-based CRM operating system at Shahid replaced manual analyst handoffs, gave CRM operators direct targeting power, and closed the loop from data to activation to measurement."
 categories: ["AI & Automation", "Data Engineering"]
-tags: ["CRM", "CleverTap", "Automation", "Personalization", "Scenario Engine"]
-featured: false
 draft: false
-depth: flagship
-pillar: applied-ai
-linkedin_excerpt: |
-  Monday morning Slack thread, MENA streaming CRM team. "Can we send the Ramadan Episodes-Remaining audience tonight? The Demon Slayer one." Analyst's reply: "I'll have the query ready by Wednesday."
-
-  This is the bottleneck every CRM team in streaming hits. They know exactly which audience they want. They wait days for someone to build it.
-
-  We replaced this loop at Shahid with a scenario engine: a six-layer CRM Operating System where targeting logic is encoded into reusable scenarios the CRM team configures directly, with closed-loop performance back into the data layer.
-
-  The CRM team stopped filing audience tickets. The data team stopped writing SQL for every campaign. Both sides ended up doing higher-value work.
-
-  Full piece on the blog ↓
-  [link]
 ---
 
 A Monday morning Slack thread at Shahid (MBC Group). The CRM lead asked the data team: "Can we send out an Episodes-Remaining audience tonight for the Demon Slayer Ramadan finale? Profiles that watched more than two episodes but did not finish, kids-content excluded, last 30 days." The analyst's reply: "I will have the query ready by Wednesday."
@@ -100,11 +85,3 @@ The seasonal-override layer pays for itself the first Ramadan after launch. Cont
 Is your CRM team configuring scenarios or filing tickets?
 
 A team filing tickets is a team that pays the cost of every campaign upfront, in analyst time, then again on the back-end, in campaign delay. A team configuring scenarios is a team where the data layer earned the right to be infrastructure. The system above turns the data foundation into a CRM operating system that the operators can actually operate. The engineering work is real. The compounding is realer.
-
----
-
-> Related case study: [CRM Campaign Automation Platform](/projects/jarvis/)
-
-**Syed Aamir** is a Data & AI Solutions Engineer based in Dubai, building data foundations and applied AI for OTT streaming in the MENA region. Currently at Shahid (MBC Group). Previously delivered enterprise BI across automotive, retail, and financial services with Beinex, Al-Futtaim Technologies, and Scan Technology.
-
-If your team is working through a similar problem, [start a conversation](https://mail.google.com/mail/?view=cm&fs=1&to=saamir259@gmail.com&su=Project%20inquiry) or [connect on LinkedIn](https://www.linkedin.com/in/syedaamiruddin/).

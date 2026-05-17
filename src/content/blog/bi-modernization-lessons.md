@@ -1,36 +1,16 @@
 ---
 title: "BI Modernization: The Three-Phase Migration Sequence That Did Not Break Trust"
 date: 2023-02-13
-description: "A Tableau-to-Power BI-to-SSAS modernization at Shahid in three sequential phases (tool, data layer, metric logic), with zero reporting disruption, 35% maintenance reduction, 40% adoption lift, and 100+ governed measures."
+description: "A Tableau-to-Power BI-to-SSAS modernization at MBC Shahid in three sequential phases (tool, data layer, metric logic), with zero reporting disruption, 35% maintenance reduction, 40% adoption lift, and 100+ governed measures."
 categories: ["BI & Analytics", "Data Engineering"]
-tags: ["Power BI", "Tableau", "Migration", "Semantic Layer", "SSAS", "BI Modernization"]
-featured: false
 draft: false
-depth: flagship
-pillar: governed-data
-linkedin_excerpt: |
-  Mid-cutover. The executive sponsor of the BI migration asks the question every modernization eventually faces: "Are we sure these numbers are the same as last quarter?"
-
-  Most migrations have a hard time answering. They change the tool, the data layer, and the metric logic at the same time. When a number disagrees, nobody can tell whether it is the new tool, the new data architecture, or the new measure definition.
-
-  We staged the Shahid migration as three sequential phases (tool, then data layer, then metric logic) so that each phase could be independently validated.
-
-  Outcome: 35% maintenance reduction, 40% adoption lift, 100+ governed measures, zero reporting disruption across all three phases.
-
-  The Three-Phase Migration Sequence:
-  1. Tool first
-  2. Data layer second
-  3. Metric logic third
-
-  Full piece on the blog ↓
-  [link]
 ---
 
-Mid-cutover, third quarter of a phased BI modernization at Shahid (MBC Group). The executive sponsor sitting in on a validation review asked the question every modernization eventually faces: "Are we sure these numbers are the same as last quarter?"
+Mid-cutover, third quarter of a phased BI modernization at MBC Shahid (MBC Group). The executive sponsor sitting in on a validation review asked the question every modernization eventually faces: "Are we sure these numbers are the same as last quarter?"
 
 The honest answer most teams have to give is "we think so, but we are changing three things at once and we can isolate maybe one of them." That answer ends programs. It ends them because the executive who asked the question now has to defend whichever number ships in next week's leadership review, and they cannot do that without certainty.
 
-The migration at Shahid did not have to give that answer. It was deliberately sequenced into three phases (tool, then data layer, then metric logic) so that each phase could be independently validated against the previous one. When the executive asked, we could point to the layer that had changed, show the validation runs, and confirm that the number on the slide reflected the same definition as the quarter before.
+The migration at MBC Shahid did not have to give that answer. It was deliberately sequenced into three phases (tool, then data layer, then metric logic) so that each phase could be independently validated against the previous one. When the executive asked, we could point to the layer that had changed, show the validation runs, and confirm that the number on the slide reflected the same definition as the quarter before.
 
 **Most post-launch BI modernization failures are sequencing failures, not modelling failures.** Migrating tool, data layer, and metric logic at the same time introduces compounding failure modes. If something breaks during a simultaneous swap, you cannot isolate whether the issue is the new BI tool, the new data architecture, or the new metric definitions. The phased sequence is what lets the program survive its first hard question.
 
@@ -38,7 +18,7 @@ The migration at Shahid did not have to give that answer. It was deliberately se
 
 Tableau-to-Power BI migrations are now routine, but the structural failure mode has not changed: organisations attempt single-step migrations and then spend two years rebuilding trust. [Industry analysis of BI platform migrations](https://www.gartner.com/) consistently reports timelines that double the original estimate, and the root cause is almost always compounding change across layers that should have been migrated separately.
 
-At Shahid the work ran from August 2022 through March 2023 for the first two phases, with the third phase running through mid-2024. Phased timing was a deliberate trade-off. A big-bang migration might have been faster on paper. The risk of cascading failures and stakeholder fatigue made the phased approach the better bet for an estate of this size and visibility.
+At MBC Shahid the work ran from August 2022 through March 2023 for the first two phases, with the third phase running through mid-2024. Phased timing was a deliberate trade-off. A big-bang migration might have been faster on paper. The risk of cascading failures and stakeholder fatigue made the phased approach the better bet for an estate of this size and visibility.
 
 ## The starting estate
 
@@ -74,7 +54,7 @@ What goes wrong if you skip it: the semantic-layer governance benefit never mate
 
 ## What I would never skip again
 
-**Cutover runbooks.** Every major cutover at Shahid had a written runbook: the sequence of steps, the validation checks to run before and after, the rollback procedure, and the communication plan for affected stakeholders. The runbook removes ambiguity during the most fragile moments of each phase. The first time something does not behave as expected during cutover, the team is grateful for the runbook.
+**Cutover runbooks.** Every major cutover had a written runbook: the sequence of steps, the validation checks to run before and after, the rollback procedure, and the communication plan for affected stakeholders. The runbook removes ambiguity during the most fragile moments of each phase. The first time something does not behave as expected during cutover, the team is grateful for the runbook.
 
 **Pilot dashboards before broad rollout.** Migrating two or three representative dashboards first, validating with primary stakeholders, then proceeding to the broader rollout. This catches data-source mismatches, formatting differences, and performance regressions before they affect the full estate.
 
@@ -90,7 +70,7 @@ Phase 1 produces visible progress (every report runs in the new tool) without ri
 
 ## One MENA-flavored note
 
-The Shahid migration intersected the Ramadan content cycle once. The deliberate decision was that no cutover would happen mid-Ramadan, because dashboards used during Ramadan release reviews are the highest-visibility reports of the year. Cutover windows were aligned to the cycle, not the calendar. Modernization programs in MENA streaming that ignore the content cycle ship the wrong phase at the wrong week and burn trust that takes a year to rebuild. The cycle awareness is operational, not seasonal flavour.
+The MBC Shahid migration intersected the Ramadan content cycle once. The deliberate decision was that no cutover would happen mid-Ramadan, because dashboards used during Ramadan release reviews are the highest-visibility reports of the year. Cutover windows were aligned to the cycle, not the calendar. Modernization programs in MENA streaming that ignore the content cycle ship the wrong phase at the wrong week and burn trust that takes a year to rebuild. The cycle awareness is operational, not seasonal flavour.
 
 ## Outcomes
 
@@ -106,11 +86,3 @@ By the end of the three phases:
 If your migration broke today, which layer would you point at first?
 
 The answer is the test for whether the program is recoverable. A team that can point to a layer can fix the layer. A team that swapped tool, data, and metrics simultaneously cannot point at anything; they can only roll back the whole migration or absorb the cost. The Three-Phase Migration Sequence above exists so the answer is always available, and so the answer is always a fix and not a retreat.
-
----
-
-> Related case study: [BI Modernization Roadmap](/projects/bi-migration/)
-
-**Syed Aamir** is a Data & AI Solutions Engineer based in Dubai, building data foundations and applied AI for OTT streaming in the MENA region. Currently at Shahid (MBC Group). Previously delivered enterprise BI across automotive, retail, and financial services with Beinex, Al-Futtaim Technologies, and Scan Technology.
-
-If your team is working through a similar problem, [start a conversation](https://mail.google.com/mail/?view=cm&fs=1&to=saamir259@gmail.com&su=Project%20inquiry) or [connect on LinkedIn](https://www.linkedin.com/in/syedaamiruddin/).

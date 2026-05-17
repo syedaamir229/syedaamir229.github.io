@@ -1,32 +1,18 @@
 ---
 title: "Behavior-Based Attribute Inference"
-description: "Built a behavioral inference model to enrich incomplete profile attributes and improve downstream audience analysis."
+description: "Missing profile attributes filled in from behavior, so audience analysis stops being blocked by signup gaps."
 category: "Data Science"
-tags: ["XGBoost", "scikit-learn", "PySpark", "Databricks", "Delta Lake", "MLflow"]
+tags: ["XGBoost", "scikit-learn", "MLflow"]
 featured: false
 metrics:
-  - label: "Model Accuracy"
-    value: "75%"
-  - label: "AUC Score"
-    value: "0.81"
+  - label: "Coverage Expansion"
+    value: "22.7% → 100%"
+  - label: "Profiles Newly Inferred"
+    value: "5.8M"
   - label: "Profiles Scored"
     value: "9.5M"
-  - label: "New Predictions"
-    value: "5.8M"
 order: 9
 ---
-
-# Behavior-Based Attribute Inference
-
-> **Outcome:** Demographic coverage expanded from 22.7% (self-reported) to 100% of engaged adult profiles (5.8M new predictions) at 75% accuracy and 0.81 AUC, unlocking audience analysis where declared attributes were sparse.
-
-**Organization**: Shahid (MBC Group)
-**Role**: Data Science & Advanced Analytics
-**Timeline**: July -- October 2025
-**Industry**: Media & Entertainment (Data Science)
-**Ownership**: End-to-end owner of feature engineering, model training, validation, and deployment handoff
-
-Declared profile attributes were incomplete for a meaningful portion of users. A behavior-based inference workflow was needed to improve usable audience context.
 
 ## Challenge
 
@@ -44,8 +30,7 @@ Declared profile attributes were incomplete for a meaningful portion of users. A
 
 ## Architecture Overview
 
-
-![Behavior-Based Attribute Inference: behavioral features (protagonist gender, audience affinity, sub-genre preferences) from the profile feature store feed an XGBoost training and validation loop tracked in MLflow, with the registered model producing 5.8M new predictions written back as controlled features for analytics and targeting](/assets/diagrams/gender-prediction.svg)
+![Behavior-based attribute inference pipeline: a self-labeled training subset feeds XGBoost training; the model is registered via MLflow in Unity Catalog and scores all 9.5M adult profiles into a separate feature surface with usage guidance for downstream consumers.](/assets/projects/attribute-inference.svg)
 
 Training data comes from accounts with a single adult profile and a self-reported label: a validation subset clean enough to learn from. XGBoost trains on behavioural features (protagonist gender exposure, audience affinity, sub-genre preferences) and the model gets registered through MLflow in Unity Catalog. At scoring time it covers all 9.5M adult profiles. Predictions land in a separate feature surface with usage guidance, so downstream consumers can decide whether to trust them.
 
@@ -55,14 +40,6 @@ Training data comes from accounts with a single adult profile and a self-reporte
 - Teams gained additional context for planning and campaign design
 - Behavioral signals were converted into a practical enrichment layer
 - Outputs complemented clustering and other audience modeling workflows
-
-## Tech Stack
-
-- XGBoost, scikit-learn
-- PySpark
-- Databricks, Delta Lake
-- MLflow (Unity Catalog model registry)
-- SQL
 
 ## Reusable Pattern
 
@@ -75,8 +52,11 @@ This enrichment pattern is relevant when customer profiles are incomplete:
 
 **When this pattern is NOT appropriate**: Don't infer attributes that downstream consumers will treat as ground truth. If your reporting layer can't distinguish a self-reported value from a model prediction, the inference adds risk without uplift. Same applies if your declared coverage is already above 80% — the marginal lift from inference rarely justifies the model maintenance burden.
 
----
+## Tech Stack
 
-## Related Projects
-
-[Profile-Level Feature Store](/projects/profile-features/) | [Viewing Behavior Clustering](/projects/clustering/) | [CRM Campaign Automation Platform](/projects/jarvis/) | [Enterprise Data Model](/projects/data-model/)
+- **Modeling**: XGBoost (binary classification) on a self-labeled training subset
+- **Feature engineering**: PySpark on behavioral signals (protagonist exposure, audience affinity, sub-genre preferences)
+- **Platform**: Databricks on Delta Lake
+- **Model registry**: MLflow in Unity Catalog (lineage, versioning, model approval)
+- **Output surface**: Separate feature table with usage-guidance metadata so consumers can distinguish predictions from declared values
+- **Sources**: Profile-level feature store + declared attributes (validation subset only)

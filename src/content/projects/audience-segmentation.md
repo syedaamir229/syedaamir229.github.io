@@ -1,8 +1,8 @@
 ---
 title: "Viewing Behavior Clustering"
-description: "Built behavior-first user segmentation that enabled actionable audience groups for content strategy and targeted campaigns."
+description: "Viewers grouped by how they actually watch, giving content and marketing teams audiences they can act on."
 category: "Data Science"
-tags: ["Python", "scikit-learn", "K-means", "Databricks", "PySpark", "Power BI"]
+tags: ["scikit-learn", "PySpark", "MLflow", "Power BI"]
 featured: false
 metrics:
   - label: "Audience Segments"
@@ -11,18 +11,6 @@ metrics:
     value: "7.5M"
 order: 8
 ---
-
-# Viewing Behavior Clustering
-
-> **Outcome:** 12 behavior-based audience segments derived from 7.5M scored profiles, replacing demographic and plan-type segmentation with activation-ready cluster definitions used by content strategy and CRM automation.
-
-**Organization**: Shahid (MBC Group)
-**Role**: Data Science & Advanced Analytics
-**Timeline**: 2024
-**Industry**: Media & Entertainment (Data Science)
-**Ownership**: Key contributor to feature selection, clustering workflow design, validation, and activation
-
-Audience segmentation was broad before this work. Teams relied on simple dimensions such as plan type or geography, which did not capture real user behavior patterns.
 
 ## Challenge
 
@@ -41,8 +29,7 @@ Audience segmentation was broad before this work. Teams relied on simple dimensi
 
 ## Architecture Overview
 
-
-![Viewing Behavior Clustering: profile features and content semantic embeddings feed a K-means clustering job that emits 12 audience segments, written back to the Semantic Layer and consumed by Jarvis CRM automation and Power BI content-strategy dashboards](/assets/diagrams/clustering.svg)
+![Viewing behavior clustering pipeline: a behavior matrix of viewing hours plus semantic embeddings from content synopses feed K-means, producing 12 audience segments validated for stability and published to the semantic layer.](/assets/projects/audience-segmentation.svg)
 
 Two signals feed the model: a behaviour matrix of viewing hours by mood, sub-genre, and dialect; and semantic embeddings from content synopses. K-means runs on the combined space. The 12 resulting segments are checked for stability across runs and labelled with business-friendly names before being written back into the Semantic Layer.
 
@@ -52,13 +39,6 @@ Two signals feed the model: a behaviour matrix of viewing hours by mood, sub-gen
 - Campaign audiences became more targeted and less generic
 - Content planning discussions used clearer audience profiles
 - Segmentation outputs fed downstream personalization and analytics workflows
-
-## Tech Stack
-
-- Python (scikit-learn, pandas, numpy)
-- Databricks
-- PySpark
-- Power BI
 
 ## Reusable Pattern
 
@@ -71,8 +51,11 @@ Behavior-first clustering is relevant across many domains:
 
 **When this pattern is NOT appropriate**: Skip clustering if your audience is small enough to manage with hand-defined segments (under ~100k users), or if your activation channels can't act on cluster-level differences. The maintenance cost of stable, interpretable clusters at scale is real, and it only pays back when behavioral signals are genuinely richer than demographic ones.
 
----
+## Tech Stack
 
-## Related Projects
-
-[Profile-Level Feature Store](/projects/profile-features/) | [CRM Campaign Automation Platform](/projects/jarvis/) | [Behavior-Based Attribute Inference](/projects/gender-prediction/) | [Enterprise Data Model](/projects/data-model/)
+- **Modeling**: Python (scikit-learn K-means, pandas, numpy)
+- **Platform**: Databricks (PySpark, Spark ML)
+- **Inputs**: Profile-level feature store (behavior matrix) + sentence-transformer embeddings of content synopses
+- **Validation**: Multi-run stability checks and business-friendly cluster labelling
+- **Output surface**: Segment table written back to the Semantic Layer
+- **Reporting**: Power BI for segment exploration and content strategy review

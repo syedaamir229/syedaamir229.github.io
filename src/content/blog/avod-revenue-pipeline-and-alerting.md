@@ -1,24 +1,9 @@
 ---
 title: "The Four-Signal AVOD Operating Loop"
 date: 2023-11-20
-description: "How an AVOD revenue operations pipeline at Shahid replaced spreadsheet-heavy tracking with four linked pipelines (inventory, impressions, VAST errors, pacing) and business-impact alerts, and the 14-day refresh decision that earned the team's trust."
+description: "How an AVOD ad inventory and revenue pipeline at MBC Shahid replaced spreadsheet-heavy tracking with four linked pipelines (inventory, impressions, VAST errors, pacing) and business-impact alerts, and the 14-day refresh decision that earned the team's trust."
 categories: ["Data Engineering", "BI & Analytics"]
-tags: ["AVOD", "Google Ad Manager", "Pipeline", "Alerting", "Slack", "Revenue Operations"]
-featured: false
 draft: false
-depth: flagship
-pillar: governed-data
-linkedin_excerpt: |
-  Monday morning Shahid ad-revenue stand-up. Three teams in the room: Ad Ops, Growth, Data & Numbers. Each one had pulled the previous week's revenue total from Google Ad Manager independently. Each had a slightly different number on their slide.
-
-  None of the three were wrong. Each had its own filters, its own date logic, its own categorisation of programmatic versus direct. The discussion turned into a reconciliation meeting. The actual revenue decision the room had walked in to make was postponed.
-
-  We replaced this loop with a single AVOD Operating Loop: four linked pipelines feeding one staging layer, one set of dashboards, one alerting model.
-
-  Inventory. Impressions. VAST Errors. Pacing.
-
-  Full piece on the blog ↓
-  [link]
 ---
 
 A Monday morning ad-revenue stand-up at Shahid (MBC Group). Three teams in the room: Ad Operations, Growth, and the Data & Numbers team. Each had pulled the previous week's revenue total from Google Ad Manager independently. Each had a slightly different number on their slide. Each spent ten minutes explaining their filters.
@@ -90,11 +75,3 @@ Ramadan AVOD windows are a worked example for every signal in the loop. Inventor
 Is your revenue number a measurement or an estimate?
 
 When the answer is "estimate," every Monday standup eats half an hour of reconciliation. When the answer is "measurement," the team operates from a shared number and spends that half hour on the decisions the number was supposed to inform. The four-signal loop above is the change that switches the answer. The pipeline work is real. The compounding (faster reviews, fewer side spreadsheets, alerts the team actually acts on) is realer.
-
----
-
-> Related case study: [Revenue Operations Data Pipeline & Alerting Platform](/projects/ad-pipeline/)
-
-**Syed Aamir** is a Data & AI Solutions Engineer based in Dubai, building data foundations and applied AI for OTT streaming in the MENA region. Currently at Shahid (MBC Group). Previously delivered enterprise BI across automotive, retail, and financial services with Beinex, Al-Futtaim Technologies, and Scan Technology.
-
-If your team is working through a similar problem, [start a conversation](https://mail.google.com/mail/?view=cm&fs=1&to=saamir259@gmail.com&su=Project%20inquiry) or [connect on LinkedIn](https://www.linkedin.com/in/syedaamiruddin/).

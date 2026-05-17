@@ -1,8 +1,8 @@
 ---
 title: "CRM Campaign Automation Platform"
-description: "Replaced manual CRM campaign creation with a 4-scenario recommendation engine processing millions of profiles daily, eliminating analyst handoffs."
+description: "CRM campaigns that build themselves across millions of profiles a day, replacing multi-day audience handoffs with daily automated execution."
 category: "AI & Automation"
-tags: ["Databricks", "PySpark", "Spark SQL", "Delta Lake", "CleverTap", "Power BI"]
+tags: ["CleverTap", "Power BI", "Databricks"]
 featured: true
 metrics:
   - label: "Profiles Processed Daily"
@@ -16,44 +16,44 @@ metrics:
 order: 4
 ---
 
-# CRM Campaign Automation Platform
-
-> **Outcome:** Millions of profiles processed daily across 4 recommendation scenarios, replacing multi-day manual audience builds with daily automated execution.
-
-*From manual analyst handoffs for every campaign to automated daily recommendation engine processing millions of profiles across 4 scenarios.*
-
-**Organization**: Shahid (MBC Group)
-**Role**: Data Science & Advanced Analytics
-**Timeline**: 2024-2025
-**Industry**: Media & Entertainment -- Marketing Automation / CRM
-**Ownership**: Key contributor to scenario logic, pipeline architecture, and CRM integration; worked within the data science and engineering team
-
-**Constraints**: CleverTap's API targets accounts (not individual profiles), creating a mismatch with profile-level viewing behavior in multi-profile households. Required daily batch completion before CRM send schedules. Seasonal events (Ramadan) required content-filter overrides without redeployment.
-
-Campaign operations relied on manual coordination. CRM teams depended on data analysts to build audiences and schedule recurring pushes, creating a bottleneck that limited campaign frequency and consistency.
-
 ## Challenge
+
+CleverTap targets accounts rather than profiles, daily batch completion had to land before CRM send schedules, and seasonal events like Ramadan required content-filter overrides without redeployment.
 
 - **Manual setup bottleneck**: Every audience build required a data request and query turnaround, slowing campaign cadence
 - **No profile-level personalization**: CRM targeting was account-level, ignoring the multi-profile structure of subscriber households
 - **Execution fragmentation**: Scheduling, deduplication, and delivery were handled ad hoc with no systematic tracking
 - **No feedback loop**: Campaign setup and outcome analysis lived in separate workflows with no connection between targeting logic and performance results
 
+## Key Decisions
+
+### Decision 1: Profile-level processing with account-level rollup
+
+**Problem:** CleverTap can only target at the account level, but processing at account level loses personalization in multi-profile households.
+
+**Options considered:**
+
+- Process at account level (simple but imprecise)
+- Process at profile level and roll up to account at delivery time (complex but accurate)
+
+**Chosen:** Profile-level processing with configurable account-level rollup (primary profile = profile with highest watch hours).
+
+**Why:** Preserves per-profile viewing behavior for recommendation logic while meeting CleverTap's delivery constraint. The rollup method is configurable (primary, dominant, last-active) to adapt to campaign intent.
+
+### Decision 2: Behavior-based scenario prioritization over calendar rotation
+
+**Problem:** Each account receives recommendations from multiple scenarios. Which one to send?
+
+**Options considered:**
+
+- Fixed calendar rotation (predictable but ignores user behavior)
+- Behavior-based prioritization by recency of activity
+
+**Chosen:** Behavior-based mode as default (calendar rotation available as fallback).
+
+**Why:** Users active in the last 7 days are best served by "Episodes Remaining" (re-engagement); users inactive 8-30 days by trending discovery; users inactive 30+ days by cluster-based discovery. Matching scenario to recency segment produces more relevant recommendations than arbitrary rotation.
+
 ## Approach
-
-**Key decisions made along the way:**
-
-> **Decision 1: Profile-level processing with account-level rollup**
-> *Problem*: CleverTap can only target at the account level (one `gigya_id` per household), but processing at account level loses personalization in multi-profile households.
-> *Options*: Process at account level (simple but imprecise); process at profile level and roll up (complex but accurate).
-> *Chosen*: Profile-level processing with configurable account-level rollup (primary profile = profile with highest watch hours).
-> *Why*: Preserves per-profile viewing behavior for recommendation logic while meeting CleverTap's delivery constraint. The rollup method is configurable (primary, dominant, last-active) to adapt to campaign intent.
-
-> **Decision 2: Behavior-based scenario prioritization over calendar rotation**
-> *Problem*: Each account receives recommendations from multiple scenarios. Which one to send?
-> *Options*: Fixed calendar rotation (predictable); behavior-based prioritization by recency.
-> *Chosen*: Behavior-based mode as default (calendar rotation available as fallback).
-> *Why*: Users active in the last 7 days are best served by "Episodes Remaining" (re-engagement); users inactive 8-30 days by trending discovery; users inactive 30+ days by cluster-based discovery. Matching scenario to recency segment produces more relevant recommendations than arbitrary rotation.
 
 - Built 3-phase shared data preparation: content metadata rollup (episode to season to show), profile-to-region mapping (7 regions), eligible profile filtering (adult + active only)
 - Implemented 4 parallel recommendation scenarios, each following a 9-step pipeline: load, filter, join eligible profiles, apply content/category filters, exclude watched, exclude recently sent, rank (top 5 per profile), write, validate
@@ -64,7 +64,7 @@ Campaign operations relied on manual coordination. CRM teams depended on data an
 
 ## Architecture Overview
 
-![Jarvis CRM Automation: 5-phase pipeline from shared data preparation through 4 parallel scenario generators to account rollup, scenario selection, and CleverTap payload delivery with deduplication tracking](/assets/diagrams/jarvis.svg)
+![CRM automation architecture: shared data prep feeds 4 parallel scenario generators that roll up to account level, pass through scenario selection, and deliver to CleverTap with 60-day deduplication.](/assets/projects/crm-automation.svg)
 
 5-phase daily pipeline: shared data prep feeds 4 parallel scenario generators (Clustered, Episodes Remaining, Ranked Up, AVOD), which roll up to account level, pass through scenario selection, and deliver to CleverTap with 60-day deduplication.
 
@@ -75,15 +75,6 @@ Campaign operations relied on manual coordination. CRM teams depended on data an
 - **Operational reliability**: Temporal configuration handles seasonal events (Ramadan content filters) automatically with no emergency deployments or manual overrides needed during peak content periods
 - **Deduplication at scale**: 60-day content tracking per profile prevents notification fatigue. The same title will not be recommended to the same profile within 60 days, regardless of which scenario generates it
 
-## Tech Stack
-
-- **Platform**: Databricks on AWS (PySpark + Spark SQL)
-- **Storage**: Delta Lake (S3) with ACID transactions on scenario output and infra tables
-- **Orchestration**: Databricks Jobs (daily batch scheduler)
-- **Delivery**: CleverTap API (push notification targeting)
-- **Reporting**: Power BI (campaign performance tracking)
-- **Environments**: Development to Production promotion via Databricks workspace environments
-
 ## Reusable Pattern
 
 This decision-driven recommendation-to-activation pattern (profile segmentation to scenario generation to account rollup to behavior-based selection to CRM delivery with deduplication) applies to any subscription or engagement-driven product:
@@ -93,10 +84,13 @@ This decision-driven recommendation-to-activation pattern (profile segmentation 
 - **Fintech**: Product nudges, payment reminders, and risk communications with eligibility-based routing
 - **Telecom**: Subscriber lifecycle campaigns and upgrade recommendations with regional variation
 
-**When this pattern is NOT appropriate**: If your user base is small enough that campaigns can be configured manually without bottleneck (<10k users, infrequent sends), the infrastructure overhead is not justified. Similarly, if your CRM platform natively supports behavioral segmentation logic, building a separate scenario layer duplicates capability rather than filling a gap.
+**When this pattern is NOT appropriate**: If your user base is small enough that campaigns can be configured manually without bottleneck (under 10k users, infrequent sends), the infrastructure overhead is not justified. Similarly, if your CRM platform natively supports behavioral segmentation logic, building a separate scenario layer duplicates capability rather than filling a gap.
 
----
+## Tech Stack
 
-## Related Projects
-
-[Voice-of-Customer Intelligence Platform](/projects/enigma/) | [Enterprise Data Model](/projects/data-model/) | [Profile-Level Feature Store](/projects/profile-features/)
+- **Platform**: Databricks on AWS (PySpark + Spark SQL)
+- **Storage**: Delta Lake (S3) with ACID transactions on scenario output and infra tables
+- **Orchestration**: Databricks Jobs (daily batch scheduler)
+- **Delivery**: CleverTap API (push notification targeting)
+- **Reporting**: Power BI (campaign performance tracking)
+- **Environments**: Development to Production promotion via Databricks workspace environments

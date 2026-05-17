@@ -3,28 +3,7 @@ title: "The Five Rules of a Compounding Data Model"
 date: 2026-05-15
 description: "Most data models are scoped like projects that end. The ones that compound are designed like infrastructure. Five rules from the enterprise model that became the foundation for every BI, ML, and AI build that came after."
 categories: ["Data Engineering"]
-tags: ["Databricks", "Data Modeling", "Delta Lake", "Dimensional Modeling", "Data Foundations"]
-featured: true
 draft: false
-depth: flagship
-pillar: governed-data
-linkedin_excerpt: |
-  Leadership review. Three teams. Three different "active subscribers" numbers. Same KPI, same source data, same quarter. Twenty minutes of the meeting were spent reconciling. None of it was spent on the decision the room had walked in to make.
-
-  This is the scene that gets every data-model project funded. It is also the scene that gets it scoped wrong. The word used in kickoff is "project." The word that should be used is "infrastructure."
-
-  Four years later the model we built that quarter at Shahid (MBC Group) is still the foundation under the semantic layer, the ML feature store, the CRM automation, and the voice-of-customer agent. Nothing rebuilt it.
-
-  Five rules made that compounding possible:
-
-  1. Start with the grain, not the dashboard
-  2. Movement tracking is worth the complexity
-  3. Surrogate keys everywhere
-  4. Feature tables belong in the model
-  5. Build for the next consumer
-
-  Full piece on the blog ↓
-  [link]
 ---
 
 The leadership review at Shahid (MBC Group), early 2022. The slide deck opened with active-subscribers for the quarter. The subscriptions team had one number on it. The content team had reproduced the same metric independently and had a slightly higher one. The ad-ops team had pulled it for their own pacing model and had a lower one. None of the three numbers were technically wrong. Each had been computed against a different filter assumption: trial users in or out, internal accounts in or out, profiles counted once or per device.
@@ -43,7 +22,7 @@ The [dbt 2025 State of Analytics Engineering Report](https://www.getdbt.com/reso
 
 The rules that produce a compounding model are not new. They are five disciplines that most teams apply two or three at a time, then wonder why the model does not survive its third use case.
 
-![Diagram of the Five Rules of a Compounding Data Model arranged as a sequence, with each rule labelled on a warm carbon background with copper accents, and a copper call-out indicating that the data model is infrastructure, not a project](/assets/blog/scalable-data-model-five-rules.png)
+![The Five Rules of a Compounding Data Model: 1) start with the grain, 2) movement tracking, 3) surrogate keys, 4) feature tables in the model, 5) build for the next consumer. Rule 1 is the load-bearing foundation.](/assets/blog/scalable-data-model-five-rules.svg)
 
 *Each rule is independent. Together they turn a data-model build from a one-time project into a foundation that survives every downstream use case.*
 
@@ -112,11 +91,3 @@ One entity in particular pays back the modelling investment in Arabic-OTT: the h
 Is your data model a project that ended, or infrastructure that compounds?
 
 The teams whose models are projects ship a beautiful Silver-layer schema, declare victory, and watch every new use case rebuild the foundation. The teams whose models are infrastructure stack the semantic layer, the feature store, the CRM automation, and the AI agent on the same foundation, in sequence, without rebuilding what is underneath. The five rules above are the difference. Each one is well known. Applying all five together is what most teams do not do.
-
----
-
-> Related case study: [Enterprise Data Model](/projects/data-model/)
-
-**Syed Aamir** is a Data & AI Solutions Engineer based in Dubai, building data foundations and applied AI for OTT streaming in the MENA region. Currently at Shahid (MBC Group). Previously delivered enterprise BI across automotive, retail, and financial services with Beinex, Al-Futtaim Technologies, and Scan Technology.
-
-If your team is working through a similar problem, [start a conversation](https://mail.google.com/mail/?view=cm&fs=1&to=saamir259@gmail.com&su=Project%20inquiry) or [connect on LinkedIn](https://www.linkedin.com/in/syedaamiruddin/).

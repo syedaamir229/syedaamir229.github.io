@@ -3,28 +3,9 @@ title: "Semantic Layer Series Part 4 of 6: The Three Release Gates"
 date: 2023-11-13
 description: "What kills a semantic-layer program after launch is not a modelling mistake. It is the release that overwrote partitions and roles. Part 4 walks through the three release gates that keep the layer trustworthy in production."
 categories: ["Data Governance", "BI & Analytics"]
-tags: ["Governance", "Deployment", "Semantic Layer", "SSAS", "Release Discipline"]
-featured: false
 draft: false
-depth: deep-dive
-pillar: governed-data
 series: semantic-layer
 series_part: 4
-linkedin_excerpt: |
-  Saturday morning. A semantic-model release went out Friday evening. The retain-partitions-and-roles flag in the SSAS Deployment Wizard was not checked. Every fact table is now empty. Every report is wrong.
-
-  The model was not broken. The release was. Most post-launch semantic-layer failures are governance failures, not modelling failures.
-
-  Three release gates stop the Friday-night incident from happening:
-
-  1. Owner approval
-  2. Validation
-  3. Rollback path
-
-  If a release cannot pass all three, it does not deploy.
-
-  Full piece on the blog ↓
-  [link]
 ---
 
 Friday evening, a semantic-model release at Shahid. The deployment wizard ran. The retain-partitions-and-roles flag, which controls whether SSAS preserves the partition definitions and the role-to-user mappings on deploy, was not checked. By Saturday morning every fact table was empty, every user role had been reset, and every dashboard showed zero. Sunday was restore-from-backup. Monday's leadership meeting reported anyway, on stale numbers, and the data team spent the next month rebuilding the trust that the release had taken thirty seconds to lose.
@@ -33,7 +14,7 @@ The model was not broken. The model was excellent. The release was broken.
 
 **Most post-launch semantic-layer failures are governance failures, not modelling failures.** The model can be technically perfect and still bring down every report in the organisation if the release that deploys it does not have explicit gates. The three gates below are the discipline that turns a deployment from a roll of the dice into a routine operation.
 
-![Governance and deployment flow](/assets/diagrams/semantic-series-04-governance-deployment.svg)
+![Governance and Deployment Control Flow: Change Request flows through Dev Model Update, Validation Gate, Deployment Wizard, into the Prod Model. Nine governance rules below prevent reporting drift across ownership, versioning, validation, partitions, security, smoke tests, and release notes.](/assets/blog/semantic-series-04-governance-deployment.svg)
 
 *Governance is what keeps the semantic model trustworthy after the first release, especially as KPI volume grows.*
 
@@ -136,11 +117,3 @@ If your model deployed today and broke production, would you know how to roll ba
 If the answer requires "let me ask the engineer who built it," the rollback path is not documented and the third release gate is missing. If the answer is "yes, here is the previous artefact and the partition refresh sequence," the gates are doing their work. The model is the part that gets attention. The release discipline is the part that decides whether the model survives the next deploy.
 
 The next post in the series, [Part 5: The Six-Stage Refresh Loop](/blog/semantic-layer-05-refresh-and-troubleshooting/), covers what happens between releases: how refresh automation is structured, what fails most often, and the Five-Step Backfill that recovers a missed day.
-
----
-
-> Related case study: [Enterprise Semantic Layer & KPI Framework](/projects/semantic-layer/)
-
-**Syed Aamir** is a Data & AI Solutions Engineer based in Dubai, building data foundations and applied AI for OTT streaming in the MENA region. Currently at Shahid (MBC Group). Previously delivered enterprise BI across automotive, retail, and financial services with Beinex, Al-Futtaim Technologies, and Scan Technology.
-
-If your team is working through a similar problem, [start a conversation](https://mail.google.com/mail/?view=cm&fs=1&to=saamir259@gmail.com&su=Project%20inquiry) or [connect on LinkedIn](https://www.linkedin.com/in/syedaamiruddin/).

@@ -1,8 +1,8 @@
 ---
 title: "Enterprise Data Model for Streaming Analytics"
-description: "Co-built a unified Silver and Gold data model integrating 5 source systems, becoming the shared foundation for BI, ML, and AI across a MENA OTT platform."
+description: "Five source systems consolidated into one trusted data model that BI, ML, and AI now share across a MENA OTT platform."
 category: "Data Engineering"
-tags: ["Databricks", "PySpark", "Delta Lake", "AWS S3", "Spark SQL"]
+tags: ["Databricks", "Delta Lake", "AWS S3", "PySpark"]
 featured: true
 metrics:
   - label: "Source Systems Unified"
@@ -13,44 +13,37 @@ metrics:
     value: "99%"
   - label: "Data Volume Scale"
     value: "5x"
-order: 1
+order: 2
 ---
 
-# Enterprise Data Model for Streaming Analytics
-
-> **Outcome:** 30% faster data retrieval, 99% data accuracy, and a shared foundation that enabled every subsequent analytics, ML, and AI project on the platform.
-
-*From siloed source systems with conflicting team-level query logic to one shared Silver/Gold model that became the foundation for BI, ML, and AI.*
-
-**Organization**: Shahid (MBC Group)
-**Role**: BI & Analytics
-**Timeline**: May 2022 -- December 2022 (8 months)
-**Industry**: Media & Entertainment -- Streaming Analytics
-**Ownership**: Key contributor to architecture design and implementation within the data engineering team; focused on fact/dimension table modeling and feature store structure
-
-**Constraints**: Source system schemas varied significantly across vendors (viewing from Youbora, subscriptions from Evergent, content metadata from Mediagenix/GA, ads from GAM); data volumes were growing rapidly and ad hoc query patterns were already causing instability; model had to serve both BI and data science use cases without creating separate ETL workstreams.
-
-A unified enterprise data model was required to stop conflicting numbers across teams. Source systems were disconnected, and each team used separate SQL logic to calculate similar metrics, creating reporting friction and analysis delays.
-
 ## Challenge
+
+Source schemas diverged across vendors (Youbora for viewing, Evergent for subscriptions, Mediagenix/GA for content, GAM for ads), data volumes were growing fast enough that ad hoc queries were destabilizing, and the model had to serve both BI and data science consumers without forking into separate ETL workstreams.
 
 - **Disconnected source systems**: Subscription, viewing, content, and ad data lived in separate vendor platforms with incompatible schemas
 - **Conflicting reporting logic**: Each team wrote their own queries against raw tables, producing inconsistent KPIs for the same business question
 - **Slow cross-team analysis**: Any cross-domain analysis (e.g., content performance by subscription type) required manual join work before results could be trusted
 - **Growth pressure**: Rising data volumes were making ad hoc queries against raw source tables increasingly unstable and slow
 
+## Key Decisions
+
+### Decision: Separate Silver (fact/dim) and Gold (feature store) layers rather than a single flat model
+
+**Problem:** BI workloads need normalized, join-ready tables for dashboards; ML/data science workloads need pre-aggregated, feature-engineered tables with behavioral signals.
+
+**Options considered:**
+
+- Single unified layer (simpler, but mixes grain across consumers)
+- Silver + Gold separation (more structure, but serves both consumers cleanly)
+
+**Chosen:** Two-layer architecture. Silver for normalized fact and dimension tables, Gold for derived feature store.
+
+**Why:** A single layer forces trade-offs: either BI queries are slower (if the layer is feature-store-shaped) or ML features have to be computed at query time (if the layer is BI-shaped). Separating the layers allows each consumer to operate at its natural grain. This proved essential as downstream workloads expanded: Jarvis and Enigma consume Gold features; the semantic layer and dashboards consume Silver tables.
+
 ## Approach
 
-**Key decision made along the way:**
-
-> **Decision: Separate Silver (fact/dim) and Gold (feature store) layers rather than a single flat model**
-> *Problem*: BI workloads need normalized, join-ready tables for dashboards; ML/data science workloads need pre-aggregated, feature-engineered tables with behavioral signals.
-> *Options*: Single unified layer (simpler but mixes grain); Silver + Gold separation (more structure but serves both consumers cleanly).
-> *Chosen*: Two-layer architecture: Silver for normalized fact and dimension tables, Gold for derived feature store.
-> *Why*: A single layer forces trade-offs: either BI queries are slower (if the layer is feature-store-shaped) or ML features have to be computed at query time (if the layer is BI-shaped). Separating the layers allows each consumer to operate at its natural grain. This proved essential as downstream workloads expanded: Jarvis and Enigma consume Gold features; the semantic layer and dashboards consume Silver tables.
-
 - Designed layered architecture with clear Silver and Gold responsibilities and table ownership standards
-- Built fact tables for core business events: viewing sessions (`fact_view`, `fact_view_features`) and subscriptions (`fact_subscription`, `fact_subscription_features`)
+- Built fact tables for core business events: viewing sessions and subscriptions 
 - Built dimension tables for all core entities: user, content (episode/season/show hierarchy), package, device, partner, address, promotion
 - Implemented `daily_movement` table for subscriber lifecycle tracking: new, churned, upgraded, downgraded, reactivated events, enabling cohort and churn analysis
 - Built user-level and user-content feature store tables (`user_features`, `user_content_features`) as the Gold layer for ML and personalization consumers
@@ -58,7 +51,7 @@ A unified enterprise data model was required to stop conflicting numbers across 
 
 ## Architecture Overview
 
-![Enterprise Data Model: 5 source systems feed into S3 raw storage, then Silver layer (fact and dimension tables), then Gold layer (feature store tables), consumed by BI reporting, semantic layer, ML models, and AI platforms](/assets/diagrams/data-model.svg)
+![Enterprise data model architecture: source systems (Youbora, Evergent, GAM, Mediagenix) flow through S3 raw storage into Silver fact and dimension tables and a Gold feature store, consumed by BI, ML, and AI workloads.](/assets/projects/data-model.svg)
 
 Source systems (Youbora, Evergent, GAM, Mediagenix) flow through S3 raw storage into Silver fact/dimension tables and Gold feature store tables, consumed by downstream BI, ML, and AI workloads.
 
@@ -66,15 +59,8 @@ Source systems (Youbora, Evergent, GAM, Mediagenix) flow through S3 raw storage 
 
 - **What changed in operations**: Teams stopped maintaining parallel query logic. One shared model replaced the fragmented per-team SQL workbooks that had been the source of metric disputes
 - **What changed in decisions**: Cross-domain analysis (content performance by subscription type, ad revenue by viewer segment) became reproducible and fast, instead of requiring custom joins and reconciliation each time
-- **Foundation leverage**: Every subsequent project built on this model. The Semantic Layer, Revenue Ops Pipeline, Jarvis CRM automation, and Enigma AI platform all depend on it directly. The ROI of the data model compounds with each downstream use case.
+- **Foundation leverage**: Every subsequent project built on this model. The Semantic Layer, Ad Inventory & Revenue Pipeline, Jarvis CRM automation, and Enigma AI platform all depend on it directly. The ROI of the data model compounds with each downstream use case.
 - **Scalability**: Delta Lake on S3 with ACID transactions enabled reliable incremental processing at growing data volumes, replacing the ad hoc query instability that had emerged before the model
-
-## Tech Stack
-
-- **Platform**: Databricks (PySpark + Spark SQL)
-- **Storage**: AWS S3, Delta Lake (ACID transactions)
-- **Sources**: Youbora, Evergent, Google Analytics/Mediagenix, Google Ad Manager
-- **Architecture**: Bronze (raw) to Silver (fact/dim) to Gold (feature store)
 
 ## Reusable Pattern
 
@@ -85,10 +71,11 @@ This Silver/Gold layered architecture pattern (normalized fact/dim tables for BI
 - **Telecom**: Subscriber, usage, package, and billing data consolidated into one layer shared by both BI dashboards and churn prediction models
 - **Healthcare**: Patient, provider, and operational data integrated once and consumed by both reporting and clinical ML use cases
 
-**When this pattern is NOT appropriate**: If your data fits in a single database and your analytics team is small (1-3 people running exploratory work), the infrastructure overhead of a layered Databricks model is not justified. The layered architecture pays off when you have multiple downstream consumers (BI + ML + AI), when source system schemas diverge significantly, or when data volumes make ad hoc queries against raw tables unreliable.
+**When this pattern is NOT appropriate**: If your data fits in a single database and your analytics team is small (1-3 people running exploratory work), the infrastructure overhead of a layered model is not justified. The layered architecture pays off when you have multiple downstream consumers (BI + ML + AI), when source system schemas diverge significantly, or when data volumes make ad hoc queries against raw tables unreliable.
 
----
+## Tech Stack
 
-## Related Projects
-
-[Semantic Layer & KPI Framework](/projects/semantic-layer/) | [Revenue Ops Pipeline & Alerting](/projects/ad-pipeline/) | [CRM Campaign Automation](/projects/jarvis/) | [Voice-of-Customer Intelligence](/projects/enigma/)
+- **Platform**: Databricks (PySpark + Spark SQL)
+- **Storage**: AWS S3, Delta Lake (ACID transactions)
+- **Sources**: Youbora, Evergent, Google Analytics/Mediagenix, Google Ad Manager
+- **Architecture**: Bronze (raw) to Silver (fact/dim) to Gold (feature store)

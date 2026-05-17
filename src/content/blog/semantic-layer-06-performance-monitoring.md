@@ -3,22 +3,9 @@ title: "Semantic Layer Series Part 6 of 6: The Weekly Optimization Cycle"
 date: 2024-05-13
 description: "How a semantic layer earns the right to keep growing: a Weekly Optimization Cycle that turns monitoring telemetry into prioritised fixes, before slow queries become a trust problem."
 categories: ["BI & Analytics", "Data Engineering"]
-tags: ["Monitoring", "Performance", "Semantic Layer", "SSAS", "Optimization"]
-featured: false
 draft: false
-depth: deep-dive
-pillar: governed-data
 series: semantic-layer
 series_part: 6
-linkedin_excerpt: |
-  A query that took two seconds last quarter takes thirty seconds today. The dashboard owner is mid-presentation. The executive in the room is waiting. The team has no idea why the query slowed down because nobody has been measuring.
-
-  This is how semantic-layer programs lose trust slowly, then all at once. Refresh succeeds. Models build. Queries get slower week-over-week, until they cross the line where the audience notices.
-
-  The Weekly Optimization Cycle catches this before it surfaces. Telemetry on queries, refresh, and resource pressure. Weekly triage that assigns fixes to named owners. Continuous improvement, not heroic firefighting.
-
-  Full piece on the blog ↓
-  [link]
 ---
 
 A dashboard owner is mid-presentation to leadership. They click into a high-traffic visual that has rendered in two seconds for the last six months. Today it takes thirty seconds. The room waits. The dashboard owner apologises. The model has not changed. The data has not changed. The query has gotten slower week by week and nobody has been watching.
@@ -27,7 +14,7 @@ This is how semantic-layer programs lose trust slowly, then all at once. The ref
 
 **Monitoring is where semantic-layer maturity becomes visible.** Teams that only monitor refresh success miss the main problem: slow queries, capacity pressure, and model drift that gradually reduce trust. The remedy is a named operating rhythm. The Weekly Optimization Cycle below is the one that worked at Shahid.
 
-![Semantic model performance monitoring loop](/assets/diagrams/semantic-series-06-monitoring-loop.svg)
+![Performance Monitoring Feedback Loop: Signal Sources feed a Monitoring Store, which feeds a Detection Layer (anomaly checks, failed refresh alerts, slow query alerts, capacity flags, stale partition checks), which feeds Optimization Actions and loops back. The loop only creates value when it drives action.](/assets/blog/semantic-series-06-monitoring-loop.svg)
 
 *Monitoring only creates value when it triggers optimization actions, ownership, and measurable improvements.*
 
@@ -167,11 +154,3 @@ You have spent six posts on the semantic layer. Has yours moved from project to 
 A project ends when the model is built. A product is monitored, owned, versioned, and optimised every week. The arc of the series traces what it takes to make the transition: a Conflict-First Rollout in Part 1, Three Ownership Layers in Part 2, the Three-Layer DAX Stack in Part 3, the Three Release Gates in Part 4, the Six-Stage Refresh Loop in Part 5, and the Weekly Optimization Cycle here in Part 6. None of these is technically novel. The discipline of running all six at the same time is what separates the semantic layers that compound from the ones that quietly atrophy.
 
 If the Weekly Optimization Cycle is the only thing you adopt from this series, adopt that one. It is the rhythm that keeps the other five disciplines alive.
-
----
-
-> Related case study: [Enterprise Semantic Layer & KPI Framework](/projects/semantic-layer/) | Series landing: [Semantic Layer Series](/blog/semantic-layer-01-why-governed-metrics/)
-
-**Syed Aamir** is a Data & AI Solutions Engineer based in Dubai, building data foundations and applied AI for OTT streaming in the MENA region. Currently at Shahid (MBC Group). Previously delivered enterprise BI across automotive, retail, and financial services with Beinex, Al-Futtaim Technologies, and Scan Technology.
-
-If your team is working through a similar problem, [start a conversation](https://mail.google.com/mail/?view=cm&fs=1&to=saamir259@gmail.com&su=Project%20inquiry) or [connect on LinkedIn](https://www.linkedin.com/in/syedaamiruddin/).

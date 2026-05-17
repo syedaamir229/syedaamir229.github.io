@@ -1,8 +1,8 @@
 ---
 title: "Profile-Level Feature Store"
-description: "Built profile-level behavioral features that improved targeting precision and supported personalization and ML use cases."
+description: "Profile-level behavior features that sharpen targeting and give ML and personalization teams a shared starting point."
 category: "Data Engineering"
-tags: ["Databricks", "PySpark", "SQL", "Delta Lake"]
+tags: ["Databricks", "PySpark", "Spark SQL", "Delta Lake"]
 featured: false
 metrics:
   - label: "Features Per Profile"
@@ -13,18 +13,6 @@ metrics:
     value: "Daily"
 order: 7
 ---
-
-# Profile-Level Feature Store
-
-> **Outcome:** 45+ daily-refreshed behavioral features per profile became the shared input layer for CRM automation, clustering, attribute inference, and reporting, replacing one-off feature work per consumer.
-
-**Organization**: Shahid (MBC Group)
-**Role**: Data Science & Advanced Analytics
-**Timeline**: 2024
-**Industry**: Media & Entertainment (Personalization)
-**Ownership**: Primary owner of feature design and implementation, with adoption across marketing, product, and data science teams
-
-Account-level aggregation hid meaningful differences between profiles. Targeting and personalization required profile-level behavioral features that could be computed reliably at scale.
 
 ## Challenge
 
@@ -43,8 +31,7 @@ Account-level aggregation hid meaningful differences between profiles. Targeting
 
 ## Architecture Overview
 
-
-![Profile-Level Feature Store: viewing event data and account-level signals from the Gold layer feed an incremental feature pipeline that emits 6 categories of profile-level features (identity, content consumption, engagement quality, household dynamics, behavioral patterns, AI predictions), consumed by Jarvis CRM, clustering, attribute inference, and analytics reporting](/assets/diagrams/profile-features.svg)
+![Profile-level feature store architecture: viewing events and Gold-layer signals flow into an incremental feature pipeline producing 45+ features per profile, written to a single Delta table for CRM, ML, and reporting consumers.](/assets/projects/profile-features.svg)
 
 Viewing events and account-level signals from the Gold layer flow into an incremental feature pipeline that emits 45+ features across 6 categories. Household-share derivations sit alongside content consumption and engagement quality, all written to a single Delta table. CRM, ML, and reporting consumers read from there.
 
@@ -54,13 +41,6 @@ Viewing events and account-level signals from the Gold layer flow into an increm
 - Audience segmentation quality improved with finer behavioral context
 - Downstream clustering and prediction projects gained higher-quality model inputs
 - Teams adopted one reusable feature layer instead of building duplicate feature logic
-
-## Tech Stack
-
-- Databricks
-- PySpark
-- SQL
-- Delta Lake
 
 ## Reusable Pattern
 
@@ -73,8 +53,11 @@ The same pattern applies anywhere precision at entity level matters:
 
 **When this pattern is NOT appropriate**: A shared feature layer needs three or more downstream consumers to justify its build cost. With one consumer, you're building infrastructure for an audience of one. Wait until you can see the duplicated feature logic showing up across two or three teams before centralising it.
 
----
+## Tech Stack
 
-## Related Projects
-
-[Enterprise Data Model](/projects/data-model/) | [CRM Campaign Automation Platform](/projects/jarvis/) | [Viewing Behavior Clustering](/projects/clustering/) | [Behavior-Based Attribute Inference](/projects/gender-prediction/)
+- **Platform**: Databricks (PySpark + Spark SQL)
+- **Storage**: Delta Lake (single feature table, date-partitioned)
+- **Sources**: Gold-layer viewing events and account-level signals
+- **Processing**: Incremental refresh job avoiding full recomputation
+- **Validation**: In-pipeline feature quality checks before publish
+- **Output surface**: One Delta table consumed by CRM, clustering, attribute inference, and reporting

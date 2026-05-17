@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" font-family="Inter, system-ui, sans-serif">
+  <defs>
+    <marker id="arrow-cs" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#06B6D4"/>
+    </marker>
+  </defs>
+
+  <rect width="960" height="480" rx="12" fill="#050B14"/>
+  <text x="480" y="32" text-anchor="middle" font-size="16" font-weight="700" fill="#E2E8F0">The Compounding Stack</text>
+  <text x="480" y="50" text-anchor="middle" font-size="11" fill="#94A3B8">Each layer earns the right to the next</text>
+
+  <!-- Layer 4 (top): AI Automation -->
+  <rect x="120" y="80" width="720" height="68" rx="10" fill="#0A1220" stroke="#2A4561"/>
+  <text x="148" y="106" font-size="11" font-weight="700" fill="#94A3B8" font-family="JetBrains Mono, monospace">Layer 4</text>
+  <text x="148" y="130" font-size="14" font-weight="700" fill="#E2E8F0">AI Automation</text>
+  <text x="832" y="106" text-anchor="end" font-size="10" fill="#94A3B8">Systems that act on data</text>
+  <text x="832" y="130" text-anchor="end" font-size="10" fill="#94A3B8">Scenario engines, supervisor agents, NLP platforms</text>
+
+  <!-- Up arrow: Layer 3 enables Layer 4 -->
+  <line x1="480" y1="180" x2="480" y2="158" stroke="#06B6D4" stroke-width="2" marker-end="url(#arrow-cs)"/>
+
+  <!-- Layer 3: Data Science -->
+  <rect x="120" y="180" width="720" height="68" rx="10" fill="#0A1220" stroke="#2A4561"/>
+  <text x="148" y="206" font-size="11" font-weight="700" fill="#94A3B8" font-family="JetBrains Mono, monospace">Layer 3</text>
+  <text x="148" y="230" font-size="14" font-weight="700" fill="#E2E8F0">Data Science</text>
+  <text x="832" y="206" text-anchor="end" font-size="10" fill="#94A3B8">Models that consume the same feature tables as BI</text>
+  <text x="832" y="230" text-anchor="end" font-size="10" fill="#94A3B8">Profile feature store, inference workflows</text>
+
+  <!-- Up arrow: Layer 2 enables Layer 3 -->
+  <line x1="480" y1="280" x2="480" y2="258" stroke="#06B6D4" stroke-width="2" marker-end="url(#arrow-cs)"/>
+
+  <!-- Layer 2: Analytics Maturity -->
+  <rect x="120" y="280" width="720" height="68" rx="10" fill="#0A1220" stroke="#2A4561"/>
+  <text x="148" y="306" font-size="11" font-weight="700" fill="#94A3B8" font-family="JetBrains Mono, monospace">Layer 2</text>
+  <text x="148" y="330" font-size="14" font-weight="700" fill="#E2E8F0">Analytics Maturity</text>
+  <text x="832" y="306" text-anchor="end" font-size="10" fill="#94A3B8">Semantic layer on top of the data foundation</text>
+  <text x="832" y="330" text-anchor="end" font-size="10" fill="#94A3B8">Governed KPIs, owned per domain, shared vocabulary</text>
+
+  <!-- Up arrow: Layer 1 enables Layer 2 -->
+  <line x1="480" y1="380" x2="480" y2="358" stroke="#06B6D4" stroke-width="2" marker-end="url(#arrow-cs)"/>
+
+  <!-- Layer 1 (foundation, hero): Data Foundations -->
+  <rect x="120" y="380" width="720" height="68" rx="10" fill="rgba(6,182,212,0.06)" stroke="#06B6D4" stroke-width="1.5"/>
+  <text x="148" y="406" font-size="11" font-weight="700" fill="#06B6D4" font-family="JetBrains Mono, monospace">Layer 1 · Foundation</text>
+  <text x="148" y="430" font-size="14" font-weight="700" fill="#06B6D4">Data Foundations</text>
+  <text x="832" y="406" text-anchor="end" font-size="10" fill="#22D3EE">Modelled, governed, source-of-truth data layers</text>
+  <text x="832" y="430" text-anchor="end" font-size="10" fill="#94A3B8">Fact and dimension tables, surrogate keys, movement tracking</text>
+</svg>

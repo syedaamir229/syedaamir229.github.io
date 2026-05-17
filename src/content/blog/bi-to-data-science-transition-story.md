@@ -3,25 +3,7 @@ title: "BI to Data Science: The Three Ways the Transition Dies"
 date: 2025-03-17
 description: "A first-person account of the six-month overlap between BI ownership and data science delivery, and the three failure patterns that kill most transitions before they compound."
 categories: ["Career", "Data Science"]
-tags: ["Career", "BI", "Data Science", "Transition"]
-featured: false
 draft: false
-depth: flagship
-pillar: bi-to-ai
-linkedin_excerpt: |
-  Friday afternoon Slack channel during my BI-to-DS overlap period. Two messages within an hour: "the engagement dashboard is broken for AVOD" and "the gender prediction model is returning nulls for half the profiles."
-
-  Same channel. Same engineer. Same governed tables underneath. Two different stakeholders waiting on me.
-
-  This is the moment most BI-to-DS transitions die. The temptation is to declare one side legacy and one side current, drop one, focus on the other.
-
-  The Three Ways BI-to-DS Transitions Die:
-  1. Building a parallel ML data model
-  2. Dropping BI responsibilities too early
-  3. Treating model accuracy as the only success metric
-
-  Full piece on the blog ↓
-  [link]
 ---
 
 A Friday afternoon Slack channel during my BI-to-DS overlap period at Shahid (MBC Group). Two messages within an hour. The first: "the AVOD engagement dashboard is showing zero for last week." The second: "the gender prediction model is returning nulls for half the active profiles."
@@ -91,11 +73,3 @@ The credibility transfer matters more in MENA, not because the technical work is
 Are you transitioning, or are you abandoning?
 
 A transition is six months of overlap, two sides of the work alive at once, both stakeholders kept whole. Abandonment is dropping the BI work to chase ML and discovering eight months in that nobody trusts the model because the dashboards stopped being maintained. The transition pattern requires more discipline. It also produces the only outcome you actually wanted when you started: a team that can deliver both, on a foundation that compounds.
-
----
-
-> Related case study: [Enterprise Data Model](/projects/data-model/) | [Behaviour-Based Attribute Inference](/projects/gender-prediction/)
-
-**Syed Aamir** is a Data & AI Solutions Engineer based in Dubai, building data foundations and applied AI for OTT streaming in the MENA region. Currently at Shahid (MBC Group). Previously delivered enterprise BI across automotive, retail, and financial services with Beinex, Al-Futtaim Technologies, and Scan Technology.
-
-If your team is working through a similar problem, [start a conversation](https://mail.google.com/mail/?view=cm&fs=1&to=saamir259@gmail.com&su=Project%20inquiry) or [connect on LinkedIn](https://www.linkedin.com/in/syedaamiruddin/).

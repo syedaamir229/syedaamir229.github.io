@@ -3,24 +3,7 @@ title: "Gender Prediction in Practice: Inference With Receipts"
 date: 2025-08-11
 description: "How a behaviour-based gender inference workflow expanded MENA streaming profile coverage from 22.7% to 100%, with the four guardrails that decide whether inferred data is an asset or a liability."
 categories: ["Data Science"]
-tags: ["Machine Learning", "XGBoost", "Feature Engineering", "Audience Enrichment", "Inference"]
-featured: false
 draft: false
-depth: flagship
-pillar: applied-ai
-linkedin_excerpt: |
-  A content planner at an MENA streaming platform asked the analytics team: "What does our female audience over 25 actually watch?"
-
-  The answer the team had to give: "We only have that field for 22.7% of adult profiles."
-
-  Twelve months later we had a behaviour-based inference model in production. 9.5M adult profiles scored. 75% accuracy. 0.81 AUC. Net new gender attribute coverage 22% to 100%.
-
-  The model is the easy part. The hard part is making sure the planning team treats an inferred field like inferred data, not like ground truth.
-
-  Inference With Receipts: four guardrails that decide whether the model is an asset or a liability.
-
-  Full piece on the blog ↓
-  [link]
 ---
 
 A content planner at Shahid (MBC Group) asked the analytics team a routine question: "What does our female audience over 25 actually watch?" The answer the team had to give was the wrong shape entirely. "We only have a self-reported gender field for 22.7% of adult profiles. The rest is unknown."
@@ -94,11 +77,3 @@ Shared accounts are also structurally common. When multiple family members use t
 Is your inferred data marked, or is it pretending to be ground truth?
 
 Inferred fields buy you coverage. They do not buy you certainty. The teams that ship inference well treat the model as one component of a contract: the prediction, the confidence flag, the inferred marker, the drift monitor, the qualitative review. The teams that ship it badly ship just the prediction, watch it get absorbed into the same templates as declared data, and pay the credibility cost the first time the prediction is wrong on a profile someone cares about. The guardrails are the difference. The model is the easy part.
-
----
-
-> Related case study: [Behaviour-Based Attribute Inference](/projects/gender-prediction/)
-
-**Syed Aamir** is a Data & AI Solutions Engineer based in Dubai, building data foundations and applied AI for OTT streaming in the MENA region. Currently at Shahid (MBC Group). Previously delivered enterprise BI across automotive, retail, and financial services with Beinex, Al-Futtaim Technologies, and Scan Technology.
-
-If your team is working through a similar problem, [start a conversation](https://mail.google.com/mail/?view=cm&fs=1&to=saamir259@gmail.com&su=Project%20inquiry) or [connect on LinkedIn](https://www.linkedin.com/in/syedaamiruddin/).

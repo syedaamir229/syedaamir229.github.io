@@ -3,24 +3,7 @@ title: "From BI to AI: My Ten-Year Compounding Stack"
 date: 2026-05-15
 description: "Ten years from Tableau dashboards in a Dubai consulting firm to NLP platforms running on multilingual streaming feedback. The progression is not four careers. It is one stack that compounded."
 categories: ["Career"]
-tags: ["Career", "BI", "Data Science", "AI", "Reflection", "Data Engineering"]
-featured: true
 draft: false
-depth: flagship
-pillar: bi-to-ai
-linkedin_excerpt: |
-  Early 2025. Sit down to build a behaviour-based gender prediction model for an MENA streaming platform. Textbook ML approach starts with raw event data, builds features from scratch, pretends none of that work already exists.
-
-  What sat in front of me on day one: a Gold-layer subscriber feature table built three years earlier for the BI dashboards. Profile lifecycle, watch behaviour, content preferences, device patterns. All already shaped, all already governed.
-
-  Model shipped four months later. 9.5M profiles scored. 75% accuracy. Net new attribute coverage 22% to 100%.
-
-  None of that was an ML breakthrough. It was a compounding-stack dividend.
-
-  AI is not a separate career. It is the fourth floor of a building you have been laying foundations for since the day you opened your first BI tool.
-
-  Full piece on the blog ↓
-  [link]
 ---
 
 Early 2025. I sat down to build a behaviour-based gender prediction model for Shahid (MBC Group). The textbook approach to attribute inference starts with raw event data, designs features from scratch, and pretends none of that work already exists in the organisation.
@@ -37,7 +20,7 @@ The shape of this argument is sharper in 2026 than it was when I started in 2016
 
 The [dbt 2025 State of Analytics Engineering Report](https://www.getdbt.com/resources/state-of-analytics-engineering-2025) is blunt about this. 80% of data practitioners now use AI in some form. Data quality remains the most critical challenge for data teams to solve. Translation: teams are skipping the foundation work, and the AI built on top is failing because of it. The ones that ship are the ones that compounded.
 
-![Diagram showing the Compounding Stack: Data Foundations, Analytics Maturity, Data Science, and AI Automation as four stacked layers on a warm carbon background, with copper accents indicating each layer enables the one above it](/assets/blog/bi-to-ai-journey-compounding-stack.png)
+![The Compounding Stack: Data Foundations at the base, then Analytics Maturity, Data Science, and AI Automation stacked above it, with up-arrows showing each layer enables the next.](/assets/blog/bi-to-ai-journey-compounding-stack.svg)
 
 *Each layer is owned, governed, and reused by the layer above it. Skipping a floor does not save time. It introduces drift that the floors above pay for.*
 
@@ -102,11 +85,3 @@ The MENA AVOD context made the compounding extra visible. When ad pipelines, sub
 Is your stack compounding, or restarting every two years?
 
 The teams that restart have a familiar shape. New tool, new vendor, new "AI strategy," every cycle. Each cycle ships a demo and stalls in production. The teams that compound do something quieter: they take the foundation seriously, they make each layer earn the right to the next, and they let the same people who built Layer 1 stay close to Layers 2, 3, and 4. The dividend takes years to arrive. When it arrives, it is unmistakable.
-
----
-
-> Related case study: [Enterprise Data Model](/projects/data-model/) | [Profile Feature Store](/projects/profile-features/)
-
-**Syed Aamir** is a Data & AI Solutions Engineer based in Dubai, building data foundations and applied AI for OTT streaming in the MENA region. Currently at Shahid (MBC Group). Previously delivered enterprise BI across automotive, retail, and financial services with Beinex, Al-Futtaim Technologies, and Scan Technology.
-
-If your team is working through a similar problem, [start a conversation](https://mail.google.com/mail/?view=cm&fs=1&to=saamir259@gmail.com&su=Project%20inquiry) or [connect on LinkedIn](https://www.linkedin.com/in/syedaamiruddin/).

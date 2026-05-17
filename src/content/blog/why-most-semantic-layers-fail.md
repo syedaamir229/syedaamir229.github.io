@@ -3,28 +3,7 @@ title: "Why Most Semantic Layers Fail"
 date: 2026-05-15
 description: "Most semantic-layer programs collapse because they are scoped like engineering projects when they need to be run like governance products. Here is the four-trap pattern, and the move that breaks it."
 categories: ["Data Governance"]
-tags: ["Semantic Layer", "KPI Governance", "Power BI", "Databricks", "Analytics Engineering"]
-featured: true
 draft: false
-depth: flagship
-pillar: governed-data
-linkedin_excerpt: |
-  Three teams. Three numbers for "monthly active subscribers" in May. Same KPI, same source data, same quarterly review.
-
-  This is the moment most semantic-layer projects get kicked off. It is also the moment the work gets framed wrong. The phrase used in kickoff is "we need a semantic layer." The phrase that should be used is "we need a governance product."
-
-  In the dbt 2025 State of Analytics Engineering Report, 27% of teams plan to increase investment in semantic-layer tooling in the next twelve months. Most of those programs will collapse for the same four reasons.
-
-  The Four Traps:
-  1. The Engineering-First Mistake
-  2. The Big Bang Migration
-  3. The Orphan KPI Problem
-  4. The Deployment Cliff
-
-  Teams that get this right do one thing before they write a line of DAX: they map the conflicts.
-
-  Full piece on the blog ↓
-  [link]
 ---
 
 The first Monday of a quarterly review at Shahid (MBC Group). Three slides on screen. Three different numbers for "monthly active subscribers" in May. The subscriptions team had one count. The engagement team had a higher one. The ad-ops team had a lower one. None of them were technically wrong. Each had been calculated against a different filter assumption: trial users included or excluded, internal accounts in or out, household-shared profiles counted once or per device.
@@ -43,7 +22,7 @@ The reason is straightforward. The moment an AI agent answers a question in natu
 
 So the projects get funded. They start. And then most of them collapse into one of four traps.
 
-![Diagram showing the four traps of semantic-layer programs (Engineering-First, Big Bang Migration, Orphan KPIs, Deployment Cliff) arranged in sequence on a warm carbon background, with a copper call-out reading 'The Conflict-First Rollout breaks the pattern'](/assets/blog/why-most-semantic-layers-fail-four-traps.png)
+![The Four Traps of Semantic Layer Programs: Engineering-First Mistake, Big Bang Migration, Orphan KPI Problem, Deployment Cliff, with a call-out showing the Conflict-First Rollout breaks the pattern.](/assets/blog/why-most-semantic-layers-fail-four-traps.svg)
 
 *The four traps map the typical failure path. Each trap on its own can collapse a program, and most failures hit two or three in sequence.*
 
@@ -98,11 +77,3 @@ In Arabic-OTT there is a practical reason the conflict-first rollout pays off qu
 Is your semantic layer a strategic asset or a maintenance liability? The teams that treat it as a maintenance liability ship a beautiful dataset, lose sponsorship, and watch adoption collapse. The teams that treat it as a strategic asset run it as a product: owners per domain, versioned releases, conflict-first scope, deployment discipline.
 
 The first piece of the series, [Part 1: Why Governed Metrics Become Non-Negotiable](/blog/semantic-layer-01-why-governed-metrics/), walks through the conflict-first rollout in detail: what the first six weeks look like, how the KPI contract is structured, and what the operating model looks like once the pilot dataset is in production.
-
----
-
-> Related case study: [Enterprise Semantic Layer & KPI Framework](/projects/semantic-layer/)
-
-**Syed Aamir** is a Data & AI Solutions Engineer based in Dubai, building data foundations and applied AI for OTT streaming in the MENA region. Currently at Shahid (MBC Group). Previously delivered enterprise BI across automotive, retail, and financial services with Beinex, Al-Futtaim Technologies, and Scan Technology.
-
-If your team is working through a similar problem, [start a conversation](https://mail.google.com/mail/?view=cm&fs=1&to=saamir259@gmail.com&su=Project%20inquiry) or [connect on LinkedIn](https://www.linkedin.com/in/syedaamiruddin/).

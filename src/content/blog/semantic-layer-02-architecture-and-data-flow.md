@@ -3,22 +3,9 @@ title: "Semantic Layer Series Part 2 of 6: The Three Ownership Layers"
 date: 2023-07-10
 description: "The architecture decision that decides whether a semantic layer scales: drawing clean ownership boundaries between data engineering, metric engineering, and report engineering before the first measure ships."
 categories: ["BI & Analytics", "Data Engineering"]
-tags: ["Semantic Layer", "SSAS", "Architecture", "Data Flow", "Ownership"]
-featured: false
 draft: false
-depth: deep-dive
-pillar: governed-data
 series: semantic-layer
 series_part: 2
-linkedin_excerpt: |
-  Friday-evening deploy of a new semantic-model release. Two report owners watch the partition state get reset. Saturday morning: dashboards stale. The on-call message goes out late.
-
-  The fix was not a smarter deployment script. It was an ownership-boundary problem in disguise. Data engineering, metric engineering, and report engineering had been three responsibilities living on two people, and a release that touched all three ran without anyone watching the layer most likely to break.
-
-  The Three Ownership Layers separate the work cleanly. Each layer has a named owner, a defined release path, and a contract with the layers above and below.
-
-  Full piece on the blog ↓
-  [link]
 ---
 
 A Friday-evening deploy of a semantic-model release at Shahid. The deployment script ran. The retain-partitions-and-roles flag in the wizard had not been checked. Saturday morning every fact table was empty. Sunday was restore-from-backup. Monday's dashboards were wrong, and Monday's leadership meeting happened anyway.
@@ -27,7 +14,7 @@ That incident did not happen because the script was wrong or the model was wrong
 
 **Most semantic-layer failures look like deployment failures and turn out to be ownership-boundary failures.** A semantic layer only works when ownership is split into three clean layers, each with a named owner, a defined release path, and a contract with the layers above and below. Mixing the three roles is where teams accumulate the operating risk that eventually surfaces as an outage.
 
-![Semantic layer architecture and data flow](/assets/diagrams/semantic-series-02-architecture-flow.svg)
+![Semantic Layer Technical Architecture: Databricks Gold tables feed a Model Build Layer (Tabular project, DAX measures, validation, deployment artifact), then a Semantic Model with KPI definitions, role security, incremental partitions, which serves dashboards and ad-hoc analysis.](/assets/blog/semantic-series-02-architecture-flow.svg)
 
 *Clear boundaries between data preparation, semantic model build, and report consumption keep ownership and quality controls simple.*
 
@@ -35,7 +22,7 @@ That incident did not happen because the script was wrong or the model was wrong
 
 ### Layer 1: Data engineering owns curated tables
 
-This layer contains conformed fact and dimension tables plus the staging helpers needed for model efficiency. At Shahid the relevant table families are lifecycle facts (`fact_subscriptions`, the daily movement table), engagement facts (`fact_engagement`), ad facts (`fact_ad_events`), and conformed dimensions (`dim_subscriber`, `dim_content`, `dim_device`, `dim_date` with explicit Ramadan flags).
+This layer contains conformed fact and dimension tables plus the staging helpers needed for model efficiency. At Shahid the relevant table families are lifecycle facts (`fact_subscriptions`, the daily movement table), engagement facts (`fact_engagement`), ad facts (`fact_ad_impressions`, `fact_ad_inventory`), and conformed dimensions (`dim_subscriber`, `dim_content`, `dim_device`, `dim_date` with explicit Ramadan flags).
 
 The semantic layer does not correct broken upstream pipelines. It consumes governed inputs. Crossing this boundary (writing measure logic that compensates for a broken Silver-layer join, for example) is how the semantic layer absorbs every upstream problem and becomes unmaintainable.
 
@@ -128,7 +115,7 @@ If grain is unstable, stop and fix upstream. Do not encode data corrections insi
 ### Step 2: Build model objects in this order
 
 1. add dimensions (`dim_subscriber`, `dim_content`, `dim_device`, `dim_date`)
-2. add facts (`fact_subscriptions`, `fact_engagement`, `fact_ad_events`)
+2. add facts (`fact_subscriptions`, `fact_engagement`, `fact_ad_impressions`, `fact_ad_inventory`)
 3. define relationships and cardinality explicitly
 4. mark date table and time hierarchy
 5. add base measures only
@@ -168,11 +155,3 @@ Where does your semantic-layer ownership stop, and where does it leak?
 When the answer is "the team owns everything from staging to report layout," the layer is not ownership-clean and the next outage is already on the schedule. When the boundaries are explicit and a named owner sits at each layer, the deployment script can run on a Friday evening and the dashboards still come up on Monday morning.
 
 The next post in the series, [Part 3: The Three-Layer DAX Stack](/blog/semantic-layer-03-kpi-engineering-with-dax/), walks through how measure logic is engineered once the ownership boundary at Layer 2 is enforced.
-
----
-
-> Related case study: [Enterprise Semantic Layer & KPI Framework](/projects/semantic-layer/)
-
-**Syed Aamir** is a Data & AI Solutions Engineer based in Dubai, building data foundations and applied AI for OTT streaming in the MENA region. Currently at Shahid (MBC Group). Previously delivered enterprise BI across automotive, retail, and financial services with Beinex, Al-Futtaim Technologies, and Scan Technology.
-
-If your team is working through a similar problem, [start a conversation](https://mail.google.com/mail/?view=cm&fs=1&to=saamir259@gmail.com&su=Project%20inquiry) or [connect on LinkedIn](https://www.linkedin.com/in/syedaamiruddin/).

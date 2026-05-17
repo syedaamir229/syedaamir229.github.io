@@ -1,103 +1,104 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" font-family="Space Grotesk, system-ui, sans-serif">
-  <defs>
-    <marker id="pfArr" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
-      <polygon points="0 0, 10 3.5, 0 7" fill="#C87533"/>
-    </marker>
-  </defs>
-
-  <rect width="960" height="460" rx="12" fill="#0F0E0B"/>
-  <text x="480" y="35" text-anchor="middle" font-size="16" font-weight="700" fill="#F0EDE8">Profile-Level Feature Store</text>
-
-  <!-- Sources -->
-  <rect x="30" y="80" width="170" height="200" rx="8" fill="#1A1714" stroke="#C87533" stroke-width="1.5"/>
-  <text x="115" y="105" text-anchor="middle" font-size="11" font-weight="600" fill="#C87533">Gold Layer Sources</text>
-
-  <rect x="45" y="125" width="140" height="36" rx="6" fill="#241F1B" stroke="#C87533" stroke-width="1"/>
-  <text x="115" y="142" text-anchor="middle" font-size="10" fill="#F0EDE8">Viewing Events</text>
-  <text x="115" y="155" text-anchor="middle" font-size="8" fill="#9C9189">session granularity</text>
-
-  <rect x="45" y="171" width="140" height="36" rx="6" fill="#241F1B" stroke="#C87533" stroke-width="1"/>
-  <text x="115" y="188" text-anchor="middle" font-size="10" fill="#F0EDE8">Account Signals</text>
-  <text x="115" y="201" text-anchor="middle" font-size="8" fill="#9C9189">subscription, billing</text>
-
-  <rect x="45" y="217" width="140" height="36" rx="6" fill="#241F1B" stroke="#C87533" stroke-width="1"/>
-  <text x="115" y="234" text-anchor="middle" font-size="10" fill="#F0EDE8">Content Catalog</text>
-  <text x="115" y="247" text-anchor="middle" font-size="8" fill="#9C9189">titles, genres, dialects</text>
-
-  <line x1="200" y1="180" x2="240" y2="180" stroke="#C87533" stroke-width="2" marker-end="url(#pfArr)"/>
-
-  <!-- Feature pipeline -->
-  <rect x="250" y="100" width="170" height="160" rx="10" fill="#241F1B" stroke="#C87533" stroke-width="2"/>
-  <text x="335" y="128" text-anchor="middle" font-size="12" font-weight="700" fill="#F0EDE8">Incremental</text>
-  <text x="335" y="144" text-anchor="middle" font-size="12" font-weight="700" fill="#F0EDE8">Feature Pipeline</text>
-  <text x="335" y="164" text-anchor="middle" font-size="9" fill="#D98F4E">PySpark on Databricks</text>
-
-  <rect x="265" y="180" width="140" height="22" rx="4" fill="#2E2823" stroke="#C87533" stroke-width="1"/>
-  <text x="335" y="195" text-anchor="middle" font-size="9" fill="#F0EDE8">Daily delta scan</text>
-
-  <rect x="265" y="208" width="140" height="22" rx="4" fill="#2E2823" stroke="#C87533" stroke-width="1"/>
-  <text x="335" y="223" text-anchor="middle" font-size="9" fill="#F0EDE8">Household-share math</text>
-
-  <rect x="265" y="236" width="140" height="14" rx="3" fill="none"/>
-  <text x="335" y="247" text-anchor="middle" font-size="8" fill="#9C9189">writes Delta feature table</text>
-
-  <line x1="420" y1="180" x2="460" y2="180" stroke="#C87533" stroke-width="2" marker-end="url(#pfArr)"/>
-
-  <!-- Six feature categories -->
-  <rect x="470" y="55" width="290" height="260" rx="10" fill="#241F1B" stroke="#8FAF8B" stroke-width="1.5"/>
-  <text x="615" y="80" text-anchor="middle" font-size="12" font-weight="700" fill="#8FAF8B">45+ Features in 6 Categories</text>
-
-  <rect x="485" y="95" width="125" height="42" rx="6" fill="#2E2823" stroke="#C87533" stroke-width="1"/>
-  <text x="547" y="113" text-anchor="middle" font-size="10" font-weight="600" fill="#F0EDE8">Identity</text>
-  <text x="547" y="127" text-anchor="middle" font-size="8" fill="#9C9189">profile lifecycle</text>
-
-  <rect x="620" y="95" width="125" height="42" rx="6" fill="#2E2823" stroke="#C87533" stroke-width="1"/>
-  <text x="682" y="113" text-anchor="middle" font-size="10" font-weight="600" fill="#F0EDE8">Content Consumption</text>
-  <text x="682" y="127" text-anchor="middle" font-size="8" fill="#9C9189">genre, dialect, mood</text>
-
-  <rect x="485" y="143" width="125" height="42" rx="6" fill="#2E2823" stroke="#C87533" stroke-width="1"/>
-  <text x="547" y="161" text-anchor="middle" font-size="10" font-weight="600" fill="#F0EDE8">Engagement Quality</text>
-  <text x="547" y="175" text-anchor="middle" font-size="8" fill="#9C9189">depth, retention</text>
-
-  <rect x="620" y="143" width="125" height="42" rx="6" fill="#2E2823" stroke="#C87533" stroke-width="1"/>
-  <text x="682" y="161" text-anchor="middle" font-size="10" font-weight="600" fill="#F0EDE8">Household Dynamics</text>
-  <text x="682" y="175" text-anchor="middle" font-size="8" fill="#9C9189">multi-profile share</text>
-
-  <rect x="485" y="191" width="125" height="42" rx="6" fill="#2E2823" stroke="#C87533" stroke-width="1"/>
-  <text x="547" y="209" text-anchor="middle" font-size="10" font-weight="600" fill="#F0EDE8">Behavioral Patterns</text>
-  <text x="547" y="223" text-anchor="middle" font-size="8" fill="#9C9189">time-of-day, device</text>
-
-  <rect x="620" y="191" width="125" height="42" rx="6" fill="#2E2823" stroke="#C87533" stroke-width="1"/>
-  <text x="682" y="209" text-anchor="middle" font-size="10" font-weight="600" fill="#F0EDE8">AI Predictions</text>
-  <text x="682" y="223" text-anchor="middle" font-size="8" fill="#9C9189">inferred attributes</text>
-
-  <rect x="485" y="248" width="260" height="40" rx="6" fill="#1A1714" stroke="#C87533" stroke-width="1" stroke-dasharray="4,3"/>
-  <text x="615" y="265" text-anchor="middle" font-size="9" font-weight="500" fill="#D98F4E">profile_features_v1</text>
-  <text x="615" y="280" text-anchor="middle" font-size="8" fill="#9C9189">single Delta table, partitioned by date</text>
-
-  <!-- Arrows to consumers -->
-  <line x1="760" y1="120" x2="800" y2="100" stroke="#C87533" stroke-width="2" marker-end="url(#pfArr)"/>
-  <line x1="760" y1="165" x2="800" y2="165" stroke="#C87533" stroke-width="2" marker-end="url(#pfArr)"/>
-  <line x1="760" y1="210" x2="800" y2="230" stroke="#C87533" stroke-width="2" marker-end="url(#pfArr)"/>
-  <line x1="760" y1="265" x2="800" y2="300" stroke="#C87533" stroke-width="2" marker-end="url(#pfArr)"/>
-
-  <!-- Consumers -->
-  <rect x="810" y="80" width="125" height="42" rx="6" fill="#241F1B" stroke="#C87533" stroke-width="1.5"/>
-  <text x="872" y="100" text-anchor="middle" font-size="10" font-weight="600" fill="#F0EDE8">Jarvis CRM</text>
-  <text x="872" y="114" text-anchor="middle" font-size="8" fill="#9C9189">audience targeting</text>
-
-  <rect x="810" y="145" width="125" height="42" rx="6" fill="#241F1B" stroke="#C87533" stroke-width="1.5"/>
-  <text x="872" y="165" text-anchor="middle" font-size="10" font-weight="600" fill="#F0EDE8">Clustering</text>
-  <text x="872" y="179" text-anchor="middle" font-size="8" fill="#9C9189">K-means segments</text>
-
-  <rect x="810" y="210" width="125" height="42" rx="6" fill="#241F1B" stroke="#C87533" stroke-width="1.5"/>
-  <text x="872" y="230" text-anchor="middle" font-size="10" font-weight="600" fill="#F0EDE8">Attribute Inference</text>
-  <text x="872" y="244" text-anchor="middle" font-size="8" fill="#9C9189">XGBoost models</text>
-
-  <rect x="810" y="280" width="125" height="42" rx="6" fill="#241F1B" stroke="#C87533" stroke-width="1.5"/>
-  <text x="872" y="300" text-anchor="middle" font-size="10" font-weight="600" fill="#F0EDE8">Reporting</text>
-  <text x="872" y="314" text-anchor="middle" font-size="8" fill="#9C9189">Power BI semantic</text>
-
-  <!-- Footer -->
-  <text x="480" y="440" text-anchor="middle" font-size="10" fill="#9C9189">PySpark + Delta Lake + Unity Catalog + Databricks Jobs</text>
-</svg>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" font-family="Inter, system-ui, sans-serif">
+      <defs>
+        <marker id="pfArr" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+          <polygon points="0 0, 10 3.5, 0 7" fill="#06B6D4"/>
+        </marker>
+      </defs>
+    
+      <rect width="960" height="460" rx="12" fill="#050B14"/>
+      <text x="480" y="35" text-anchor="middle" font-size="16" font-weight="700" fill="#E2E8F0">Profile-Level Feature Store</text>
+    
+      <!-- Sources -->
+      <rect x="30" y="80" width="170" height="200" rx="8" stroke-width="1.5" fill="#0A1220" stroke="#06B6D4"/>
+      <text x="115" y="105" text-anchor="middle" font-size="11" font-weight="600" fill="#06B6D4">Gold Layer Sources</text>
+    
+      <rect x="45" y="125" width="140" height="36" rx="6" stroke-width="1" fill="#122033" stroke="#06B6D4"/>
+      <text x="115" y="142" text-anchor="middle" font-size="10" fill="#E2E8F0">Viewing Events</text>
+      <text x="115" y="155" text-anchor="middle" font-size="8" fill="#94A3B8">session granularity</text>
+    
+      <rect x="45" y="171" width="140" height="36" rx="6" stroke-width="1" fill="#122033" stroke="#06B6D4"/>
+      <text x="115" y="188" text-anchor="middle" font-size="10" fill="#E2E8F0">Account Signals</text>
+      <text x="115" y="201" text-anchor="middle" font-size="8" fill="#94A3B8">subscription, billing</text>
+    
+      <rect x="45" y="217" width="140" height="36" rx="6" stroke-width="1" fill="#122033" stroke="#06B6D4"/>
+      <text x="115" y="234" text-anchor="middle" font-size="10" fill="#E2E8F0">Content Catalog</text>
+      <text x="115" y="247" text-anchor="middle" font-size="8" fill="#94A3B8">titles, genres, dialects</text>
+    
+      <line x1="200" y1="180" x2="240" y2="180" stroke-width="2" marker-end="url(#pfArr)" stroke="#06B6D4"/>
+    
+      <!-- Feature pipeline -->
+      <rect x="250" y="100" width="170" height="160" rx="10" stroke-width="2" fill="#122033" stroke="#06B6D4"/>
+      <text x="335" y="128" text-anchor="middle" font-size="12" font-weight="700" fill="#E2E8F0">Incremental</text>
+      <text x="335" y="144" text-anchor="middle" font-size="12" font-weight="700" fill="#E2E8F0">Feature Pipeline</text>
+      <text x="335" y="164" text-anchor="middle" font-size="9" fill="#06B6D4">PySpark on Databricks</text>
+    
+      <rect x="265" y="180" width="140" height="22" rx="4" stroke-width="1" fill="#122033" stroke="#06B6D4"/>
+      <text x="335" y="195" text-anchor="middle" font-size="9" fill="#E2E8F0">Daily delta scan</text>
+    
+      <rect x="265" y="208" width="140" height="22" rx="4" stroke-width="1" fill="#122033" stroke="#06B6D4"/>
+      <text x="335" y="223" text-anchor="middle" font-size="9" fill="#E2E8F0">Household-share math</text>
+    
+      <rect x="265" y="236" width="140" height="14" rx="3" fill="none"/>
+      <text x="335" y="247" text-anchor="middle" font-size="8" fill="#94A3B8">writes Delta feature table</text>
+    
+      <line x1="420" y1="180" x2="460" y2="180" stroke-width="2" marker-end="url(#pfArr)" stroke="#06B6D4"/>
+    
+      <!-- Six feature categories -->
+      <rect x="470" y="55" width="290" height="260" rx="10" stroke-width="1.5" fill="#122033" stroke="#2A4561"/>
+      <text x="615" y="80" text-anchor="middle" font-size="12" font-weight="700" fill="#94A3B8">45+ Features in 6 Categories</text>
+    
+      <rect x="485" y="95" width="125" height="42" rx="6" stroke-width="1" fill="#122033" stroke="#06B6D4"/>
+      <text x="547" y="113" text-anchor="middle" font-size="10" font-weight="600" fill="#E2E8F0">Identity</text>
+      <text x="547" y="127" text-anchor="middle" font-size="8" fill="#94A3B8">profile lifecycle</text>
+    
+      <rect x="620" y="95" width="125" height="42" rx="6" stroke-width="1" fill="#122033" stroke="#06B6D4"/>
+      <text x="682" y="113" text-anchor="middle" font-size="10" font-weight="600" fill="#E2E8F0">Content Consumption</text>
+      <text x="682" y="127" text-anchor="middle" font-size="8" fill="#94A3B8">genre, dialect, mood</text>
+    
+      <rect x="485" y="143" width="125" height="42" rx="6" stroke-width="1" fill="#122033" stroke="#06B6D4"/>
+      <text x="547" y="161" text-anchor="middle" font-size="10" font-weight="600" fill="#E2E8F0">Engagement Quality</text>
+      <text x="547" y="175" text-anchor="middle" font-size="8" fill="#94A3B8">depth, retention</text>
+    
+      <rect x="620" y="143" width="125" height="42" rx="6" stroke-width="1" fill="#122033" stroke="#06B6D4"/>
+      <text x="682" y="161" text-anchor="middle" font-size="10" font-weight="600" fill="#E2E8F0">Household Dynamics</text>
+      <text x="682" y="175" text-anchor="middle" font-size="8" fill="#94A3B8">multi-profile share</text>
+    
+      <rect x="485" y="191" width="125" height="42" rx="6" stroke-width="1" fill="#122033" stroke="#06B6D4"/>
+      <text x="547" y="209" text-anchor="middle" font-size="10" font-weight="600" fill="#E2E8F0">Behavioral Patterns</text>
+      <text x="547" y="223" text-anchor="middle" font-size="8" fill="#94A3B8">time-of-day, device</text>
+    
+      <rect x="620" y="191" width="125" height="42" rx="6" stroke-width="1" fill="#122033" stroke="#06B6D4"/>
+      <text x="682" y="209" text-anchor="middle" font-size="10" font-weight="600" fill="#E2E8F0">AI Predictions</text>
+      <text x="682" y="223" text-anchor="middle" font-size="8" fill="#94A3B8">inferred attributes</text>
+    
+      <rect x="485" y="248" width="260" height="40" rx="6" stroke-width="1" stroke-dasharray="4,3" fill="#0A1220" stroke="#06B6D4"/>
+      <text x="615" y="265" text-anchor="middle" font-size="9" font-weight="500" fill="#06B6D4">profile_features</text>
+      <text x="615" y="280" text-anchor="middle" font-size="8" fill="#94A3B8">single Delta table, partitioned by date</text>
+    
+      <!-- Arrows to consumers -->
+      <line x1="760" y1="120" x2="800" y2="100" stroke-width="2" marker-end="url(#pfArr)" stroke="#06B6D4"/>
+      <line x1="760" y1="165" x2="800" y2="165" stroke-width="2" marker-end="url(#pfArr)" stroke="#06B6D4"/>
+      <line x1="760" y1="210" x2="800" y2="230" stroke-width="2" marker-end="url(#pfArr)" stroke="#06B6D4"/>
+      <line x1="760" y1="265" x2="800" y2="300" stroke-width="2" marker-end="url(#pfArr)" stroke="#06B6D4"/>
+    
+      <!-- Consumers -->
+      <rect x="810" y="80" width="125" height="42" rx="6" stroke-width="1.5" fill="#122033" stroke="#06B6D4"/>
+      <text x="872" y="100" text-anchor="middle" font-size="10" font-weight="600" fill="#E2E8F0">CRM</text>
+      <text x="872" y="114" text-anchor="middle" font-size="8" fill="#94A3B8">audience targeting</text>
+    
+      <rect x="810" y="145" width="125" height="42" rx="6" stroke-width="1.5" fill="#122033" stroke="#06B6D4"/>
+      <text x="872" y="165" text-anchor="middle" font-size="10" font-weight="600" fill="#E2E8F0">Clustering</text>
+      <text x="872" y="179" text-anchor="middle" font-size="8" fill="#94A3B8">K-means segments</text>
+    
+      <rect x="810" y="210" width="125" height="42" rx="6" stroke-width="1.5" fill="#122033" stroke="#06B6D4"/>
+      <text x="872" y="230" text-anchor="middle" font-size="10" font-weight="600" fill="#E2E8F0">Attribute Inference</text>
+      <text x="872" y="244" text-anchor="middle" font-size="8" fill="#94A3B8">XGBoost models</text>
+    
+      <rect x="810" y="280" width="125" height="42" rx="6" stroke-width="1.5" fill="#122033" stroke="#06B6D4"/>
+      <text x="872" y="300" text-anchor="middle" font-size="10" font-weight="600" fill="#E2E8F0">Reporting</text>
+      <text x="872" y="314" text-anchor="middle" font-size="8" fill="#94A3B8">Power BI semantic</text>
+    
+      <!-- Footer -->
+      <text x="480" y="440" text-anchor="middle" font-size="10" fill="#94A3B8">PySpark + Delta Lake + Unity Catalog + Databricks Jobs</text>
+    </svg>
