@@ -81,6 +81,8 @@ export const CAPABILITIES: Capability[] = [
     icon: 'brain',
     heroTitle: 'Viewing Behavior Clustering',
     heroLink: '/projects/audience-segmentation/',
+    allWorkLink: '/projects/#data-science',
+    allWorkLabel: 'All data science work',
   },
   {
     title: 'AI & Automation',
@@ -102,5 +104,7 @@ export const CAPABILITIES: Capability[] = [
     icon: 'robot',
     heroTitle: 'Voice-of-Customer Intelligence Platform',
     heroLink: '/projects/voice-of-customer/',
+    allWorkLink: '/projects/#ai-automation',
+    allWorkLabel: 'All AI & automation work',
   },
 ];
