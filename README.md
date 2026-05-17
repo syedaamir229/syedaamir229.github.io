@@ -1,43 +1,53 @@
-# Astro Starter Kit: Minimal
+# Portfolio
+
+Source for [syedaamir229.github.io](https://syedaamir229.github.io), the personal site of Syed Aamir, a Data & AI Engineer based in Dubai.
+
+![Portfolio preview](public/assets/og-card.jpg)
+
+## Stack
+
+- [Astro](https://astro.build) v6 with Content Collections for blog posts and project case studies
+- [Tailwind CSS](https://tailwindcss.com) v4 (config-free, CSS-first)
+- TypeScript
+- Deployed to GitHub Pages via GitHub Actions on push to `main`
+
+## Run locally
 
 ```sh
-npm create astro@latest -- --template minimal
+npm install
+npm run dev      # dev server at http://localhost:4321
+npm run build    # production build to dist/
+npm run preview  # preview the build locally
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Requires Node 22.12+.
 
-## 🚀 Project Structure
+## Repo layout
 
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
+```
+.
 ├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+│   ├── pages/          # routes (.astro)
+│   ├── components/     # reusable UI
+│   ├── layouts/        # page shells
+│   ├── content/        # blog posts and project case studies (Content Collections)
+│   ├── data/           # structured site data
+│   ├── lib/            # shared utilities
+│   ├── styles/         # Tailwind layer customizations
+│   └── ui/             # design tokens and primitives
+├── public/             # static assets, served as-is
+├── docs/               # brand and content specs (voice, tone, strategy)
+└── scripts/            # local developer utilities (gitignored)
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+Each major folder has a nested `CLAUDE.md` documenting the conventions that apply there.
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+## Notable choices
 
-Any static assets, like images, can be placed in the `public/` directory.
+- **Tailwind v4 with no config file.** Design tokens live in CSS via `@theme` declarations in [src/styles/](src/styles/).
+- **Content Collections over a CMS.** Blog posts and project case studies are MDX files in [src/content/](src/content/), schema-validated at build time.
+- **Voice and brand specs in [docs/](docs/).** Single source of truth for visual identity, tone, and per-surface voice guidelines. Used by a separate blog-writing agent.
 
-## 🧞 Commands
+## License
 
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Code is licensed under the [MIT License](LICENSE). Written content (blog posts, project case studies) and brand assets in `docs/` and `src/content/` are © Syed Aamir and not licensed for reuse without permission.
