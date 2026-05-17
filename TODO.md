@@ -196,6 +196,27 @@ Split into sub-sessions to keep each one scoped:
 - Push local MkDocs backup to `mkdocs-website-archive` repo
 - Lighthouse a11y `color-contrast` and `link-in-text-block` audits — copper/cream/muted contrast ratios are intentional brand choices; revisit if a real user reports legibility issues
 
+### Phase 5F: Source-tree refactor (Done 2026-05-17)
+
+Audit-driven cleanup that grew out of a section-by-section read of `src/`. Surfaced a stack of duplications, inline data dumps, and dead code that had accumulated through Phases 1-5. Output is a layered, conventional structure suitable for someone new to the codebase to find their way around.
+
+- [x] **Data layer (`src/data/`).** Lifted inline data out of pages and `config.ts` into 8 typed modules: capabilities, categories, certifications, experience, personSchema, pipeline, series, skills. Each module exports typed interfaces alongside the data.
+- [x] **Helper layer (`src/lib/`).** Pure helpers with no markup: `getPublishedPosts`, `getPublishedProjects`, `readingTime`, `getSeriesInfo`, `getPersonSchema`. Dedupes the same 3-5 patterns that had been copied across pages.
+- [x] **Client scripts (`src/scripts/`).** Extracted inline `<script>` blocks: `scrollReveal` (now respects `prefers-reduced-motion`), `projectToc`, `mobileMenu` (gained close-on-link-click + escape-to-close), `categoryFilter` (generic over `[data-categories]`).
+- [x] **UI primitives (`src/components/ui/`).** 9 props-only components: Button (primary/outline/pill), Card, CategoryFilter, Eyebrow, FilterChip, Icon (name-based), PageHeader, SectionHeader, Tag.
+- [x] **Page-scoped components.** Subfolders for layout/, home/, about/, blog/, projects/. Every page becomes pure composition: experience.astro 366 -> 17 lines, projects/index 148 -> 27, blog/index 111 -> 28, BlogPost layout 121 -> 41.
+- [x] **Schema tightening.** `content.config.ts` now uses `z.enum()` backed by `src/data/categories.ts` for both `blog.categories` and `projects.category`. Category typos fail at build time.
+- [x] **Layout contracts.** Project and BlogPost layouts accept `CollectionEntry<...>` instead of flat props. Schema changes propagate automatically.
+- [x] **Config expansion.** Added `SITE.avatar`, `SITE.ogImage`, `SITE.titleSeparator`, `SOCIAL.linkedinHandle`. Renamed `SOCIAL.email` to `SOCIAL.emailCompose` (it's a Gmail compose URL, not an email).
+- [x] **Style cleanup.** `global.css` lost dead tokens (`--color-sage-*`, `--font-body`), dead rules (`.decision-item`, `.diagram-svg`, `.svg-fill-*`). Added type-scale tokens (`--text-xxs`, `--text-tiny`) and a `prefers-reduced-motion` block. Fixed `.glass` background (had been a sepia leftover).
+- [x] **Dead-code removal.** `MetricsStrip.astro`, `preview-diagrams.astro` deleted; `METRICS` config export removed. All confirmed unreachable.
+- [x] **CLAUDE.md** rewritten to document the new tree, layer conventions, and the auto-applied base styles (so future editors don't double up `font-heading` on headings or `border-t` on adjacent sections).
+- [x] **Audit:** every page renders 200 in dev, 31 pages build in ~800ms, visual inspection clean.
+
+**Out of scope for this phase (logged for later):**
+- Stale Phase 7 item: rename `copper/carbon` design tokens (tokens have already been renamed to `navy/cyan`; that punch list item is obsolete and can be removed).
+- Non-blocking font loading (currently a render-blocking Google Fonts `<link>`).
+
 ## Phase 6: AI Business Site
 
 **Status**: Not started
@@ -211,3 +232,13 @@ Split into sub-sessions to keep each one scoped:
 - [ ] Deploy to Vercel with custom domain
 - [ ] Cross-link with portfolio
 - [ ] Add course/product tier when ready (Phase 2 of business model)
+
+## Phase 7: Future Enhancements
+
+**Status**: Not started
+**Depends on**: Nothing (pick up opportunistically)
+**Goal**: Nice-to-have upgrades that aren't blocking, captured so they don't get lost.
+
+- [ ] **Per-post OG card auto-generation.** Today every page shares the single static `public/assets/og-card.jpg` (built by `scripts/build-og-card.mjs`). MkDocs Material did per-page social cards out of the box; Astro doesn't. To match that behavior, add a build-time route like `src/pages/og/[slug].png.ts` using `@vercel/og` or `satori` that renders a unique card per blog post with the post's title and pillar baked in, then update `BlogPost.astro` to pass `image={`/og/${slug}.png`}` to `BaseLayout`. Same pattern can extend to project case studies. ~30 min setup, then automatic for every new post. Worth doing once blog volume grows or once a specific post needs its own LinkedIn-ready preview.
+- [ ] **Rename `copper`/`carbon` design tokens to accurate names.** The CSS variables are named `--color-copper-*` and `--color-carbon-*`, but the hex values are cyan (#06B6D4) and near-black navy (#050B14). The `global.css` comment already admits this. Rename across `src/styles/global.css`, every component, every page, and the static blog/project SVGs (which hardcode the same hex). Suggested: `copper-*` &rarr; `accent-*` or `cyan-*`; `carbon-*` &rarr; `surface-*` or `navy-*`. Mechanical find/replace, low risk, high clarity. Bundle with any future palette shift to avoid double-touching files.
+- [ ] **LinkedIn share + OG image generation flow.** When this lands, decide how the LinkedIn excerpt is produced (frontmatter field, derived first-paragraph, or written by the blog agent) and revive the `linkedin_excerpt` schema slot if appropriate. The slot was dropped from `content.config.ts` during the 2026-05-17 cleanup because nothing read or wrote it; bringing it back is a one-line schema change once a real consumer exists. Pair this with the per-post OG card item above so the image generation and copy generation ship together.
