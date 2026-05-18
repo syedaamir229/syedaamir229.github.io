@@ -8,11 +8,11 @@ series: semantic-layer
 series_part: 6
 ---
 
-A dashboard owner is mid-presentation to leadership. They click into a high-traffic visual that has rendered in two seconds for the last six months. Today it takes thirty seconds. The room waits. The dashboard owner apologises. The model has not changed. The data has not changed. The query has gotten slower week by week and nobody has been watching.
+I've watched a high-traffic visual that used to render in two seconds turn into a thirty-second render by the time leadership saw it. The model had not changed. The data had not changed. The query had gotten slower week by week and nobody had been watching.
 
 This is how semantic-layer programs lose trust slowly, then all at once. The refresh succeeds. The model builds. The KPI definitions stay correct. The queries get slower over time, the visuals get heavier, the report estate accretes weight, and one Wednesday afternoon a single thirty-second render in front of an executive turns the whole program into a question.
 
-**Monitoring is where semantic-layer maturity becomes visible.** Teams that only monitor refresh success miss the main problem: slow queries, capacity pressure, and model drift that gradually reduce trust. The remedy is a named operating rhythm. The Weekly Optimization Cycle below is the one that worked at Shahid.
+**Monitoring is where semantic-layer maturity becomes visible.** Teams that only monitor refresh success miss the main problem: slow queries, capacity pressure, and model drift that gradually reduce trust. The remedy is a named operating rhythm. The Weekly Optimization Cycle below is the one that has worked for me.
 
 ![Performance Monitoring Feedback Loop: Signal Sources feed a Monitoring Store, which feeds a Detection Layer (anomaly checks, failed refresh alerts, slow query alerts, capacity flags, stale partition checks), which feeds Optimization Actions and loops back. The loop only creates value when it drives action.](/assets/blog/semantic-series-06-monitoring-loop.svg)
 

@@ -6,9 +6,9 @@ tags: ["scikit-learn", "PySpark", "MLflow", "Power BI"]
 featured: false
 metrics:
   - label: "Audience Segments"
-    value: "12"
+    value: "A dozen"
   - label: "Profiles Scored"
-    value: "7.5M"
+    value: "Millions"
 order: 8
 ---
 
@@ -29,9 +29,9 @@ order: 8
 
 ## Architecture Overview
 
-![Viewing behavior clustering pipeline: a behavior matrix of viewing hours plus semantic embeddings from content synopses feed K-means, producing 12 audience segments validated for stability and published to the semantic layer.](/assets/projects/audience-segmentation.svg)
+![Viewing behavior clustering pipeline: a behavior matrix of viewing hours plus semantic embeddings from content synopses feed K-means, producing roughly a dozen audience segments validated for stability and published to the semantic layer.](/assets/projects/audience-segmentation.svg)
 
-Two signals feed the model: a behaviour matrix of viewing hours by mood, sub-genre, and dialect; and semantic embeddings from content synopses. K-means runs on the combined space. The 12 resulting segments are checked for stability across runs and labelled with business-friendly names before being written back into the Semantic Layer.
+Two signals feed the model: a behaviour matrix of viewing hours by mood, sub-genre, and dialect; and semantic embeddings from content synopses. K-means runs on the combined space. Roughly a dozen behavioral segments emerge from the combined space, checked for stability across runs and labelled with business-friendly names before being written back into the Semantic Layer.
 
 ## Results & Impact
 

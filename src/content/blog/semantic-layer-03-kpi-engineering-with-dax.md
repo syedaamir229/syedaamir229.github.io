@@ -8,7 +8,7 @@ series: semantic-layer
 series_part: 3
 ---
 
-A dashboard owner at Shahid pulled the DAX behind `churn_rate` across three of their highest-traffic reports. Three different formulas. One used `DIVIDE` with a default of zero; one used `DIVIDE` without a fallback; one wrapped the calculation in an `IF` that swapped behaviour during quarter-end. None of them produced the same number for the same period.
+I once pulled the DAX behind `churn_rate` across the three highest-traffic reports on a model I owned. Three different formulas. One used `DIVIDE` with a default of zero; one used `DIVIDE` without a fallback; one wrapped the calculation in an `IF` that swapped behaviour during quarter-end. None of them produced the same number for the same period.
 
 The model was already in place. The dashboards were live. The DAX had drifted because there was no measure-engineering discipline above the model. Drift in DAX is the failure mode that is hardest to detect because the model itself looks healthy; the symptoms only surface when a senior stakeholder compares the same KPI across two reports and finds the gap.
 
@@ -22,7 +22,7 @@ The model was already in place. The dashboards were live. The DAX had drifted be
 
 ### Layer 1: Base measures
 
-Direct aggregations from fact tables. Simple, explicit, reusable. At Shahid the base measures cover `plays`, `watchers`, `seconds_watched`, AVOD-specific `impressions` and `vast_errors`. No business assumptions. No conditional logic. Pure aggregation.
+Direct aggregations from fact tables. Simple, explicit, reusable. In the build I worked on the base measures cover `plays`, `watchers`, `seconds_watched`, AVOD-specific `impressions` and `vast_errors`. No business assumptions. No conditional logic. Pure aggregation.
 
 The constraint is what makes the layer useful. A base measure that includes a filter or a conditional is no longer a base measure; it is a business measure pretending to be a base measure, and the consumer who builds a business measure on top of it will inherit the hidden filter.
 

@@ -6,7 +6,7 @@ categories: ["Career", "Data Science"]
 draft: false
 ---
 
-A Friday afternoon Slack channel during my BI-to-DS overlap period at Shahid (MBC Group). Two messages within an hour. The first: "the AVOD engagement dashboard is showing zero for last week." The second: "the gender prediction model is returning nulls for half the active profiles."
+I've lived a Friday afternoon during my BI-to-DS overlap period where two messages landed within an hour. The first: an AVOD engagement dashboard showing zero for last week. The second: a gender prediction model returning nulls for half the active profiles.
 
 Same channel. Same engineer. Same governed tables underneath. Two different stakeholders, both waiting on me, both with reasonable expectations about turnaround. The afternoon turned into a forced ranking: which side gets the next two hours of attention, and which side gets a Monday-morning apology.
 
@@ -20,7 +20,7 @@ For roughly six months, my weeks had a predictable split. Mornings were BI: fiel
 
 The dual-role tension was real but manageable. BI had established processes and stakeholder expectations. DS was exploratory and less predictable. Some weeks the balance tipped toward BI when a critical reporting cycle hit. Other weeks I could spend full days on feature pipelines. The discipline was that neither side could go neglected long enough to lose trust.
 
-Working at Shahid meant the data volumes and business urgency were high on both fronts. Dashboards powered weekly executive reviews. Models were expected to drive subscriber retention and personalisation. There was no luxury of pausing one to focus on the other.
+The data volumes and business urgency were high on both fronts. Dashboards powered weekly executive reviews. Models were expected to drive subscriber retention and personalisation. There was no luxury of pausing one to focus on the other.
 
 ## What changed
 
@@ -52,7 +52,7 @@ This is the failure mode that feels productive while it is happening. The DS wor
 
 ### 3. Treating model accuracy as the only success metric
 
-A model can have strong accuracy on a holdout set and still fail in production because the output format does not match the consuming system, or because the predictions are not actionable at the business cadence. Validating operational fit matters as much as validating statistical performance. The classifier that scores 0.81 AUC and cannot be ingested by the CRM tool is a project that did not ship.
+A model can have strong accuracy on a holdout set and still fail in production because the output format does not match the consuming system, or because the predictions are not actionable at the business cadence. Validating operational fit matters as much as validating statistical performance. The classifier that holds above a reasonable AUC threshold on a held-out validation set and cannot be ingested by the CRM tool is a project that did not ship.
 
 ## What I would do first in the overlap
 

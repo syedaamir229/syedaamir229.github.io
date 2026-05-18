@@ -31,7 +31,7 @@ Three heterogeneous data sources had to be unified under one model that served b
 
 **Options considered:**
 
-- Build the semantic model directly on source system connections (Evergent, Youbora, GAM)
+- Build the semantic model directly on source system connections (a subscription-management platform, a video-analytics platform, a programmatic ad-serving platform)
 - Build on top of the enterprise data model's Gold layer
 
 **Chosen:** Build on Gold layer tables from the enterprise data model.
@@ -45,29 +45,29 @@ Three heterogeneous data sources had to be unified under one model that served b
 - Full daily refresh of all tables
 - Incremental refresh with a uniform lookback window for all domains
 
-**Chosen:** Tiered incremental refresh by domain (Engagement: 1-day, Base Movement: 5-day, Ad Impressions: 14-day).
+**Chosen:** Tiered incremental refresh by domain (Engagement: 1-day, Base Movement: 5-day, Ad Impressions: a multi-week window for late-arriving attribution).
 
-**Why:** Ad impression data settles over a 14-day window due to late-arriving attribution; subscriber base movement requires a 5-day lookback for accurate churn/retention calculations; engagement data is final within 1 day. Applying a uniform cadence to all domains either under-refreshes ad data or over-processes engagement data unnecessarily.
+**Why:** Ad impression data settles over a multi-week window due to late-arriving attribution; subscriber base movement requires a 5-day lookback for accurate churn/retention calculations; engagement data is final within 1 day. Applying a uniform cadence to all domains either under-refreshes ad data or over-processes engagement data unnecessarily.
 
 ## Approach
 
 - Built SSAS Tabular semantic model on top of Gold layer tables from the enterprise data model
-- Integrated 3 external data pipelines into the semantic layer job: GAM Impressions/Inventory, Subscriber Cube, and Airtable reference data
+- Integrated 3 external data pipelines into the semantic layer job: ad-impression and inventory data, a subscriber-domain dataset, and reference data from a lightweight collaborative source
 - Implemented 4-notebook automated refresh pipeline: Staging to Dimension tables to Fact tables to SSAS model refresh (with dependency sequencing)
-- Defined 100+ DAX measures across 4 business domains with documented definitions in a Measures Glossary
+- Defined 100+ DAX measures across 4 business domains with documented definitions in a published measure-definition reference
 - Connected Power BI reports via live dataset connection, eliminating the need for local data imports in report files
 - Built performance monitoring solution: Windows Performance Monitor, Extended Events query statistics, Dynamic Management Views, and a dedicated SSAS performance monitoring dataset
 
 ## Architecture Overview
 
-![Enterprise semantic layer architecture: Gold layer tables, GAM, Subscriber Cube, and Airtable pipelines feeding an SSAS Tabular semantic model that serves Power BI via live connection.](/assets/projects/semantic-layer.svg)
+![Enterprise semantic layer architecture: Gold layer tables, ad-impression and inventory data, a subscriber-domain dataset, and a lightweight reference-data source feeding an SSAS Tabular semantic model that serves Power BI via live connection.](/assets/projects/semantic-layer.svg)
 
 Upstream Gold layer tables, feed into the SSAS Tabular semantic model via an automated 4-stage refresh job, serving Power BI reports via live connection.
 
 ## Results & Impact
 
 - **What changed in operations**: Report teams stopped rebuilding KPI logic per file. All new dashboards now use shared, governed measures from the semantic layer as their starting point
-- **What changed in decisions**: Metric disputes dropped significantly; when a number was questioned, the answer was "check the Measures Glossary" rather than "ask which calculation each team used"
+- **What changed in decisions**: Metric disputes dropped significantly; when a number was questioned, the answer was "check the measure-definition reference" rather than "ask which calculation each team used"
 - **Report development velocity**: New dashboards built on top of shared measures are estimated 60-70% faster to develop than the previous approach of building directly against source tables
 - **Governance foundation**: The semantic layer became the authoritative reference for KPI definitions across the organisation, referenced in data documentation, onboarding materials, and stakeholder discussions
 
