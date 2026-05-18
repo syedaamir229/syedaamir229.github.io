@@ -89,6 +89,6 @@ This decision-driven recommendation-to-activation pattern (profile segmentation 
 - **Platform**: Databricks on AWS (PySpark + Spark SQL)
 - **Storage**: Delta Lake (S3) with ACID transactions on scenario output and infra tables
 - **Orchestration**: Databricks Jobs (daily batch scheduler)
-- **Delivery**: Customer-engagement platform API (CleverTap, or peers like Braze and MoEngage; push notification targeting)
+- **Delivery**: CleverTap API (push notification targeting)
 - **Reporting**: Power BI (campaign performance tracking)
 - **Environments**: Development to Production promotion via Databricks workspace environments
