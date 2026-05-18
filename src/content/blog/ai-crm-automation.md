@@ -43,7 +43,7 @@ Scenarios are composable. The CRM team adjusts parameters (recency windows, enga
 
 ### Layer 3: Profile-to-account resolution
 
-The delivery channel (a customer-engagement platform like CleverTap or Braze) targets at the account level. A single household in this market can have multiple viewing profiles. Recommending content based on the account level averages those profiles into noise.
+The delivery channel is a customer-engagement platform, and that platform targets at the account level. A single household in this market can have multiple viewing profiles. Recommending content based on the account level averages those profiles into noise.
 
 The system processes recommendations at profile level for accuracy, then selects one profile per account for delivery. The selection method is configurable: default is the primary profile (highest watch hours), but it can be switched to most recent activity or dominant profile depending on campaign goal. This is the MENA-specific layer; multi-profile households are not an edge case in this market, they are the default.
 
@@ -60,7 +60,7 @@ Behaviour-based prioritisation replaced fixed rotation logic. Targeting relevanc
 
 ### Layer 5: CRM integration
 
-Scenario outputs push directly to the customer-engagement platform (CleverTap or Braze) via API on schedule. CRM managers configure activation timing inside that platform. Push, email, and SMS channels are all supported through the same audience push. A temporal configuration system handles seasonal overrides (predictable recurring windows where content priorities shift, regional priority lists) with auto-activation dates, requiring no code changes for routine seasonal shifts.
+Scenario outputs push directly to the customer-engagement platform via API on schedule. CRM managers configure activation timing inside that platform. Push, email, and SMS channels are all supported through the same audience push. A temporal configuration system handles seasonal overrides (predictable recurring windows where content priorities shift, regional priority lists) with auto-activation dates, requiring no code changes for routine seasonal shifts.
 
 ### Layer 6: Closed-loop performance
 

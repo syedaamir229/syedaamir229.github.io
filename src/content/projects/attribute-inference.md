@@ -6,11 +6,11 @@ tags: ["XGBoost", "scikit-learn", "MLflow"]
 featured: false
 metrics:
   - label: "Coverage Expansion"
-    value: "22.7% → 100%"
+    value: "From a quarter to near-full"
   - label: "Profiles Newly Inferred"
-    value: "5.8M"
+    value: "The majority of the cohort"
   - label: "Profiles Scored"
-    value: "9.5M"
+    value: "Millions"
 order: 9
 ---
 
@@ -30,9 +30,9 @@ order: 9
 
 ## Architecture Overview
 
-![Behavior-based attribute inference pipeline: a self-labeled training subset feeds XGBoost training; the model is registered via MLflow in Unity Catalog and scores all 9.5M adult profiles into a separate feature surface with usage guidance for downstream consumers.](/assets/projects/attribute-inference.svg)
+![Behavior-based attribute inference pipeline: a self-labeled training subset feeds XGBoost training; the model is registered via MLflow in Unity Catalog and scores millions of adult profiles into a separate feature surface with usage guidance for downstream consumers.](/assets/projects/attribute-inference.svg)
 
-Training data comes from accounts with a single adult profile and a self-reported label: a validation subset clean enough to learn from. XGBoost trains on behavioural features (protagonist gender exposure, audience affinity, sub-genre preferences) and the model gets registered through MLflow in Unity Catalog. At scoring time it covers all 9.5M adult profiles. Predictions land in a separate feature surface with usage guidance, so downstream consumers can decide whether to trust them.
+Training data comes from accounts with a single adult profile and a self-reported label: a validation subset clean enough to learn from. XGBoost trains on behavioural features (protagonist gender exposure, audience affinity, sub-genre preferences) and the model gets registered through MLflow in Unity Catalog. At scoring time it covers millions of adult profiles. Predictions land in a separate feature surface with usage guidance, so downstream consumers can decide whether to trust them.
 
 ## Results & Impact
 

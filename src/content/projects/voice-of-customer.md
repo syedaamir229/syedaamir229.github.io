@@ -18,7 +18,7 @@ order: 3
 
 ## Challenge
 
-The build had to handle dialectal Arabic mixed with English under data residency rules that kept all LLM inference inside the Azure tenant, while still delivering insights by the content team's 10 AM SLA.
+The build had to handle dialectal Arabic mixed with English under data residency rules that kept all LLM inference inside the Azure tenant, while still delivering insights by the content team's early-morning operational window.
 
 - **Fragmented inputs**: Comments arrived from 4 platforms with incompatible schemas and no unified identifier
 - **Language barrier**: The majority of content was in Arabic, limiting analysis for part of the leadership team
@@ -68,7 +68,7 @@ Social comments flow through a 3-layer pipeline (Bronze to Silver NLP to Gold Se
 
 - **What changed in operations**: Audience insight workflows that previously took hours of analyst time now execute in seconds via natural language query, available daily before the content team's morning review
 - **What changed in decisions**: Product and content teams can now ask "what are audiences saying about [title]?" and get structured sentiment breakdowns across platforms and languages, without a data request
-- **Cross-source analysis unlocked**: For the first time, comment volume, sentiment, and engagement trends could be compared across Twitter, Facebook, YouTube, and Shorts in a single interface
+- **Cross-source analysis unlocked**: For the first time, comment volume, sentiment, and engagement trends could be compared across Twitter, Facebook, YouTube, and the platform's own short-form video surface in a single interface
 - **Reduced SQL dependency**: Two Genie spaces (Engagement + Comments) provide self-service analytics for non-technical stakeholders, reducing ad hoc analyst query requests
 
 ## Reusable Pattern

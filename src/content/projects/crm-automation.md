@@ -9,16 +9,14 @@ metrics:
     value: "Millions"
   - label: "Recommendation Scenarios"
     value: "4"
-  - label: "Regional Segments"
-    value: "7"
   - label: "Deduplication Window"
-    value: "60 days"
+    value: "Multi-week"
 order: 4
 ---
 
 ## Challenge
 
-CleverTap targets accounts rather than profiles, daily batch completion had to land before CRM send schedules, and seasonal events like Ramadan required content-filter overrides without redeployment.
+The customer-engagement platform targets accounts rather than profiles, daily batch completion had to land before CRM send schedules, and predictable recurring windows where content priorities shift required content-filter overrides without redeployment.
 
 - **Manual setup bottleneck**: Every audience build required a data request and query turnaround, slowing campaign cadence
 - **No profile-level personalization**: CRM targeting was account-level, ignoring the multi-profile structure of subscriber households
@@ -29,7 +27,7 @@ CleverTap targets accounts rather than profiles, daily batch completion had to l
 
 ### Decision 1: Profile-level processing with account-level rollup
 
-**Problem:** CleverTap can only target at the account level, but processing at account level loses personalization in multi-profile households.
+**Problem:** The customer-engagement platform can only target at the account level, but processing at account level loses personalization in multi-profile households.
 
 **Options considered:**
 
@@ -38,7 +36,7 @@ CleverTap targets accounts rather than profiles, daily batch completion had to l
 
 **Chosen:** Profile-level processing with configurable account-level rollup (primary profile = profile with highest watch hours).
 
-**Why:** Preserves per-profile viewing behavior for recommendation logic while meeting CleverTap's delivery constraint. The rollup method is configurable (primary, dominant, last-active) to adapt to campaign intent.
+**Why:** Preserves per-profile viewing behavior for recommendation logic while meeting the delivery platform's account-level constraint. The rollup method is configurable (primary, dominant, last-active) to adapt to campaign intent.
 
 ### Decision 2: Behavior-based scenario prioritization over calendar rotation
 
@@ -51,29 +49,29 @@ CleverTap targets accounts rather than profiles, daily batch completion had to l
 
 **Chosen:** Behavior-based mode as default (calendar rotation available as fallback).
 
-**Why:** Users active in the last 7 days are best served by "Episodes Remaining" (re-engagement); users inactive 8-30 days by trending discovery; users inactive 30+ days by cluster-based discovery. Matching scenario to recency segment produces more relevant recommendations than arbitrary rotation.
+**Why:** Users active in the last 7 days are best served by the re-engagement scenario; users inactive 8-30 days by trending discovery; users inactive 30+ days by cluster-based discovery. Matching scenario to recency segment produces more relevant recommendations than arbitrary rotation.
 
 ## Approach
 
-- Built 3-phase shared data preparation: content metadata rollup (episode to season to show), profile-to-region mapping (7 regions), eligible profile filtering (adult + active only)
+- Built 3-phase shared data preparation: content metadata rollup (episode to season to show), profile-to-region mapping across regional segments, eligible profile filtering (adult + active only)
 - Implemented 4 parallel recommendation scenarios, each following a 9-step pipeline: load, filter, join eligible profiles, apply content/category filters, exclude watched, exclude recently sent, rank (top 5 per profile), write, validate
 - Built account rollup (phase 3): union all scenario outputs, select one profile per account, add CRM delivery identifier
 - Implemented scenario selector (phase 4): RFPT-based SVOD/AVOD split to behavior-based prioritization by days-since-last-play to one title per account
-- Built temporal configuration system: seasonal overrides (Ramadan content filter) activate/deactivate automatically by date with no code changes or redeployments required
-- Integrated CRM payload phase with deduplication tracking: 60-day lookback prevents repeat recommendations
+- Built temporal configuration system: seasonal overrides activate and deactivate automatically by date with no code changes or redeployments required, so a predictable recurring window where content priorities shift becomes a configuration change rather than a release
+- Integrated CRM payload phase with deduplication tracking: a multi-week lookback prevents repeat recommendations
 
 ## Architecture Overview
 
-![CRM automation architecture: shared data prep feeds 4 parallel scenario generators that roll up to account level, pass through scenario selection, and deliver to CleverTap with 60-day deduplication.](/assets/projects/crm-automation.svg)
+![CRM automation architecture: shared data prep feeds 4 parallel scenario generators that roll up to account level, pass through scenario selection, and deliver to the customer-engagement platform with multi-week deduplication.](/assets/projects/crm-automation.svg)
 
-5-phase daily pipeline: shared data prep feeds 4 parallel scenario generators (Clustered, Episodes Remaining, Ranked Up, AVOD), which roll up to account level, pass through scenario selection, and deliver to CleverTap with 60-day deduplication.
+5-phase daily pipeline: shared data prep feeds 4 parallel scenario generators (a cluster-based discovery scenario, a re-engagement scenario, a trending-discovery scenario, and an AVOD-tier scenario), which roll up to account level, pass through scenario selection, and deliver to the customer-engagement platform with a multi-week deduplication window.
 
 ## Results & Impact
 
 - **What changed in operations**: Campaign audience creation moved from multi-day analyst handoff cycles to daily automated execution. CRM teams no longer raise data requests to run recurring campaigns
 - **What changed in decisions**: Targeting shifted from undifferentiated blasts to behavior-segmented scenarios (recency-based routing, regional trending, cluster-based discovery), giving CRM teams control over scenario logic through configuration rather than code
-- **Operational reliability**: Temporal configuration handles seasonal events (Ramadan content filters) automatically with no emergency deployments or manual overrides needed during peak content periods
-- **Deduplication at scale**: 60-day content tracking per profile prevents notification fatigue. The same title will not be recommended to the same profile within 60 days, regardless of which scenario generates it
+- **Operational reliability**: Temporal configuration handles predictable recurring windows where content priorities shift automatically, with no emergency deployments or manual overrides needed during peak content periods
+- **Deduplication at scale**: Multi-week content tracking per profile prevents notification fatigue. The same title will not be recommended to the same profile within the deduplication window, regardless of which scenario generates it
 
 ## Reusable Pattern
 
@@ -91,6 +89,6 @@ This decision-driven recommendation-to-activation pattern (profile segmentation 
 - **Platform**: Databricks on AWS (PySpark + Spark SQL)
 - **Storage**: Delta Lake (S3) with ACID transactions on scenario output and infra tables
 - **Orchestration**: Databricks Jobs (daily batch scheduler)
-- **Delivery**: CleverTap API (push notification targeting)
+- **Delivery**: Customer-engagement platform API (CleverTap, or peers like Braze and MoEngage; push notification targeting)
 - **Reporting**: Power BI (campaign performance tracking)
 - **Environments**: Development to Production promotion via Databricks workspace environments

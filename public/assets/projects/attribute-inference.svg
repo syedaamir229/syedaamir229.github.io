@@ -29,7 +29,7 @@
       <text x="130" y="301" text-anchor="middle" font-size="9" fill="#94A3B8">behavioral features only</text>
     
       <rect x="45" y="312" width="170" height="32" rx="5" stroke-width="1" fill="#122033" stroke="#06B6D4"/>
-      <text x="130" y="328" text-anchor="middle" font-size="9" fill="#E2E8F0">9.5M adult profiles</text>
+      <text x="130" y="328" text-anchor="middle" font-size="9" fill="#E2E8F0">millions of adult profiles</text>
       <text x="130" y="340" text-anchor="middle" font-size="9" fill="#E2E8F0">scoring population</text>
     
       <!-- Training loop -->
@@ -65,7 +65,7 @@
       <text x="670" y="146" text-anchor="middle" font-size="9" fill="#06B6D4">monthly Databricks job</text>
     
       <rect x="592" y="162" width="156" height="26" rx="4" stroke-width="1" fill="#122033" stroke="#06B6D4"/>
-      <text x="670" y="179" text-anchor="middle" font-size="9" fill="#E2E8F0">5.8M new predictions</text>
+      <text x="670" y="179" text-anchor="middle" font-size="9" fill="#E2E8F0">mostly new predictions</text>
     
       <rect x="592" y="194" width="156" height="26" rx="4" stroke-width="1" fill="#122033" stroke="#06B6D4"/>
       <text x="670" y="211" text-anchor="middle" font-size="9" fill="#E2E8F0">confidence scores attached</text>
