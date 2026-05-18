@@ -52,7 +52,7 @@ What goes wrong without it: every team writes its own churn definition. The chur
 
 Every entity in the model gets a generated surrogate key. Source-system IDs are preserved on the row but never used as join keys. This sounds like dogma. It is actually insurance.
 
-The billing platform at MBC Shahid migrated subscriber IDs twice over the lifetime of the model. The catalog system changed content identifiers when a new metadata vendor took over. Each of these would have broken every downstream query that joined on the source ID directly. None of them did, because every join was on the generated `dwh_user_id` or `dwh_content_id`, and the model absorbed the source-system change as a single mapping update in the dimension table.
+The billing platform at MBC Shahid migrated subscriber IDs twice over the lifetime of the model. The catalog system changed content identifiers when a new metadata vendor took over. Each of these would have broken every downstream query that joined on the source ID directly. None of them did, because every join was on the generated `subscriber_id` or `content_id`, and the model absorbed the source-system change as a single mapping update in the dimension table.
 
 The cost is one column per dimension. The benefit is that source-system reality can change without breaking consumer queries. Over a multi-year horizon that benefit pays back every time a source platform migrates, replatforms, or gets replaced.
 

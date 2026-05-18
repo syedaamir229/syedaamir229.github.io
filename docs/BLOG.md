@@ -326,6 +326,7 @@ Anonymization-as-descriptor ("a major MENA streaming platform") is the wrong mov
 
 - The current employer's name as a sentence subject.
 - Internal codenames for products, platforms, datasets, or scenarios.
+- Internal column-name or table-name conventions that fingerprint the warehouse (e.g. a `dwh_` prefix used by the current employer's data model). Replace with conventional equivalents (`subscriber_id`, `content_id`, `title_id`, `parent_title_id`) that keep the conceptual point without exposing the in-house convention. Public API field names (`tweet_id`, `video_id`) and Kimball star-schema patterns (`dim_*`, `fact_*`) stay.
 - Vendor combinations that uniquely identify the employer. Pair with a peer vendor or abstract to category.
 - Vendor-specific operational quantities paired with the named vendor (e.g., "GAM with a 14-day attribution window", specific platform rate limits). Either name the vendor without the quantity, or describe the operational behavior without naming the vendor. Never both together.
 - Exact scale figures tied to current-employer operations (profile counts, subscriber counts, revenue, ARPU, model-accuracy figures). Use relative deltas ("from roughly a quarter to near-full coverage") or order-of-magnitude descriptors ("millions of profiles").

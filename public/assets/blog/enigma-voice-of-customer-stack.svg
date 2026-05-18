@@ -66,11 +66,11 @@
   <text x="600" y="454" text-anchor="middle" font-size="12" font-weight="700" fill="#E2E8F0">Gold Semantic Model</text>
   <rect x="80" y="468" width="320" height="38" rx="6" fill="#122033" stroke="#06B6D4"/>
   <text x="240" y="485" text-anchor="middle" font-size="10" font-weight="500" fill="#22D3EE">dim_post</text>
-  <text x="240" y="499" text-anchor="middle" font-size="8" fill="#94A3B8">dwh_parent_id, title_name, season, episode</text>
+  <text x="240" y="499" text-anchor="middle" font-size="8" fill="#94A3B8">parent_title_id, title_name, season, episode</text>
 
   <rect x="440" y="468" width="320" height="38" rx="6" fill="#122033" stroke="#06B6D4"/>
   <text x="600" y="485" text-anchor="middle" font-size="10" font-weight="500" fill="#22D3EE">fact_comment</text>
-  <text x="600" y="499" text-anchor="middle" font-size="8" fill="#94A3B8">sentiment, profanity, translated_text, dwh_parent_id</text>
+  <text x="600" y="499" text-anchor="middle" font-size="8" fill="#94A3B8">sentiment, profanity, translated_text, parent_title_id</text>
 
   <rect x="800" y="468" width="320" height="38" rx="6" fill="#122033" stroke="#06B6D4"/>
   <text x="960" y="485" text-anchor="middle" font-size="10" font-weight="500" fill="#22D3EE">comment_llm_enriched</text>

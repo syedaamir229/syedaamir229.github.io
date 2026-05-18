@@ -6,11 +6,11 @@ categories: ["Career"]
 draft: false
 ---
 
-Early 2025. I sat down to build a behaviour-based gender prediction model for MBC Shahid (MBC Group). The textbook approach to attribute inference starts with raw event data, designs features from scratch, and pretends none of that work already exists in the organisation.
+Early 2025. I sat down to build a behaviour-based gender prediction model. The textbook approach to attribute inference starts with raw event data, designs features from scratch, and pretends none of that work already exists in the organisation.
 
-What sat in front of me on day one was a Gold-layer subscriber feature table that had been built three years earlier as part of the enterprise data model. Profile lifecycle, watch behaviour, content preferences, device patterns: all already shaped, all already governed, all already wired into Power BI dashboards. The hardest part of any ML pipeline, the feature engineering, was 90% done before the project started.
+What sat in front of me on day one was a Gold-layer subscriber feature table that had been built three years earlier as part of an enterprise data model I had helped design. Profile lifecycle, watch behaviour, content preferences, device patterns: all already shaped, all already governed, all already wired into Power BI dashboards. The hardest part of any ML pipeline, the feature engineering, was 90% done before the project started.
 
-The model shipped four months later. 9.5M profiles scored. 75% accuracy, 0.81 AUC, net new gender attribute coverage rising from 22% of profiles to 100%. None of that was an ML breakthrough. It was a compounding-stack dividend, paid by work I had done as a BI engineer in 2022.
+The model shipped four months later. Coverage on the inferred attribute moved from roughly a quarter of adult profiles to near-full, model performance held above a reasonable AUC threshold on a held-out validation set, and the inference scored millions of profiles. None of that was an ML breakthrough. It was a compounding-stack dividend, paid by work I had done as a BI engineer years earlier.
 
 **AI is not a separate career. It is the fourth floor of a building you have been laying foundations for since the day you opened your first BI tool.** Most people in data treat the four phases (Data Foundations, Analytics Maturity, Data Science, AI Automation) as discrete jobs that require different skills, different teams, different employers. The teams that compound treat them as one stack where each layer earns the right to the next.
 
@@ -44,11 +44,11 @@ This was the 2016 to 2022 phase of my own work: Tableau dashboards at Scan Techn
 
 **What goes wrong without it.** Without a metric vocabulary, AI is optimising toward unmeasurable goals. You can train a propensity model, but if "high-value subscriber" means four different things in four different reports, the model is solving the wrong problem. The metric drift is invisible until it is shipped.
 
-The MBC Shahid semantic-layer build (Power BI Premium model in 2023, migrated to SSAS Tabular in 2024) was this phase for me. 100+ governed DAX measures across subscriber base movement, engagement, title performance, and ad operations. By the time the gender prediction model was scoped in 2025, every feature it needed had a governed definition.
+The semantic-layer build I owned (Power BI Premium model in 2023, migrated to SSAS Tabular in 2024) was this phase for me. A curated library of governed DAX measures across subscriber base movement, engagement, title performance, and ad operations. By the time the gender prediction model was scoped in 2025, every feature it needed had a governed definition.
 
 ### Layer 3: Data Science
 
-**What it is.** Models that consume the same feature tables as BI. The profile-level feature store at MBC Shahid is the artefact of this layer: subscriber-level features that power both the engagement dashboard and the gender prediction model.
+**What it is.** Models that consume the same feature tables as BI. The profile-level feature store I helped build is the artefact of this layer: subscriber-level features that power both the engagement dashboard and the gender prediction model.
 
 **Why it compounds.** This is where the dividend from layers 1 and 2 actually gets paid. The feature engineering you did for the BI dashboard is the feature engineering for the ML model. Bug fixes in the dashboard propagate to the model. New features added for one consumer are available to the other.
 
@@ -64,7 +64,7 @@ This phase was the gender prediction model, the viewing behaviour clustering wor
 
 **What goes wrong without it.** Without the lower three layers, AI automation is buggy heuristics. A scenario engine pushes the wrong audience because the audience definition disagrees with the dashboard. A voice-of-customer agent answers the wrong question because the underlying engagement table is not governed. The failure is not the automation. The failure is what it sits on.
 
-The CRM automation platform and The voice-of-customer platform are the artefacts of this layer at MBC Shahid. Both are thin compared to the work underneath them.
+The CRM scenario engine and the voice-of-customer platform are the artefacts of this layer in my recent work. Both are thin compared to the work underneath them.
 
 ## What I would tell my earlier self
 
@@ -78,7 +78,7 @@ The CRM automation platform and The voice-of-customer platform are the artefacts
 
 ## One MENA-flavored note
 
-The MENA AVOD context made the compounding extra visible. When ad pipelines, subscriber base movement, and engagement all sit on the same semantic foundation, a Ramadan-campaign scenario in Jarvis goes from a one-month custom build to a one-week configuration. The Voice-of-Customer Stack inside Enigma answers questions about Arabic-language comments because the underlying engagement table already has Arabic content metadata. The niche does not change the principles. It makes the dividends arrive faster, because every consumer hits the same governed surface.
+The MENA AVOD context made the compounding extra visible. When ad pipelines, subscriber base movement, and engagement all sit on the same semantic foundation, a seasonal-campaign scenario inside the CRM scenario engine goes from a multi-week custom build to days of configuration. The voice-of-customer stack answers questions about Arabic-language comments because the underlying engagement table already has Arabic content metadata. The niche does not change the principles. It makes the dividends arrive faster, because every consumer hits the same governed surface.
 
 ## Closing
 
