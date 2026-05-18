@@ -21,6 +21,7 @@ Why the blog exists, who it is for, and how the topic mix is balanced. Open this
 - MENA / Arabic-OTT framing is structural in posts about delivered work, not background colour.
 - LinkedIn is the engagement channel. No posting workflow exists today; tracked under "LinkedIn share + OG image generation flow" in [../TODO.md](../TODO.md) Future enhancements.
 - No newsletter on the portfolio. The AI business site, when it launches, is the natural home for an owned email list.
+- The current employer is on the CV, not the subject of any post. Posture and rationale live in [BLOG.md section 10](BLOG.md#10-confidentiality).
 
 ---
 

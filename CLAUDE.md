@@ -36,7 +36,7 @@ Decisions, preferences, and project context live in this CLAUDE.md tree and in [
 - **No em-dashes** in any written content (commits, PR bodies, docs, blog posts, code comments). Use colons, periods, or restructure. SQL `--` comments inside fenced code blocks are exempt.
 - **No emoji** in files unless explicitly requested.
 - **No AI attribution** in git commits or PR bodies. No `Co-Authored-By: Claude`, no "Generated with Claude Code" footer.
-- **Concrete examples from the actual work.** In blog posts and project case studies, use real domain details from whatever project is being described, not generic placeholders. Show depth in one domain rather than fake breadth across all of them. Landing surfaces stay vertical-agnostic, see [docs/SITE.md](docs/SITE.md).
+- **Concrete examples from the actual work.** In blog posts and project case studies, use real domain details from the work being described, not generic placeholders. Show depth in one domain rather than fake breadth across all of them. The current employer is implicit through your CV and LinkedIn experience section; it should not appear as the subject of any sentence in a published post or project case study. Posture lives in [docs/BLOG.md section 10](docs/BLOG.md#10-confidentiality) and [docs/PROJECTS.md section 9](docs/PROJECTS.md#9-confidentiality). Landing surfaces stay vertical-agnostic, see [docs/SITE.md](docs/SITE.md).
 
 ## Identity, brand, and voice
 

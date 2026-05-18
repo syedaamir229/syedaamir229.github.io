@@ -10,6 +10,8 @@ Tone and brand-voice principles live in [BRAND.md](BRAND.md). Positioning and co
 
 **Thought leadership with delivery receipts.** Every claim anchored in something you built, broke, or watched fail. Specific tools, specific numbers, specific moments.
 
+Specifics are what make claims credible. The specifics that do that work are *patterns, decisions, and relative outcomes*, not company names or absolute scale figures. The "delivery receipt" is the trade-off you reasoned through and the pattern you have lived enough times to name, not the precise commercial measurement of a specific employer's operations.
+
 For the full voice rules, sentence patterns, and forbidden words: read [BRAND.md section 5](BRAND.md#5-voice-and-tone-applies-to-every-surface). This document treats those rules as inherited and does not repeat them.
 
 Things specific to blog voice that are *not* covered in BRAND.md:
@@ -50,12 +52,19 @@ The labels below are scaffolding, not section headings the reader sees. Some are
 Open with a specific scene the reader has lived. Not an abstract problem statement.
 
 **Good:**
-> "At MBC Shahid (MBC Group), the conflict showed up clearly during a quarterly review. A churn prediction model flagged roughly 15,000 subscribers as at-risk for the upcoming period. The churn dashboard, which the business team had relied on for months, showed about 12,000."
+> "I've sat through enough quarterly reviews to recognize the shape: a churn model and a churn dashboard arriving with different counts, leadership asking which one to use, the answer needing to fit in one room. Both numbers were defensible. Neither was the right answer."
+
+Specific scene, first-person, pattern recognition. No company attribution, no exact count. The author has the receipt because the author has lived this; the post does not name the employer to prove it.
+
+**Also good:**
+> "I sat down with a content lead who wanted to know what our female audience over 25 actually watched. The honest first answer was that only a quarter of adult profiles had self-reported gender data. The rest was unknown."
+
+First-person, immediate, owns the moment. The reader knows where the work happened because the About page exists.
 
 **Weak:**
 > "A semantic layer only works if architecture boundaries are clear. Many implementations fail because they mix data engineering responsibilities, metric engineering responsibilities, and report development responsibilities in one place."
 
-The first is a scene with people, numbers, and a moment. The second is a statement of generic principle. Always write the first.
+The first two are scenes with people, moments, and pattern recognition. The third is a statement of generic principle. Always write a scene.
 
 ### 2. Bold thesis (paragraph 4)
 
@@ -98,9 +107,9 @@ After the framework, tell the reader where to start and why. This is the section
 
 ### 6. Domain anchor (at least one component)
 
-At least one framework component, hook example, or stake should anchor in MENA / OTT / MBC Shahid. The defensible differentiator is delivery experience in a niche no generic consultant can fake. Surface it.
+At least one framework component, hook example, or stake should anchor in MENA / Arabic-OTT delivery experience. The defensible differentiator is delivery experience in a niche no generic consultant can fake. Surface it as structural pattern (Ramadan release cycles, Arabic-language UX edge cases, MENA household profile sharing), not as a named-employer brag. The employer never becomes the subject of the post; the niche context becomes the structural anchor.
 
-Examples: Ramadan-flavored release cycles, Arabic-language UX edge cases, MENA streaming household-sharing dynamics, AVOD market shifts in the region.
+Examples: Ramadan release cycles, Arabic-language UX edge cases, MENA streaming household-sharing dynamics, AVOD market shifts in the region.
 
 For posts where the domain is genuinely incidental (pure career narrative, pure technical pattern), one MENA-flavored sentence is enough. For posts about delivered work, MENA context should be structural.
 
@@ -258,6 +267,8 @@ Specific tools shipped on signal credibility, but only when anchored to a decisi
 
 A tool name without an associated decision or failure mode is name-dropping. Cut it.
 
+Two or more vendors from the current-employer stack appearing together in one post is the de-anonymization signal that matters most. Pair with a peer vendor ("CleverTap or Braze"), abstract to category ("a customer-engagement platform"), or keep one specific vendor where it is load-bearing for a craft point. One specific vendor with craft justification beats four specific vendors that form a fingerprint. Never pair a named vendor with a vendor-specific operational quantity (e.g., "GAM with a 14-day attribution window"): the pairing is the fingerprint. Either name the vendor without the quantity, or describe the operational behavior without naming the vendor.
+
 ### Transferable Pattern carve-out
 
 One paragraph at most where the post explicitly steps back: "this pattern also fits retail, fintech, SaaS subscription, etc." Keep it tight. Signal applicability without diluting the niche positioning.
@@ -270,6 +281,14 @@ Generic OTT terms (subscriber, churn, ARPU, AVOD impressions) are table stakes. 
 
 Before any post ships (rewrite, refresh, or new), it must pass:
 
+- [ ] Confidentiality pass (see section 10): is the current employer the subject of any sentence in this post? If yes, reframe.
+- [ ] No internal codenames in body, in framework names, or in section headings.
+- [ ] No uniquely identifying vendor combination. Where two or more current-employer vendors appear together, one has been paired with a peer or abstracted.
+- [ ] No vendor-specific operational quantity paired with a named vendor (e.g., "GAM with a 14-day attribution window"). Either name the vendor without the quantity, or describe the operational behavior without naming the vendor.
+- [ ] All numbers tied to current-employer operations are relative or order-of-magnitude. Exact scale figures (subscriber counts, profile counts, revenue, model-accuracy) converted.
+- [ ] No incident anecdote that names a specific weekday in combination with a named role or recognizable team.
+- [ ] No direct quotes from internal communication. Paraphrased as composite framing.
+- [ ] No named seasonal cycle used as the canonical operational example for a generalizable system. Cultural-anchor framing is OK; canonical-example framing abstracts (see section 10 for the test).
 - [ ] Hook is a specific scene with people, numbers, or a moment (not an abstract statement).
 - [ ] Standalone thesis paragraph appears at or near paragraph 4.
 - [ ] Framework has a name with weight (not "Approach" or "Methodology").
@@ -286,6 +305,54 @@ Before any post ships (rewrite, refresh, or new), it must pass:
 - [ ] If an image is included, it is brand-aligned, has an italic caption, and has information-content alt text.
 - [ ] `npm run build` passes.
 - [ ] `/blog/<slug>/` renders correctly at desktop and mobile widths.
+
+---
+
+## 10. Confidentiality
+
+The blog is written while the author is employed. Posts that describe current-employer work follow one structural rule:
+
+**The company is on the CV and the LinkedIn experience section. It does not appear as the subject of any sentence in a blog post.**
+
+The post's subject is one of:
+
+- **Your craft.** First-person framing: "I've shipped enough semantic layers to recognize..."
+- **The artifact.** System-anchored framing: "The Voice-of-Customer stack is a five-layer pipeline..."
+- **The industry pattern.** Trend-anchored framing: "Arabic-content OTT platforms face a Ramadan-cycle problem..."
+
+Anonymization-as-descriptor ("a major MENA streaming platform") is the wrong move. It sounds hedged, conflicts with the brand voice, and does not actually anonymize given the LinkedIn experience section. Don't use it. Reframe instead.
+
+### What does not appear in a published post
+
+- The current employer's name as a sentence subject.
+- Internal codenames for products, platforms, datasets, or scenarios.
+- Vendor combinations that uniquely identify the employer. Pair with a peer vendor or abstract to category.
+- Vendor-specific operational quantities paired with the named vendor (e.g., "GAM with a 14-day attribution window", specific platform rate limits). Either name the vendor without the quantity, or describe the operational behavior without naming the vendor. Never both together.
+- Exact scale figures tied to current-employer operations (profile counts, subscriber counts, revenue, ARPU, model-accuracy figures). Use relative deltas ("from roughly a quarter to near-full coverage") or order-of-magnitude descriptors ("millions of profiles").
+- Dated incidents that reference a specific weekday + named team + recognizable internal moment.
+- Quoted Slack messages or quoted statements attributed to a specific internal role.
+- Specific show or title names tied to operational anecdotes.
+- Specific batch-window times or named SLAs ("7 AM Dubai daily run", "10 AM SLA").
+- Named seasonal cycles (Ramadan, Eid, World Cup, regional sports finals) used as the *canonical operational example* for a generalizable system. Abstract to "a seasonal cycle", "a predictable recurring window", "calendar-driven shifts every industry handles differently". The exception is cultural-anchor framing (see "what does appear" below).
+
+### What does appear
+
+- Public industry patterns (medallion architecture, semantic layer, feature store, RAG, supervisor-agent topology).
+- Past employers in factual career-history references. Career-narrative posts can and should name them.
+- Current employer in factual employment references inside career-narrative posts ("I joined the platform in 2022 to build..."). Just not as the subject of a project-case-study sentence.
+- Vendor names without a paired vendor-specific operational quantity (e.g., "Power BI" or "Databricks" as a tool, not "GAM with a 14-day attribution window").
+- Relative outcomes ("X% improvement", "from roughly a quarter to near-full coverage", "hours to seconds").
+- Composite anecdotes that draw on multiple incidents to surface a pattern.
+- MENA / Arabic-OTT structural cultural context: Ramadan release cycles as a *cultural pattern* that explains real industry dynamics, RTL UX, household profile sharing, dialectal Arabic in NLP, regional content licensing. The cultural anchor is the niche differentiator; surface it when the framework component genuinely depends on it.
+
+### The cultural-vs-operational test for named seasonal cycles
+
+Specific seasonal cycles (Ramadan, Eid, World Cup, regional sports finals) appear in two roles. They are handled differently:
+
+- **Cultural-pattern anchor.** Naming a cycle to surface MENA / Arabic-OTT niche depth, as a structural pattern that explains real cultural-and-operational reality not present in Western streaming. **Keep** in posts where the cycle is the structural anchor and removing it would lose niche depth that the post depends on.
+- **Canonical operational example.** Naming a cycle as the headline use case for a generalizable system. **Abstract** to "a predictable recurring window where content priorities shift" or "a seasonal cycle the override system activates automatically by date".
+
+The test is whether removing the named cycle leaves the framework component complete. If the lesson is *"you need declarative seasonal overrides"* and Ramadan is the canonical example, the named cycle is operational and should abstract. If the lesson is *"MENA streaming has compressed-launch dynamics that Western models miss"* and Ramadan is the structural anchor, the named cycle is cultural and stays.
 
 ---
 

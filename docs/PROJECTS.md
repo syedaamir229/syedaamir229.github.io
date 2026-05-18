@@ -54,7 +54,7 @@ metrics:                            # 3-4 quantitative outcomes; rendered as the
 
 - **description**: one sentence shown on the listing card and at the top of the detail page. Lead with the change, not the technology.
 - **category**: enforced at build time via `z.enum(PRACTICE_AREA_NAMES)` in [src/content.config.ts](../src/content.config.ts). Allowed values: Data Engineering, BI & Analytics, Data Science, AI & Automation. Typos fail the build.
-- **metrics**: 3 to 4 entries. Keep `value` short (`"50%"`, `"15"`, `"100+"`, `"Hours to seconds"`). The header reads noisily past 4.
+- **metrics**: 3 to 4 entries. Keep `value` short (`"50%"`, `"15"`, `"100+"`, `"Hours to seconds"`). The header reads noisily past 4. Prefer relative deltas, order-of-magnitude descriptors, and qualitative pivots ("Hours to seconds", "Millions"). Avoid exact subscriber, profile, or revenue figures, even where they exist. If an exact count is the headline of the project, present it as a magnitude (`"Millions"`) and reserve the precise count for verbal conversations.
 
 That is it for frontmatter. Anything else (decisions, tech stack, organization, timeline) lives in the markdown body or, in the case of org/timeline, does not appear at all. The header is intentionally light: kicker, title, description, three to four metric numbers.
 
@@ -167,7 +167,7 @@ Do not duplicate any of these in the body.
 Tone and word choice follow [BRAND.md section 5](BRAND.md#5-voice-and-tone-applies-to-every-surface) exactly. Project-specific notes:
 
 - **Concise.** Bullets should be readable in ~2 seconds each.
-- **Quantitative where possible.** "Saved 15 hours per week" beats "saved significant time".
+- **Quantitative where possible.** "Saved 15 hours per week" beats "saved significant time". Quantitative where the quantification is *relative* (percentages, time savings, throughput multipliers). Quantification turns into a confidentiality issue when it becomes commercial or operational (absolute revenue, ARPU, profile or subscriber counts, model accuracy with exact AUC). The case study should let a hiring manager evaluate craft without letting a competitor reconstruct an internal benchmark.
 - **MENA / OTT context is on-brand.** Use vertical-specific vocabulary (episodes, series, subscriptions, playback, dialectal Arabic). Project case studies are evidence, not pitch, so they stay vertical-specific. Contrast with landing copy (see [SITE.md](SITE.md)) which is vertical-agnostic.
 - **CV verbs are welcome here.** "Built", "designed", "stood up", "delivered" all work inside the case-study body. They do not work on the listing card description (where the change-for-the-business framing wins).
 
@@ -175,6 +175,11 @@ Tone and word choice follow [BRAND.md section 5](BRAND.md#5-voice-and-tone-appli
 
 ## 8. Pre-publication checklist
 
+- [ ] Confidentiality pass (section 9) complete: company is not the subject of any sentence in the body; no internal codenames in body or diagram; no uniquely identifying vendor combinations across `tags` and Tech Stack.
+- [ ] Header `metrics` are relative or magnitude-based. No exact subscriber, profile, or revenue counts.
+- [ ] No vendor-specific operational quantity paired with a named vendor in body or Tech Stack.
+- [ ] No named seasonal cycle as the canonical example for a generalizable system. Generic seasonal framing used instead.
+- [ ] Architecture diagram has no internal codenames in labels (re-export the SVG if so).
 - [ ] File is `.md`, not `.mdx`.
 - [ ] No `import` lines, no JSX tags anywhere in the body.
 - [ ] Frontmatter has all required fields filled.
@@ -187,6 +192,22 @@ Tone and word choice follow [BRAND.md section 5](BRAND.md#5-voice-and-tone-appli
 - [ ] No em-dashes in body or frontmatter.
 - [ ] `npm run build` passes.
 - [ ] `/projects/<slug>/` looks right at desktop and mobile widths.
+
+---
+
+## 9. Confidentiality
+
+Project case studies are written while the author is employed. Same posture as blog posts: the company is on the CV and LinkedIn, not the subject of any sentence in the case study body. Case studies are *artifact-anchored* by default ("the platform", "the system", "the pipeline"), which already satisfies the rule structurally. Cross-reference: [BLOG.md section 10](BLOG.md#10-confidentiality).
+
+Project-specific rules:
+
+- **Frontmatter `metrics`**: prefer relative figures (`"50%"`, `"60-70% reduction"`, `"Hours to seconds"`) and order-of-magnitude descriptors (`"Millions"`, `"Daily"`, `"A dozen"`, `"4 sources"`). Avoid exact profile, subscriber, or revenue figures in the header row, since the metric row is the most-screenshot-ed surface on the page.
+- **Frontmatter `tags`**: vendor tags are fine individually. If three or more vendors that, combined, uniquely identify the employer would appear across `tags` and Tech Stack, drop one or pair with a peer.
+- **No vendor-specific operational quantity paired with a named vendor.** "GAM with a 14-day attribution window" pairs a vendor name with a vendor-specific cadence and uniquely fingerprints the deployment. Either name the vendor without the quantity, or describe the operational behavior ("late-arriving attribution requires a multi-week historical refresh") without naming the vendor.
+- **No named seasonal cycle as the canonical operational example.** Naming Ramadan, Eid, World Cup, or a regional sports final as the headline use case for a generalizable system (especially in the Reusable Pattern section) ties the pattern to one industry. Abstract to "a predictable recurring window" or "a seasonal cycle the override system activates automatically by date". Cultural-anchor framing is different and still allowed (see [BLOG.md section 10](BLOG.md#10-confidentiality) for the test).
+- **Architecture diagram**: same rule. The diagram shows the pattern. Strip internal codenames from box labels and arrow captions. Re-export the SVG if any codename slipped in.
+- **Body sections**: the system is the subject, not the company. Use "the platform", "the pipeline", "the model" as referents. Past employers can be named in passing only when load-bearing for a Reusable Pattern example.
+- **`description`**: lead with the change, not the company. The description is the listing-card line and shows up everywhere on the site.
 
 ---
 

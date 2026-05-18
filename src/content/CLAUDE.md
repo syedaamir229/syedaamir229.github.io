@@ -30,6 +30,7 @@ Tone principles are inherited from [../../docs/BRAND.md](../../docs/BRAND.md) se
 - No emoji.
 - No exclamation marks.
 - No AI attribution.
+- Current employer is implicit through the CV, not the subject of any blog post or project body. See [BLOG.md section 10](../../docs/BLOG.md#10-confidentiality) and [PROJECTS.md section 9](../../docs/PROJECTS.md#9-confidentiality).
 
 ## How the build sees this folder
 
