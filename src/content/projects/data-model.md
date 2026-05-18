@@ -18,7 +18,7 @@ order: 2
 
 ## Challenge
 
-Source schemas diverged across vendors (Youbora for viewing, Evergent for subscriptions, Mediagenix/GA for content, GAM for ads), data volumes were growing fast enough that ad hoc queries were destabilizing, and the model had to serve both BI and data science consumers without forking into separate ETL workstreams.
+Source schemas diverged across vendors (a video-analytics platform for viewing, a subscription-management platform for subscriptions, a content-metadata system for content, a programmatic ad-serving platform for ads). Data volumes were growing fast enough that ad hoc queries were destabilizing, and the model had to serve both BI and data science consumers without forking into separate ETL workstreams.
 
 - **Disconnected source systems**: Subscription, viewing, content, and ad data lived in separate vendor platforms with incompatible schemas
 - **Conflicting reporting logic**: Each team wrote their own queries against raw tables, producing inconsistent KPIs for the same business question
@@ -38,7 +38,7 @@ Source schemas diverged across vendors (Youbora for viewing, Evergent for subscr
 
 **Chosen:** Two-layer architecture. Silver for normalized fact and dimension tables, Gold for derived feature store.
 
-**Why:** A single layer forces trade-offs: either BI queries are slower (if the layer is feature-store-shaped) or ML features have to be computed at query time (if the layer is BI-shaped). Separating the layers allows each consumer to operate at its natural grain. This proved essential as downstream workloads expanded: Jarvis and Enigma consume Gold features; the semantic layer and dashboards consume Silver tables.
+**Why:** A single layer forces trade-offs: either BI queries are slower (if the layer is feature-store-shaped) or ML features have to be computed at query time (if the layer is BI-shaped). Separating the layers allows each consumer to operate at its natural grain. This proved essential as downstream workloads expanded: a downstream CRM automation platform and a downstream voice-of-customer platform consume Gold features; the semantic layer and dashboards consume Silver tables.
 
 ## Approach
 
@@ -51,15 +51,15 @@ Source schemas diverged across vendors (Youbora for viewing, Evergent for subscr
 
 ## Architecture Overview
 
-![Enterprise data model architecture: source systems (Youbora, Evergent, GAM, Mediagenix) flow through S3 raw storage into Silver fact and dimension tables and a Gold feature store, consumed by BI, ML, and AI workloads.](/assets/projects/data-model.svg)
+![Enterprise data model architecture: specialised source systems (video-analytics, subscription-management, programmatic ad-serving, content-metadata) flow through S3 raw storage into Silver fact and dimension tables and a Gold feature store, consumed by BI, ML, and AI workloads.](/assets/projects/data-model.svg)
 
-Source systems (Youbora, Evergent, GAM, Mediagenix) flow through S3 raw storage into Silver fact/dimension tables and Gold feature store tables, consumed by downstream BI, ML, and AI workloads.
+Specialised source systems (a video-analytics platform, a subscription-management platform, a programmatic ad-serving platform, a content-metadata system) flow through S3 raw storage into Silver fact/dimension tables and Gold feature store tables, consumed by downstream BI, ML, and AI workloads.
 
 ## Results & Impact
 
 - **What changed in operations**: Teams stopped maintaining parallel query logic. One shared model replaced the fragmented per-team SQL workbooks that had been the source of metric disputes
 - **What changed in decisions**: Cross-domain analysis (content performance by subscription type, ad revenue by viewer segment) became reproducible and fast, instead of requiring custom joins and reconciliation each time
-- **Foundation leverage**: Every subsequent project built on this model. The Semantic Layer, Ad Inventory & Revenue Pipeline, Jarvis CRM automation, and Enigma AI platform all depend on it directly. The ROI of the data model compounds with each downstream use case.
+- **Foundation leverage**: Every subsequent project built on this model. The Semantic Layer, Ad Inventory & Revenue Pipeline, downstream CRM automation, and a downstream voice-of-customer platform all depend on it directly. The ROI of the data model compounds with each downstream use case.
 - **Scalability**: Delta Lake on S3 with ACID transactions enabled reliable incremental processing at growing data volumes, replacing the ad hoc query instability that had emerged before the model
 
 ## Reusable Pattern
