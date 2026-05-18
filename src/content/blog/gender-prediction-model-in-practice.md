@@ -1,14 +1,14 @@
 ---
 title: "Gender Prediction in Practice: Inference With Receipts"
 date: 2025-08-11
-description: "How a behaviour-based gender inference workflow expanded MENA streaming profile coverage from 22.7% to 100%, with the four guardrails that decide whether inferred data is an asset or a liability."
+description: "How a behaviour-based gender inference workflow turned a quarter of adult profiles with self-reported gender into near-full coverage, with the four guardrails that decide whether inferred data is an asset or a liability."
 categories: ["Data Science"]
 draft: false
 ---
 
-A content planner at Shahid (MBC Group) asked the analytics team a routine question: "What does our female audience over 25 actually watch?" The answer the team had to give was the wrong shape entirely. "We only have a self-reported gender field for 22.7% of adult profiles. The rest is unknown."
+A content team I work with asked: "What does our female audience over 25 actually watch?" The honest first answer was that only a quarter of adult profiles had self-reported gender data. The rest was unknown.
 
-Twelve months later, the answer to the same question was a Power BI report with full coverage across 9.5 million adult profiles, with 5.8 million of those rows being entirely new predictions on profiles that had no gender data at all. The model behind that report achieves 75% accuracy and 0.81 AUC on a held-out validation set restricted to single-adult-profile accounts.
+Twelve months later, the answer to the same question was a Power BI report with near-full coverage across millions of adult profiles, the majority of those rows being entirely new predictions on profiles that had no gender data at all. The model behind that report held above a reasonable AUC threshold on a held-out validation set restricted to single-adult-profile accounts.
 
 This is the part most teams celebrate. It is also the part that matters least. Building a behaviour-based gender inference model is not hard. Convincing the planning team to treat an inferred field like inferred data, not like ground truth, is the work.
 
@@ -20,7 +20,7 @@ Attribute inference is back in the spotlight, in part because explicit demograph
 
 MENA streaming has a sharper version of the same problem. Household profile-sharing is structurally higher than Western baselines, profile completion rates are lower, and demographic targeting is essential for both content planning (which Ramadan finale to promote to which segment) and ad operations (which AVOD inventory to allocate to which demographic). Without inference, planning teams are flying half-blind.
 
-The framework that worked at Shahid is four guardrails, applied in order, that turn an inference model from a risky enrichment into a published data product.
+The framework that survives contact with a planning team is four guardrails, applied in order, that turn an inference model from a risky enrichment into a published data product.
 
 ## Inference With Receipts
 
@@ -44,11 +44,11 @@ What goes wrong without it: a model that passes ML-team validation but fails bus
 
 ### Guardrail 3: Explicit-label downstream contracts
 
-Every downstream table carries an `is_inferred` marker and a confidence flag. No consumer of the data is allowed to read the inferred attribute without also reading those two columns. A 75% accurate model is not a 100% accurate model, and downstream dashboards have to surface that uncertainty.
+Every downstream table carries an `is_inferred` marker and a confidence flag. No consumer of the data is allowed to read the inferred attribute without also reading those two columns. An inferred field is not a declared field, and downstream dashboards have to surface that uncertainty.
 
 The contract is what stops the inferred field from quietly becoming "the gender field" three quarters after launch. Without explicit labelling, the BI team will absorb the inferred column into the same templates that read declared data, and the model's predictions will be presented as ground truth in executive reporting.
 
-What goes wrong without it: a 75% accurate model gets cited as a fact in a leadership presentation. The first time the prediction is wrong on a high-profile profile, the program loses credibility. Mark it inferred, every time, on every table.
+What goes wrong without it: a probabilistic model gets cited as fact in a leadership presentation. The first time the prediction is wrong on a high-profile profile, the program loses credibility. Mark it inferred, every time, on every table.
 
 ### Guardrail 4: Drift monitoring with cultural context
 
