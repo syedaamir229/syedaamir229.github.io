@@ -8,7 +8,7 @@ series: semantic-layer
 series_part: 4
 ---
 
-Friday evening, a semantic-model release at Shahid. The deployment wizard ran. The retain-partitions-and-roles flag, which controls whether SSAS preserves the partition definitions and the role-to-user mappings on deploy, was not checked. By Saturday morning every fact table was empty, every user role had been reset, and every dashboard showed zero. Sunday was restore-from-backup. Monday's leadership meeting reported anyway, on stale numbers, and the data team spent the next month rebuilding the trust that the release had taken thirty seconds to lose.
+I've shipped enough semantic-model releases to have lived through the one that deletes partitions and roles by default. Friday evening, the deployment wizard ran. A deployment safeguard that controls whether the engine preserves partition definitions and role-to-user mappings on deploy was off by default. By Saturday morning every fact table was empty, every user role had been reset, and every dashboard showed zero. Sunday was restore-from-backup. Monday's leadership meeting reported anyway, on stale numbers, and the team spent the next month rebuilding the trust that the release had taken thirty seconds to lose.
 
 The model was not broken. The model was excellent. The release was broken.
 
@@ -36,7 +36,7 @@ A release that fails validation does not deploy. The cost of stopping a release 
 
 Before a release deploys, a written rollback path exists. The previous artefact is identified. The partition-refresh fallback is documented. The communication plan for affected users is drafted. The first ten minutes after deploy are the ones where rollback is cheap; ad-hoc rollback during an incident is expensive and slow.
 
-By Phase 4 of the program, the Shahid semantic model had migrated from Power BI Premium to SSAS Tabular on a dedicated VM, driven by memory pressure as KPI volume grew. The migration made the rollback discipline non-optional: SSAS deployments can reset partition state and role configurations if the retain-partitions-and-roles flag is not set, and the Friday-evening incident is the worked example of what happens when the rollback path was not pre-defined.
+By Phase 4 of the program, the semantic model had migrated from Power BI Premium to SSAS Tabular on a dedicated VM, driven by memory pressure as KPI volume grew. The migration made the rollback discipline non-optional: SSAS deployments can reset partition state and role configurations if a deployment safeguard is not explicitly set, and the Friday-evening incident is the worked example of what happens when the rollback path was not pre-defined.
 
 ## High-Value Release Checklist
 

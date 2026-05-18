@@ -6,7 +6,7 @@ categories: ["Data Governance"]
 draft: false
 ---
 
-The first Monday of a quarterly review at MBC Shahid (MBC Group). Three slides on screen. Three different numbers for "monthly active subscribers" in May. The subscriptions team had one count. The engagement team had a higher one. The ad-ops team had a lower one. None of them were technically wrong. Each had been calculated against a different filter assumption: trial users included or excluded, internal accounts in or out, household-shared profiles counted once or per device.
+I've seen the three-different-numbers slide more than once. The first Monday of a quarterly review. Three teams, three counts for "monthly active subscribers" in the same month. The subscriptions team had one. The engagement team had a higher one. The ad-ops team had a lower one. None were technically wrong. Each had been calculated against a different filter assumption: trial users included or excluded, internal accounts in or out, household-shared profiles counted once or per device.
 
 Twenty minutes of that meeting was spent deciding which number to use as the headline. None of it was spent on the actual decision the leadership team had walked into the room to make.
 
@@ -42,7 +42,7 @@ So the projects get funded. They start. And then most of them collapse into one 
 
 **Why it kills the program.** Business attention has a half-life. A rollout that delivers nothing for six months has already lost half its sponsorship. By twelve months it is a budget line nobody can defend. The most common cause of semantic-layer cancellation is not a technical failure. It is a calendar failure.
 
-**What to do instead.** Start with the 20 to 30 KPIs that trigger the most reconciliation effort. At MBC Shahid these clustered across four domains: subscriber base movement, engagement, title performance, and ad operations. Not one hundred KPIs at once. Ship a pilot dataset against three or four high-pain dashboards in six weeks. Then expand by domain, not by table. Each expansion is a release that the sponsor can point to.
+**What to do instead.** Start with the 20 to 30 KPIs that trigger the most reconciliation effort. These typically cluster across the domains that drive most cross-team reconciliation: subscriber lifecycle, engagement, content performance, and monetization. Not one hundred KPIs at once. Ship a pilot dataset against three or four high-pain dashboards in six weeks. Then expand by domain, not by table. Each expansion is a release that the sponsor can point to.
 
 ### Trap 3: The Orphan KPI Problem
 
@@ -54,11 +54,11 @@ So the projects get funded. They start. And then most of them collapse into one 
 
 ### Trap 4: The Deployment Cliff
 
-**What it looks like.** A Friday-evening deploy clears the retain-partitions-and-roles flag in the SSAS Deployment Wizard. Saturday morning every fact table is empty. Sunday is spent restoring partitions from backup. Monday's dashboards are wrong, and Monday's leadership meeting happens anyway.
+**What it looks like.** A Friday-evening deploy clears a deployment safeguard that was off by default. Saturday morning every fact table is empty. Sunday is spent restoring partitions from backup. Monday's dashboards are wrong, and Monday's leadership meeting happens anyway.
 
 **Why it kills the program.** The failure mode that destroys trust most efficiently is not "the model is slow" or "this measure is wrong." It is "the entire layer was unavailable for a day and the business reported anyway." After one of these incidents, every team in the building rebuilds local logic as insurance, and the deal is off.
 
-**What to do instead.** Codify release discipline before the first production deploy. Retain partitions and roles. Run dual reporting for one or two refresh cycles after every model change. Document a rollback path that takes minutes, not days. At MBC Shahid the partition strategy ran on tiered cadences: one-day for engagement, five-day for subscriber base movement, fourteen-day for ad impressions because programmatic ad attribution settles over a fourteen-day window. Each cadence had its own rollback procedure, written down before anyone touched production.
+**What to do instead.** Codify release discipline before the first production deploy. Retain partitions and roles. Run dual reporting for one or two refresh cycles after every model change. Document a rollback path that takes minutes, not days. The partition strategy ran on tiered cadences: one-day for engagement, five-day for subscriber base movement, and a multi-week window for late-arriving attribution data because programmatic ad attribution settles over an extended period. Each cadence had its own rollback procedure, written down before anyone touched production.
 
 ## What I'd actually do first
 
@@ -70,7 +70,7 @@ Three things follow from the matrix. The semantic-layer scope shrinks from "rebu
 
 ## One MENA-flavored note
 
-In Arabic-OTT there is a practical reason the conflict-first rollout pays off quickly: the Ramadan cycle. Pre-Ramadan, in-Ramadan, and post-Ramadan windows shift content launches, subscription patterns, ad inventory, and engagement curves. Every "monthly active" or "average watch time" KPI you build needs a time-grain stance on these windows. The dim-date table at MBC Shahid carries explicit Ramadan flags (minus-30 days, in-Ramadan, plus-30 days) so that every measure can answer the same question consistently across the cycle. If this is not solved in the semantic layer, every team solves it in their own report file. That is the Orphan KPI Problem in slow motion, on an annual schedule.
+In Arabic-OTT there is a practical reason the conflict-first rollout pays off quickly: the Ramadan cycle. Pre-Ramadan, in-Ramadan, and post-Ramadan windows shift content launches, subscription patterns, ad inventory, and engagement curves. Every "monthly active" or "average watch time" KPI you build needs a time-grain stance on these windows. The dim-date table carries explicit Ramadan flags (minus-30 days, in-Ramadan, plus-30 days) so that every measure can answer the same question consistently across the cycle. If this is not solved in the semantic layer, every team solves it in their own report file. That is the Orphan KPI Problem in slow motion, on an annual schedule.
 
 ## Closing
 

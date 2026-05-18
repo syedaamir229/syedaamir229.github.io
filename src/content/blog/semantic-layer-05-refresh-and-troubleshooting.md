@@ -1,18 +1,18 @@
 ---
 title: "Semantic Layer Series Part 5 of 6: The Six-Stage Refresh Loop"
 date: 2024-02-12
-description: "What turns a Monday morning into an incident is a missed daily refresh nobody caught at 3 AM. Part 5 walks through The Six-Stage Refresh Loop and The Five-Step Backfill that recovers from missed-day failures without a full reload."
+description: "What turns a Monday morning into an incident is a missed overnight refresh nobody caught. Part 5 walks through The Six-Stage Refresh Loop and The Five-Step Backfill that recovers from missed-day failures without a full reload."
 categories: ["Data Engineering", "BI & Analytics"]
 draft: false
 series: semantic-layer
 series_part: 5
 ---
 
-Monday morning at the Shahid analytics standup. The team opens the executive KPI dashboard. Yesterday's row is blank, and the row before it is partial. The Sunday refresh failed at 3 AM Dubai time. Nobody saw the alert. The leadership review in the afternoon is now operating on stale numbers, and the data team is improvising a backfill in front of an audience.
+An unmonitored refresh that fails overnight is the kind of outage that leadership sees before the data team does. The Monday standup opens the executive KPI dashboard. Yesterday's row is blank, and the row before it is partial. The overnight refresh failed. Nobody saw the alert. The leadership review in the afternoon is now operating on stale numbers, and the data team is improvising a backfill in front of an audience.
 
 This is the failure mode that ends semantic-layer programs more often than modelling mistakes. The model is correct. The dashboards are configured. The refresh broke, and the recovery path lived in one engineer's head.
 
-**Most semantic-layer outages are not modelling failures; they are refresh failures with no documented recovery path.** The remedy is two named procedures: a Six-Stage Refresh Loop that runs every night and a Five-Step Backfill that recovers a missed day without a full reload. After the migration from Power BI Premium to SSAS Tabular on a dedicated VM at Shahid, refresh and recovery became first-class engineering concerns, because the managed refresh that Power BI Premium provided no longer existed and the team owned every stage of the loop.
+**Most semantic-layer outages are not modelling failures; they are refresh failures with no documented recovery path.** The remedy is two named procedures: a Six-Stage Refresh Loop that runs every night and a Five-Step Backfill that recovers a missed day without a full reload. After the migration from Power BI Premium to SSAS Tabular on a dedicated VM, refresh and recovery became first-class engineering concerns, because the managed refresh that Power BI Premium provided no longer existed and the team owned every stage of the loop.
 
 ![Refresh Pipeline and Recovery Workflow: Normal Daily Refresh Path runs Upstream Data Jobs, Load Staging, Create Partitions, Model Refresh, Partition Merge. Missed-Day Recovery Path below walks nine deterministic steps from confirming upstream completeness to resuming the standard schedule.](/assets/blog/semantic-series-05-refresh-recovery.svg)
 
@@ -37,13 +37,13 @@ Different fact families often need different refresh windows. Practical examples
 
 - short-lag facts: overwrite recent 1 day
 - medium-lag facts: overwrite recent 5 days
-- longer-lag facts: overwrite recent 14 days
+- longer-lag facts: overwrite a multi-week window
 
 This balances freshness with compute cost and late-arriving data behavior.
 
 ## The Five-Step Backfill
 
-When a daily load fails, recovery should be deterministic. The Five-Step Backfill at Shahid is the procedure that lets any engineer on the team recover a missed day without escalating to the owner of the model:
+When a daily load fails, recovery should be deterministic. The Five-Step Backfill is the procedure that lets any engineer on the team recover a missed day without escalating to the owner of the model:
 
 ### Step 1: Validate upstream completeness
 

@@ -1,12 +1,12 @@
 ---
 title: "The Four-Signal AVOD Operating Loop"
 date: 2024-06-25
-description: "How an AVOD ad inventory and revenue pipeline at Shahid replaced spreadsheet-heavy tracking with four linked pipelines (inventory, impressions, VAST errors, pacing) and business-impact alerts, and the 14-day refresh decision that earned the team's trust."
+description: "How an AVOD ad inventory and revenue pipeline replaced spreadsheet-heavy tracking with four linked pipelines (inventory, impressions, VAST errors, pacing) and business-impact alerts, and the multi-week settlement decision that earned the team's trust."
 categories: ["Data Engineering", "BI & Analytics"]
 draft: false
 ---
 
-A Monday morning ad-revenue stand-up at Shahid (MBC Group). Three teams in the room: Ad Operations, Growth, and the Data & Numbers team. Each had pulled the previous week's revenue total from Google Ad Manager independently. Each had a slightly different number on their slide. Each spent ten minutes explaining their filters.
+I've sat through Monday ad-revenue stand-ups where three teams pulled last week's number from three different starting points. Three totals on three slides, one room. Each team spent ten minutes explaining their filters.
 
 None of the three were wrong. They used different programmatic-versus-direct categorisations, different VAST-error inclusion rules, different date-bucketing logic. The thirty-minute meeting turned into a reconciliation exercise. The actual revenue decision the room had come in to make (which campaigns to extend into the next flight) was postponed to a follow-up.
 
@@ -32,9 +32,9 @@ What goes wrong without it: campaigns get booked against intuited capacity. The 
 
 What it tracks: delivered ads and the revenue they generated. The core commercial signal. What actually ran, what it earned, how that breaks down across content, country, ad type, VOD model. This is the pipeline that feeds revenue dashboards for all three teams.
 
-The non-obvious part of this signal is settlement. Google Ad Manager impression data does not settle immediately; late-arriving attribution means numbers can shift for up to 14 days after the original event. A daily pipeline that only looks at yesterday's data will always be slightly wrong, and the errors compound over a reporting week.
+The non-obvious part of this signal is settlement. Programmatic ad impression data does not settle immediately; late-arriving attribution means numbers can shift over a multi-week window after the original event. A daily pipeline that only looks at yesterday's data will always be slightly wrong, and the errors compound over a reporting week.
 
-The solution is a two-schedule approach. A daily pipeline runs at 7 AM Dubai time to give teams fresh operational numbers for same-day decisions. A Sunday historical refresh re-pulls the previous 14 days to capture corrections and late-arriving data. Monday morning revenue reports reflect final settled figures, not provisional daily numbers. This is a small detail and it is the difference between teams trusting the pipeline and keeping a side spreadsheet "just in case."
+The solution is a two-schedule approach. A daily pipeline runs in an early-morning operational window to give teams fresh operational numbers for same-day decisions. A periodic historical refresh re-pulls the recent multi-week window to capture corrections and late-arriving data. Monday morning revenue reports reflect final settled figures, not provisional daily numbers. This is a small detail and it is the difference between teams trusting the pipeline and keeping a side spreadsheet "just in case."
 
 ### Signal 3: VAST errors
 
@@ -52,7 +52,7 @@ The alert here is the most operationally important alert in the whole system. A 
 
 The single design decision that decides whether the loop is healthy is what triggers an alert. A technical anomaly alert fires when a metric drifts statistically; it is noisy and gets muted. A business-impact alert fires when a metric drift will affect revenue or campaign delivery; it gets acted on.
 
-Pacing alerts at Shahid do not fire because the pacing ratio dropped by some percentage from the mean. They fire when a campaign's actual delivery rate puts it on track to miss its booked commitment by end-of-flight. The alert itself describes a decision, not just a data point. VAST error alerts follow the same logic: a brief spike is not paged; a sustained shift in a specific error category across a content vertical is.
+Pacing alerts do not fire because the pacing ratio dropped by some percentage from the mean. They fire when a campaign's actual delivery rate puts it on track to miss its booked commitment by end-of-flight. The alert itself describes a decision, not just a data point. VAST error alerts follow the same logic: a brief spike is not paged; a sustained shift in a specific error category across a content vertical is.
 
 The alert vocabulary is the operating language of the team. Build the loop around the alerts the team will actually act on, not the alerts the dashboard happens to support.
 
@@ -60,7 +60,7 @@ The alert vocabulary is the operating language of the team. Build the loop aroun
 
 If your team has zero AVOD pipeline today, do not start with all four signals.
 
-Start with Impressions, including the 14-day settlement refresh. Get all three teams (Ad Ops, Growth, Data & Numbers) consuming the same impression-derived revenue number from the same staging layer. That single move eliminates the most expensive recurring meeting on the team's calendar.
+Start with Impressions, including the multi-week settlement refresh. Get all three teams (Ad Ops, Growth, Data & Numbers) consuming the same impression-derived revenue number from the same staging layer. That single move eliminates the most expensive recurring meeting on the team's calendar.
 
 Second move: add Pacing, with one business-impact alert wired into Slack. The first time the alert saves a campaign is the moment the program earns its budget for the next two signals.
 

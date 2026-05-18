@@ -8,9 +8,7 @@ series: semantic-layer
 series_part: 2
 ---
 
-A Friday-evening deploy of a semantic-model release at Shahid. The deployment script ran. The retain-partitions-and-roles flag in the wizard had not been checked. Saturday morning every fact table was empty. Sunday was restore-from-backup. Monday's dashboards were wrong, and Monday's leadership meeting happened anyway.
-
-That incident did not happen because the script was wrong or the model was wrong. It happened because data engineering, metric engineering, and report engineering had been three responsibilities living on two people, and the release that touched all three layers ran without anyone watching the one most likely to break.
+A deployment that deletes partitions and resets user roles is the kind of failure that reveals an ownership boundary. The script is correct. The model is correct. The release that touches data engineering, metric engineering, and report engineering runs without anyone watching the one most likely to break, because the three responsibilities were living on two people. The full scene is told in [Part 4 of this series](/blog/semantic-layer-04-governance-and-deployment/); here it sets up the architectural question this post is for.
 
 **Most semantic-layer failures look like deployment failures and turn out to be ownership-boundary failures.** A semantic layer only works when ownership is split into three clean layers, each with a named owner, a defined release path, and a contract with the layers above and below. Mixing the three roles is where teams accumulate the operating risk that eventually surfaces as an outage.
 
@@ -22,7 +20,7 @@ That incident did not happen because the script was wrong or the model was wrong
 
 ### Layer 1: Data engineering owns curated tables
 
-This layer contains conformed fact and dimension tables plus the staging helpers needed for model efficiency. At Shahid the relevant table families are lifecycle facts (`fact_subscriptions`, the daily movement table), engagement facts (`fact_engagement`), ad facts (`fact_ad_impressions`, `fact_ad_inventory`), and conformed dimensions (`dim_subscriber`, `dim_content`, `dim_device`, `dim_date` with explicit Ramadan flags).
+This layer contains conformed fact and dimension tables plus the staging helpers needed for model efficiency. The relevant table families are lifecycle facts (`fact_subscriptions`, the daily movement table), engagement facts (`fact_engagement`), ad facts (`fact_ad_impressions`, `fact_ad_inventory`), and conformed dimensions (`dim_subscriber`, `dim_content`, `dim_device`, `dim_date` with explicit Ramadan flags).
 
 The semantic layer does not correct broken upstream pipelines. It consumes governed inputs. Crossing this boundary (writing measure logic that compensates for a broken Silver-layer join, for example) is how the semantic layer absorbs every upstream problem and becomes unmaintainable.
 

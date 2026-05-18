@@ -1,14 +1,14 @@
 ---
 title: "BI to Data Science Bridge Patterns: Four Moves That Stop the Numbers from Diverging"
 date: 2026-01-12
-description: "Four technical bridge patterns from a BI-to-DS transition at MBC Shahid: shared entities, careful feature promotion, use-first validation, and role evolution. The patterns that stop the dashboard from disagreeing with the model."
+description: "Four technical bridge patterns from a BI-to-DS transition: shared entities, careful feature promotion, use-first validation, and role evolution. The patterns that stop the dashboard from disagreeing with the model."
 categories: ["Data Science", "BI & Analytics"]
 draft: false
 ---
 
-A quarterly leadership review at MBC Shahid (MBC Group). The churn prediction model flagged roughly 15,000 subscribers as at-risk for the upcoming quarter. The churn dashboard, which the business team had relied on for months, showed about 12,000. The executive in the room asked the question that ends BI-to-DS transitions: "Which number is the right one?"
+The BI-versus-DS conflict surfaces clearest in a quarterly review. I've watched it twice. Both times the same shape: a churn model and a churn dashboard disagreeing on a few thousand profiles, the executive in the room asking "which number is the right one?", the answer needing to fit in one room.
 
-Neither was wrong. The model used a 30-day inactivity window to classify churn risk. The dashboard used a billing-cycle definition that only counted subscribers who had actually lapsed. Both were defensible. Both produced different numbers. 3,000 of those names were now in dispute.
+Neither was wrong. The model used a 30-day inactivity window to classify churn risk. The dashboard used a billing-cycle definition that only counted subscribers who had actually lapsed. Both were defensible. Both produced different numbers. A non-trivial set of names was now in dispute.
 
 This is the conflict every BI-to-DS transition accumulates quietly until a leadership meeting surfaces it. The gap is not in the model or the dashboard; it is in the entity definitions underneath both. Most transitions discover this in the worst possible place: the leadership review. The bridge patterns below are what stop the accumulation before it shows up in the room.
 
@@ -18,7 +18,7 @@ This is the conflict every BI-to-DS transition accumulates quietly until a leade
 
 Data science pipelines should reuse the same governed business entities that power BI: subscriber and account identifiers, lifecycle event definitions, consistent date and segment dimensions.
 
-The concrete artefact at MBC Shahid was `dim_subscriber`. The table holds lifecycle status, plan type, registration date, tenure band, and region. On the BI side it powers dashboard filters. On the DS side the same fields become input features for the churn prediction model. Plan type and tenure are strong predictors. Lifecycle status determines which subscribers are eligible for scoring at all. Because both systems consume the same table, the "15K vs 12K" gap stops existing.
+The concrete artefact is a `dim_subscriber` table. It holds lifecycle status, plan type, registration date, tenure band, and region. On the BI side it powers dashboard filters. On the DS side the same fields become input features for the churn prediction model. Plan type and tenure are strong predictors. Lifecycle status determines which subscribers are eligible for scoring at all. Because both systems consume the same table, the dashboard-versus-model gap stops existing.
 
 What goes wrong without it: every model the DS team ships has its own subscriber definition, each one slightly different from the dashboards. Every leadership conversation about the model becomes a reconciliation conversation. Trust erodes silently until a single visible disagreement surfaces all the invisible ones.
 
@@ -58,7 +58,7 @@ Shared entities are the load-bearing wall. The other three patterns degrade grac
 
 ## One MENA-flavored note
 
-In MENA streaming, the entity that pays back the most from shared definitions is the profile, not the account. Households share accounts aggressively, and a model that scores at account level produces predictions that are an average across two or three distinct viewers. The dashboard that filters at profile level produces a different number. The "15K vs 12K" conflict often turns out to be an account-versus-profile mismatch when traced to source. Forcing both systems to operate at profile level eliminates the gap.
+In MENA streaming, the entity that pays back the most from shared definitions is the profile, not the account. Households share accounts aggressively, and a model that scores at account level produces predictions that are an average across two or three distinct viewers. The dashboard that filters at profile level produces a different number. The dashboard-versus-model conflict often turns out to be an account-versus-profile mismatch when traced to source. Forcing both systems to operate at profile level eliminates the gap.
 
 ## Closing
 

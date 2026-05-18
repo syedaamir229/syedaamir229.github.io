@@ -6,13 +6,13 @@ categories: ["Data Engineering"]
 draft: false
 ---
 
-The leadership review at MBC Shahid (MBC Group), early 2022. The slide deck opened with active-subscribers for the quarter. The subscriptions team had one number on it. The content team had reproduced the same metric independently and had a slightly higher one. None of the two numbers were technically wrong. Each had been computed against a different filter assumption.
+I've watched leadership reviews where two teams arrived with two defensible counts of active subscribers for the quarter. The subscriptions team had one number on the slide. The content team had reproduced the same metric independently and had a slightly higher one. Neither was technically wrong. Each had been computed against a different filter assumption.
 
 Twenty minutes of the meeting were spent deciding which number to use as the headline for the quarter. None of it was spent on the decision the room had walked in to make.
 
 This is the scene that gets every enterprise-data-model project funded. It is also the scene that gets it scoped wrong. The word used in the kickoff is "project." The word that should be used is "infrastructure."
 
-**Most data teams treat the data model as a one-time project. The teams that compound treat it as infrastructure.** Four years later, the enterprise model we built at MBC Shahid that quarter is still the foundation under the semantic layer, the ML feature store, the CRM automation platform, and the voice-of-customer agent. None of those layers needed to rebuild it. That is what compounding looks like.
+**Most data teams treat the data model as a one-time project. The teams that compound treat it as infrastructure.** The same model has been the foundation for every subsequent BI, ML, and AI build: the semantic layer, the ML feature store, the CRM automation platform, and a voice-of-customer agent. None of those layers needed to rebuild it. That is what compounding looks like.
 
 ## Why this matters now
 
@@ -32,7 +32,7 @@ The rules that produce a compounding model are not new. They are five discipline
 
 The standard scoping move is to start with "what reports do we need?" and work backwards. This produces a model shaped like the current dashboard, not like the underlying business. The first time the dashboard changes, the model loses meaning.
 
-The compounding move is to start with the grain of each fact table. What is the lowest-level event the business actually generates? For viewing data at MBC Shahid, the grain is a single play event, a unique view with subscriber, content, device, address, and subscription identifiers attached. For subscriptions, it is a single subscription record with lifecycle state. For ad operations, it is a single inventory or impression event.
+The compounding move is to start with the grain of each fact table. What is the lowest-level event the business actually generates? For viewing data on a streaming platform, the grain is a single play event, a unique view with subscriber, content, device, address, and subscription identifiers attached. For subscriptions, it is a single subscription record with lifecycle state. For ad operations, it is a single inventory or impression event.
 
 The grain is the rock you build on. A fact table with a clear grain produces every aggregate the business will ever ask for. A fact table with a fuzzy grain ("one row per session, sort of") produces aggregates that disagree with each other for reasons no one can explain.
 
@@ -42,7 +42,7 @@ What goes wrong without it: the team ships a model that matches the launch dashb
 
 Most data models record state. The compounding ones record transitions.
 
-At  MBC Shahid the highest-leverage modelling decision was treating subscriber transitions as a first-class fact: who became a subscriber today, who churned, who reactivated, who upgraded, who downgraded. The `daily_movement` fact table records these transitions at a daily grain, with explicit flags like `is_acquisition`, `is_reconnect`, `is_winback` on each subscription record. Movement queries that used to be hours of window-function SQL became a `WHERE` clause.
+The highest-leverage modelling decision was treating subscriber transitions as a first-class fact: who became a subscriber today, who churned, who reactivated, who upgraded, who downgraded. The `daily_movement` fact table records these transitions at a daily grain, with explicit flags like `is_acquisition`, `is_reconnect`, `is_winback` on each subscription record. Movement queries that used to be hours of window-function SQL became a `WHERE` clause.
 
 The complexity cost is real. Movement tables require careful idempotency, careful late-arrival handling, and careful reconciliation between billing-system reality and the platform's observed state. The payoff is that every churn, retention, and lifecycle question across BI, ML, and AI runs against the same governed source. Different teams stop producing different churn numbers because there is no other churn number to produce.
 
@@ -52,7 +52,7 @@ What goes wrong without it: every team writes its own churn definition. The chur
 
 Every entity in the model gets a generated surrogate key. Source-system IDs are preserved on the row but never used as join keys. This sounds like dogma. It is actually insurance.
 
-The billing platform at MBC Shahid migrated subscriber IDs twice over the lifetime of the model. The catalog system changed content identifiers when a new metadata vendor took over. Each of these would have broken every downstream query that joined on the source ID directly. None of them did, because every join was on the generated `subscriber_id` or `content_id`, and the model absorbed the source-system change as a single mapping update in the dimension table.
+The billing system was replaced twice over the lifetime of the model, and the content management system was replaced once when a new metadata vendor took over. Each of these would have broken every downstream query that joined on a source-system ID directly. None of them did, because every join was on the generated `subscriber_id` or `content_id`, and the model absorbed the source-system change as a single mapping update in the dimension table.
 
 The cost is one column per dimension. The benefit is that source-system reality can change without breaking consumer queries. Over a multi-year horizon that benefit pays back every time a source platform migrates, replatforms, or gets replaced.
 
@@ -62,7 +62,7 @@ What goes wrong without it: the model becomes brittle in a way that is invisible
 
 Feature engineering usually lives in notebooks. ML teams build their own feature store, BI teams build their own measure layer, and the two diverge over time. By year two, the same subscriber's "engagement cohort" means one thing on a Power BI dashboard and a slightly different thing in a clustering model, and nobody can explain the gap.
 
-The compounding move is to promote feature tables to first-class Gold-layer objects. At MBC Shahid the user-level feature table and the user-content feature table sit alongside the fact tables and the dimension tables, on the same refresh cadence, with the same governance. The "engagement cohort" column the dashboard reads is the same column the gender prediction model reads. The Voice-of-Customer agent and the CRM scenario engine both query it. Drift is structurally impossible because there is only one source.
+The compounding move is to promote feature tables to first-class Gold-layer objects. The user-level feature table and the user-content feature table sit alongside the fact tables and the dimension tables, on the same refresh cadence, with the same governance. The "engagement cohort" column the dashboard reads is the same column the gender prediction model reads. The Voice-of-Customer agent and the CRM scenario engine both query it. Drift is structurally impossible because there is only one source.
 
 What goes wrong without it: the BI/ML mismatch. The dashboard says 12,000 at-risk subscribers, the model flags 15,000, the leadership team treats both as unreliable, the data team spends two quarters reconciling and three quarters rebuilding. Solved by putting the feature table in the model from day one, not from year three.
 
@@ -70,17 +70,17 @@ What goes wrong without it: the BI/ML mismatch. The dashboard says 12,000 at-ris
 
 The launch dashboard is the worst possible target to optimise for. It is the first consumer, not the only one. The compounding move is to shape the model around business entities (a subscriber, a play event, a subscription transition) rather than the current report's filter logic.
 
-The MBC Shahid model was scoped for reporting in 2022. It went on to power the semantic layer in 2023, the ML feature store in 2024, the CRM automation platform in 2025, and a voice-of-customer agent in 2025-2026. None of those were predicted at scoping time. The model survived all of them because it was shaped around the business, not the launch dashboard.
+The model was scoped for reporting. It went on to power the semantic layer, the ML feature store, the CRM automation platform, and a voice-of-customer agent. None of those were predicted at scoping time. The model survived all of them because it was shaped around the business, not the launch dashboard.
 
 What goes wrong without it: each new use case spawns a parallel model. The data team ends up maintaining three or four overlapping models, each with subtly different definitions, each producing slightly different numbers. Maintenance grows linearly with use cases.
 
 ## What I would actually build first
 
-Start with the two highest-pain fact tables. At MBC Shahid those were play events and subscription transitions. Get the grain right, get the surrogate keys in, ship them. Do not build a hundred-table model in week one.
+Start with the two highest-pain fact tables. On a streaming platform those were play events and subscription transitions. Get the grain right, get the surrogate keys in, ship them. Do not build a hundred-table model in week one.
 
 Then add the movement table. Movement tracking is the highest-leverage modelling decision and the one most teams defer to year two. Build it first.
 
-Then promote one feature table to Gold. Pick the one the most consumers will share (at MBC Shahid, the user-level feature table). Get BI and ML consuming the same column on day one. The drift that would have appeared in year two never appears.
+Then promote one feature table to Gold. Pick the one the most consumers will share (often the user-level feature table). Get BI and ML consuming the same column on day one. The drift that would have appeared in year two never appears.
 
 ## One MENA-flavored note
 
