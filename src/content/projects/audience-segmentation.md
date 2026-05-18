@@ -5,8 +5,8 @@ category: "Data Science"
 tags: ["scikit-learn", "PySpark", "MLflow", "Power BI"]
 featured: false
 metrics:
-  - label: "Audience Segments"
-    value: "A dozen"
+  - label: "Behavioral Segments"
+    value: "Labeled and governed"
   - label: "Profiles Scored"
     value: "Millions"
 order: 8
