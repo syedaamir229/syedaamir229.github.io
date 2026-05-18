@@ -42,11 +42,11 @@
     
       <line x1="520" y1="200" x2="565" y2="200" stroke-width="2" marker-end="url(#clArr)" stroke="#06B6D4"/>
     
-      <!-- 12 segments output -->
+      <!-- Behavioral segments output -->
       <rect x="575" y="120" width="220" height="160" rx="10" stroke-width="2" fill="#122033" stroke="#06B6D4"/>
-      <text x="685" y="148" text-anchor="middle" font-size="13" font-weight="700" fill="#E2E8F0">12 Audience Segments</text>
-      <text x="685" y="166" text-anchor="middle" font-size="9" fill="#06B6D4">labelled, named, governed</text>
-    
+      <text x="685" y="148" text-anchor="middle" font-size="13" font-weight="700" fill="#E2E8F0">Behavioral Segments</text>
+      <text x="685" y="166" text-anchor="middle" font-size="9" fill="#06B6D4">roughly a dozen, labelled and governed</text>
+
       <g font-size="9" fill="#E2E8F0">
         <rect x="590" y="178" width="92" height="20" rx="4" stroke-width="1" fill="#122033" stroke="#06B6D4"/>
         <text x="636" y="192" text-anchor="middle">Drama Loyalists</text>
@@ -59,7 +59,7 @@
         <rect x="590" y="228" width="92" height="20" rx="4" stroke-width="1" fill="#122033" stroke="#06B6D4"/>
         <text x="636" y="242" text-anchor="middle">Family Daypart</text>
         <rect x="688" y="228" width="92" height="20" rx="4" stroke-width="1" fill="#122033" stroke="#06B6D4"/>
-        <text x="734" y="242" text-anchor="middle">+ 7 more</text>
+        <text x="734" y="242" text-anchor="middle">+ more</text>
       </g>
       <text x="685" y="270" text-anchor="middle" font-size="8" fill="#94A3B8">written back to Semantic Layer</text>
     
