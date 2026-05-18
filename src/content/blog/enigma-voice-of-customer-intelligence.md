@@ -1,7 +1,7 @@
 ---
 title: "Building a Voice-of-Customer Stack for Multilingual Streaming"
 date: 2026-04-13
-description: "How we turned scattered, Arabic-language audience feedback from four platforms into a system that answers content-team questions in seconds, and why the non-obvious move was splitting the Genie spaces in two."
+description: "How a five-layer Voice-of-Customer Stack turned scattered, Arabic-language audience feedback from four platforms into a system that answers content-team questions in seconds, with the one architectural decision that decides whether the rest of the system works."
 categories: ["AI & Automation", "Data Science"]
 draft: false
 ---
@@ -16,9 +16,9 @@ This is the scene every voice-of-customer system either solves or pretends to so
 
 ## Why this matters now
 
-The pressure on audience-feedback systems is going up, not down. In Arabic-OTT specifically, content windows are tighter (finale episodes, Ramadan release cycles, AVOD ad slots that move weekly), and the cost of a slow feedback loop is concrete: a content lead green-lights a follow-up the audience did not actually want, or pulls a winner that was performing.
+The pressure on audience-feedback systems is going up, not down. [Atlan's recent write-up on semantic layers](https://atlan.com/know/semantic-layer/) makes the point cleanly: "every BI tool, every notebook, and every AI agent maintains its own translation logic, and when those translations drift, data teams spend days reconciling reports instead of building new ones." For voice of customer the failure is sharper, because there is no central translation logic to begin with. Twitter's `tweet_id` and YouTube's `video_id` and an internal `parent_title_id` do not naturally align. Without a stack that resolves them, every analyst query is a custom join.
 
-Across the broader industry the same picture holds. [Atlan's recent write-up on semantic layers](https://atlan.com/know/semantic-layer/) makes the point cleanly: "every BI tool, every notebook, and every AI agent maintains its own translation logic, and when those translations drift, data teams spend days reconciling reports instead of building new ones." For voice of customer the failure is sharper, because there is no central translation logic to begin with. Twitter's `tweet_id` and YouTube's `video_id` and an internal `parent_title_id` do not naturally align. Without a stack that resolves them, every analyst query is a custom join.
+MENA streaming has a sharper version of the same problem. Arabic-language comments arrive in a script half the leadership team cannot skim, household profile-sharing means a single account hides several viewers with different preferences, and release-calendar structure compresses launches into windows that punish slow feedback loops. The cost of a multi-day turnaround is concrete: a content lead green-lights a follow-up the audience did not actually want, or pulls a winner that was performing.
 
 So the projects get scoped. They start. And then most of them get stuck inside Bronze, with a beautiful raw-ingestion pipeline and no usable consumption layer. Or they ship a sentiment dashboard and never get to natural-language query. Or they wire up one Genie space, watch it hallucinate SQL on mixed schemas, and quietly retreat.
 
@@ -124,7 +124,7 @@ Third move: build the supervisor agent thin. The agent is a router, not a reason
 
 ## One MENA-flavored note
 
-Arabic-OTT made two parts of this stack non-negotiable. Translation is non-optional because half the comments are Arabic and half the leadership team is not Arabic-first. The dim-date and content-cycle filters had to recognise Ramadan content windows because content release patterns shift inside the cycle and a generic time-grain filter would aggregate across structurally different periods. Both of these are easy to retrofit, and both are easier to bake in from day one. Teams building voice-of-customer in a single-language single-cycle market often discover this when they try to extend into MENA later.
+Arabic-OTT made two parts of this stack non-negotiable. Translation is non-optional because half the comments are Arabic and half the leadership team is not Arabic-first. The dim-date and content-cycle filters had to recognise regional content windows because release patterns shift inside the cycle and a generic time-grain filter would aggregate across structurally different periods. Both of these are easy to retrofit, and both are easier to bake in from day one. Teams building voice-of-customer in a single-language single-cycle market often discover this when they try to extend into MENA later.
 
 ## Closing
 

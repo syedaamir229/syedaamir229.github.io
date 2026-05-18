@@ -355,6 +355,19 @@ Specific seasonal cycles (Ramadan, Eid, World Cup, regional sports finals) appea
 
 The test is whether removing the named cycle leaves the framework component complete. If the lesson is *"you need declarative seasonal overrides"* and Ramadan is the canonical example, the named cycle is operational and should abstract. If the lesson is *"MENA streaming has compressed-launch dynamics that Western models miss"* and Ramadan is the structural anchor, the named cycle is cultural and stays.
 
+### Where the test gets applied: the hook-to-MENA-anchor seam
+
+When the hook is rewritten to first-person craft framing, the paragraph that follows (often a "Why this matters now" MENA-anchor) is the seam where Ramadan, MBC, or operational language tends to creep back in. Apply the cultural-vs-operational test at that seam deliberately, not by accident:
+
+- A one-line MENA observation that explains household-sharing dynamics, profile-completion patterns, dialectal-Arabic UX edge cases, or compressed-launch structure is cultural anchor and stays.
+- A paragraph that uses a named cycle (Ramadan finale promotion, World Cup pacing) as the canonical operational example for a generalizable system is operational and abstracts.
+
+If a post's existing MENA paragraph reads as operational scene-setting once the hook is reframed, retune it to cultural framing rather than deleting it. The niche signal is what gives the post defensible depth; the operational example is what makes it sound like a press release.
+
+### Frontmatter description length after dilution
+
+Diluting exact figures lengthens the description. The pilot rewrite of `gender-prediction-model-in-practice.md` saw its description grow by ~18 words because "9.5M profiles scored, 75% accuracy" compressed into one number while "near-full coverage across millions of adult profiles, the majority of those rows being entirely new predictions" took several. Accept the longer phrasing. The same trade-off applies to any frontmatter that surfaces on listing cards. Tightening descriptions stylistically is fine; preserving an exact figure to save words is not.
+
 ---
 
 ## Cross-references

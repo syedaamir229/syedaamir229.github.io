@@ -14,9 +14,9 @@ This is the bottleneck every CRM team in streaming hits. They know exactly which
 
 ## Why this matters now
 
-CRM in MENA streaming is high-cadence, high-cycle. Predictable seasonal windows where content priorities shift, regional finales, AVOD ad-supported launches: the team is shipping multiple campaigns a week, each variant of a scenario the team has run before. Manual analyst handoff is structurally incompatible with that cadence. Either the data team owns the bottleneck and the CRM team waits, or the CRM team owns the bottleneck and the data team shrinks to an audience-building service.
-
 Industry-wide, the same pattern shows up. [CleverTap, Braze, and similar customer engagement platforms](https://clevertap.com/) have spent the last five years moving toward composable audience builders, but most teams' actual workflows still depend on analyst-built CSV uploads. The gap is not the activation tool. The gap is the operating system above it that translates the data foundation into reusable scenarios.
+
+MENA streaming runs a sharper version of the same problem. Release calendars compress launches into dense windows, household structure means a single account hides multiple viewers with divergent preferences, and CRM cadence is high enough that manual analyst handoff is structurally incompatible with how campaigns actually ship. Either the data team owns the bottleneck and the CRM team waits, or the CRM team owns the bottleneck and the data team shrinks to an audience-building service.
 
 The fix that worked was a six-layer architecture. Each layer is independent. Skipping a layer collapses the next one.
 
@@ -76,7 +76,7 @@ Once one scenario is in production with the closed loop working, the next three 
 
 ## One MENA-flavored note
 
-The seasonal-override layer pays for itself the first predictable recurring window after launch. Content priorities shift inside the season: family content, regional originals, and specific scheduling windows take precedence. Without a declarative override system, every cycle turns into a multi-week scramble of one-off SQL adjustments. With one, the CRM team activates a seasonal profile inside the customer-engagement platform and the scenario engine respects it automatically by date. The same applies to any other recurring content cycle in the calendar.
+Multi-profile households are the load-bearing MENA shape this stack has to fit. A single account often hosts several viewers with different content preferences, and account-level targeting averages real signals into noise. Profile-level processing with account-level rollup at delivery is what makes recommendations defensible here; in single-viewer-per-account markets the gap is smaller and the same architecture is overkill. The seasonal-override layer rides on the same cultural reality: regional content cycles overlap in dense calendar windows that punish teams without declarative overrides, and reward the ones that activate by date instead of by emergency SQL.
 
 ## Closing
 
