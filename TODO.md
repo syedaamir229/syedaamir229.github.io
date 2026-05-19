@@ -4,7 +4,7 @@ Living scratchpad. Active work goes under Current; everything else lives under F
 
 ## Current
 
-- **Blog standardization exercise.** Bring all 16 posts under [src/content/blog/](src/content/blog/) onto a single framework-led pattern (ten beats, three-beat H3 micro-format `**What it is.** / **Why it matters.** / **What goes wrong without it.**`, diagrams required, category-descriptor vendor abstraction). Phase A: rewrite [enigma-voice-of-customer-intelligence.md](src/content/blog/enigma-voice-of-customer-intelligence.md) as the anchor with five corrections (citation, API field names, opaque MENA line, vendor abstraction, strip Implementation notes). Phase B: rewrite [docs/BLOG.md](docs/BLOG.md) off the anchor. Phase C: align the other 15 posts file by file. Phase D: commission six new SVG diagrams. Plan at `~/.claude/plans/i-want-to-run-steady-matsumoto.md`. Same shape as the projects exercise that landed in commit `116e481`.
+(empty)
 
 ## Future enhancements
 
