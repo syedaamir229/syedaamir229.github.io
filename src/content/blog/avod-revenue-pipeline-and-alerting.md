@@ -24,35 +24,35 @@ The operational signals that decide whether AVOD revenue lands are well known. T
 
 ### Signal 1: Inventory
 
-What it tracks: sellable ad slots. How much ad space is available to sell, broken down by format, content, and country. The supply-side view of the loop.
+**What it is.** Sellable ad slots. How much ad space is available to sell, broken down by format, content, and country. The supply-side view of the loop.
 
-The non-obvious part is that the lever does not live in Ad Operations. Growing inventory means opening more slots inside AVOD content or extending the AVOD-eligible content footprint, both of which sit in Content Operations. The Inventory signal exists, in part, to tell Ad Operations when to start that conversation: too thin to cover an upcoming peak, or sitting unused through a soft window where new content or repackaging would actually be sellable.
+**Why it matters.** The lever does not live in Ad Operations. Growing inventory means opening more slots inside AVOD content or extending the AVOD-eligible content footprint, both of which sit in Content Operations. The Inventory signal exists, in part, to tell Ad Operations when to start that conversation: too thin to cover an upcoming peak, or sitting unused through a soft window where new content or repackaging would actually be sellable.
 
-What goes wrong without it: campaigns get booked against intuited capacity. Soft-quarter inventory clears even more slowly because nobody has a content-level view of where the unused pockets are. Overbooking on a peak window only becomes visible after delivery has already started missing commitments.
+**What goes wrong without it.** Campaigns get booked against intuited capacity. Soft-quarter inventory clears even more slowly because nobody has a content-level view of where the unused pockets are. Overbooking on a peak window only becomes visible after delivery has already started missing commitments.
 
 ### Signal 2: Impressions
 
-What it tracks: delivered ads and the revenue they generated. The core delivery signal. What actually ran, what it earned, how that breaks down across content, country and ad type. This is the pipeline that feeds the revenue dashboards Ad Operations shares with finance and commercial stakeholders.
+**What it is.** Delivered ads and the revenue they generated. The core delivery signal. What actually ran, what it earned, how that breaks down across content, country and ad type. This is the pipeline that feeds the revenue dashboards Ad Operations shares with finance and commercial stakeholders.
 
-The non-obvious part of this signal is settlement. Programmatic ad impression data does not settle immediately; late-arriving attribution means numbers can shift over a multi-week window after the original event. A daily pipeline that only looks at yesterday's data will always be slightly wrong, and the errors compound over a reporting week.
+**Why it matters.** Programmatic ad impression data does not settle immediately; late-arriving attribution means numbers can shift over a multi-week window after the original event. A daily pipeline that only looks at yesterday's data will always be slightly wrong, and the errors compound over a reporting week. The solution is a two-schedule approach: a daily pipeline runs in an early-morning operational window to give the team fresh numbers for same-day decisions, and a periodic historical refresh re-pulls the recent multi-week window to capture corrections and late-arriving data. Monday morning revenue reports reflect final settled figures, not provisional daily numbers. This is the detail that separates a pipeline the team trusts from one they keep a side spreadsheet against, just in case.
 
-The solution is a two-schedule approach. A daily pipeline runs in an early-morning operational window to give the team fresh numbers for same-day decisions. A periodic historical refresh re-pulls the recent multi-week window to capture corrections and late-arriving data. Monday morning revenue reports reflect final settled figures, not provisional daily numbers. This is the detail that separates a pipeline the team trusts from one they keep a side spreadsheet against, "just in case."
-
-What goes wrong without it: weekly revenue numbers shift after the fact and finance loses confidence in the daily figures. The team starts keeping a side spreadsheet against the dashboard, which is the moment the pipeline stops being the source of truth.
+**What goes wrong without it.** Weekly revenue numbers shift after the fact and finance loses confidence in the daily figures. The team starts keeping a side spreadsheet against the dashboard, which is the moment the pipeline stops being the source of truth.
 
 ### Signal 3: Delivery pacing
 
-What it tracks: actual delivery against booked commitments. The ratio of what has been delivered so far to what was promised by the end of a campaign flight. This is the pipeline that feeds alerting, because a pacing shortfall discovered on the last day of a campaign is a missed revenue opportunity, and booked commitments are the one thing the team has to defend during peak windows.
+**What it is.** Actual delivery against booked commitments. The ratio of what has been delivered so far to what was promised by the end of a campaign flight. This is the pipeline that feeds alerting, because a pacing shortfall discovered on the last day of a campaign is a missed revenue opportunity, and booked commitments are the one thing the team has to defend during peak windows.
 
-The alert here is the most operationally important alert in the whole system. A pacing alert that fires three days before campaign end gives Ad Operations time to redistribute inventory across the existing book of campaigns, adjust targeting, or escalate to Content Operations to surface more inventory before the shortfall hardens into a make-good. The same alert fired on the final day is a post-mortem.
+**Why it matters.** The alert here is the most operationally important alert in the whole system. A pacing alert that fires three days before campaign end gives Ad Operations time to redistribute inventory across the existing book of campaigns, adjust targeting, or escalate to Content Operations to surface more inventory before the shortfall hardens into a make-good. The same alert fired on the final day is a post-mortem.
 
-What goes wrong without it: shortfalls become visible only at end-of-flight, when the only remaining lever is the make-good. The team spends the next flight working off a deficit instead of selling forward.
+**What goes wrong without it.** Shortfalls become visible only at end-of-flight, when the only remaining lever is the make-good. The team spends the next flight working off a deficit instead of selling forward.
 
 ### Signal 4: VAST errors
 
-What it tracks: video ad serving failures by error code, categorised. When a video ad fails to load or render, the VAST protocol returns an error category. Trending these errors lets the team distinguish between transient player issues and systematic delivery problems that need intervention.
+**What it is.** Video ad serving failures by error code, categorised. When a video ad fails to load or render, the VAST protocol returns an error category. The pipeline trends these errors over time and breaks them out by error class, player, and content vertical.
 
-What goes wrong without it: error spikes hide inside aggregate impression counts. Revenue looks healthy on the dashboard while an error category is silently eroding effective fill rate during the one window of the year when fill rate is least forgiving. The first signal that something is wrong arrives weeks later, when finance asks why impression and revenue trends stopped tracking each other.
+**Why it matters.** Trending these errors lets the team distinguish between transient player issues and systematic delivery problems that need intervention. A sustained shift in a specific error category across a content vertical, surfaced sub-daily, is the difference between catching a fill-rate erosion in the same week and finding out a quarter later, when finance asks why impression and revenue trends stopped tracking each other.
+
+**What goes wrong without it.** Error spikes hide inside aggregate impression counts. Revenue looks healthy on the dashboard while an error category is silently eroding effective fill rate during the one window of the year when fill rate is least forgiving. The first signal that something is wrong arrives weeks later, after the window has already closed.
 
 ## Alert thresholds: business impact, not technical anomaly
 
