@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1020 520" font-family="Inter, system-ui, sans-serif">
+  <rect width="1020" height="520" rx="12" fill="#050B14"/>
+  <text x="510" y="34" text-anchor="middle" font-size="16" font-weight="700" fill="#E2E8F0">The Four Bridge Patterns</text>
+  <text x="510" y="54" text-anchor="middle" font-size="11" fill="#94A3B8">Patterns that stop the dashboard from disagreeing with the model.</text>
+
+  <rect x="30" y="80" width="220" height="400" rx="10" fill="#122033" stroke="#2A4561"/>
+  <text x="140" y="108" text-anchor="middle" font-size="14" font-weight="700" fill="#E2E8F0">BI</text>
+  <text x="140" y="130" text-anchor="middle" font-size="10" fill="#94A3B8">Dashboards</text>
+  <text x="140" y="146" text-anchor="middle" font-size="10" fill="#94A3B8">Metric trust</text>
+  <text x="140" y="162" text-anchor="middle" font-size="10" fill="#94A3B8">Stakeholder translation</text>
+  <text x="140" y="448" text-anchor="middle" font-size="9" fill="#94A3B8" font-style="italic">Accountability:</text>
+  <text x="140" y="462" text-anchor="middle" font-size="9" fill="#94A3B8" font-style="italic">accurate, timely reporting</text>
+
+  <rect x="770" y="80" width="220" height="400" rx="10" fill="#122033" stroke="#2A4561"/>
+  <text x="880" y="108" text-anchor="middle" font-size="14" font-weight="700" fill="#E2E8F0">Data Science</text>
+  <text x="880" y="130" text-anchor="middle" font-size="10" fill="#94A3B8">Models</text>
+  <text x="880" y="146" text-anchor="middle" font-size="10" fill="#94A3B8">Decision impact</text>
+  <text x="880" y="162" text-anchor="middle" font-size="10" fill="#94A3B8">Activation</text>
+  <text x="880" y="448" text-anchor="middle" font-size="9" fill="#94A3B8" font-style="italic">Accountability:</text>
+  <text x="880" y="462" text-anchor="middle" font-size="9" fill="#94A3B8" font-style="italic">measurable decision impact</text>
+
+  <rect x="280" y="180" width="460" height="60" rx="10" fill="rgba(6,182,212,0.06)" stroke="#06B6D4" stroke-width="1.5"/>
+  <text x="510" y="204" text-anchor="middle" font-size="13" font-weight="700" fill="#E2E8F0">Pattern 1 · Keep shared business entities</text>
+  <text x="510" y="226" text-anchor="middle" font-size="10" fill="#22D3EE">Same dim_subscriber, same lifecycle flags, same date spine</text>
+  <line x1="250" y1="210" x2="280" y2="210" stroke="#06B6D4" stroke-width="2"/>
+  <line x1="740" y1="210" x2="770" y2="210" stroke="#06B6D4" stroke-width="2"/>
+
+  <rect x="280" y="252" width="460" height="60" rx="10" fill="#0A1220" stroke="#2A4561"/>
+  <text x="510" y="276" text-anchor="middle" font-size="13" font-weight="700" fill="#E2E8F0">Pattern 2 · Promote metrics to features carefully</text>
+  <text x="510" y="298" text-anchor="middle" font-size="10" fill="#94A3B8">Decompose, do not reuse: dashboard granularity is wrong for models</text>
+  <line x1="250" y1="282" x2="280" y2="282" stroke="#06B6D4" stroke-width="2"/>
+  <line x1="740" y1="282" x2="770" y2="282" stroke="#06B6D4" stroke-width="2"/>
+
+  <rect x="280" y="324" width="460" height="60" rx="10" fill="#0A1220" stroke="#2A4561"/>
+  <text x="510" y="348" text-anchor="middle" font-size="13" font-weight="700" fill="#E2E8F0">Pattern 3 · Validate for use, not just for score</text>
+  <text x="510" y="370" text-anchor="middle" font-size="10" fill="#94A3B8">Output format and consuming-system fit are part of validation</text>
+  <line x1="250" y1="354" x2="280" y2="354" stroke="#06B6D4" stroke-width="2"/>
+  <line x1="740" y1="354" x2="770" y2="354" stroke="#06B6D4" stroke-width="2"/>
+
+  <rect x="280" y="396" width="460" height="60" rx="10" fill="#0A1220" stroke="#2A4561"/>
+  <text x="510" y="420" text-anchor="middle" font-size="13" font-weight="700" fill="#E2E8F0">Pattern 4 · Evolve roles, not just tools</text>
+  <text x="510" y="442" text-anchor="middle" font-size="10" fill="#94A3B8">BI owns metric trust; DS owns decision impact; both share the foundation</text>
+  <line x1="250" y1="426" x2="280" y2="426" stroke="#06B6D4" stroke-width="2"/>
+  <line x1="740" y1="426" x2="770" y2="426" stroke="#06B6D4" stroke-width="2"/>
+</svg>

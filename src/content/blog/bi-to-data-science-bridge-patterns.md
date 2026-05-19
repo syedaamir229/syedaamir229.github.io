@@ -20,6 +20,10 @@ Every additional consumer of a metric (a BI dashboard, an ML model, an AI agent,
 
 For a BI-to-DS team specifically the failure mode is concrete. The dashboard says 12,000 at-risk subscribers, the model flags 15,000, and the leadership conversation that follows is a reconciliation, not a decision. The four patterns below are what stops that conversation from happening.
 
+![The Four Bridge Patterns: a BI column on the left (Dashboards, Metric trust, Stakeholder translation) and a Data Science column on the right (Models, Decision impact, Activation), connected by four pattern bridges (Keep shared business entities, Promote metrics to features carefully, Validate for use, Evolve roles).](/assets/blog/bi-to-data-science-bridge-patterns.svg)
+
+*BI and Data Science are two parallel surfaces with different accountability. The four patterns are the bridges that stop them from drifting into parallel realities.*
+
 ## The Four Bridge Patterns
 
 ### Pattern 1: Keep shared business entities
