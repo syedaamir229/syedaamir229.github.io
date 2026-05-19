@@ -12,114 +12,57 @@ A high-traffic visual that used to render in two seconds turned into a thirty-se
 
 That kind of degradation is how semantic-layer programs lose trust slowly, then all at once. The refresh succeeds. The model builds. The KPI definitions stay correct. The queries get slower over time, the visuals get heavier, the report estate accretes weight, and one Wednesday afternoon a single thirty-second render in front of an executive turns the whole program into a question.
 
-**Monitoring is where semantic-layer maturity becomes visible.** Teams that only monitor refresh success miss the main problem: slow queries, capacity pressure, and model drift that gradually reduce trust. The remedy is a named operating rhythm. The Weekly Optimization Cycle below is the pattern that holds up after the first year.
+**A semantic-layer team is either running monitoring as a weekly operating loop or running it as a passive dashboard. Once it is passive, slow queries get slower week by week, alerts get muted as noise, and the first signal that something is wrong arrives in a leadership review; once it is an operating loop, monitoring telemetry becomes a closed-loop process where every flagged item has a layer, an owner, a target date, and a verification gate.** The way you get there is not more alerts. It is The Weekly Optimization Cycle: four stages run every week in the same order, each one named, each one with the discipline that keeps the loop from decaying.
+
+## Why this matters now
+
+Semantic-layer maturity is decided after the launch is forgotten. The first six months are about correctness: are the measures right, do the dashboards render, does the deployment hold. The next twelve months are about decay: queries that used to render in two seconds taking thirty, capacity pressure that nobody is tracking, model drift that surfaces only when a senior stakeholder asks why a report is slower than it used to be.
+
+The fix is not more monitoring tooling. Most semantic-layer programs already collect enough telemetry to spot the decay; what they lack is the operating discipline to turn telemetry into fixes. The Weekly Optimization Cycle below is the operating rhythm that closes the loop, and the four stages are what each weekly meeting actually does.
 
 ![Performance Monitoring Feedback Loop: Signal Sources feed a Monitoring Store, which feeds a Detection Layer (anomaly checks, failed refresh alerts, slow query alerts, capacity flags, stale partition checks), which feeds Optimization Actions and loops back. The loop only creates value when it drives action.](/assets/blog/semantic-series-06-monitoring-loop.svg)
 
 *Monitoring only creates value when it triggers optimization actions, ownership, and measurable improvements.*
 
-## What to Monitor
-
-### Query performance signals
-
-Track measures that reflect user experience and model efficiency:
-
-- query duration percentiles
-- heavy visual query frequency
-- high-cardinality slice behavior
-
-### Resource signals
-
-Track infrastructure and engine pressure:
-
-- memory pressure patterns
-- CPU saturation windows
-- processing durations by partition
-
-### Refresh reliability signals
-
-Track freshness and failure behavior:
-
-- success and failure counts
-- retry patterns
-- delayed partition completion
-
-### Metadata signals
-
-Track usage and ownership context:
-
-- dashboard and report usage
-- top queried measure families
-- ownership map for impacted areas
-
-## Monitoring Architecture Pattern
-
-A robust setup typically includes:
-
-1. data collection from engine, jobs, and usage metadata
-2. centralized metrics tables for historical analysis
-3. threshold rules for alerting and triage
-4. weekly review cycle that assigns optimization actions
-
-This turns monitoring into a feedback loop rather than a passive dashboard.
-
-## Optimization Playbook
-
-When monitoring flags issues, use a structured response:
-
-### Measure-level optimization
-
-- simplify expensive expressions
-- reduce repeated context transitions
-- precompute heavy logic upstream where appropriate
-
-### Model-level optimization
-
-- review relationship directions and cardinality
-- optimize partition grain and retention windows
-- remove unused or redundant objects
-
-### Report-level optimization
-
-- reduce heavy visual combinations
-- limit high-cardinality default queries
-- align report patterns with semantic-model strengths
-
-## Practical Alerting Priorities
-
-Not all alerts should page immediately. A useful priority model:
-
-- **P1**: refresh failure on business-critical datasets
-- **P2**: severe query latency degradation during business hours
-- **P3**: rising trend alerts for capacity or slow slices
-
-This prevents alert fatigue while preserving fast response for high-impact issues.
-
 ## The Weekly Optimization Cycle
 
-A weekly cycle is enough for continuous improvement. The cycle has four stages and runs every Monday morning before the dashboards are opened for the week:
+### Stage 1: Review
 
-1. **Review.** Top incidents from the previous week, slow-query clusters, refresh latencies that drifted, capacity pressure flagged by the monitoring tables.
-2. **Map.** Each item gets traced to its cause layer: model, refresh, or report. A slow query whose root cause is a poorly composed visual is a different fix from one whose root cause is a measure that needs a relationship optimisation.
-3. **Assign.** Every flagged item gets a named owner and a target close date. No item is left "to investigate" without an owner; that is the most common way the cycle decays.
-4. **Verify.** Each fix shipped in the previous week is checked against the metric it was supposed to improve. Items return to baseline before they close.
+**What it is.** A weekly review of monitoring telemetry: top incidents from the previous week, slow-query clusters, refresh latencies that drifted, capacity pressure flagged by the monitoring tables. The review happens before the week starts, ideally before the dashboards open Monday morning.
 
-Over time this rhythm produces measurable stability gains and shrinks the volume of incidents that surface to leadership. The cycle's value is compounding: the team that runs it for a year has a different model than the team that does not.
+**Why it matters.** The review is the moment monitoring data becomes operational. Telemetry that nobody reviews is telemetry that collects, costs to store, and accomplishes nothing. The weekly cadence also prevents the review from becoming optional: it has a slot on the calendar, an attendee list, and an artefact (the cycle's output).
 
-## Alert Rules You Can Start With
+**What goes wrong without it.** Slow queries get slower week by week and nobody is watching, because the alerts that should have caught them got muted as noise during a baseline shift the team forgot to disable. The first signal that something is wrong arrives in a leadership review.
 
-1. refresh failure alert immediately on first failure
-2. p95 query duration alert when over threshold for 3 consecutive intervals
-3. partition processing alert when run time is 2x weekly baseline
-4. stale-data alert when latest successful refresh age exceeds SLA
+### Stage 2: Map
 
-## Weekly Optimization SOP
+**What it is.** Each flagged item gets traced to its cause layer: model, refresh, or report. A slow query whose root cause is a poorly composed visual is a different fix from one whose root cause is a measure that needs a relationship optimisation; the layer attribution determines who picks it up.
 
-1. review top 10 slow queries
-2. map each query to KPI, model object, and report visual
-3. assign action: DAX tuning, model tuning, or report tuning
-4. rerun measurements after fix
-5. close only when metrics return to baseline range
+**Why it matters.** Without layer attribution, every monitoring alert lands in the same triage queue and gets fixed by whoever has bandwidth. The fix often happens in the wrong layer (a report-level workaround for a model-level problem), which masks the underlying issue and pushes the real fix to the next quarter. Mapping is what keeps each layer's owner accountable for their own backlog.
+
+**What goes wrong without it.** Fixes happen in the cheapest layer rather than the right one. A poorly composed visual gets "fixed" by adding caching at the report level, when the real fix is a measure optimisation that would speed up every report. Technical debt accumulates in the layer above where the problem actually lives.
+
+### Stage 3: Assign
+
+**What it is.** Every flagged item gets a named owner and a target close date. No item is left "to investigate" without an owner.
+
+**Why it matters.** Ownership is the discipline that turns a monitoring backlog into a closed-loop process. An item with an owner has a path to resolution; an item without one is a queue entry that decays into noise. The target close date forces a follow-up at a specific time, which is what brings the item back into the next Review even if the owner has not had time to close it.
+
+**What goes wrong without it.** Items get marked "to investigate" and sit there indefinitely. The backlog grows. New monitoring alerts compete with old ones for attention. Eventually the team stops trusting the monitoring queue and operates from memory and intuition, which is where the cycle dies.
+
+### Stage 4: Verify
+
+**What it is.** Each fix shipped in the previous week is checked against the metric it was supposed to improve. Items return to baseline before they close.
+
+**Why it matters.** Verify is the discipline that prevents fixes from being declared done without evidence. A measure optimisation can be "shipped" without actually moving p95 query duration if the optimisation targeted the wrong query plan; verifying against the original metric is what catches that case. The discipline also feeds back into the next Review: confirmed-not-fixed items return to the backlog automatically.
+
+**What goes wrong without it.** Fixes accumulate as shipped-and-uncertain. The backlog "drains" but the symptoms persist, and three months later the team is rediscovering the same slow queries because nobody confirmed the original fixes landed.
+
+## Where I would start
+
+If you can only implement one of the four stages this quarter, implement Verify. The first three stages produce a list of flagged items, owners, and target dates; without Verify, the team works through the list, marks things done, and discovers three months later that the symptoms never went away because the fixes did not land where the symptoms lived. Verify is the discipline that makes the previous three stages worth running.
+
+Review ships next because Review is where the cycle starts: no Review means no items to map, assign, or verify. Map and Assign get tighter over time as the team learns its own taxonomy of failure modes and natural owners; the initial week can run with fuzzy layer assignment and still produce useful output.
 
 ## One MENA-flavored note
 
