@@ -12,7 +12,13 @@ An audit of the DAX behind `churn_rate` across the three highest-traffic reports
 
 The model was already in place. The dashboards were live. The DAX had drifted because there was no measure-engineering discipline above the model. Drift in DAX is the failure mode that is hardest to detect because the model itself looks healthy; the symptoms only surface when a senior stakeholder compares the same KPI across two reports and finds the gap.
 
-**Most semantic-layer quality issues are measure-engineering issues.** If the DAX is inconsistent, overloaded, or hard to debug, trust drops even when the underlying data model is strong. The remedy is a three-layer measure pattern where every measure declares which layer it lives in and what it references.
+**A semantic-layer team is either disciplined about which layer each measure lives in or about to discover the same KPI in three different shapes across the report estate. Once the layering collapses, every new measure references whichever underlying column is convenient and the dependency graph dissolves into spaghetti; once the layering holds, every business measure references base measures only and every consumption measure references business measures only, so a measure change in one layer propagates cleanly to the layer above.** The way you get there is not stricter code review. It is The Three-Layer DAX Stack: a measure pattern where every measure declares which layer it lives in and what it references.
+
+## Why this matters now
+
+DAX measure design is the part of the semantic layer that ages worst. The underlying model can stay stable for years while the measure layer accretes mass: more measures, more variants, more time-intelligence cuts, more team-specific cohort definitions. Each addition is fine on its own. The cumulative effect is a model where the same KPI is computed three different ways depending on which report the analyst picked up first.
+
+The reason the rot is invisible is that nothing in the build pipeline catches it. A new measure compiles. A duplicate measure compiles. A measure that quietly overloads an existing one also compiles. The first surface that catches the drift is a senior stakeholder comparing the same KPI across two reports and asking why the numbers differ. By the time the comparison happens, the rot is at least a year old and the cleanup is a quarter of work.
 
 ![KPI Engineering Stack: Base Measures feed Business Measures (net_adds, churn_rate, ARPU, retention, engagement_index) which feed the Consumption Layer (time intelligence, lifecycle cuts, self-service field parameters, governed report templates).](/assets/blog/semantic-series-03-kpi-engineering.svg)
 
@@ -22,132 +28,37 @@ The model was already in place. The dashboards were live. The DAX had drifted be
 
 ### Layer 1: Base measures
 
-Direct aggregations from fact tables. Simple, explicit, reusable. In a streaming context the base measures typically cover `plays`, `watchers`, `seconds_watched`, plus AVOD-specific `impressions` and `vast_errors`. No business assumptions. No conditional logic. Pure aggregation.
+**What it is.** Direct aggregations from fact tables. Simple, explicit, reusable. In a streaming context the base measures typically cover `plays`, `watchers`, `seconds_watched`, plus AVOD-specific `impressions` and `vast_errors`. No business assumptions. No conditional logic. Pure aggregation.
 
-The constraint is what makes the layer useful. A base measure that includes a filter or a conditional is no longer a base measure; it is a business measure pretending to be a base measure, and the consumer who builds a business measure on top of it will inherit the hidden filter.
+**Why it matters.** The constraint is what makes the layer useful. A base measure with no hidden logic is one any consumer can stack on top of without inheriting surprises. The layer is also where every audit trace bottoms out: when a business measure produces an unexpected number, the debug path stops at the base measure that fed it.
+
+**What goes wrong without it.** A base measure that includes a filter or a conditional is no longer a base measure; it is a business measure pretending to be a base measure. The consumer who builds a business measure on top of it inherits the hidden filter, the dependency graph breaks, and the audit trace dead-ends at a measure that does too much.
 
 ### Layer 2: Business measures
 
-KPI semantics expressed as ratios, differences, or compositions of base measures. `net_adds`, `churn_rate`, `retention_rate`, `playtime_hrs`. This is where most governance value lives because these formulas represent shared business language.
-
-The discipline at this layer: every business measure has a published contract (definition, inclusions, exclusions, validation query) and references only base measures, never raw columns.
-
-### Layer 3: Consumption logic
-
-Time windows, lifecycle slices, dynamic user selections. MTD, QTD, YTD variants. Comparison periods. Dynamic KPI selectors. Segment-specific cuts.
-
-This layer references business measures, not raw columns. A Ramadan-window churn cut, a Ramadan-versus-non-Ramadan ARPU comparison, a Q1-versus-Q1 watch-hours variance: all of these belong here, all of them reference the Layer 2 measure underneath.
-
-## Technical Practices That Helped
-
-### Use explicit naming conventions
-
-Consistent measure naming reduces confusion in large models. A practical convention:
-
-- base: `m_base_*`
-- business: `m_kpi_*`
-- time variants: `m_time_*`
-
-You can adapt names, but consistency matters more than style.
-
-### Keep filter context behavior intentional
-
-Many KPI bugs come from implicit filter behavior. Explicitly define context transitions in key measures and test them under common slicer combinations.
-
-### Standardize denominator definitions
-
-Ratios fail when numerator and denominator scopes differ across reports. Define denominator behavior centrally in the model.
-
-### Document assumptions near measure logic
-
-Each KPI should carry:
-
-- definition
-- formula intent
-- filter assumptions
-- exclusion rules
-
-This shortens onboarding time and review cycles.
-
-## Quality Checks for KPI Logic
-
-A simple, repeatable validation set catches most issues:
-
-- **single-day checks**: compare measure results to controlled SQL baselines
-- **period checks**: verify monthly rollups match daily aggregates
-- **segment checks**: test subscriber cohorts and region slices
-- **edge checks**: validate divide-by-zero and empty-slice behavior
-
-These checks should run before every release that changes core measure logic.
-
-## Common Anti-Patterns
-
-Avoid these patterns in semantic models:
-
-- embedding business logic inside visual-level calculations
-- mixing raw columns and governed measures for the same KPI
-- creating one-off KPI variants for individual reports
-- skipping measure documentation for "obvious" formulas
-
-These shortcuts feel fast initially and expensive later.
-
-## What Good Looks Like
-
-A healthy KPI layer has these properties:
-
-- one authoritative definition per KPI
-- clear dependency graph between measures
-- predictable behavior under filtering
-- stable performance across high-usage reports
-
-When these are true, report development accelerates because model complexity is already handled upstream.
-
-## Implementation Walkthrough: Build Five Core Measures
-
-Use this sequence when you implement KPI logic.
-
-### Step 1: Author base measures
-
-```dax
-m_base_plays = SUM(fact_engagement[play_count])
-m_base_watchers = DISTINCTCOUNT(fact_engagement[subscriber_id])
-m_base_revenue = SUM(fact_subscriptions[revenue_amount])
-m_base_churned = SUM(fact_subscriptions[churned_subscribers])
-m_base_opening_base = SUM(fact_subscriptions[opening_subscriber_base])
-```
-
-### Step 2: Author business measures
+**What it is.** KPI semantics expressed as ratios, differences, or compositions of base measures. `net_adds`, `churn_rate`, `retention_rate`, `playtime_hrs`. Each business measure references base measures only, never raw columns. The canonical shape is a `DIVIDE` over two base measures with a default fallback:
 
 ```dax
 m_kpi_churn_rate = DIVIDE([m_base_churned], [m_base_opening_base], 0)
-m_kpi_arpu = DIVIDE([m_base_revenue], [m_base_opening_base], 0)
-m_kpi_plays_per_watcher = DIVIDE([m_base_plays], [m_base_watchers], 0)
 ```
 
-### Step 3: Add time-intelligence variants
+**Why it matters.** This is where most governance value lives. The business measures are the shared language the organisation uses to talk about itself: every dashboard, every model, every executive review reads from this layer. The discipline that every business measure has a published contract (definition, inclusions, exclusions, validation query) is what makes one source of churn-rate exist instead of three.
 
-```dax
-m_time_revenue_mtd = TOTALMTD([m_base_revenue], dim_date[date])
-m_time_revenue_qtd = TOTALQTD([m_base_revenue], dim_date[date])
-m_time_revenue_ytd = TOTALYTD([m_base_revenue], dim_date[date])
-```
+**What goes wrong without it.** Multiple churn-rate measures exist, each with subtly different filters or denominators, and the question "which one should this report use?" gets a different answer depending on who you ask. Within a quarter, the same KPI produces different numbers across three reports for reasons the team has no clean way to explain.
 
-### Step 4: Add guardrails for empty slices
+### Layer 3: Consumption logic
 
-- use `DIVIDE` with default fallback
-- avoid hard-coded filters that break segment analysis
-- validate measures with and without slicer context
+**What it is.** Time windows, lifecycle slices, dynamic user selections. MTD, QTD, YTD variants. Comparison periods. Dynamic KPI selectors. Segment-specific cuts. This layer references business measures, not raw columns. A Ramadan-window churn cut, a Ramadan-versus-non-Ramadan ARPU comparison, a Q1-versus-Q1 watch-hours variance: all of these belong here, all of them reference the Layer 2 measure underneath.
 
-## KPI Validation Matrix (Release Gate)
+**Why it matters.** Layer 3 is where the temporal-stance decisions live. Every business measure has an implicit time window, but Layer 3 makes the window explicit so it can be reused across reports and compared apples-to-apples across periods. The discipline of building consumption measures on top of business measures (rather than re-deriving from base) is what keeps the underlying definitions consistent across time variants.
 
-For each KPI change, run this matrix:
+**What goes wrong without it.** Time-intelligence logic gets re-implemented in every report. Each report writes its own MTD calculation against the base measures, the calculations drift, and the post-quarter retrospective becomes a reconciliation meeting because the same business measure renders differently depending on which report's MTD logic ran. The temporal stance gets lost in the implementation noise.
 
-1. **daily baseline**: compare DAX output with SQL baseline for 7 recent days
-2. **monthly rollup**: verify month totals match sum of daily values
-3. **segment behavior**: validate region, package, and lifecycle filters
-4. **edge behavior**: verify nulls, zero denominators, and empty filter context
+## Where I would start
 
-If one check fails, do not promote the measure change.
+If you can only audit one layer in your existing model, audit Layer 1. A base measure with hidden logic is the leak that compounds the fastest: every business measure built on top inherits the hidden behaviour, and once the inheritance chain is two deep the audit cost is exponential.
+
+After Layer 1 is clean, audit Layer 2 for naming and dependency consistency: every business measure should reference base measures only, and the names should make the reference graph readable. Layer 3 audits come last because Layer 3 measures break loudest when they break (a wrong MTD calculation shows up in every report that uses it), but they also fix fastest once the underlying business measure is correct.
 
 ## One MENA-flavored note
 
