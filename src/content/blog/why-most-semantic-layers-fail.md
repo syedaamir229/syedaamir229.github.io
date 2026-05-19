@@ -1,7 +1,8 @@
 ---
 title: "Why Most Semantic Layers Fail: The Conflict-First Rollout"
 date: 2026-03-16
-description: "Semantic-layer programs collapse into four predictable traps because they are scoped like engineering projects when they should be run like governance products. Here is the rollout pattern that breaks all four at once."
+description: "Semantic-layer programs collapse into four predictable traps because they are scoped like engineering projects. Here is the rollout that breaks all four."
+og_title: "Why Most Semantic Layers Fail"
 categories: ["Data Governance"]
 draft: false
 ---

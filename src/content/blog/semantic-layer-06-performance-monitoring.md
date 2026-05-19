@@ -1,7 +1,8 @@
 ---
 title: "Semantic Layer Series Part 6 of 6: The Weekly Optimization Cycle"
 date: 2024-05-13
-description: "How a semantic layer earns the right to keep growing: a Weekly Optimization Cycle that turns monitoring telemetry into prioritised fixes, before slow queries become a trust problem."
+description: "A weekly cycle that turns monitoring telemetry into prioritised fixes, before slow queries become a trust problem."
+og_title: "When Slow Queries Kill Trust"
 categories: ["BI & Analytics", "Data Engineering"]
 draft: false
 series: semantic-layer

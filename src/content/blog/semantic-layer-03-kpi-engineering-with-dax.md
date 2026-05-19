@@ -1,7 +1,8 @@
 ---
 title: "Semantic Layer Series Part 3 of 6: The Three-Layer DAX Stack"
 date: 2023-09-11
-description: "Why DAX measure design is what decides whether a semantic layer scales: build the measure logic in three layers (base, business, consumption), or watch the same KPI appear in three different shapes across the report estate."
+description: "DAX measure design is what decides whether a semantic layer scales. Build measure logic in three layers, or the same KPI shows up in three shapes."
+og_title: "Why One KPI Has Three Shapes"
 categories: ["BI & Analytics", "Data Modeling"]
 draft: false
 series: semantic-layer

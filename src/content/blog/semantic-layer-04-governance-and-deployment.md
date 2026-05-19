@@ -1,7 +1,8 @@
 ---
 title: "Semantic Layer Series Part 4 of 6: The Three Release Gates"
 date: 2023-11-13
-description: "What kills a semantic-layer program after launch is not a modelling mistake. It is the release that overwrote partitions and roles. Part 4 walks through the three release gates that keep the layer trustworthy in production."
+description: "Three release gates that stop the deploy that would reset partitions and roles before it ships to production."
+og_title: "The Deploy That Reset the Whole Model"
 categories: ["Data Governance", "BI & Analytics"]
 draft: false
 series: semantic-layer

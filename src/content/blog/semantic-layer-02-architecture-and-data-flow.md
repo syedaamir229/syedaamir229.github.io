@@ -1,7 +1,8 @@
 ---
 title: "Semantic Layer Series Part 2 of 6: The Three Ownership Layers"
 date: 2023-07-10
-description: "The architecture decision that decides whether a semantic layer scales: drawing clean ownership boundaries between data engineering, metric engineering, and report engineering before the first measure ships."
+description: "Draw clean ownership boundaries between data, metric, and report engineering before the first measure ships. This is what decides whether the layer scales."
+og_title: "Three Owners of the Semantic Layer"
 categories: ["BI & Analytics", "Data Engineering"]
 draft: false
 series: semantic-layer

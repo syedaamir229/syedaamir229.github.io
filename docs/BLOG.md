@@ -30,7 +30,8 @@ Tone and voice principles live in [BRAND.md](BRAND.md). This file owns *how to w
 ---
 title: "Voice-of-Customer for Multilingual Streaming: The Five-Layer Stack"
 date: 2026-04-13
-description: "How a five-layer Voice-of-Customer Stack turned scattered, Arabic-language audience feedback into a system that answers content-team questions in seconds, with the one architectural decision that decides whether the rest of the system works."
+description: "A five-layer stack turns scattered Arabic-language feedback into a system that answers content-team questions in seconds, on one architectural decision."
+og_title: "Voice-of-Customer in Five Layers"
 categories: ["AI & Automation", "Data Science"]
 draft: false
 
@@ -42,7 +43,7 @@ series_part: 1
 
 ### Required fields
 
-`title`, `date`, `description`, `categories`.
+`title`, `date`, `description`, `categories`, `og_title`.
 
 ### Optional fields
 
@@ -50,9 +51,15 @@ series_part: 1
 
 ### Field guide
 
-- **title**: name the framework in the title where possible. "Voice-of-Customer for Multilingual Streaming: The Five-Layer Stack" works because it names both the topic and the framework. "Thoughts on Voice of Customer" does not. Opinionated, specific, framework-shaped.
+- **title**: name the framework in the title where possible. "Voice-of-Customer for Multilingual Streaming: The Five-Layer Stack" works because it names both the topic and the framework. "Thoughts on Voice of Customer" does not. Opinionated, specific, framework-shaped. 50 to 65 characters fits a SERP heading cleanly.
 - **date**: publication date in `YYYY-MM-DD` format. Coerced to a `Date` via `z.coerce.date()` in [src/content.config.ts](../src/content.config.ts).
-- **description**: one sentence shown on the listing card and at the top of the detail page. Works as the LinkedIn preview. Lead with the change, not the technology.
+- **description**: one sentence shown on the listing card, at the top of the detail page, in the SERP snippet, and as the social-card description. Lead with the change, not the technology. Earn the click with specifics: a number, the scope, the mechanism. Aim for 140 to 160 characters so it does not truncate in Google results.
+- **og_title**: the headline on the social card (LinkedIn, X, Slack unfurls). This is a different arena from the page title: the reader is scrolling a feed, has zero search intent, and gives the card about a second. Lead with the hook, not the topic. The card already shows the brand, so it does not need to repeat the subject noun. The schema enforces 8 to 42 characters; aim for 28 to 40. Use one of these three patterns:
+  - **Tension or dichotomy.** "Inferred Data: Asset or Liability?", "When the Semantic Layer Stops Helping".
+  - **Specific number.** "Four Guardrails for Inferred User Data", "Five Layers, One Architectural Decision".
+  - **Counter-intuitive claim.** "Most Dashboards Are Lying to You", "The Refresh Job Is Not the Bottleneck".
+
+  Avoid: vague verbs ("exploring", "thoughts on"), colon-stacked subtitles (those are page-title moves, not feed moves), and chapter-heading phrasing.
 - **categories**: enforced at build time via `z.enum(BLOG_CATEGORIES)`. Allowed values defined in [src/data/categories.ts](../src/data/categories.ts) and currently: Data Engineering, BI & Analytics, Data Science, AI & Automation, Data Governance, Data Modeling, Career. Most posts have one or two. Typos fail the build.
 - **draft**: default false. Drafts are excluded from listings and RSS in production builds.
 - **series**: kebab-case slug for posts that are part of a multi-part exploration. The slug must be registered in [src/data/series.ts](../src/data/series.ts).
@@ -299,6 +306,8 @@ Mechanical rules (no em-dashes, no emoji, no exclamation marks, no AI attributio
 - [ ] Closing question challenges the reader's current approach.
 - [ ] Fact ledger built before drafting. External citations are load-bearing and link to authoritative sources, or the post stands without one.
 - [ ] Diagram references a real SVG at `public/assets/blog/<slug>-<name>.svg` with descriptive alt text and an italic caption. Diagram labels use category descriptors.
+- [ ] `og_title` set, follows one of the three section 3 patterns (tension, specific number, counter-intuitive claim), reads as a feed hook rather than a chapter heading, and is 28 to 42 characters.
+- [ ] `description` is 140 to 160 characters, leads with the change, and earns the click with a specific number, scope, or mechanism.
 - [ ] `/blog/<slug>/` renders correctly at desktop and mobile widths.
 
 ---

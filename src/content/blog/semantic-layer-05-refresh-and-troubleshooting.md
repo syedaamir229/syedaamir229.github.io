@@ -1,7 +1,8 @@
 ---
 title: "Semantic Layer Series Part 5 of 6: The Six-Stage Refresh Loop"
 date: 2024-02-12
-description: "What turns a Monday morning into an incident is a missed overnight refresh nobody caught. Part 5 walks through The Six-Stage Refresh Loop and The Five-Step Backfill that recovers from missed-day failures without a full reload."
+description: "How a missed overnight refresh stops being a leadership incident: a six-stage loop and a five-step backfill, run from a written runbook."
+og_title: "When the Overnight Refresh Fails"
 categories: ["Data Engineering", "BI & Analytics"]
 draft: false
 series: semantic-layer

@@ -1,7 +1,8 @@
 ---
-title: "Attribute Inference in Practice: Gender, With Receipts"
+title: "Attribute Inference in Practice: The Four Guardrails"
 date: 2025-08-11
-description: "How a behaviour-based gender inference workflow turned a quarter of adult profiles with self-reported gender into near-full coverage, with the four guardrails that decide whether inferred data is an asset or a liability."
+description: "Lifting profile coverage from sparse to near-full across millions of users, and the four guardrails that decide whether inferred data helps or harms."
+og_title: "Inferred Data: Asset or Liability?"
 categories: ["Data Science"]
 draft: false
 ---

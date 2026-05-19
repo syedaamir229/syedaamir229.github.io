@@ -1,7 +1,8 @@
 ---
 title: "From BI to AI: The Four-Layer Compounding Stack"
 date: 2026-05-18
-description: "Most data teams treat BI, analytics, data science, and AI as four disconnected careers. The teams that compound treat them as one stack where each layer earns the right to the next, and a single AI initiative inherits years of foundation work instead of rebuilding it."
+description: "Most data teams treat BI, analytics, DS, and AI as disconnected careers. The teams that compound treat them as one stack where each layer earns the next."
+og_title: "Why AI Inherits Years of BI Work"
 categories: ["Data Engineering", "AI & Automation"]
 draft: false
 ---

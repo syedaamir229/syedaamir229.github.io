@@ -1,7 +1,8 @@
 ---
 title: "AVOD Ad Operations: The Four-Signal Operating Loop"
 date: 2024-06-25
-description: "How a four-signal AVOD operating loop replaced spreadsheet-heavy tracking, gave Ad Operations live visibility into where supply meets demand, and let the team escalate inventory pressure to Content Operations before a missed commitment."
+description: "A four-signal AVOD operating loop replaced spreadsheet tracking and escalated inventory pressure to Content Ops before commitments slipped."
+og_title: "Four Signals AVOD Ops Should Be Watching"
 categories: ["Data Engineering", "BI & Analytics"]
 draft: false
 ---

@@ -1,7 +1,8 @@
 ---
 title: "The Three-Phase BI Migration Sequence"
 date: 2024-08-12
-description: "How a three-phase BI migration sequence (tool, then data layer, then metric logic) replaced big-bang cutovers with independent, individually validated swaps, so the team always has a layer to point at when the number moves."
+description: "A three-phase BI migration (tool, then data layer, then metric logic) replaces big-bang cutovers with validated swaps that survive when numbers move."
+og_title: "BI Migrations Without Big-Bang Cutovers"
 categories: ["BI & Analytics", "Data Engineering"]
 draft: false
 ---
