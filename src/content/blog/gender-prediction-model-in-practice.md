@@ -22,6 +22,10 @@ MENA streaming has a sharper version of the same problem. Household profile-shar
 
 The four guardrails below are what makes the difference. Each is independent. Together they make the inferred field defensible.
 
+![Inference With Receipts: four guardrails (Behavioural feature design, Validation that does not pretend, Explicit-label contracts, Drift monitoring) surround a central Inference Contract that exposes prediction, is_inferred marker, and confidence_score as a three-column package every downstream consumer reads together.](/assets/blog/gender-prediction-four-guardrails.svg)
+
+*Each guardrail closes one failure mode. Together they turn the inferred field into a published data product instead of a quietly probabilistic one.*
+
 ## Inference With Receipts
 
 ### Guardrail 1: Behavioural feature design
