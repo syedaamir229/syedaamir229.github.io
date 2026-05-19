@@ -14,29 +14,35 @@ That conversation does not end with the reconciliation. It ends with leadership 
 
 ## Why this matters now
 
-Tableau-to-Power BI migrations have become routine across enterprises, but the structural failure mode has not changed: organisations attempt single-step migrations and spend two years rebuilding trust. Migrations of this scope routinely run double the original estimate, and the root cause is almost always compounding change across layers that should have been migrated separately.
+BI tool migrations have become routine across enterprises, but the structural failure mode has not changed: organisations attempt single-step migrations and spend two years rebuilding trust. Migrations of this scope routinely run double the original estimate, and the root cause is almost always compounding change across layers that should have been migrated separately.
 
 ## The Three-Phase Migration Sequence
 
-### Phase 1: Tool (Tableau to Power BI)
+### Phase 1: Tool
 
-Move report consumers to the target BI tool with continuity against legacy data sources. Reports rebuilt in Power BI, still pointing at the same Tableau-era legacy data. Nothing changes about the data layer or metric definitions yet. The questions that arise during this phase are formatting, navigation, and minor behavioural differences between Tableau and Power BI, not "why is this number different from last week."
+**What it is.** Move report consumers to the target BI tool with continuity against legacy data sources. Reports rebuilt in the new tool, still pointing at the same legacy data. Nothing changes about the data layer or metric definitions yet.
 
-What goes wrong if you skip it: the team migrates tool, data, and metric simultaneously. A report-owner says "this number looks wrong." Nobody can tell whether the new tool rendered it differently, the new data layer returned a different value, or the migrated measure has a slightly different definition. Every reconciliation is a three-variable problem.
+**Why it matters.** The questions that arise during this phase are formatting, navigation, and minor behavioural differences between the source and target BI tools, not "why is this number different from last week." The one variable that changed (the tool) is the one variable available to explain any difference, which keeps reconciliation tractable.
 
-### Phase 2: Data layer (legacy sources to Databricks Gold)
+**What goes wrong without it.** The team migrates tool, data, and metric simultaneously. A report-owner says "this number looks wrong." Nobody can tell whether the new tool rendered it differently, the new data layer returned a different value, or the migrated measure has a slightly different definition. Every reconciliation is a three-variable problem.
 
-Repoint reports to governed shared data assets. Reports continue running in Power BI; the underlying data source switches from a legacy table to a Gold-layer table from the enterprise data model. Metric logic still lives in the report file, unchanged from Phase 1. Every report now consumes the same governed, modelled data. Filters, dimensions, and grain are aligned across the estate, and the "why does Subscriber Count differ between the Content report and the Subscriptions report?" conversations stop being unanswerable.
+### Phase 2: Data layer
 
-What goes wrong if you skip it: report owners author measures against legacy sources or against the new model inconsistently, and the estate ends up half-governed and half-not. Two years later the maintenance cost of the legacy half is the same as it was before the migration.
+**What it is.** Repoint reports to governed shared data assets. Reports continue running in the new BI tool; the underlying data source switches from a legacy table to a governed table from the enterprise data model. Metric logic still lives in the report file, unchanged from Phase 1.
 
-### Phase 3: Metric logic (report-level DAX to shared SSAS measures)
+**Why it matters.** Every report now consumes the same governed, modelled data. Filters, dimensions, and grain are aligned across the estate, and the "why does Subscriber Count differ between the Content report and the Subscriptions report?" conversations stop being unanswerable. The estate becomes governed all the way down to the source, not just at the visual layer.
 
-Centralise KPI logic in a semantic model. Measures move out of individual report files into shared SSAS Tabular measures consumed via live connection. Report owners shift from authoring measures to selecting them. KPI definitions live in one place instead of being scattered across individual report files, and an update to a metric happens in one place instead of across every report file that uses it.
+**What goes wrong without it.** Report owners author measures against legacy sources or against the new model inconsistently, and the estate ends up half-governed and half-not. Two years later the maintenance cost of the legacy half is the same as it was before the migration.
 
-What goes wrong if you skip it: the semantic-layer governance benefit never materialises. Reports stay individually authored, drift continues, and the modernization program has spent its political budget on a tool change and a data-layer migration without delivering the durable trust improvement that justified the work.
+### Phase 3: Metric logic
 
-## What I would never skip again
+**What it is.** Centralise KPI logic in a semantic model. Measures move out of individual report files into shared semantic-layer measures consumed via live connection. Report owners shift from authoring measures to selecting them.
+
+**Why it matters.** KPI definitions live in one place instead of being scattered across individual report files, and an update to a metric happens in one place instead of across every report file that uses it. This is the layer that turns the modernization into durable governance: the tool and the data layer can change again later without rewriting metric logic.
+
+**What goes wrong without it.** The semantic-layer governance benefit never materialises. Reports stay individually authored, drift continues, and the modernization program has spent its political budget on a tool change and a data-layer migration without delivering the durable trust improvement that justified the work.
+
+## Four release disciplines
 
 **Cutover runbooks.** Every major cutover needs a written runbook: the sequence of steps, the validation checks to run before and after, the rollback procedure, and the communication plan for affected stakeholders. The runbook removes ambiguity during the most fragile moments of each phase. The first time something does not behave as expected during cutover, the team is grateful for the runbook.
 
