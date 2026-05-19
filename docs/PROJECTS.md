@@ -39,6 +39,10 @@ metrics:                            # 3-4 quantitative outcomes; rendered as the
     value: "50%"
   - label: "Weekly Hours Saved"
     value: "15"
+  - label: "Governed DAX Measures"
+    value: "100+"
+  - label: "Report Build Time Reduction"
+    value: "Hours to seconds"
 ---
 ```
 
@@ -63,62 +67,78 @@ That is it for frontmatter. Decisions, tech stack, and any narrative live in the
 
 ## 4. Body structure
 
-Seven H2 sections in fixed order. No lead paragraph above `## Challenge`; the header already sets context.
+Seven H2 sections in fixed order. Every case study uses this structure regardless of the `featured` flag. The flag controls home-page selection, not body shape. No lead paragraph above `## Challenge`; the header already sets context.
+
+When phrasing or density is in question, mirror [crm-automation.md](../src/content/projects/crm-automation.md), [data-model.md](../src/content/projects/data-model.md), [semantic-layer.md](../src/content/projects/semantic-layer.md), or [voice-of-customer.md](../src/content/projects/voice-of-customer.md). These four are the anchor for the pattern.
 
 ````markdown
 ## Challenge
 
-A one-sentence prelude capturing the constraints (data sources, SLAs, regulatory
-limits, no-disruption rules). Then 3 to 5 bulleted problems.
+One required prelude sentence (16 to 25 words) naming the binding constraints:
+data sources, SLAs, regulatory limits, no-disruption rules, scale requirements.
+Then 3 to 5 bulleted problems.
 
 - **Problem name**: explanation
 - **Problem name**: explanation
 
 ## Key Decisions
 
-One block per decision, h3-titled:
+Target 2 decisions. Each decision is an H3 followed by the four bold-label paragraphs:
 
 ### Decision 1: Title of the decision
 
-**Problem:** (optional) what made this a decision worth thinking about.
+**Problem:** What made this a decision worth thinking about.
 
 **Options considered:**
 
-- Option A
-- Option B
+- Option A (parenthetical on the tradeoff)
+- Option B (parenthetical on the tradeoff)
+- Option C (parenthetical on the tradeoff)
 
-**Chosen:** what you picked, in one sentence.
+**Chosen:** What you picked, in one sentence.
 
-**Why:** the rationale. One paragraph.
+**Why:** The rationale. One paragraph.
 
 ### Decision 2: ...
 
-(more decisions follow the same shape)
+(same shape)
 
 ## Approach
 
-A bulleted list of what was actually built. Implementation, not narrative. 4 to 6 bullets.
+Target 6 implementation bullets (4 to 6 acceptable). Past tense, system as the
+subject. What was built, not narrative.
 
 - Built X using Y...
 - Implemented Z with...
 
 ## Architecture Overview
 
-![Descriptive alt text covering the flow shown in the diagram.](/assets/projects/<slug>.svg)
+![Descriptive alt text covering the full flow shown in the diagram.](/assets/projects/<slug>.svg)
 
 One paragraph explaining the flow in words for readers who skim the diagram.
 
 ## Results & Impact
 
-3 to 5 bulleted outcomes from the user/business perspective. Lead each with a
-category like **What changed in operations**, **What changed in decisions**,
-**Maintenance overhead**, **Foundation for future work**.
+Target 4 bullets. Each leads with a bold category label, then the outcome from
+the user or business perspective. What changed, not what was built.
+
+- **What changed in operations**: ...
+- **What changed in decisions**: ...
+- **Foundation for future work**: ...
+- **<Category label>**: ...
 
 ## Reusable Pattern
 
-One paragraph framing where this pattern applies, then 3 to 4 industry-anchored
-bullets showing how it transfers. Close with a **When this pattern is NOT
-appropriate** paragraph so readers can self-disqualify.
+One intro paragraph framing where this pattern applies, then 4
+industry-anchored bullets showing how it transfers. Close with a **When this
+pattern is NOT appropriate** paragraph so readers can self-disqualify.
+
+- **E-commerce**: ...
+- **Fintech**: ...
+- **SaaS**: ...
+- **Telecom**: ...
+
+**When this pattern is NOT appropriate**: ...
 
 ## Tech Stack
 
@@ -128,20 +148,13 @@ appropriate** paragraph so readers can self-disqualify.
 
 ### Section notes
 
-- **Key Decisions**: each decision is an H3 (`### Decision N: Title`) followed by the four bold-label paragraphs. Skip the whole section if there are no decisions worth documenting (see "Two variants" below).
-- **Architecture Overview**: one image + one caption paragraph. Use self-explanatory alt text that does not depend on outside context.
-- **Results & Impact**: outcomes from the user/business perspective. What changed, not what was built.
-- **Reusable Pattern**: this separates a case study from a war story. Show how to apply the pattern in a different context, then disqualify cases where it does not fit.
+- **Challenge prelude**: required. One sentence, 16 to 25 words. Lead with the binding constraints, not the goal. The prelude is what tells the reader "this is what made the problem hard"; the bullets enumerate the symptoms.
+- **Key Decisions**: target 2 decisions. One is acceptable only when the project genuinely had a single architectural choice worth documenting; never invent a second to hit the count. Each decision is an H3 (`### Decision N: Title`) followed by the four bold-label paragraphs (`**Problem:**`, `**Options considered:**` as bullets, `**Chosen:**` as one sentence, `**Why:**` as one paragraph). Options bullets should carry a short parenthetical on the tradeoff so the reader sees the comparison without reading further.
+- **Approach**: target 6 bullets, 4 to 6 acceptable. Implementation, not narrative. Past tense, system as the subject. Each bullet is a concrete thing built, not a process description.
+- **Architecture Overview**: one image + one caption paragraph. The alt text is a single sentence (roughly 30 to 45 words) naming the major components and how they connect, so it stands alone for screen readers and search indexers. The caption paragraph names the same flow in words for readers who skim the diagram. See the four reference files for the alt-text shape: name the sources, the intermediate layers, and the consumers in order of flow.
+- **Results & Impact**: target 4 bullets. Each leads with a bold category label, then the outcome from the user or business perspective. Canonical labels: **What changed in operations**, **What changed in decisions**, **What changed in governance**, **What changed in activation**, **What changed in planning**, **What changed in targeting**, **What changed in modeling**, **Maintenance overhead**, **Operational reliability**, **Cross-team escalation**, **Reporting-grade accuracy**, **Activation surface**, **Foundation for future work**, **Foundation for downstream work**. Pick from this set or coin a similar one. The bold label is required: it is what makes the section scannable.
+- **Reusable Pattern**: this separates a case study from a war story. Show how to apply the pattern in a different context, then disqualify cases where it does not fit. The 4 industry bullets are drawn from a canonical set (E-commerce, Fintech, SaaS, Telecom, Logistics, Gaming, Advertising); pick the four that best fit the pattern. The "When this pattern is NOT appropriate" paragraph is what lets a reader recognize their own situation as outside scope, and it is required.
 - **Tech Stack**: bulleted label-value list. Last section in the body. 4 to 6 bullets. Values are inventory shape (tool and product names, optional short parenthetical), not prose sentences. Pick labels from the canonical set where possible: **Platform**, **Storage**, **Processing**, **Modeling**, **Reporting**, **Orchestration**, **Sources**, **Delivery**, **Application**. Project-specific labels (**Alerting**, **Monitoring**, **Validation**, **Output**, **Agents**, **Model registry**, **Semantic layer**, **KPI definitions**, **Access management**) are welcome where the category is genuinely distinct. Use **Sources** (not "Source systems") and **Orchestration** (not "Automation") for the shared concepts.
-
-### Two variants by project type
-
-| Variant | When to use | Differences from the full form |
-|---|---|---|
-| **Full** | Featured architectural or system-level projects with documented decisions. `featured: true` is the default trigger. | All seven sections present; Challenge has the one-sentence prelude; Key Decisions has at least one decision; Results & Impact bullets use bold-label prefixes. |
-| **Lean** | Non-featured component projects that exist primarily as evidence of an applied capability, with no architectural decisions worth documenting. | Skip the Challenge prelude. Skip the Key Decisions section entirely. Results & Impact bullets are plain (no bold prefixes). Diagram captions tend to carry more narrative weight to compensate. |
-
-Pick the lean variant only when forcing Key Decisions would invent a decision that was not actually made. Pick the full variant whenever there is at least one decision with options, a chosen path, and a rationale worth recording.
 
 ---
 
@@ -171,7 +184,11 @@ Do not duplicate any of these in the body.
 
 ## 7. Voice
 
-Tone and word choice follow [BRAND.md section 5](BRAND.md#5-voice-and-tone-applies-to-every-surface). Project-specific notes: bullets should be readable in ~2 seconds each, quantification should be relative (percentages, time savings, throughput multipliers) rather than commercial (revenue, ARPU, exact counts), MENA / OTT vocabulary is on-brand because case studies are evidence not pitch, and CV verbs ("built", "designed", "delivered") are welcome inside the body but not on the listing card description.
+Tone and word choice follow [BRAND.md section 5](BRAND.md#5-voice-and-tone-applies-to-every-surface). Three project-specific anchors:
+
+- **Tense and subject**: past tense throughout. The system is the subject of the body ("the platform processed", "the pipeline ran", "the model produced"), not the company and not the author. Use "the platform", "the pipeline", "the system", "the model" as the referent.
+- **Vendor abstraction**: vendor names appear only in Tech Stack and in frontmatter `tags`. Body prose, Architecture Overview captions, and diagram labels use category descriptors ("a video-analytics platform", "a customer-engagement platform", "a programmatic ad-serving platform"). This is the rule that keeps the body reading as the work rather than as a vendor briefing. The full reasoning lives in section 9.
+- **Bullets and prose**: Challenge, Approach, Results & Impact, Reusable Pattern, and Tech Stack are bullet-led. Key Decisions and Architecture Overview are prose. Bullets are readable in ~2 seconds each. Quantification stays relative (percentages, throughput multipliers, "Hours to seconds", "Multi-week") rather than commercial. MENA / OTT vocabulary is on-brand because case studies are evidence, not pitch. CV verbs ("built", "designed", "delivered") are welcome inside the body but not on the listing card description.
 
 ---
 
@@ -184,8 +201,14 @@ Mechanical rules (no em-dashes, no emoji, `.md` not `.mdx`, no `import` lines, f
 - [ ] No vendor-specific operational quantity paired with a named vendor in body, diagram, or Tech Stack.
 - [ ] Architecture diagram labels strip internal codenames and the warehouse fingerprint (`dwh_*` prefixes etc.).
 - [ ] Body has the seven sections in order; no lead paragraph above `## Challenge`.
-- [ ] Architecture Overview references a real SVG at `/assets/projects/<slug>.svg` with self-explanatory alt text.
-- [ ] Reusable Pattern includes a *When this pattern is NOT appropriate* paragraph.
+- [ ] Challenge prelude leads with the binding constraints, not the goal, in one sentence (16 to 25 words). Then 3 to 5 bulleted problems with bold names.
+- [ ] Key Decisions has 2 decisions, each with `**Problem:**`, `**Options considered:**` bullets, `**Chosen:**`, `**Why:**`.
+- [ ] Approach has 4 to 6 implementation bullets, past tense, system as the subject.
+- [ ] Architecture Overview references a real SVG at `/assets/projects/<slug>.svg` with self-explanatory alt text + one caption paragraph.
+- [ ] Results & Impact has 4 bullets, each leading with a bold category label.
+- [ ] Reusable Pattern has an intro paragraph + 4 industry bullets + a *When this pattern is NOT appropriate* paragraph.
+- [ ] Tech Stack has 4 to 6 `**Label**: value` bullets, labels from the canonical set.
+- [ ] Body prose and diagrams use category descriptors, not vendor names.
 - [ ] `/projects/<slug>/` renders correctly at desktop and mobile widths.
 
 ---

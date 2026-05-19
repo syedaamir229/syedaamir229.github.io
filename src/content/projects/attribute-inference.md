@@ -14,10 +14,42 @@ order: 9
 
 ## Challenge
 
+Declared profile fields were sparse and unreliable in shared-account scenarios, yet inferred attributes had to be activatable in existing targeting workflows without being mistaken for ground truth by downstream consumers.
+
 - **Missing profile fields**: Key attributes were incomplete for many users
 - **Data quality variance**: Declared values were not always reliable in shared-account scenarios
 - **Planning limitations**: Content and marketing teams needed broader audience context
 - **Activation requirement**: Inferred signals had to be usable in existing targeting workflows
+
+## Key Decisions
+
+### Decision 1: Train on a self-labeled clean subset rather than label at scale
+
+**Problem:** Full-population labeling is expensive and noisy. In shared-account scenarios, declared values for the target attribute are unreliable on most accounts, so labeling the broad population would teach the model the wrong thing.
+
+**Options considered:**
+
+- Hand-label a sample (expensive, slow, hard to refresh)
+- Weak-label from external signals (cheap, but introduces a second source of error)
+- Use accounts with a single adult profile and a self-reported value as a naturally clean training set
+
+**Chosen:** Single-adult-profile accounts with a self-reported label as the training subset.
+
+**Why:** On accounts with a single adult profile, the self-reported value is as reliable as declared data gets: there is no household ambiguity. The subset is large enough to train on and refresh routinely, and it sidesteps the labeling cost entirely. The model learns from the cleanest slice of the existing data rather than a more diluted one.
+
+### Decision 2: Publish predictions to a separate feature surface, not into the declared-attribute table
+
+**Problem:** If predictions land in the same column as self-reported values, every downstream consumer treats them as ground truth, and reporting quietly drifts from declared data.
+
+**Options considered:**
+
+- Overwrite declared values with predictions where available (highest coverage, lowest auditability)
+- Write to the same table with a confidence column (auditable, but trust depends on every consumer reading the confidence)
+- Publish predictions to a separate feature surface with usage guidance
+
+**Chosen:** A separate feature surface, kept distinct from the declared-attribute table.
+
+**Why:** Isolating predictions keeps the inference layer auditable, lets downstream consumers decide whether to trust the predictions for their use case, and prevents reporting from quietly drifting from declared data. The cost is a second read for consumers that want both signals; the benefit is that nothing downstream silently inherits model output as fact.
 
 ## Approach
 
@@ -34,10 +66,10 @@ Training data comes from accounts with a single adult profile and a self-reporte
 
 ## Results & Impact
 
-- Audience analysis became more complete where declared attributes were sparse
-- Teams gained additional context for planning and campaign design
-- Behavioral signals were converted into a practical enrichment layer
-- Outputs complemented clustering and other audience modeling workflows
+- **What changed in audience analysis**: Coverage of the target attribute expanded across the active profile base, so analysis no longer stalled on declared-data gaps
+- **What changed in planning**: Content and marketing teams gained a behavioral lens on segments where declared signals were too sparse to act on
+- **Activation surface**: Behavioral signals became a controlled enrichment layer with explicit usage guidance, kept separate from declared values so downstream consumers could choose when to use them
+- **Foundation for downstream work**: Inferred attributes plugged into clustering and other audience modeling workflows without contaminating the declared-data source
 
 ## Reusable Pattern
 

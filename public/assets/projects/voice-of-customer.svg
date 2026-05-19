@@ -13,17 +13,20 @@
       <text x="460" y="35" text-anchor="middle" font-size="16" font-weight="700" fill="#E2E8F0">Voice-of-Customer Intelligence Platform</text>
     
       <!-- Social Platforms (top left) -->
-      <rect x="30" y="65" width="150" height="160" rx="8" stroke-width="1.5" fill="#0A1220" stroke="#06B6D4"/>
+      <rect x="30" y="65" width="150" height="195" rx="8" stroke-width="1.5" fill="#0A1220" stroke="#06B6D4"/>
       <text x="105" y="90" text-anchor="middle" font-size="11" font-weight="600" fill="#E2E8F0">Social Platforms</text>
-    
+
       <rect x="45" y="105" width="120" height="28" rx="5" fill="#122033"/>
       <text x="105" y="123" text-anchor="middle" font-size="9" fill="#E2E8F0">Platform A</text>
-    
+
       <rect x="45" y="140" width="120" height="28" rx="5" fill="#122033"/>
       <text x="105" y="158" text-anchor="middle" font-size="9" fill="#E2E8F0">Platform B</text>
-    
+
       <rect x="45" y="175" width="120" height="28" rx="5" fill="#122033"/>
       <text x="105" y="193" text-anchor="middle" font-size="9" fill="#E2E8F0">Platform C</text>
+
+      <rect x="45" y="210" width="120" height="28" rx="5" fill="#122033"/>
+      <text x="105" y="228" text-anchor="middle" font-size="9" fill="#E2E8F0">Platform D</text>
     
       <!-- Arrow -->
       <line x1="180" y1="145" x2="225" y2="145" stroke-width="2" marker-end="url(#ar)" stroke="#06B6D4"/>

@@ -27,7 +27,7 @@ Migration had to run in parallel with live reporting (no downtime, no data freez
 
 ## Key Decisions
 
-### Decision: Three sequential phases rather than a single simultaneous migration
+### Decision 1: Three sequential phases rather than a single simultaneous migration
 
 **Problem:** Migrating tool, data layer, and metric logic simultaneously is high-risk. Each dimension introduces its own failure modes.
 
@@ -40,11 +40,26 @@ Migration had to run in parallel with live reporting (no downtime, no data freez
 
 **Why:** Separating tool migration from data layer migration from metric governance allowed each phase to be tested and validated independently. If something broke, the blast radius was contained to one layer. It also allowed reporting teams to adapt incrementally rather than absorbing three simultaneous changes.
 
+### Decision 2: Parallel running with equivalence gates, not a hard cutover
+
+**Problem:** A hard cutover would have forced a reporting freeze during migration. Leadership reporting cannot go dark, and a freeze concentrates risk into a single switchover event with no rollback path.
+
+**Options considered:**
+
+- Hard cutover with planned downtime (simplest, but business-disruptive)
+- Parallel running with dual-write for the full migration (highest assurance, highest infrastructure cost)
+- Parallel running with equivalence validation at each phase gate, retiring the legacy asset only after the new one is confirmed
+
+**Chosen:** Parallel running with report-by-report equivalence validation at each phase gate before retiring legacy assets.
+
+**Why:** Each report migrated independently with both versions live until equivalence was confirmed. Failures rolled back to legacy without business disruption, and the parallel period gave report owners time to adapt. Decisions 1 and 2 compose cleanly: three sequential phases bound the change axes, and parallel running within each phase keeps reporting continuous through the cutover.
+
 ## Approach
 
 - **Phase 1**: Migrated all active Tableau reports to Power BI, maintaining equivalence against legacy data sources; delivered training and support to report owners
 - **Phase 2**: Migrated Power BI reports from legacy data sources to Data Model (Databricks Gold layer), standardizing on the new data architecture with validated measure equivalence
 - **Phase 3**: Migrated report-level logic to centralized semantic layer measures, removing duplicated DAX from individual report files and replacing with shared, governed measure references
+- Validated report-by-report equivalence at each phase gate, comparing legacy and new outputs against fixed test queries before retiring the legacy asset
 - Coordinated cutover sequencing, ownership assignment, and stakeholder communication across all three phases
 - Ran enablement and Q&A sessions at each phase to keep reporting teams productive during transitions
 

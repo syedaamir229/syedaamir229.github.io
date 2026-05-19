@@ -18,7 +18,7 @@ order: 3
 
 ## Challenge
 
-The build had to handle dialectal Arabic mixed with English under data residency rules that kept all LLM inference inside the Azure tenant, while still delivering insights by the content team's early-morning operational window.
+The build had to handle dialectal Arabic mixed with English under data residency rules that kept all LLM inference inside the Azure tenant, while still being something non-technical teams could question in plain language.
 
 - **Fragmented inputs**: Comments arrived from 4 platforms with incompatible schemas and no unified identifier
 - **Language barrier**: The majority of content was in Arabic, limiting analysis for part of the leadership team
@@ -27,31 +27,35 @@ The build had to handle dialectal Arabic mixed with English under data residency
 
 ## Key Decisions
 
-### Decision 1: Databricks Vector Search over a self-managed index
+### Decision 1: Managed retrieval over a self-managed vector index
+
+**Problem:** Semantic search had to run over a continuously refreshing multilingual corpus while keeping operational overhead low for a small team and respecting data residency rules that pinned every component to the same tenant.
 
 **Options considered:**
 
-- Self-managed vector index sitting in Unity Catalog Volumes
-- Databricks Vector Search (managed)
+- Self-managed vector index sitting in Unity Catalog Volumes, with custom indexing, serving, and auth
+- Managed retrieval service inside the same governance boundary
 
-**Chosen:** Databricks Vector Search.
+**Chosen:** Managed retrieval via Databricks Vector Search.
 
-**Why:** Managed retrieval handles scaling, auth, and lineage natively via Unity Catalog. Removing the operational overhead of a self-managed index keeps the system simpler to maintain.
+**Why:** Managed retrieval handles scaling, authentication, and lineage natively through Unity Catalog, which removes the operational tax of a self-managed index. Staying inside the same governance boundary also kept all retrieval traffic inside the residency-restricted tenant without bolting on a separate identity and auth layer.
 
-### Decision 2: Two specialized Genie spaces over one general space
+### Decision 2: Split the natural language query surface by domain rather than one generalist surface
+
+**Problem:** Two very different schemas had to be queryable in plain language: engagement KPIs (views, watch hours, titles watched) and comment semantics (text, sentiment, topics). A single text-to-SQL surface covering both would have to disambiguate intent on every question, which is exactly where LLM-to-SQL reliability degrades fastest.
 
 **Options considered:**
 
-- Single Genie space covering all domains
-- Separate Engagement and Comments spaces, each tuned to its schema
+- One generalist text-to-SQL surface covering all tables
+- Two specialized surfaces, each scoped to a single coherent schema and query intent, with an upstream router
 
-**Chosen:** Two specialized Genie spaces.
+**Chosen:** Two specialized surfaces (Engagement and Comments) routed by an upstream Supervisor Agent, implemented as Databricks Genie spaces.
 
-**Why:** LLM-to-SQL reliability degrades significantly when a single space covers divergent schemas and query intent. Splitting by domain (engagement KPIs vs. comment semantics) improved query accuracy and reduced hallucination risk.
+**Why:** Narrowing the schema and example set the LLM sees per question improves SQL accuracy and reduces hallucinated joins. The intent-disambiguation problem moves up a layer to the routing agent, which is a cleaner abstraction than asking the text-to-SQL layer to handle both schema reasoning and query routing.
 
 ## Approach
 
-- Built Bronze to Silver to Semantic (Gold) ingestion pipelines for all 4 social sources with standardized schemas
+- Built a three-stage medallion pipeline (Bronze raw, Silver NLP enrichment, Gold semantic) for all 4 social sources with standardized schemas
 - Implemented 5-stage NLP enrichment pipeline: Arabic-to-English translation, sentiment scoring, profanity detection, URL extraction-to-content title tagging, platform normalization
 - Created two Genie spaces (Engagement and Comments) for reliable LLM-to-SQL across different query intents
 - Built a LangGraph Supervisor Agent orchestrating quantitative (Genie), qualitative (RAG retrieval), and routing tools
@@ -66,10 +70,10 @@ Social comments flow through a 3-layer pipeline (Bronze to Silver NLP to Gold Se
 
 ## Results & Impact
 
-- **What changed in operations**: Audience insight workflows that previously took hours of analyst time now execute in seconds via natural language query, available daily before the content team's morning review
-- **What changed in decisions**: Product and content teams can now ask "what are audiences saying about [title]?" and get structured sentiment breakdowns across platforms and languages, without a data request
-- **Cross-source analysis unlocked**: For the first time, comment volume, sentiment, and engagement trends could be compared across Twitter, Facebook, YouTube, and the platform's own short-form video surface in a single interface
-- **Reduced SQL dependency**: Two Genie spaces (Engagement + Comments) provide self-service analytics for non-technical stakeholders, reducing ad hoc analyst query requests
+- **What changed in operations**: Audience insight workflows that previously took hours of analyst time now execute in seconds via natural language query, on demand for any non-technical stakeholder
+- **What changed in decisions**: Non-technical stakeholders can now ask "what are audiences saying about [title]?" and get structured sentiment breakdowns across platforms and languages, without a data request
+- **Cross-source analysis unlocked**: For the first time, comment volume, sentiment, and engagement trends could be compared across all four platforms in a single interface, covering long-form social, short-form video, and the platform's own audience surface
+- **Analyst time reclaimed**: Ad hoc query requests for audience sentiment and engagement dropped, freeing analyst capacity for the deeper investigations that still need a human in the loop
 
 ## Reusable Pattern
 
@@ -88,5 +92,6 @@ This platform pattern (multi-source ingestion to NLP enrichment to unified seman
 - **Processing**: PySpark, Python, Delta Lake (Bronze/Silver/Gold)
 - **NLP**: Translation models, sentiment classifiers, profanity detection
 - **Retrieval**: Databricks Vector Search index in Unity Catalog
-- **Agents**: Databricks Genie (x2), LangGraph Supervisor Agent
+- **Natural language query**: Databricks Genie (Engagement and Comments spaces)
+- **Agents**: LangGraph Supervisor Agent
 - **Application**: Databricks Apps (React + FastAPI), Model Serving endpoints

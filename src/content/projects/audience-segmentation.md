@@ -16,10 +16,42 @@ order: 8
 
 ## Challenge
 
+Existing demographic segments lacked behavioral fidelity and could not be activated directly, so clustering had to produce groups that were both statistically stable across runs and immediately interpretable to content and marketing teams.
+
 - **Low segmentation fidelity**: Existing groups did not reflect viewing behavior
 - **Limited activation value**: Broad segments were difficult to convert into campaign actions
 - **Content planning blind spots**: Teams lacked behavior-led audience profiles
 - **Validation need**: Segments had to make business sense, not just statistical sense
+
+## Key Decisions
+
+### Decision 1: Combine a behavior matrix with semantic content embeddings, not behavior alone
+
+**Problem:** Viewing-hours-by-genre captures what users watch but misses why content groups together. Pure behavior matrices produce clusters that statisticians like but content teams cannot describe.
+
+**Options considered:**
+
+- Behavior matrix only (operational, but clusters are hard to label and explain)
+- Content embeddings only (semantically rich, but disconnected from actual viewing patterns)
+- Combine the behavior matrix with semantic embeddings of content synopses in a shared space
+
+**Chosen:** Combined behavior matrix and semantic embeddings of synopses as the feature space for K-means.
+
+**Why:** Semantic embeddings give content teams a vocabulary for each cluster (dialect-leaning drama watchers, sub-genre affinity groups) that pure behavioral clusters lack, while the behavior matrix keeps the segmentation tied to what users actually watched. The combined space produces clusters that are both statistically coherent and describable to a non-technical stakeholder.
+
+### Decision 2: Validate via multi-run stability checks, not single-run silhouette scores
+
+**Problem:** Clustering on changing behavioral data can produce different segments each run. The moment segment membership shifts unpredictably, trust erodes and campaign targeting cannot rely on the segments.
+
+**Options considered:**
+
+- Pick the single best run by an internal metric (fast, but no guarantee of stability over time)
+- Accept silhouette score as the validation metric (statistically rigorous, but does not measure run-to-run consistency)
+- Require segments to be stable across multiple runs before they enter the semantic layer
+
+**Chosen:** Multi-run stability checks with business-friendly labels applied before publish.
+
+**Why:** Stability across runs is what makes a segment operationally usable. A cluster that shifts every week cannot be the basis for recurring campaigns or content planning conversations. Combining stability validation with explicit labels turns clusters into a published reference rather than a model artifact, which is what makes the output activatable rather than purely analytical.
 
 ## Approach
 
@@ -37,10 +69,10 @@ Two signals feed the model: a behaviour matrix of viewing hours by mood, sub-gen
 
 ## Results & Impact
 
-- Teams gained behavior-based segments that were practical for day-to-day decisions
-- Campaign audiences became more targeted and less generic
-- Content planning discussions used clearer audience profiles
-- Segmentation outputs fed downstream personalization and analytics workflows
+- **What changed in activation**: Campaign audiences shifted from broad demographic blasts to behavior-anchored segments that targeting could act on directly
+- **What changed in planning**: Content planning discussions referenced audience profiles by behavioral shape rather than by demographic shorthand, giving programming and marketing a shared vocabulary
+- **What changed in governance**: Segment definitions lived in one published table with business-friendly names, so different teams meant the same thing when they referenced a segment
+- **Foundation for downstream work**: Stable, labeled segments fed personalization and analytics workflows as a shared reference rather than a per-team rebuild
 
 ## Reusable Pattern
 

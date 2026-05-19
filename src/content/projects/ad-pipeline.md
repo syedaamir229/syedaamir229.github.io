@@ -25,7 +25,7 @@ The reporting API enforced rate limits that constrained ingestion scheduling, pr
 
 ## Key Decisions
 
-### Decision: Daily refresh plus a multi-week historical sweep
+### Decision 1: Daily refresh plus a multi-week historical sweep
 
 **Problem:** Programmatic impressions settle over a multi-week window for late-arriving attribution. A daily-only pipeline is always slightly wrong, and the errors compound over a reporting week.
 
@@ -38,6 +38,20 @@ The reporting API enforced rate limits that constrained ingestion scheduling, pr
 **Chosen:** Daily refresh in an early-morning window for same-day decisions, plus a periodic historical sweep that re-pulls the recent multi-week window.
 
 **Why:** Weekly revenue reports have to reflect final settled figures, not provisional daily numbers. The moment finance keeps a side spreadsheet against the dashboard, the pipeline stops being the source of truth. Splitting schedules separates the use cases cleanly: daily for same-day decisions, periodic for reporting-grade accuracy.
+
+### Decision 2: Centralize derivation logic at the staging layer
+
+**Problem:** Four downstream pipelines (Inventory, Impressions, Delivery Pacing, VAST Errors) all need the same derived fields. Repeating the derivation in each pipeline guarantees drift the first time the logic changes.
+
+**Options considered:**
+
+- Derive per pipeline (simplest, but every change has to land in four places)
+- Derive in the BI semantic layer (one place, but every downstream consumer pays the cost again, and Slack alerts cannot use it)
+- Derive once at the staging layer and let every consumer read the same prepared fields
+
+**Chosen:** Apply derivation logic once at staging, then let every operating signal and Slack alert read the same prepared fields.
+
+**Why:** Three teams reading the same data needed one shared definition rather than rebuilding it three ways. Centralizing derivation at staging makes the staging layer the contract: reporting, alerting, and ad-hoc queries all share it without each consumer re-implementing media ID regex or device-group rollups. The fix lives in one file, not four.
 
 ## Approach
 

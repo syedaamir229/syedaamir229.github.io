@@ -16,7 +16,7 @@ order: 4
 
 ## Challenge
 
-The customer-engagement platform targets accounts rather than profiles, daily batch completion had to land before CRM send schedules, and predictable recurring windows where content priorities shift required content-filter overrides without redeployment.
+Daily campaigns had to be personalized at a finer grain than the CRM platform could target, land before send windows, and adapt content rules on a calendar schedule without redeploying.
 
 - **Manual setup bottleneck**: Every audience build required a data request and query turnaround, slowing campaign cadence
 - **No profile-level personalization**: CRM targeting was account-level, ignoring the multi-profile structure of subscriber households
@@ -27,7 +27,7 @@ The customer-engagement platform targets accounts rather than profiles, daily ba
 
 ### Decision 1: Profile-level processing with account-level rollup
 
-**Problem:** The customer-engagement platform can only target at the account level, but processing at account level loses personalization in multi-profile households.
+**Problem:** The CRM platform can only target at the account level, but processing at account level loses the per-user behavior signal that drives personalization quality.
 
 **Options considered:**
 
@@ -40,7 +40,7 @@ The customer-engagement platform targets accounts rather than profiles, daily ba
 
 ### Decision 2: Behavior-based scenario prioritization over calendar rotation
 
-**Problem:** Each account receives recommendations from multiple scenarios. Which one to send?
+**Problem:** Each account is eligible for recommendations from multiple scenarios on the same day, but a single CRM send delivers only one. The system needs a deterministic rule for which scenario wins.
 
 **Options considered:**
 
@@ -53,11 +53,11 @@ The customer-engagement platform targets accounts rather than profiles, daily ba
 
 ## Approach
 
-- Built 3-phase shared data preparation: content metadata rollup (episode to season to show), profile-to-region mapping across regional segments, eligible profile filtering (adult + active only)
+- Built 3-stage shared data preparation: content metadata rollup (episode to season to show), profile-to-region mapping across regional segments, eligible profile filtering (adult + active only)
 - Implemented 4 parallel recommendation scenarios, each following a 9-step pipeline: load, filter, join eligible profiles, apply content/category filters, exclude watched, exclude recently sent, rank (top 5 per profile), write, validate
-- Built account rollup (phase 3): union all scenario outputs, select one profile per account, add CRM delivery identifier
-- Implemented scenario selector (phase 4): RFPT-based SVOD/AVOD split to behavior-based prioritization by days-since-last-play to one title per account
-- Built temporal configuration system: seasonal overrides activate and deactivate automatically by date with no code changes or redeployments required, so a predictable recurring window where content priorities shift becomes a configuration change rather than a release
+- Built account rollup: union all scenario outputs, select one profile per account, add CRM delivery identifier
+- Implemented scenario selector (phase 4): RFM-based segmentation drives an SVOD/AVOD treatment split, then behavior-based prioritization by days-since-last-play picks one title per account
+- Built temporal configuration system: seasonal overrides activate and deactivate automatically by date, turning content-priority shifts into a configuration change rather than a release
 - Integrated CRM payload phase with deduplication tracking: a multi-week lookback prevents repeat recommendations
 
 ## Architecture Overview

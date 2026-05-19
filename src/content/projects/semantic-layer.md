@@ -29,6 +29,8 @@ Three heterogeneous data sources had to be unified under one model that served b
 
 ### Decision 1: Semantic layer on top of Gold tables, not directly on source systems
 
+**Problem:** Three heterogeneous source systems already fed an enterprise data model with a conformed Gold layer. The semantic model could either reach back to source systems and rebuild the join and cleaning logic itself, or sit on top of Gold and inherit it. Each choice has different consequences for transformation duplication, refresh latency, and ongoing maintenance.
+
 **Options considered:**
 
 - Build the semantic model directly on source system connections (a subscription-management platform, a video-analytics platform, a programmatic ad-serving platform)
@@ -39,6 +41,8 @@ Three heterogeneous data sources had to be unified under one model that served b
 **Why:** Source systems have heterogeneous schemas and inconsistent latency. The Gold layer already resolves joins, normalizes grain, and applies business rules. Using it as the semantic foundation avoids duplicating transformation logic and keeps the semantic model focused on business definitions, not data plumbing.
 
 ### Decision 2: Domain-specific partition refresh cadences
+
+**Problem:** Each domain settles at a different rate: ad attribution lands over a multi-week window, subscriber base movement over several days, engagement within a day. A single uniform refresh policy would either under-refresh late-arriving ad data or waste compute reprocessing engagement data that had already stabilized.
 
 **Options considered:**
 
@@ -53,7 +57,7 @@ Three heterogeneous data sources had to be unified under one model that served b
 
 - Built SSAS Tabular semantic model on top of Gold layer tables from the enterprise data model
 - Integrated 3 external data pipelines into the semantic layer job: ad-impression and inventory data, a subscriber-domain dataset, and reference data from a lightweight collaborative source
-- Implemented 4-notebook automated refresh pipeline: Staging to Dimension tables to Fact tables to SSAS model refresh (with dependency sequencing)
+- Implemented 4-stage automated refresh pipeline: Staging to Dimension tables to Fact tables to SSAS model refresh (with dependency sequencing)
 - Defined 100+ DAX measures across 4 business domains with documented definitions in a published measure-definition reference
 - Connected Power BI reports via live dataset connection, eliminating the need for local data imports in report files
 - Built performance monitoring solution: Windows Performance Monitor, Extended Events query statistics, Dynamic Management Views, and a dedicated SSAS performance monitoring dataset
@@ -62,7 +66,7 @@ Three heterogeneous data sources had to be unified under one model that served b
 
 ![Enterprise semantic layer architecture: Gold layer tables, ad-impression and inventory data, a subscriber-domain dataset, and a lightweight reference-data source feeding an SSAS Tabular semantic model that serves Power BI via live connection.](/assets/projects/semantic-layer.svg)
 
-Upstream Gold layer tables, feed into the SSAS Tabular semantic model via an automated 4-stage refresh job, serving Power BI reports via live connection.
+Gold layer tables from the enterprise data model, ad-impression and inventory data, a subscriber-domain dataset, and a lightweight reference-data source feed into the SSAS Tabular semantic model via an automated 4-stage refresh job, serving Power BI reports via live connection.
 
 ## Results & Impact
 
