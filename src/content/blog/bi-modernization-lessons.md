@@ -16,6 +16,10 @@ That conversation does not end with the reconciliation. It ends with leadership 
 
 BI tool migrations have become routine across enterprises, but the structural failure mode has not changed: organisations attempt single-step migrations and spend two years rebuilding trust. Migrations of this scope routinely run double the original estimate, and the root cause is almost always compounding change across layers that should have been migrated separately.
 
+![The Three-Phase Migration Sequence: Phase 1 (Tool) moves consumers to the target BI tool, Phase 2 (Data layer) repoints reports to governed tables, Phase 3 (Metric logic) centralises KPI logic in shared semantic-layer measures. Each phase changes one variable; a callout below names the discipline.](/assets/blog/bi-modernization-three-phase-sequence.svg)
+
+*A big-bang migration is a three-variable reconciliation. A phased migration is a one-variable diagnosis.*
+
 ## The Three-Phase Migration Sequence
 
 ### Phase 1: Tool
