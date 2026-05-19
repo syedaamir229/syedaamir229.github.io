@@ -16,7 +16,7 @@ That kind of reconciliation is the scene that gets every enterprise-data-model p
 
 ## Why this matters now
 
-Data-model investment quietly loses budget every year because it does not photograph well. Nobody points at a Silver-layer star schema and asks for a demo. Then the AI workload arrives and the team that skipped the model spends six months of every AI initiative rebuilding it badly.
+Data-model investment quietly loses budget every year because it does not photograph well. Nobody points at a curated star schema and asks for a demo. Then the AI workload arrives and the team that skipped the model spends six months of every AI initiative rebuilding it badly.
 
 The [dbt 2025 State of Analytics Engineering Report](https://www.getdbt.com/resources/state-of-analytics-engineering-2025) makes the picture explicit: 80% of data practitioners now use AI in some form, and data quality is the most critical challenge they report. The teams shipping AI in production are the ones whose data foundation can carry it.
 
@@ -30,49 +30,43 @@ The rules below are not new. They are well-documented disciplines that most team
 
 ### Rule 1: Start with the grain, not the dashboard
 
-The standard scoping move is to start with "what reports do we need?" and work backwards. This produces a model shaped like the current dashboard, not like the underlying business. The first time the dashboard changes, the model loses meaning.
+**What it is.** Start with the grain of each fact table. What is the lowest-level event the business actually generates? For viewing data on a streaming platform, the grain is a single play event, a unique view with subscriber, content, device, address, and subscription identifiers attached. For subscriptions, it is a single subscription record with lifecycle state. For ad operations, it is a single inventory or impression event.
 
-The compounding move is to start with the grain of each fact table. What is the lowest-level event the business actually generates? For viewing data on a streaming platform, the grain is a single play event, a unique view with subscriber, content, device, address, and subscription identifiers attached. For subscriptions, it is a single subscription record with lifecycle state. For ad operations, it is a single inventory or impression event.
+**Why it matters.** The grain is the rock you build on. A fact table with a clear grain produces every aggregate the business will ever ask for. A fact table with a fuzzy grain ("one row per session, sort of") produces aggregates that disagree with each other for reasons no one can explain. The alternative scoping move (starting with "what reports do we need?" and working backwards) produces a model shaped like the current dashboard, not like the underlying business; the first time the dashboard changes, the model loses meaning.
 
-The grain is the rock you build on. A fact table with a clear grain produces every aggregate the business will ever ask for. A fact table with a fuzzy grain ("one row per session, sort of") produces aggregates that disagree with each other for reasons no one can explain.
-
-What goes wrong without it: the team ships a model that matches the launch dashboard. The first replatform of the dashboard, or the first new consumer (the ML feature store, the AI agent), requires rebuilding the model from raw events. Every downstream consumer pays the same cost again.
+**What goes wrong without it.** The team ships a model that matches the launch dashboard. The first replatform of the dashboard, or the first new consumer (the ML feature store, the AI agent), requires rebuilding the model from raw events. Every downstream consumer pays the same cost again.
 
 ### Rule 2: Movement tracking is worth the complexity
 
-Most data models record state. The compounding ones record transitions.
+**What it is.** Treating subscriber transitions as a first-class fact: who became a subscriber today, who churned, who reactivated, who upgraded, who downgraded. The `daily_movement` fact table records these transitions at a daily grain, with explicit flags like `is_acquisition`, `is_reconnect`, `is_winback` on each subscription record. Movement queries that used to be hours of window-function SQL become a `WHERE` clause.
 
-The highest-leverage modelling decision was treating subscriber transitions as a first-class fact: who became a subscriber today, who churned, who reactivated, who upgraded, who downgraded. The `daily_movement` fact table records these transitions at a daily grain, with explicit flags like `is_acquisition`, `is_reconnect`, `is_winback` on each subscription record. Movement queries that used to be hours of window-function SQL became a `WHERE` clause.
+**Why it matters.** Most data models record state. The compounding ones record transitions. The complexity cost is real: movement tables require careful idempotency, careful late-arrival handling, and careful reconciliation between billing-system reality and the platform's observed state. The payoff is that every churn, retention, and lifecycle question across BI, ML, and AI runs against the same governed source. Different teams stop producing different churn numbers because there is no other churn number to produce.
 
-The complexity cost is real. Movement tables require careful idempotency, careful late-arrival handling, and careful reconciliation between billing-system reality and the platform's observed state. The payoff is that every churn, retention, and lifecycle question across BI, ML, and AI runs against the same governed source. Different teams stop producing different churn numbers because there is no other churn number to produce.
-
-What goes wrong without it: every team writes its own churn definition. The churn dashboard, the churn ML model, and the CRM winback campaign all run on slightly different logic. Leadership stops trusting any of them, and the data team gets blamed for an organisational failure that was actually a modelling failure.
+**What goes wrong without it.** Every team writes its own churn definition. The churn dashboard, the churn ML model, and the CRM winback campaign all run on slightly different logic. Leadership stops trusting any of them, and the data team gets blamed for an organisational failure that was actually a modelling failure.
 
 ### Rule 3: Surrogate keys everywhere
 
-Every entity in the model gets a generated surrogate key. Source-system IDs are preserved on the row but never used as join keys. This sounds like dogma. It is actually insurance.
+**What it is.** Every entity in the model gets a generated surrogate key. Source-system IDs are preserved on the row but never used as join keys. Joins go through the generated `subscriber_id` or `content_id`, so any source-system change becomes a single mapping update in the dimension table rather than a fan-out of breaking changes.
 
-The billing system was replaced twice over the lifetime of the model, and the content management system was replaced once when a new metadata vendor took over. Each of these would have broken every downstream query that joined on a source-system ID directly. None of them did, because every join was on the generated `subscriber_id` or `content_id`, and the model absorbed the source-system change as a single mapping update in the dimension table.
+**Why it matters.** This sounds like dogma. It is actually insurance. The billing system was replaced twice over the lifetime of the model, and the content management system was replaced once when a new metadata vendor took over. Each of these would have broken every downstream query that joined on a source-system ID directly. None of them did. The cost is one column per dimension. The benefit is that source-system reality can change without breaking consumer queries. Over a multi-year horizon that benefit pays back every time a source platform migrates, replatforms, or gets replaced.
 
-The cost is one column per dimension. The benefit is that source-system reality can change without breaking consumer queries. Over a multi-year horizon that benefit pays back every time a source platform migrates, replatforms, or gets replaced.
-
-What goes wrong without it: the model becomes brittle in a way that is invisible until a source-system change happens. Then it breaks everywhere at once, and the recovery work expands to touch every downstream consumer.
+**What goes wrong without it.** The model becomes brittle in a way that is invisible until a source-system change happens. Then it breaks everywhere at once, and the recovery work expands to touch every downstream consumer.
 
 ### Rule 4: Feature tables belong in the model
 
-Feature engineering usually lives in notebooks. ML teams build their own feature store, BI teams build their own measure layer, and the two diverge over time. By year two, the same subscriber's "engagement cohort" means one thing on a Power BI dashboard and a slightly different thing in a clustering model, and nobody can explain the gap.
+**What it is.** Promote feature tables to first-class governed objects. The user-level feature table and the user-content feature table sit alongside the fact tables and the dimension tables, on the same refresh cadence, with the same governance. The "engagement cohort" column the dashboard reads is the same column the gender prediction model reads. The Voice-of-Customer agent and the CRM scenario engine both query it.
 
-The compounding move is to promote feature tables to first-class Gold-layer objects. The user-level feature table and the user-content feature table sit alongside the fact tables and the dimension tables, on the same refresh cadence, with the same governance. The "engagement cohort" column the dashboard reads is the same column the gender prediction model reads. The Voice-of-Customer agent and the CRM scenario engine both query it. Drift is structurally impossible because there is only one source.
+**Why it matters.** Feature engineering usually lives in notebooks. ML teams build their own feature store, BI teams build their own measure layer, and the two diverge over time. By year two, the same subscriber's "engagement cohort" means one thing on a BI dashboard and a slightly different thing in a clustering model, and nobody can explain the gap. Putting the feature table in the model collapses that gap structurally: there is only one source, so drift is impossible.
 
-What goes wrong without it: the BI/ML mismatch. The dashboard says 12,000 at-risk subscribers, the model flags 15,000, the leadership team treats both as unreliable, the data team spends two quarters reconciling and three quarters rebuilding. Solved by putting the feature table in the model from day one, not from year three.
+**What goes wrong without it.** The BI/ML mismatch. The dashboard says 12,000 at-risk subscribers, the model flags 15,000, the leadership team treats both as unreliable, the data team spends two quarters reconciling and three quarters rebuilding. Solved by putting the feature table in the model from day one, not from year three.
 
 ### Rule 5: Build for the next consumer, not the current report
 
-The launch dashboard is the worst possible target to optimise for. It is the first consumer, not the only one. The compounding move is to shape the model around business entities (a subscriber, a play event, a subscription transition) rather than the current report's filter logic.
+**What it is.** Shape the model around business entities (a subscriber, a play event, a subscription transition) rather than the current report's filter logic.
 
-The model was scoped for reporting. It went on to power the semantic layer, the ML feature store, the CRM automation platform, and a voice-of-customer agent. None of those were predicted at scoping time. The model survived all of them because it was shaped around the business, not the launch dashboard.
+**Why it matters.** The launch dashboard is the worst possible target to optimise for. It is the first consumer, not the only one. The model was scoped for reporting. It went on to power the semantic layer, the ML feature store, the CRM automation platform, and a voice-of-customer agent. None of those were predicted at scoping time. The model survived all of them because it was shaped around the business, not the launch dashboard.
 
-What goes wrong without it: each new use case spawns a parallel model. The data team ends up maintaining three or four overlapping models, each with subtly different definitions, each producing slightly different numbers. Maintenance grows linearly with use cases.
+**What goes wrong without it.** Each new use case spawns a parallel model. The data team ends up maintaining three or four overlapping models, each with subtly different definitions, each producing slightly different numbers. Maintenance grows linearly with use cases.
 
 ## What you cannot retrofit
 
@@ -96,4 +90,4 @@ One entity in particular pays back the modelling investment in Arabic-OTT: the h
 
 Is your data model a project that ended, or infrastructure that compounds?
 
-The teams whose models are projects ship a beautiful Silver-layer schema, declare victory, and watch every new use case rebuild the foundation. The teams whose models are infrastructure stack the semantic layer, the feature store, the CRM automation, and the AI agent on the same foundation, in sequence, without rebuilding what is underneath. The five rules above are the difference. Each one is well known. Applying all five together is what most teams do not do.
+The teams whose models are projects ship a beautiful curated schema, declare victory, and watch every new use case rebuild the foundation. The teams whose models are infrastructure stack the semantic layer, the feature store, the CRM automation, and the AI agent on the same foundation, in sequence, without rebuilding what is underneath. The five rules above are the difference. Each one is well known. Applying all five together is what most teams do not do.
