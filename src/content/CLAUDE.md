@@ -10,7 +10,7 @@ Read [../../docs/BLOG.md](../../docs/BLOG.md) and follow it end to end. Highligh
 
 - File path: `src/content/blog/<slug>.md`. Always `.md`, never `.mdx`.
 - Frontmatter `categories` must be values from `BLOG_CATEGORIES` in [../data/categories.ts](../data/categories.ts). Build fails on typos.
-- Seven-part structure: hook, thesis, context, named framework, prioritization, domain anchor, closing question.
+- Ten-beat framework-led body structure documented in [BLOG.md section 4](../../docs/BLOG.md#4-body-structure).
 - Posts end at the closing question. No author bio block, no "related posts" links, no CTA box. Inbound is handled by the contact page.
 
 ## When you are writing a project case study

@@ -130,7 +130,7 @@ structural context. Pass the structural-vs-decorative test in section 8.]
 
 ## Closing
 
-[10. Leading rhetorical question, then a two-paragraph answer
+[10. Leading rhetorical question, then a one or two paragraph answer
 contrasting the two outcomes from the bolded thesis. Often the binary
 from the thesis ("Is your X this, or that?").]
 ````
@@ -146,7 +146,7 @@ from the thesis ("Is your X this, or that?").]
 - **Auxiliary H2 (beat 7)**: optional. Use when one design discipline or extension surface holds the framework together and does not naturally fit inside any single H3. The auxiliary H2 sits between the framework and "Where I would start".
 - **Where I would start (beat 8)**: incremental ordering of how to ship the framework. Dictated by trust, not roadmap. First-person allowed.
 - **MENA-flavored note (beat 9)**: one paragraph, not a section with sub-headings. Pass the structural-vs-decorative test in section 8.
-- **Closing (beat 10)**: rhetorical question that challenges the reader's current approach, then two paragraphs answering it.
+- **Closing (beat 10)**: rhetorical question that challenges the reader's current approach, then one or two paragraphs answering it. The answer contrasts the two outcomes from the bolded thesis; collapsing the contrast into one tight paragraph is fine when the rhythm calls for it.
 
 ### Closing questions to aim for
 

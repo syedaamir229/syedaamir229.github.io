@@ -12,7 +12,7 @@
   <text x="600" y="34" text-anchor="middle" font-size="18" font-weight="700" fill="#E2E8F0">Voice-of-Customer Stack</text>
   <text x="600" y="54" text-anchor="middle" font-size="11" fill="#94A3B8">Two specialized natural-language SQL agents and a managed vector index, routed by a supervisor agent</text>
 
-  <!-- Layer 6: Databricks App (top) -->
+  <!-- Layer 6: Workspace UI (top) -->
   <rect x="40" y="78" width="1120" height="72" rx="10" fill="#122033" stroke="#06B6D4" stroke-width="2"/>
   <text x="600" y="108" text-anchor="middle" font-size="12" font-weight="700" fill="#E2E8F0">Workspace UI</text>
   <rect x="120" y="124" width="280" height="22" rx="5" fill="#1E3148" stroke="#06B6D4"/>

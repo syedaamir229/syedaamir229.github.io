@@ -76,9 +76,7 @@ Third priority: the `is_inferred` and confidence columns ship with the first dow
 
 ## One MENA-flavored note
 
-Cultural-context drift in MENA streaming is a real failure mode. Western-baseline assumptions about which genres or content attributes are gendered signals do not transfer. Sports content engagement patterns, family-drama viewing, late-night programming windows: all of these have MENA-specific shapes that a generically trained model will get wrong. The feature engineering had to be grounded in the platform's actual data, not imported heuristics. The same applies to the validation set: testing the model against a global benchmark misses the failure modes that matter in the region.
-
-Shared accounts are also structurally common. When multiple family members use the same profile, behavioural signals mix and prediction confidence drops. The model's confidence scores reflect this, and downstream consumers are expected to threshold accordingly. Profile-level scoring rather than account-level is what makes this tractable.
+Cultural-context drift in MENA streaming is a real failure mode. Western-baseline assumptions about which genres or content attributes are gendered signals do not transfer. Sports content engagement patterns, family-drama viewing, late-night programming windows: all of these have MENA-specific shapes that a generically trained model will get wrong. The feature engineering had to be grounded in the platform's actual data, not imported heuristics, and the validation set had to test against the region's own distributions rather than a global benchmark. Shared accounts compound the difficulty: multiple family members on one profile mix behavioural signals and prediction confidence drops, and the confidence_score is what lets downstream consumers threshold instead of trust blindly.
 
 ## Closing
 

@@ -12,7 +12,7 @@ What sat in front of the team on day one was a governed subscriber feature table
 
 The model shipped four months later. Coverage on the inferred attribute moved from roughly a quarter of adult profiles to near-full, model performance held above a reasonable AUC threshold on a held-out validation set, and the inference scored millions of profiles. None of that was an ML breakthrough. It was a compounding-stack dividend, paid by foundation work that had been done years earlier.
 
-**A data team is either compounding its stack or starting over at every layer. Once it starts over, every new AI initiative spends six months rebuilding the foundation underneath it, badly, in a way the AI then has to apologise for; once it compounds, the same governed foundation carries the dashboard, the ML model, and the AI agent in sequence, and each new layer adds dividend instead of debt.** AI is not a separate career or a separate team. It is the fourth floor of a stack that started the day someone modelled the first fact table.
+**A data team is either compounding its stack or starting over at every layer. Once it starts over, every new AI initiative spends six months rebuilding the foundation underneath it, badly, in a way the AI then has to apologise for; once it compounds, the same governed foundation carries the dashboard, the ML model, and the AI agent in sequence, and each new layer adds dividend instead of debt.** The way you get there is not a separate AI team or another tooling reset. It is a four-layer Compounding Stack where each layer earns the right to the next.
 
 ## Why this matters now
 

@@ -24,7 +24,7 @@ The fix is not better monitoring after the fact. It is a refresh discipline name
 
 *Reliable refresh operations require both a stable daily path and a tested missed-day recovery path.*
 
-## The Refresh Loop
+## The Six-Stage Refresh Loop and the Five-Step Backfill
 
 ### Stage ordering: the Six-Stage sequence
 
