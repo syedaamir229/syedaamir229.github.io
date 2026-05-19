@@ -2,7 +2,7 @@
 title: "Ad Inventory & Revenue Pipeline"
 description: "Pacing shortfalls and inventory pressure surface during the campaign, in time to act, instead of reconciling make-goods after it ends."
 category: "Data Engineering"
-tags: ["Databricks", "Google Ad Manager", "AWS S3", "Power BI"]
+tags: ["Databricks", "Google Ad Manager", "S3", "Power BI"]
 featured: true
 metrics:
   - label: "Pacing Visibility"
