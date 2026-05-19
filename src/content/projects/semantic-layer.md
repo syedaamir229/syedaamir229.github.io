@@ -5,8 +5,8 @@ category: "BI & Analytics"
 tags: ["SSAS", "DAX", "Power BI", "SSIS"]
 featured: true
 metrics:
-  - label: "Query Performance Improvement"
-    value: "50%"
+  - label: "Query Performance"
+    value: "50% Improvement"
   - label: "Weekly Hours Saved"
     value: "15"
   - label: "Governed DAX Measures"

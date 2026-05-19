@@ -5,10 +5,8 @@ category: "Data Science"
 tags: ["XGBoost", "scikit-learn", "MLflow", "Databricks"]
 featured: false
 metrics:
-  - label: "Coverage Expansion"
-    value: "From a quarter to near-full"
-  - label: "Profiles Newly Inferred"
-    value: "The majority of the cohort"
+  - label: "Coverage Grain"
+    value: "~4x"
   - label: "Profiles Scored"
     value: "Millions"
 order: 9
