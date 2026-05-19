@@ -22,6 +22,10 @@ The reason is structural, not personal. Data-model discipline, stakeholder trans
 
 The three failure modes below are the patterns that turn an overlap into an abandonment. Each is independent. Avoiding all three is what makes the transition compound rather than collapse.
 
+![The Three Ways BI-to-DS Transitions Die: a transition spine across the top (BI ownership, Six-month overlap, DS delivery) with three dashed failure off-ramps to boxes naming Parallel ML data model, Dropping BI too early, and Accuracy-only success metric, each with the corrective fix.](/assets/blog/bi-to-data-science-transition-story-three-failure-modes.svg)
+
+*Three failure modes turn the six-month overlap into an abandonment. Each is a different off-ramp; the corrective discipline lives in the spine.*
+
 ## The Three Ways BI-to-DS Transitions Die
 
 ### Failure mode 1: Building a parallel ML data model
