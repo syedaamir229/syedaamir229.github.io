@@ -32,9 +32,9 @@ The four traps below are the typical failure path. Each trap on its own can coll
 
 ### Trap 1: The Engineering-First Mistake
 
-**What it looks like.** The data-engineering team scopes the project, picks the platform (SSAS Tabular, dbt Semantic Layer, Cube, AtScale), models the schema, ships a beautiful dataset, then waits for adoption. Adoption does not come. Report teams keep building local DAX because nobody onboarded them to consumption mode, the measure documentation is in a Confluence page no one can find, and the change-request queue is unstaffed.
+**What it looks like.** The data-engineering team scopes the project, picks a semantic-modeling platform, models the schema, ships a beautiful dataset, then waits for adoption. Adoption does not come. Report teams keep building local DAX because nobody onboarded them to consumption mode, the measure documentation is in a wiki page no one can find, and the change-request queue is unstaffed.
 
-**Why it kills the program.** A semantic layer that ships without an adoption plan is a museum exhibit. The model can be technically perfect and still get bypassed in week three, because building a local Power BI measure took an analyst five minutes and asking for a model change took two weeks.
+**Why it kills the program.** A semantic layer that ships without an adoption plan is a museum exhibit. The model can be technically perfect and still get bypassed in week three, because building a local report-file measure took an analyst five minutes and asking for a model change took two weeks.
 
 **What to do instead.** Scope the program with two co-leads from day one: a data-engineering lead for the model and a metrics product owner for the rollout. The second role is the one that gets cut first under budget pressure, and it is the one whose absence kills the program.
 
