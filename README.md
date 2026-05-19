@@ -1,6 +1,6 @@
 # Portfolio
 
-Source for [syedaamir229.github.io](https://syedaamir229.github.io), the personal site of Syed Aamir, a Data & AI Engineer based in Dubai.
+Source for [syedaamir229.github.io](https://syedaamir229.github.io), the personal site of Syed Aamir, a Data & AI Solutions Engineer based in Dubai.
 
 ![Portfolio preview](public/assets/og-card.jpg)
 
@@ -20,7 +20,18 @@ npm run build    # production build to dist/
 npm run preview  # preview the build locally
 ```
 
-Requires Node 22.12+.
+Requires Node 24+ (matches CI).
+
+## Authoring utilities
+
+```sh
+npm run og:blog         # generate per-post OG cards into public/og/blog/
+npm run og:home         # rebuild the homepage OG card
+npm run verify:diagram  # render a diagram SVG to PNG and report dimensions
+npm run screenshots     # capture page screenshots at 4 widths (needs dev server)
+```
+
+OG cards must be committed alongside each new blog post. See [src/CLAUDE.md](src/CLAUDE.md) for the post-creation workflow.
 
 ## Repo layout
 
@@ -28,16 +39,16 @@ Requires Node 22.12+.
 .
 ├── src/
 │   ├── pages/          # routes (.astro)
-│   ├── components/     # reusable UI
+│   ├── components/     # reusable UI (ui/, layout/, and per-page sections)
 │   ├── layouts/        # page shells
 │   ├── content/        # blog posts and project case studies (Content Collections)
 │   ├── data/           # structured site data
 │   ├── lib/            # shared utilities
-│   ├── styles/         # Tailwind layer customizations
-│   └── ui/             # design tokens and primitives
+│   ├── scripts/        # client-side TypeScript bundled by Astro
+│   └── styles/         # Tailwind tokens (@theme) and base layer
 ├── public/             # static assets, served as-is
 ├── docs/               # brand and content specs (voice, tone, strategy)
-└── scripts/            # local developer utilities (gitignored)
+└── scripts/            # developer utilities: OG card builders, diagram verifier
 ```
 
 Each major folder has a nested `CLAUDE.md` documenting the conventions that apply there.

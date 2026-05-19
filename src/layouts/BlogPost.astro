@@ -21,6 +21,12 @@ const { post, readingTime, seriesInfo } = Astro.props;
 >
   <article class="pt-32 pb-16 px-6">
     <div class="max-w-3xl mx-auto">
+      <nav class="mb-8 text-xs font-mono text-muted-500" aria-label="Breadcrumb">
+        <a href="/blog/" class="hover:text-cyan-400 transition-colors">
+          <span aria-hidden="true">&larr;</span> All posts
+        </a>
+      </nav>
+
       <PostHeader post={post} readingTime={readingTime} seriesInfo={seriesInfo} />
 
       <div class="prose">
@@ -34,7 +40,7 @@ const { post, readingTime, seriesInfo } = Astro.props;
           href="/blog/"
           class="text-cyan-400 hover:text-cyan-300 text-sm font-medium transition-colors"
         >
-          &larr; All posts
+          <span aria-hidden="true">&larr;</span> All posts
         </a>
       </div>
     </div>

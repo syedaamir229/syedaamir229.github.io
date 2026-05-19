@@ -22,9 +22,9 @@ const variantClass: Record<Variant, string> = {
     'gap-2.5 px-5 py-3 rounded-full border border-cyan-500/40 hover:border-cyan-400 bg-cyan-500/5 hover:bg-cyan-500/10 text-cream-100 hover:text-cyan-300',
 };
 
-const Tag = href ? 'a' : 'button';
+const Element = href ? 'a' : 'button';
 ---
 
-<Tag href={href} target={target} rel={rel} class:list={[base, variantClass[variant], className]}>
+<Element href={href} target={target} rel={rel} class:list={[base, variantClass[variant], className]}>
   <slot />
-</Tag>
+</Element>

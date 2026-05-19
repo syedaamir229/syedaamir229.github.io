@@ -9,6 +9,7 @@ function setOpen(open: boolean) {
   if (!menu || !icon) return;
   menu.classList.toggle('hidden', !open);
   icon.setAttribute('d', open ? CLOSE : HAMBURGER);
+  btn?.setAttribute('aria-expanded', String(open));
 }
 
 btn?.addEventListener('click', () => {

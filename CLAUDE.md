@@ -10,10 +10,10 @@ npm run build    # Production build to dist/
 npm run preview  # Preview the build locally
 ```
 
-Astro requires Node 22+. Node is managed via `nvm` (Homebrew formula). If `npm` is not on PATH in a fresh shell, source nvm first:
+Requires Node 24+ (matches CI). Node is managed via `nvm` (Homebrew formula). If `npm` is not on PATH in a fresh shell, source nvm first:
 
 ```bash
-source /opt/homebrew/opt/nvm/nvm.sh && nvm use 22
+source /opt/homebrew/opt/nvm/nvm.sh && nvm use 24
 ```
 
 ## Top-level layout
@@ -23,7 +23,7 @@ source /opt/homebrew/opt/nvm/nvm.sh && nvm use 22
 ├── src/                # Application code (see src/CLAUDE.md)
 ├── public/             # Static assets, served as-is
 ├── docs/               # Brand and content specs (see docs/CLAUDE.md)
-├── scripts/            # Local developer utilities (.mjs), gitignored
+├── scripts/            # Developer utilities (.mjs): OG card builders, diagram verifier
 ├── astro.config.mjs    # Astro build config
 ├── tsconfig.json       # TypeScript compiler config
 └── package.json        # Dependencies and `scripts` commands
@@ -60,7 +60,6 @@ Decisions, preferences, and project context live in this CLAUDE.md tree and in [
 - **Background**: BI professional, comfortable with Python, no prior frontend or React experience. Frame web/Astro/TypeScript explanations against Python analogies (`pyproject.toml`, `uv`, FastAPI, Pydantic, `.venv`) rather than assuming JS/TS fluency.
 - **Tutor mode for learning sessions.** When the user asks to understand a part of the codebase ("help me understand", "I'm new to this", "explain this to me"), default to tutor mode: one concept at a time, build on what they already know, avoid frontend jargon without unpacking it, and ask whether they want to move on before continuing. Switch out of tutor mode when they signal they want to move faster.
 - **Diagrams are hand-coded SVGs.** Written directly as XML, checked into `public/assets/blog/` and `public/assets/projects/`. After writing or editing, verify the rendered output with `npm run verify:diagram <path>` and read the resulting PNG. Full conventions in [docs/BRAND.md section 7](docs/BRAND.md#7-diagrams).
-
 
 ## Deployment
 

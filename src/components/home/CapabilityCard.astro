@@ -26,9 +26,7 @@ const { capability: cap } = Astro.props;
   <ul class="space-y-3 mb-6 flex-1">
     {cap.deliverables.map((item) => (
       <li class="flex items-start gap-2.5 text-sm leading-relaxed">
-        <svg class="shrink-0 w-3.5 h-3.5 text-cyan-400/70 mt-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-        </svg>
+        <Icon name="arrow-right" class="shrink-0 w-3.5 h-3.5 text-cyan-400/70 mt-1.5" />
         <span>
           <span class="text-cream-100 font-semibold">{item.label}.</span>
           <span class="text-muted-500"> {item.text}</span>
@@ -42,16 +40,16 @@ const { capability: cap } = Astro.props;
       href={cap.heroLink}
       class="group/link inline-flex items-baseline gap-1.5 text-sm text-cyan-400 hover:text-cyan-300 transition-colors"
     >
-      <span class="text-muted-500 font-mono text-xxs uppercase tracking-[0.16em] mr-1">Recent proof</span>
+      <Eyebrow size="xs" tone="muted" as="span" class="mr-1">Recent proof</Eyebrow>
       <span class="font-medium">{cap.heroTitle}</span>
-      <span class="transition-transform group-hover/link:translate-x-0.5">&rarr;</span>
+      <span class="transition-transform group-hover/link:translate-x-0.5" aria-hidden="true">&rarr;</span>
     </a>
     {cap.allWorkLink && (
       <a
         href={cap.allWorkLink}
         class="group/link2 block text-xs text-muted-500 hover:text-cyan-400 transition-colors"
       >
-        {cap.allWorkLabel} <span class="transition-transform inline-block group-hover/link2:translate-x-0.5">&rarr;</span>
+        {cap.allWorkLabel} <span class="transition-transform inline-block group-hover/link2:translate-x-0.5" aria-hidden="true">&rarr;</span>
       </a>
     )}
   </div>

@@ -1,3 +1,5 @@
+import { SLUG_TO_CATEGORY } from '../data/categories';
+
 const BTN_SELECTOR = '.category-filter-btn';
 const ITEM_SELECTOR = '[data-categories]';
 const ACTIVE_CLASS = 'active';
@@ -43,13 +45,6 @@ document.querySelectorAll<HTMLElement>(BTN_SELECTOR).forEach((btn) => {
     applyFilter(cat);
   });
 });
-
-const SLUG_TO_CATEGORY: Record<string, string> = {
-  'data-engineering': 'Data Engineering',
-  'bi-analytics': 'BI & Analytics',
-  'data-science': 'Data Science',
-  'ai-automation': 'AI & Automation',
-};
 
 function applyHashFilter() {
   const slug = window.location.hash.replace(/^#/, '').toLowerCase();

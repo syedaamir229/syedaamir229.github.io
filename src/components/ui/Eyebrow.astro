@@ -5,7 +5,7 @@ interface Props {
   size?: Size;
   class?: string;
   tone?: 'accent' | 'muted';
-  as?: 'p' | 'span' | 'h3';
+  as?: 'p' | 'span';
 }
 
 const { size = 'sm', class: className = '', tone = 'accent', as: Tag = 'p' } = Astro.props;

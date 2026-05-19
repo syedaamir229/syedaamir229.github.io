@@ -16,8 +16,6 @@ export const BLOG_CATEGORIES = [
   'Career',
 ] as const;
 
-export type BlogCategory = (typeof BLOG_CATEGORIES)[number];
-
 export const SLUG_TO_CATEGORY: Record<string, PracticeArea> = Object.fromEntries(
   PRACTICE_AREAS.map((c) => [c.slug, c.name]),
 ) as Record<string, PracticeArea>;

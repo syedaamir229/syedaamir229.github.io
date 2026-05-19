@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import Card from '../ui/Card.astro';
 import Tag from '../ui/Tag.astro';
 
 interface Props {
@@ -10,9 +11,10 @@ const { project } = Astro.props;
 const { title, description, category, metrics, tags } = project.data;
 ---
 
-<a
+<Card
+  as="a"
   href={`/projects/${project.id}/`}
-  class="group block p-6 rounded-xl border border-cream-100/5 bg-navy-800/40 card-hover"
+  hover
   data-categories={JSON.stringify([category])}
 >
   <Tag>{category}</Tag>
@@ -39,4 +41,4 @@ const { title, description, category, metrics, tags } = project.data;
       ))}
     </div>
   )}
-</a>
+</Card>

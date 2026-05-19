@@ -4,20 +4,17 @@ import BlogPost from '../../layouts/BlogPost.astro';
 import { getPublishedPosts } from '../../lib/blog';
 import { readingTime } from '../../lib/readingTime';
 import { getSeriesInfo } from '../../lib/series';
-import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('blog');
+  const posts = await getPublishedPosts();
   return posts.map((post) => ({
     params: { slug: post.id },
-    props: { post },
+    props: { post, allPosts: posts },
   }));
 }
 
-const { post } = Astro.props;
+const { post, allPosts } = Astro.props;
 const { Content } = await render(post);
-
-const allPosts = await getPublishedPosts();
 const seriesInfo = getSeriesInfo(post, allPosts);
 const rt = readingTime(post.body);
 ---

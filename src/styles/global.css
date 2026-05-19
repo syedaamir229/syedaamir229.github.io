@@ -24,6 +24,7 @@
   --color-muted-500: #94A3B8;
   --color-muted-600: #64748B;
 
+  --font-body: 'Inter', system-ui, sans-serif;
   --font-heading: 'Inter', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 

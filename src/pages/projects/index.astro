@@ -5,6 +5,7 @@ import CategoryFilter from '../../components/ui/CategoryFilter.astro';
 import ProjectGrid from '../../components/projects/ProjectGrid.astro';
 import { getPublishedProjects } from '../../lib/projects';
 import { PRACTICE_AREA_NAMES } from '../../data/categories';
+import { PROJECTS_TAGLINE } from '../../data/projects';
 
 const allProjects = await getPublishedProjects();
 const presentCategories = new Set(allProjects.map((p) => p.data.category));
@@ -18,7 +19,7 @@ const categories = PRACTICE_AREA_NAMES.filter((c) => presentCategories.has(c));
   <PageHeader
     eyebrow="Projects"
     title="Real builds, real constraints, real outcomes."
-    description="Across data platforms, analytics, and AI, in media, retail, government, and automotive."
+    description={PROJECTS_TAGLINE}
   />
 
   <section class="py-16 px-6 reveal">

@@ -1,5 +1,7 @@
 ---
 import { getPublishedProjects } from '../../lib/projects';
+import { PROJECTS_TAGLINE } from '../../data/projects';
+import Card from '../ui/Card.astro';
 import Eyebrow from '../ui/Eyebrow.astro';
 import Tag from '../ui/Tag.astro';
 
@@ -24,16 +26,16 @@ const projects = (await getPublishedProjects({ featuredOnly: true, limit: 4 })).
           Where this has paid off.
         </h2>
         <p class="text-muted-500 text-sm max-w-xl">
-          Across data platforms, analytics, and AI, in media, retail, government, and automotive.
+          {PROJECTS_TAGLINE}
         </p>
       </div>
       <a href="/projects/" class="shrink-0 text-cyan-400 hover:text-cyan-300 text-sm font-medium transition-colors mt-1">
-        View all &rarr;
+        View all <span aria-hidden="true">&rarr;</span>
       </a>
     </div>
     <div class="grid md:grid-cols-2 gap-6">
       {projects.map((project) => (
-        <a href={project.href} class="group block p-6 rounded-xl border border-cream-100/5 bg-navy-800/40 card-hover">
+        <Card as="a" href={project.href} hover>
           {project.metric && (
             <div class="flex items-center gap-2 mb-3">
               <Tag>{project.metric}</Tag>
@@ -50,7 +52,7 @@ const projects = (await getPublishedProjects({ featuredOnly: true, limit: 4 })).
               <Tag variant="tag">{tag}</Tag>
             ))}
           </div>
-        </a>
+        </Card>
       ))}
     </div>
   </div>

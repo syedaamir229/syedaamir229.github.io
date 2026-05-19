@@ -1,5 +1,5 @@
 import { SITE, SOCIAL } from '../config';
-import { PERSON_EXTRAS } from '../data/personSchema';
+import { PERSON_EXTRAS } from '../data/person';
 
 export function getPersonSchema() {
   return {

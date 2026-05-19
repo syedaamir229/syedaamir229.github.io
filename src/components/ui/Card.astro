@@ -10,7 +10,7 @@ interface Props {
 }
 
 const {
-  as: Tag = 'div',
+  as: Element = 'div',
   href,
   hover = false,
   padding = 'md',
@@ -23,7 +23,7 @@ const paddingClass =
 const hoverClass = hover ? 'card-hover group' : '';
 ---
 
-<Tag
+<Element
   href={href}
   class:list={[
     'block rounded-xl border border-cream-100/5 bg-navy-800/40',
@@ -34,4 +34,4 @@ const hoverClass = hover ? 'card-hover group' : '';
   {...rest}
 >
   <slot />
-</Tag>
+</Element>

@@ -95,7 +95,7 @@ import { getPersonSchema } from '../lib/personSchema';
 1. Create `src/content/blog/<slug>.md`.
 2. Fill frontmatter per [docs/BLOG.md section 3](../docs/BLOG.md#3-frontmatter). `categories` must be in [data/categories.ts](data/categories.ts) `BLOG_CATEGORIES`. `og_title` is required and follows the hook rubric in [docs/BLOG.md section 3](../docs/BLOG.md#3-frontmatter); the schema enforces 8 to 42 characters.
 3. Write per [docs/BLOG.md section 4](../docs/BLOG.md#4-body-structure). Build a fact ledger and cite external claims per [section 8](../docs/BLOG.md#8-voice).
-4. Generate the OG card: `node scripts/build-blog-og-cards.mjs`. Writes a per-post PNG to `public/og/blog/<slug>.png` using the first entry in `categories` as the eyebrow chip; for posts with `series` + `series_part`, the renderer adds a `<SERIES> · PART N / M` line under the chip. The script is gitignored as a local utility, but the generated PNG must be committed alongside the post. The script errors if any post is missing `og_title`.
+4. Generate the OG card: `npm run og:blog`. Writes a per-post PNG to `public/og/blog/<slug>.png` using the first entry in `categories` as the eyebrow chip; for posts with `series` + `series_part`, the renderer adds a `<SERIES> · PART N / M` line under the chip. The generated PNG must be committed alongside the post. The script errors if any post is missing `og_title`.
 5. Run `npm run build` and `npm run dev`, check `/blog/<slug>/`.
 
 ### Add a project case study

@@ -19,7 +19,7 @@ const { seriesInfo } = Astro.props;
         class="block p-5 rounded-lg border border-navy-700 hover:border-cyan-500/40 transition-colors group"
       >
         <div class="text-xs font-mono text-muted-500 mb-1.5">
-          &larr; Previous &middot; Part {seriesInfo.prev.part}
+          <span aria-hidden="true">&larr;</span> Previous &middot; Part {seriesInfo.prev.part}
         </div>
         <div class="text-cream-100 text-sm leading-snug group-hover:text-cyan-300 transition-colors">
           {seriesInfo.prev.title}
@@ -35,7 +35,7 @@ const { seriesInfo } = Astro.props;
         ]}
       >
         <div class="text-xs font-mono text-muted-500 mb-1.5">
-          Next &middot; Part {seriesInfo.next.part} &rarr;
+          Next &middot; Part {seriesInfo.next.part} <span aria-hidden="true">&rarr;</span>
         </div>
         <div class="text-cream-100 text-sm leading-snug group-hover:text-cyan-300 transition-colors">
           {seriesInfo.next.title}

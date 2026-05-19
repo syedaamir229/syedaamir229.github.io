@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import Card from '../ui/Card.astro';
 import Tag from '../ui/Tag.astro';
 import { readingTime } from '../../lib/readingTime';
 
@@ -17,9 +18,11 @@ const formattedDate = date.toLocaleDateString('en-US', {
 });
 ---
 
-<a
+<Card
+  as="a"
   href={`/blog/${post.id}/`}
-  class="post-card group block p-6 rounded-xl border border-cream-100/5 bg-navy-800/40 card-hover"
+  hover
+  class="post-card"
   data-categories={JSON.stringify(categories)}
 >
   <div class="flex flex-wrap items-center gap-2 mb-3">
@@ -35,4 +38,4 @@ const formattedDate = date.toLocaleDateString('en-US', {
   <time class="text-xs text-muted-500" datetime={date.toISOString()}>
     {formattedDate}
   </time>
-</a>
+</Card>
