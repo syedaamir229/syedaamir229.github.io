@@ -65,7 +65,7 @@ Source schemas diverged across four vendor systems (viewing, subscriptions, cont
 
 ## Architecture Overview
 
-![Enterprise data model architecture: specialised source systems (video-analytics, subscription-management, programmatic ad-serving, content-metadata) land in a Bronze layer on S3, flow into Silver fact and dimension tables and a Gold feature store, consumed by BI, ML, and AI workloads.](/assets/projects/data-model.svg)
+![Enterprise data model architecture: specialised source systems (video-analytics, subscription-management, programmatic ad-serving, content-metadata) land in a Bronze layer on S3, flow into Silver fact and dimension tables and a Gold feature store, consumed by BI, ML, and AI workloads.](/assets/projects/enterprise-data-model.svg)
 
 Specialised source systems (a video-analytics platform, a subscription-management platform, a programmatic ad-serving platform, a content-metadata system) land in Bronze on S3, flow into Silver fact and dimension tables and Gold feature store tables, and are consumed by downstream BI, ML, and AI workloads.
 

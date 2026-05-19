@@ -34,7 +34,7 @@ export const CAPABILITIES: Capability[] = [
     ],
     icon: 'database',
     heroTitle: 'Enterprise Data Model for Streaming Analytics',
-    heroLink: '/projects/data-model/',
+    heroLink: '/projects/enterprise-data-model/',
     allWorkLink: '/projects/#data-engineering',
     allWorkLabel: 'All data engineering work',
   },

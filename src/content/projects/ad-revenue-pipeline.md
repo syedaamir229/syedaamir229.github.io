@@ -64,7 +64,7 @@ The reporting API enforced rate limits that constrained ingestion scheduling, pr
 
 ## Architecture Overview
 
-![Ad inventory and revenue pipeline architecture: a programmatic ad-serving platform's reporting API to S3 raw storage to Databricks staging, branching into Inventory, Impressions, VAST Errors, and Delivery Pacing pipelines that output to Power BI dashboards and Slack alerts.](/assets/projects/ad-pipeline.svg)
+![Ad inventory and revenue pipeline architecture: a programmatic ad-serving platform's reporting API to S3 raw storage to Databricks staging, branching into Inventory, Impressions, VAST Errors, and Delivery Pacing pipelines that output to Power BI dashboards and Slack alerts.](/assets/projects/ad-revenue-pipeline.svg)
 
 The reporting API feeds S3 raw storage and a Databricks staging layer where derivation is applied once. Four downstream pipelines implement the operating signals, feeding shared Power BI dashboards and Slack alerts for pacing and error events that need same-day intervention.
 

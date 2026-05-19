@@ -20,7 +20,7 @@ The inventory lever does not sit inside Ad Operations either. Adding slots insid
 
 The operational signals that decide whether AVOD revenue lands are well known. The gap is not the data; it is the pipeline that turns the data into action.
 
-![The Four-Signal AVOD Operating Loop: four signal pipelines (Inventory, Impressions, Delivery Pacing, VAST Errors) feed Ad Operations, which acts on the signals and escalates inventory pressure to Content Operations when supply needs to shift.](/assets/blog/avod-revenue-pipeline-and-alerting.svg)
+![The Four-Signal AVOD Operating Loop: four signal pipelines (Inventory, Impressions, Delivery Pacing, VAST Errors) feed Ad Operations, which acts on the signals and escalates inventory pressure to Content Operations when supply needs to shift.](/assets/blog/avod-ad-operations-four-signal-loop.svg)
 
 *Ad Operations reads four signals to defend booked commitments. Content Operations moves the supply lever when those signals say pressure.*
 

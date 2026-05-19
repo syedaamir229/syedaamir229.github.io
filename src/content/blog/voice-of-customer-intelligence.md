@@ -24,7 +24,7 @@ So the projects get scoped. They start. And then most of them get stuck inside t
 
 The stack below is the shape that holds up. Five layers, each independent, with one non-obvious architectural split inside Layer 4 that decides whether the rest of the system works.
 
-![Architecture diagram of the Voice-of-Customer Stack: four social sources feed raw ingestion, five-stage NLP enrichment in a curated layer, a semantic model with post and comment tables, then two specialized natural-language SQL agents (Comments and Engagement) plus a managed vector index, all routed by a supervisor agent and exposed through a workspace UI.](/assets/blog/enigma-voice-of-customer-stack.svg)
+![Architecture diagram of the Voice-of-Customer Stack: four social sources feed raw ingestion, five-stage NLP enrichment in a curated layer, a semantic model with post and comment tables, then two specialized natural-language SQL agents (Comments and Engagement) plus a managed vector index, all routed by a supervisor agent and exposed through a workspace UI.](/assets/blog/voice-of-customer-stack.svg)
 
 *The Voice-of-Customer Stack. Five layers, two specialized natural-language SQL agents, and a managed vector index, all routed by a thin supervisor agent. The two-agent split is the architectural decision that makes the rest of the system work.*
 

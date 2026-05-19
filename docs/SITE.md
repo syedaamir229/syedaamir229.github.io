@@ -110,5 +110,5 @@ Read the line out loud as if you were sitting across from a finance director who
   - Hero copy: [src/components/home/Hero.astro](../src/components/home/Hero.astro).
   - Capability cards: [src/data/capabilities.ts](../src/data/capabilities.ts).
   - Pipeline copy: [src/data/pipeline.ts](../src/data/pipeline.ts).
-  - About page facts strip: [src/components/about/AboutHeader.astro](../src/components/about/AboutHeader.astro).
+  - Experience page facts strip: [src/components/experience/ExperienceHeader.astro](../src/components/experience/ExperienceHeader.astro).
   - Section headings: passed as props to [src/components/ui/PageHeader.astro](../src/components/ui/PageHeader.astro) and [SectionHeader.astro](../src/components/ui/SectionHeader.astro).

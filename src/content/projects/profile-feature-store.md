@@ -63,7 +63,7 @@ Behavioral features had to be computed at the individual profile grain across mi
 
 ## Architecture Overview
 
-![Profile-level feature store architecture: viewing events and Gold-layer signals flow into an incremental feature pipeline producing 45+ features per profile, written to a single Delta table for CRM, ML, and reporting consumers.](/assets/projects/profile-features.svg)
+![Profile-level feature store architecture: viewing events and Gold-layer signals flow into an incremental feature pipeline producing 45+ features per profile, written to a single Delta table for CRM, ML, and reporting consumers.](/assets/projects/profile-feature-store.svg)
 
 Viewing events and account-level signals from the Gold layer flow into an incremental feature pipeline that emits 45+ features across 6 categories. Household-share derivations sit alongside content consumption and engagement quality, all written to a single Delta table. CRM, ML, and reporting consumers read from there.
 

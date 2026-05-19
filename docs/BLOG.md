@@ -20,7 +20,7 @@ Tone and voice principles live in [BRAND.md](BRAND.md). This file owns *how to w
 
 - **Path**: `src/content/blog/<slug>.md`
 - **Format**: plain markdown. No `.mdx`, no imports, no JSX.
-- **Slug**: lowercase kebab-case (`enigma-voice-of-customer-intelligence`, `bi-to-ai-journey`, `semantic-layer-01-why-governed-metrics`).
+- **Slug**: lowercase kebab-case (`voice-of-customer-intelligence`, `bi-to-ai-journey`, `semantic-layer-01-why-governed-metrics`).
 
 ---
 
@@ -66,7 +66,7 @@ Decisions, tech, and any narrative live in the markdown body. Org and timeline d
 
 Ten beats, in fixed order. Every framework-led post uses this structure. The labels below are scaffolding for the writer, not section headings the reader sees (only beats 4 onward have H2 headings).
 
-When phrasing or density is in question, mirror [enigma-voice-of-customer-intelligence.md](../src/content/blog/enigma-voice-of-customer-intelligence.md). It is the canonical anchor for the pattern.
+When phrasing or density is in question, mirror [voice-of-customer-intelligence.md](../src/content/blog/voice-of-customer-intelligence.md). It is the canonical anchor for the pattern.
 
 ````markdown
 [1. Opening anecdote. 1 to 2 paragraphs, past tense, one concrete scene
@@ -278,7 +278,7 @@ Posts make two kinds of claims, handled differently.
 
 ### MENA anchoring: structural vs decorative
 
-A MENA reference is **structural** if removing it would leave the framework component incomplete. It is **decorative** if removing it leaves the post intact. A post about delivered work needs at least one structural anchor. The "One MENA-flavored note" section in [enigma-voice-of-customer-intelligence.md](../src/content/blog/enigma-voice-of-customer-intelligence.md) is the worked example: translation is non-optional because half the comments are Arabic, and the date dimension carries Ramadan-window flags because a generic month filter would aggregate across structurally different release periods. Both are structural; removing them would break specific framework components.
+A MENA reference is **structural** if removing it would leave the framework component incomplete. It is **decorative** if removing it leaves the post intact. A post about delivered work needs at least one structural anchor. The "One MENA-flavored note" section in [voice-of-customer-intelligence.md](../src/content/blog/voice-of-customer-intelligence.md) is the worked example: translation is non-optional because half the comments are Arabic, and the date dimension carries Ramadan-window flags because a generic month filter would aggregate across structurally different release periods. Both are structural; removing them would break specific framework components.
 
 Specific seasonal cycles (Ramadan, Eid, World Cup, regional sports finals) follow the cultural-vs-operational test in section 10.
 
@@ -384,4 +384,4 @@ The test is whether removing the named cycle leaves the framework component comp
 - **Content schema**: [src/content.config.ts](../src/content.config.ts).
 - **Series registry**: [src/data/series.ts](../src/data/series.ts).
 - **Layout that wraps the markdown body**: [src/layouts/BlogPost.astro](../src/layouts/BlogPost.astro).
-- **Canonical anchor for the pattern**: [src/content/blog/enigma-voice-of-customer-intelligence.md](../src/content/blog/enigma-voice-of-customer-intelligence.md).
+- **Canonical anchor for the pattern**: [src/content/blog/voice-of-customer-intelligence.md](../src/content/blog/voice-of-customer-intelligence.md).

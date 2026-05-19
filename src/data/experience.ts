@@ -38,7 +38,7 @@ export const EXPERIENCE: Company[] = [
           { name: 'CRM Automation', href: '/projects/crm-automation/' },
           { name: 'Voice-of-Customer', href: '/projects/voice-of-customer/' },
           { name: 'Attribute Inference', href: '/projects/attribute-inference/' },
-          { name: 'Feature Store', href: '/projects/profile-features/' },
+          { name: 'Feature Store', href: '/projects/profile-feature-store/' },
           { name: 'Audience Segmentation', href: '/projects/audience-segmentation/' },
         ],
       },
@@ -53,7 +53,7 @@ export const EXPERIENCE: Company[] = [
         ],
         projects: [
           { name: 'Semantic Layer', href: '/projects/semantic-layer/' },
-          { name: 'Ad Inventory & Revenue', href: '/projects/ad-pipeline/' },
+          { name: 'Ad Inventory & Revenue', href: '/projects/ad-revenue-pipeline/' },
         ],
       },
       {
@@ -66,8 +66,8 @@ export const EXPERIENCE: Company[] = [
           'Shipped Phase 1 of the ad inventory and revenue pipeline covering ad delivery, performance tracking, and reconciliation',
         ],
         projects: [
-          { name: 'Enterprise Data Model', href: '/projects/data-model/' },
-          { name: 'BI Modernization', href: '/projects/bi-migration/' },
+          { name: 'Enterprise Data Model', href: '/projects/enterprise-data-model/' },
+          { name: 'BI Migration', href: '/projects/bi-migration/' },
         ],
       },
     ],

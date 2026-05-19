@@ -18,7 +18,7 @@ src/
 │   ├── ui/                # Reusable primitives, no page knowledge (props in, markup out)
 │   ├── layout/            # Cross-page chrome (Nav, Footer)
 │   ├── home/              # Home-page sections
-│   ├── about/             # About / experience sections
+│   ├── experience/        # Experience-page sections
 │   ├── blog/              # Blog listing + post components
 │   └── projects/          # Project listing + case-study components
 └── styles/

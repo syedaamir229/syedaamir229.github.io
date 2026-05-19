@@ -1,5 +1,5 @@
 ---
-title: "BI Modernization Roadmap"
+title: "BI Migration Roadmap"
 description: "Tableau to Power BI to a governed semantic layer, with leadership reporting never going dark for a day during the migration."
 category: "BI & Analytics"
 tags: ["Power BI", "Tableau", "Databricks", "SSAS"]

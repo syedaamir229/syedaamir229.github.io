@@ -20,7 +20,7 @@ Tone and voice principles live in [BRAND.md](BRAND.md). This file owns *how to w
 
 - **Path**: `src/content/projects/<slug>.md`
 - **Format**: plain markdown. No `.mdx`, no imports, no JSX.
-- **Slug**: lowercase kebab-case (`semantic-layer`, `ad-pipeline`, `bi-migration`, `voice-of-customer`).
+- **Slug**: lowercase kebab-case (`semantic-layer`, `ad-revenue-pipeline`, `bi-migration`, `voice-of-customer`).
 
 ---
 
@@ -69,7 +69,7 @@ That is it for frontmatter. Decisions, tech stack, and any narrative live in the
 
 Seven H2 sections in fixed order. Every case study uses this structure regardless of the `featured` flag. The flag controls home-page selection, not body shape. No lead paragraph above `## Challenge`; the header already sets context.
 
-When phrasing or density is in question, mirror [crm-automation.md](../src/content/projects/crm-automation.md), [data-model.md](../src/content/projects/data-model.md), [semantic-layer.md](../src/content/projects/semantic-layer.md), or [voice-of-customer.md](../src/content/projects/voice-of-customer.md). These four are the anchor for the pattern.
+When phrasing or density is in question, mirror [crm-automation.md](../src/content/projects/crm-automation.md), [enterprise-data-model.md](../src/content/projects/enterprise-data-model.md), [semantic-layer.md](../src/content/projects/semantic-layer.md), or [voice-of-customer.md](../src/content/projects/voice-of-customer.md). These four are the anchor for the pattern.
 
 ````markdown
 ## Challenge
