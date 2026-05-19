@@ -153,12 +153,7 @@ Use universal entities: customers, transactions, operations, finance, marketing,
 
 ## 6. Logo and wordmark
 
-**Status: TBD.** Company name decision held for a separate naming session. Logo work is blocked until the name lands. Today the personal-brand wordmark ("Syed Aamir" in Inter 700, cream-100 on navy-950) carries every surface. When the consulting brand is named, the wordmark should follow:
-
-- Inter 600 or 700, fixed size.
-- No icon required at launch. Clean wordmark is sufficient.
-- Color: `cream-100` on dark backgrounds. `navy-950` on light (rare use).
-- Replace the `Syed Aamir` wordmark in Nav and Footer at the same time as the rest of the brand swap.
+Personal-brand wordmark only today ("Syed Aamir", Inter 700, `cream-100` on `navy-950`). No separate logo. Consulting-brand name is held for a separate naming session; when it lands, replace the wordmark in Nav and Footer in one pass, keep Inter 600 or 700, and skip the icon at launch.
 
 ---
 
@@ -231,4 +226,3 @@ This step is mandatory because reading the SVG markup is not the same as seeing 
 - **Voice in practice for blog posts**: see [BLOG.md](BLOG.md). It inherits tone from this doc; structure is its own concern.
 - **Voice in practice for landing copy**: see [SITE.md](SITE.md).
 - **Voice in practice for project case studies**: see [PROJECTS.md](PROJECTS.md).
-- **Brand strategy for the blog** (positioning and content pillars): see [BLOG_STRATEGY.md](BLOG_STRATEGY.md).

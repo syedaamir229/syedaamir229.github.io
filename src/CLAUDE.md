@@ -94,7 +94,7 @@ import { getPersonSchema } from '../lib/personSchema';
 
 1. Create `src/content/blog/<slug>.md`.
 2. Fill frontmatter per [docs/BLOG.md section 5](../docs/BLOG.md#5-frontmatter). `categories` must be in [data/categories.ts](data/categories.ts) `BLOG_CATEGORIES`.
-3. Write per [docs/BLOG.md section 3](../docs/BLOG.md#3-post-structure-mandatory-seven-parts). Build a fact ledger and cite external claims per [section 4](../docs/BLOG.md#4-sourcing-facts-and-citations).
+3. Write per [docs/BLOG.md section 3](../docs/BLOG.md#3-post-structure). Build a fact ledger and cite external claims per [section 4](../docs/BLOG.md#4-sourcing-facts-and-citations).
 4. Run `npm run build` and `npm run dev`, check `/blog/<slug>/`.
 
 ### Add a project case study

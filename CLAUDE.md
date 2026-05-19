@@ -10,6 +10,12 @@ npm run build    # Production build to dist/
 npm run preview  # Preview the build locally
 ```
 
+Astro requires Node 22+. Node is managed via `nvm` (Homebrew formula). If `npm` is not on PATH in a fresh shell, source nvm first:
+
+```bash
+source /opt/homebrew/opt/nvm/nvm.sh && nvm use 22
+```
+
 ## Top-level layout
 
 ```
@@ -36,13 +42,12 @@ Decisions, preferences, and project context live in this CLAUDE.md tree and in [
 - **No em-dashes** in any written content (commits, PR bodies, docs, blog posts, code comments). Use colons, periods, or restructure. SQL `--` comments inside fenced code blocks are exempt.
 - **No emoji** in files unless explicitly requested.
 - **No AI attribution** in git commits or PR bodies. No `Co-Authored-By: Claude`, no "Generated with Claude Code" footer.
-- **Concrete examples from the actual work.** In blog posts and project case studies, use real domain details from the work being described, not generic placeholders. Show depth in one domain rather than fake breadth across all of them. The current employer is implicit through your CV and LinkedIn experience section; it should not appear as the subject of any sentence in a published post or project case study. Posture lives in [docs/BLOG.md section 10](docs/BLOG.md#10-confidentiality) and [docs/PROJECTS.md section 9](docs/PROJECTS.md#9-confidentiality). Landing surfaces stay vertical-agnostic, see [docs/SITE.md](docs/SITE.md).
+- **Concrete examples from the actual work.** In blog posts and project case studies, use real domain details from the work being described, not generic placeholders. Show depth in one domain rather than fake breadth across all of them. The current employer is implicit through your CV and LinkedIn experience section; it should not appear as the subject of any sentence in a published post or project case study. Posture lives in [docs/BLOG.md section 9](docs/BLOG.md#9-confidentiality) and [docs/PROJECTS.md section 9](docs/PROJECTS.md#9-confidentiality). Landing surfaces stay vertical-agnostic, see [docs/SITE.md](docs/SITE.md).
 
 ## Identity, brand, and voice
 
 - **Brand source of truth**: [docs/BRAND.md](docs/BRAND.md). Owns both visual identity (palette, type, surface) and tone principles. Every other voice spec references it.
 - **Per-surface voice specs**: [docs/SITE.md](docs/SITE.md) (landing), [docs/BLOG.md](docs/BLOG.md) (per blog post), [docs/PROJECTS.md](docs/PROJECTS.md) (per project case study).
-- **Blog strategy** (positioning and content pillars): [docs/BLOG_STRATEGY.md](docs/BLOG_STRATEGY.md).
 
 ## Working in this repo
 

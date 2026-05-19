@@ -1,146 +1,64 @@
 # Blog
 
-Operational spec for writing a blog post. Open this file every time you write or refresh a post.
+Operational spec for writing a blog post. Open this every time you write or refresh a post.
 
-Tone and brand-voice principles live in [BRAND.md](BRAND.md). Positioning and content pillars live in [BLOG_STRATEGY.md](BLOG_STRATEGY.md). This file owns *how to write the post itself*: post shape, structure, frontmatter, images, checklist.
+Tone and brand-voice principles live in [BRAND.md](BRAND.md). This file owns *how to write the post itself*: post shape, structure, frontmatter, images, checklist.
 
 ---
 
-## 1. The voice (in one line)
+## 1. Voice (one line)
 
-**Thought leadership with delivery receipts.** Every claim anchored in something you built, broke, or watched fail. Specific tools, specific numbers, specific moments.
+**Thought leadership with delivery receipts.** Every claim is anchored in something the author built, broke, or watched fail. Specifics are patterns, decisions, and relative outcomes, not company names or absolute scale figures.
 
-Specifics are what make claims credible. The specifics that do that work are *patterns, decisions, and relative outcomes*, not company names or absolute scale figures. The "delivery receipt" is the trade-off you reasoned through and the pattern you have lived enough times to name, not the precise commercial measurement of a specific employer's operations.
-
-For the full voice rules, sentence patterns, and forbidden words: read [BRAND.md section 5](BRAND.md#5-voice-and-tone-applies-to-every-surface). This document treats those rules as inherited and does not repeat them.
-
-Things specific to blog voice that are *not* covered in BRAND.md:
-
-- **Conversational but not casual.** No "in this blog post I will discuss." No "feel free to reach out." No "hope this helped."
-- **No tutorial framing** as the spine of a post. Step-by-step "1. Open Databricks. 2. Click Compute." is documentation, not thought leadership. Steps may live *inside* a named framework component, but never carry the post.
-- **No documentation-mode capability tables** or parameter exhaustion.
+For sentence patterns, words to use and avoid, and hard rules: see [BRAND.md section 5](BRAND.md#5-voice-and-tone-applies-to-every-surface). This document treats those rules as inherited.
 
 ---
 
 ## 2. Two post shapes
 
-Every post is one of two shapes. Both share the same voice and the same seven-part structure (section 3). They differ only in length expectation and whether they stand alone or belong to a series. The classification is derived from existing frontmatter; there is no separate tier field.
+| Shape | Length | Frontmatter | Use when |
+|---|---|---|---|
+| Standalone | 1,200 to 1,800 words | no `series` field | Default. State an opinion, defend it with one named framework, end with a question. |
+| Series companion | 1,000 to 1,500 words per part | `series: <slug>` + `series_part: <n>` | Multi-part exploration of one topic. Register the slug in [../src/data/series.ts](../src/data/series.ts) before writing. |
 
-### Standalone
-
-- **Length**: 1,200 to 1,800 words.
-- **Purpose**: state an opinion, defend it with one named framework, end with a question. The default shape.
-- **Frontmatter**: no `series` field.
-
-### Series companion
-
-- **Length**: 1,000 to 1,500 words per part. The framework is distributed across the series, so individual parts run shorter.
-- **Purpose**: a sequenced multi-part exploration of one topic. Each part still opens with a vivid hook, states a sub-thesis, and closes with a question.
-- **Frontmatter**: `series: <slug>` and `series_part: <number>`.
-- **Before writing**: register the series in [../src/data/series.ts](../src/data/series.ts) with a human-readable label. If the slug is not registered, the series nav falls back to rendering the raw slug.
-
-Length is a target, not a hard rule. If a topic routinely runs past 2,500 words, it probably wanted to be a series.
+Length is a target, not a hard rule. A topic that routinely runs past 2,500 words probably wanted to be a series.
 
 ---
 
-## 3. Post structure (mandatory seven parts)
+## 3. Post structure
 
-The labels below are scaffolding, not section headings the reader sees. Some are unmarked transitions in prose.
+Every post has seven parts in this order. The labels below are scaffolding for the writer, not headings the reader sees. The canonical worked example is [src/content/blog/avod-revenue-pipeline-and-alerting.md](../src/content/blog/avod-revenue-pipeline-and-alerting.md); read it once to anchor what each part looks like in practice.
 
-### 1. Hook (first 3 paragraphs)
+| # | Part | What it is | Avoid |
+|---|---|---|---|
+| 1 | Hook | A specific scene the reader has lived. Past tense, third-person about teams or systems. 1 to 2 paragraphs. | Abstract problem statements. "Many implementations fail because..." |
+| 2 | Diagnosis | "That kind of miss is the shape of X." Names the failure pattern in one paragraph. | Restating the hook in different words. |
+| 3 | Bold thesis | A standalone bolded paragraph in the "A team is either X or Y" pattern, plus the framework name. Someone could disagree. | "A semantic layer can still fail after launch if governance is weak." (No teeth.) |
+| 4 | Why this matters now | One or two paragraphs of industry context: vendors, citations, structural notes. This is where external links live. | Generic "AI is everywhere" preamble. |
+| 5 | Named framework | The body. 3 to 6 components, each with *what it is*, *the non-obvious part*, *what goes wrong without it*. Tools, schema, and code blocks live inside relevant components. | "Approach" or "Methodology" as the section name. Numbered lists with no container concept. |
+| 6 | Where I would start | Incremental ordering of how to ship the framework, dictated by trust not roadmap. 3 to 4 paragraphs. The one section where first-person ("I would") is welcome. | Generic "first steps" advice. |
+| 7 | Closing question | A question that challenges the reader's current approach. Often the binary from the thesis ("Is your X this, or that?"). | "Hope this helped." "Reach out if you want to talk." |
 
-Open with a specific scene the reader has lived. Not an abstract problem statement.
+### Closing questions worth aiming for
 
-**Good:**
-> "I've sat through enough quarterly reviews to recognize the shape: a churn model and a churn dashboard arriving with different counts, leadership asking which one to use, the answer needing to fit in one room. Both numbers were defensible. Neither was the right answer."
-
-Specific scene, first-person, pattern recognition. No company attribution, no exact count. The author has the receipt because the author has lived this; the post does not name the employer to prove it.
-
-**Also good:**
-> "I sat down with a content lead who wanted to know what our female audience over 25 actually watched. The honest first answer was that only a quarter of adult profiles had self-reported gender data. The rest was unknown."
-
-First-person, immediate, owns the moment. The reader knows where the work happened because the About page exists.
-
-**Weak:**
-> "A semantic layer only works if architecture boundaries are clear. Many implementations fail because they mix data engineering responsibilities, metric engineering responsibilities, and report development responsibilities in one place."
-
-The first two are scenes with people, moments, and pattern recognition. The third is a statement of generic principle. Always write a scene.
-
-### 2. Bold thesis (paragraph 4)
-
-A standalone paragraph that states an opinion with teeth. Someone could disagree.
-
-**Good:**
-> "The fix was not a dashboard or a new tool. It was a shared, governed data layer that every downstream consumer could trust."
-
-**Weak:**
-> "A semantic layer can still fail after launch if governance and deployment are weak."
-
-### 3. Context: why this matters now
-
-One or two paragraphs on the industry trend, technology shift, or market force that makes this topic urgent. Name specific tools, companies, market movements. This is where web-grounded external claims live (cite them per section 4 below).
-
-### 4. The named framework (body of the post)
-
-A model with 3 to 6 components, given a memorable name. Each component gets:
-
-- **What it is** (1 to 2 sentences)
-- **Why it matters** (business impact)
-- **What goes wrong without it** (concrete failure mode, ideally one you have lived)
-- **Optional**: specific tools or patterns. Code blocks or schema live here, inside the relevant framework component, never as the spine of the post.
-
-**Good framework names** (set the bar to these):
-- "The Voice-of-Customer Stack"
-- "The Compounding Stack"
-- "The Five Rules of a Compounding Data Model"
-- "The Three-Layer DAX Stack"
-- "The Three-Phase Migration Sequence"
-
-**Avoid:**
-- "Approach" or "Methodology" as a section heading with no framework name.
-- Numbered lists of practices with no container concept.
-- "Lessons learned" with no overarching name.
-
-### 5. Prioritization: "What I'd actually do first"
-
-After the framework, tell the reader where to start and why. This is the section that gets bookmarked and screenshot-ed. One paragraph minimum.
-
-### 6. Domain anchor (at least one component)
-
-At least one framework component, hook example, or stake should anchor in MENA / Arabic-OTT delivery experience. The defensible differentiator is delivery experience in a niche no generic consultant can fake. Surface it as structural pattern (Ramadan release cycles, Arabic-language UX edge cases, MENA household profile sharing), not as a named-employer brag. The employer never becomes the subject of the post; the niche context becomes the structural anchor.
-
-Examples: Ramadan release cycles, Arabic-language UX edge cases, MENA streaming household-sharing dynamics, AVOD market shifts in the region.
-
-For posts where the domain is genuinely incidental (pure career narrative, pure technical pattern), one MENA-flavored sentence is enough. For posts about delivered work, MENA context should be structural.
-
-### 7. Closing question
-
-End with a question that challenges the reader's current approach. Not a CTA. Not "hope this helped." A question they cannot answer without thinking.
-
-**Good closing questions** (write to this bar):
 - "Is your data model a project that ended, or infrastructure that compounds?"
-- "Your feedback data is either an asset you can query or a queue your analysts work down. Which one is yours?"
-- "Is your stack compounding, or restarting every two years?"
+- "Is your Ad Operations team acting on signals, or chasing make-goods?"
 - "Are your model numbers explainable from your dashboard, or are they a parallel reality?"
+- "Is your stack compounding, or restarting every two years?"
 
-**Avoid:**
-- "Hope this helped."
-- "For the full case study, see..."
-- "Reach out if you want to talk through your stack." (Belongs on the contact page, not the post.)
+### Optional sections (sometimes present)
+
+A short *design decision* section between parts 5 and 6 names the single call that makes the framework work ("Alert thresholds: business impact, not technical anomaly"; "Parameter design: every recurring ask is a knob"). A *One MENA-flavored note* section between parts 6 and 7 ties the framework to regional context. Both are demonstrated in the AVOD post.
 
 ---
 
 ## 4. Sourcing facts and citations
 
-Posts make two kinds of claims, and each one needs different handling before the draft is written.
+Posts make two kinds of claims, handled differently.
 
-### Fact ledger
+**Fact ledger.** Before writing, list every number, tool name, architecture detail, date, role, and decision the post will rely on. Pull from authoritative sources: the project case study, internal docs, the original PDF documenting the work. The draft does not invent numbers.
 
-Before writing, list every number, tool name, architecture detail, date, role, and decision the post will rely on. Pull these from authoritative sources: the project case study, internal docs, the original PDF documenting the work. This list is the source of truth for the draft. The draft does not invent numbers.
-
-### External claims
-
-Any claim that goes beyond personal delivery (industry adoption stats, vendor benchmarks, market size, comparisons to other companies' approaches, recent thinking from named practitioners) needs a citation. For each such claim, run a targeted web search. Cite inline using markdown links to authoritative sources: vendor docs, named analysts, recent benchmark reports. Every citation should be load-bearing. Do not bulk-cite.
+**External claims.** Any claim beyond personal delivery (industry adoption stats, vendor benchmarks, recent thinking from named practitioners) needs a citation. Run a targeted web search and link inline to authoritative sources: vendor docs, named analysts, recent benchmark reports. Every citation should be load-bearing. Do not bulk-cite.
 
 ---
 
@@ -148,7 +66,7 @@ Any claim that goes beyond personal delivery (industry adoption stats, vendor be
 
 ```yaml
 ---
-title: "Clear, specific, opinionated title"
+title: "Clear, specific, opinionated title that names the framework"
 date: YYYY-MM-DD
 description: "One-sentence summary that works as a LinkedIn preview."
 categories: ["One Category"]
@@ -169,53 +87,7 @@ A post can have more than one category. Most have one.
 
 ---
 
-## 6. LinkedIn excerpt
-
-The blog post is the canonical destination. A LinkedIn excerpt is the surface that drives traffic to it.
-
-There is no excerpt workflow in this repo today. The `linkedin_excerpt` schema slot was dropped on 2026-05-17 because nothing read or wrote it. The template and rules below are reference material for when an excerpt workflow lands (see the LinkedIn entry in [../TODO.md](../TODO.md) Future enhancements). Until then, posts ship without an excerpt and the post is its own canonical artifact.
-
-### Template
-
-```
-[Hook scene: 2 to 3 short paragraphs. Specific people, specific numbers, specific moment. Stop before the thesis.]
-
-[One-line thesis or framework headline. Make it screenshot-able.]
-
-[One-line preview of the prioritization or the named framework's first component.]
-
-Full piece on the blog ↓
-[link]
-```
-
-### Format rules
-
-- 8 to 12 short lines, one idea per line.
-- No hashtags in the excerpt itself. Add them in the first comment below the post if you want them.
-- No emoji. The downward arrow `↓` is acceptable as the only non-text character because it does meaningful work pointing at the link.
-- No em-dashes.
-- The hook scene is ~70% of the excerpt. The framework headline and prioritization preview stay tight.
-
-### Example
-
-```
-The Tuesday morning a content lead asked "what is the audience saying about the Ramadan finale?", the analyst said: give me three days.
-
-Three days. For a question whose answer was already sitting in Twitter, Facebook, YouTube, and our own Shorts comments, mostly in Arabic, in four different schemas, with no link back to a title.
-
-We built a platform that answers questions like that in seconds. The non-obvious move was not LLMs or vector search.
-
-It was splitting Genie spaces in two. One for quantitative questions ("how many comments did Title X get?"). One for engagement metrics ("playtime trends for Title X?"). A supervisor agent routes between them.
-
-Most teams try to build one Genie space that does everything. That is where they hit a wall.
-
-Full piece on the blog ↓
-[link]
-```
-
----
-
-## 7. Images
+## 6. Images
 
 Images are not decorative. Every image earns its place. Default position: no image.
 
@@ -232,83 +104,39 @@ Images are not decorative. Every image earns its place. Default position: no ima
 - **Italic caption directly below**: `*One-sentence caption tying the image to the framework's main claim.*`
 - **Alt text**: describe the image's information content, not its appearance. "Architecture diagram showing the four-signal AVOD operating loop with inventory, impressions, VAST errors, and pacing pipelines feeding a shared semantic layer." Not "diagram with boxes and arrows."
 
-### How to build and verify the SVG
+### How to build and verify
 
-See [BRAND.md section 7](BRAND.md#7-diagrams). Same workflow as project case-study diagrams: hand-coded SVG XML, brand palette baked in, verified via `npm run verify:diagram <path>` and reading the resulting PNG.
-
----
-
-## 8. Domain anchoring
-
-The defensible differentiator is delivery experience in MENA / Arabic-OTT that no generic consultant can fake. This section's job is to make that surfacing concrete, not decorative.
-
-### Structural vs decorative
-
-A MENA reference is **structural** if removing it would leave the framework component incomplete. **Decorative** if removing it leaves the post intact.
-
-- Structural: "The dim-date table at Shahid carries explicit Ramadan flags (minus-90 days, in-Ramadan, plus-90 days) so every time-grain measure stays consistent across the cycle." Load-bearing for the architecture argument.
-- Decorative: "Like most MENA streaming platforms, we serve a diverse audience." Could be deleted without losing anything.
-
-A post about delivered work should have at least one structural anchor.
-
-### Anchors worth reaching for
-
-When illustrating a framework component, reach for one of these before reaching for a generic example.
-
-- **Ramadan release cycles**: pre-Ramadan, in-Ramadan, post-Ramadan windows shift content launches, subscription patterns, ad inventory, completion rates. Use as a stress test for any time-grain decision, dim-date design, KPI normalization, or refresh-cadence example.
-- **Eid windows and regional sports finals**: shorter, sharper versions of the Ramadan cycle. Use for campaign-pacing or seasonal-override examples.
-- **Arabic-language UX**: RTL layout, mixed-script content, transliteration, Arabic search and entity-resolution. Use for tagging, search, comment-mining, or any text-pipeline example.
-- **MENA household-sharing dynamics**: multi-profile accounts, family-tier economics, shared-watchlist behavior. Use for churn modeling, profile attribution, or audience-segmentation examples.
-- **Regional content licensing**: territory windows, Arabic-original investment, regional vs global content. Use for content-strategy or recommendation examples.
-
-### Stack signals
-
-Specific tools shipped on signal credibility, but only when anchored to a decision or a failure mode, never in the hook. Examples: Databricks, Delta Lake, Power BI, CleverTap, FAISS, LangGraph, Genie spaces, SSAS Tabular. Bronze / Silver / Gold layering fits here too.
-
-A tool name without an associated decision or failure mode is name-dropping. Cut it.
-
-Two or more vendors from the current-employer stack appearing together in one post is the de-anonymization signal that matters most. Pair with a peer vendor ("CleverTap or Braze"), abstract to category ("a customer-engagement platform"), or keep one specific vendor where it is load-bearing for a craft point. One specific vendor with craft justification beats four specific vendors that form a fingerprint. Never pair a named vendor with a vendor-specific operational quantity (e.g., "GAM with a 14-day attribution window"): the pairing is the fingerprint. Either name the vendor without the quantity, or describe the operational behavior without naming the vendor.
-
-### Transferable Pattern carve-out
-
-One paragraph at most where the post explicitly steps back: "this pattern also fits retail, fintech, SaaS subscription, etc." Keep it tight. Signal applicability without diluting the niche positioning.
-
-Generic OTT terms (subscriber, churn, ARPU, AVOD impressions) are table stakes. Use them naturally without thinking. They do not signal niche.
+See [BRAND.md section 7](BRAND.md#7-diagrams). Hand-coded SVG XML, brand palette baked in, verified via `npm run verify:diagram <path>` and reading the resulting PNG.
 
 ---
 
-## 9. Pre-publication checklist
+## 7. MENA anchoring
 
-Before any post ships (rewrite, refresh, or new), it must pass:
+The defensible differentiator is delivery experience in MENA / Arabic-OTT that no generic consultant can fake. Surface it as structural pattern, not decorative reference.
 
-- [ ] Confidentiality pass (see section 10): is the current employer the subject of any sentence in this post? If yes, reframe.
-- [ ] No internal codenames in body, in framework names, or in section headings.
-- [ ] No uniquely identifying vendor combination. Where two or more current-employer vendors appear together, one has been paired with a peer or abstracted.
-- [ ] No vendor-specific operational quantity paired with a named vendor (e.g., "GAM with a 14-day attribution window"). Either name the vendor without the quantity, or describe the operational behavior without naming the vendor.
-- [ ] All numbers tied to current-employer operations are relative or order-of-magnitude. Exact scale figures (subscriber counts, profile counts, revenue, model-accuracy) converted.
-- [ ] No incident anecdote that names a specific weekday in combination with a named role or recognizable team.
-- [ ] No direct quotes from internal communication. Paraphrased as composite framing.
-- [ ] No named seasonal cycle used as the canonical operational example for a generalizable system. Cultural-anchor framing is OK; canonical-example framing abstracts (see section 10 for the test).
+A MENA reference is **structural** if removing it would leave the framework component incomplete. It is **decorative** if removing it leaves the post intact. A post about delivered work needs at least one structural anchor. The "One MENA-flavored note" section in the canonical AVOD post is the worked example.
+
+Specific seasonal cycles (Ramadan, Eid, World Cup, regional sports finals) are handled by the cultural-vs-operational test in section 9. The default is to abstract the named cycle to "a predictable recurring window"; the exception is when the named cycle is the structural anchor.
+
+---
+
+## 8. Pre-publication checklist
+
+Mechanical rules (no em-dashes, no emoji, no exclamation marks, no AI attribution, no filler words, frontmatter schema, build pass) are covered by [BRAND.md](BRAND.md) and the build process. This checklist is structural judgment only.
+
+- [ ] Confidentiality pass per section 9 complete.
 - [ ] Hook is a specific scene with people, numbers, or a moment (not an abstract statement).
-- [ ] Standalone thesis paragraph appears at or near paragraph 4.
-- [ ] Framework has a name with weight (not "Approach" or "Methodology").
-- [ ] Each framework component has *what / why / failure-mode* coverage.
-- [ ] Prioritization section ("What I'd actually do first") is explicit.
+- [ ] Standalone bolded thesis appears at or near paragraph 4, in the "A team is either X or Y" pattern.
+- [ ] Framework has a name with weight (not "Approach" or "Methodology"), and each component covers *what it is / the non-obvious part / what goes wrong without it*.
+- [ ] "Where I would start" section is explicit about which component earns the next.
+- [ ] For posts about delivered work, at least one structural MENA anchor present (section 7's structural-vs-decorative test).
 - [ ] Closing question challenges the reader's current approach.
-- [ ] For posts about delivered work, at least one structural anchor (section 8) is present. The structural vs decorative test: removing it should leave the framework component incomplete.
 - [ ] Fact ledger built before drafting (section 4). External claims have load-bearing citations to authoritative sources.
-- [ ] Zero em-dashes (`—`) and zero double-hyphen substitutes (`--`) in prose. Code-block `--` SQL comments are exempt.
-- [ ] No emoji.
-- [ ] No filler words: "basically", "essentially", "it's worth noting that".
-- [ ] Frontmatter complete: title, date, description, categories, draft. Series fields if applicable; series slug registered in `src/data/series.ts`.
-- [ ] Word count matches the declared shape (1,200 to 1,800 for standalone, 1,000 to 1,500 per series-companion part). Length is a target, not a hard rule.
-- [ ] If an image is included, it is brand-aligned, has an italic caption, and has information-content alt text.
-- [ ] `npm run build` passes.
 - [ ] `/blog/<slug>/` renders correctly at desktop and mobile widths.
 
 ---
 
-## 10. Confidentiality
+## 9. Confidentiality
 
 The blog is written while the author is employed. Posts that describe current-employer work follow one structural rule:
 
@@ -316,7 +144,7 @@ The blog is written while the author is employed. Posts that describe current-em
 
 The post's subject is one of:
 
-- **Your craft.** First-person framing: "I've shipped enough semantic layers to recognize..."
+- **The author's craft.** First-person framing in the "Where I would start" section: "If you can only do one of these first, do X."
 - **The artifact.** System-anchored framing: "The Voice-of-Customer stack is a five-layer pipeline..."
 - **The industry pattern.** Trend-anchored framing: "Arabic-content OTT platforms face a Ramadan-cycle problem..."
 
@@ -340,7 +168,6 @@ Anonymization-as-descriptor ("a major MENA streaming platform") is the wrong mov
 
 - Public industry patterns (medallion architecture, semantic layer, feature store, RAG, supervisor-agent topology).
 - Past employers in factual career-history references. Career-narrative posts can and should name them.
-- Current employer in factual employment references inside career-narrative posts ("I joined the platform in 2022 to build..."). Just not as the subject of a project-case-study sentence.
 - Vendor names without a paired vendor-specific operational quantity (e.g., "Power BI" or "Databricks" as a tool, not "GAM with a 14-day attribution window").
 - Relative outcomes ("X% improvement", "from roughly a quarter to near-full coverage", "hours to seconds").
 - Composite anecdotes that draw on multiple incidents to surface a pattern.
@@ -355,24 +182,10 @@ Specific seasonal cycles (Ramadan, Eid, World Cup, regional sports finals) appea
 
 The test is whether removing the named cycle leaves the framework component complete. If the lesson is *"you need declarative seasonal overrides"* and Ramadan is the canonical example, the named cycle is operational and should abstract. If the lesson is *"MENA streaming has compressed-launch dynamics that Western models miss"* and Ramadan is the structural anchor, the named cycle is cultural and stays.
 
-### Where the test gets applied: the hook-to-MENA-anchor seam
-
-When the hook is rewritten to first-person craft framing, the paragraph that follows (often a "Why this matters now" MENA-anchor) is the seam where Ramadan, MBC, or operational language tends to creep back in. Apply the cultural-vs-operational test at that seam deliberately, not by accident:
-
-- A one-line MENA observation that explains household-sharing dynamics, profile-completion patterns, dialectal-Arabic UX edge cases, or compressed-launch structure is cultural anchor and stays.
-- A paragraph that uses a named cycle (Ramadan finale promotion, World Cup pacing) as the canonical operational example for a generalizable system is operational and abstracts.
-
-If a post's existing MENA paragraph reads as operational scene-setting once the hook is reframed, retune it to cultural framing rather than deleting it. The niche signal is what gives the post defensible depth; the operational example is what makes it sound like a press release.
-
-### Frontmatter description length after dilution
-
-Diluting exact figures lengthens the description. The pilot rewrite of `gender-prediction-model-in-practice.md` saw its description grow by ~18 words because "9.5M profiles scored, 75% accuracy" compressed into one number while "near-full coverage across millions of adult profiles, the majority of those rows being entirely new predictions" took several. Accept the longer phrasing. The same trade-off applies to any frontmatter that surfaces on listing cards. Tightening descriptions stylistically is fine; preserving an exact figure to save words is not.
-
 ---
 
 ## Cross-references
 
 - **Tone, words to use and avoid, hard rules**: [BRAND.md](BRAND.md) section 5.
-- **Positioning and content pillars**: [BLOG_STRATEGY.md](BLOG_STRATEGY.md).
 - **Category enum (source of truth)**: [src/data/categories.ts](../src/data/categories.ts).
 - **Content schema**: [src/content.config.ts](../src/content.config.ts).
