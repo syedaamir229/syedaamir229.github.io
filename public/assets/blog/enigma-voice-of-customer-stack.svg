@@ -10,12 +10,11 @@
 
   <rect width="1200" height="720" rx="12" fill="#050B14"/>
   <text x="600" y="34" text-anchor="middle" font-size="18" font-weight="700" fill="#E2E8F0">Voice-of-Customer Stack</text>
-  <text x="600" y="54" text-anchor="middle" font-size="11" fill="#94A3B8">Two specialized Genie spaces and a managed vector index, routed by a supervisor agent</text>
+  <text x="600" y="54" text-anchor="middle" font-size="11" fill="#94A3B8">Two specialized natural-language SQL agents and a managed vector index, routed by a supervisor agent</text>
 
   <!-- Layer 6: Databricks App (top) -->
   <rect x="40" y="78" width="1120" height="72" rx="10" fill="#122033" stroke="#06B6D4" stroke-width="2"/>
-  <text x="600" y="100" text-anchor="middle" font-size="12" font-weight="700" fill="#E2E8F0">Databricks App</text>
-  <text x="600" y="115" text-anchor="middle" font-size="9" fill="#94A3B8">React + FastAPI</text>
+  <text x="600" y="108" text-anchor="middle" font-size="12" font-weight="700" fill="#E2E8F0">Workspace UI</text>
   <rect x="120" y="124" width="280" height="22" rx="5" fill="#1E3148" stroke="#06B6D4"/>
   <text x="260" y="139" text-anchor="middle" font-size="9" fill="#22D3EE">Title Chat</text>
   <rect x="460" y="124" width="280" height="22" rx="5" fill="#1E3148" stroke="#06B6D4"/>
@@ -28,9 +27,9 @@
 
   <!-- Layer 5: Supervisor Agent -->
   <rect x="420" y="184" width="360" height="64" rx="10" fill="#122033" stroke="#06B6D4" stroke-width="2"/>
-  <text x="600" y="207" text-anchor="middle" font-size="13" font-weight="700" fill="#E2E8F0">LangGraph Supervisor Agent</text>
+  <text x="600" y="207" text-anchor="middle" font-size="13" font-weight="700" fill="#E2E8F0">Supervisor Agent</text>
   <text x="600" y="225" text-anchor="middle" font-size="9" fill="#22D3EE">Classifies intent: quantitative / qualitative / hybrid</text>
-  <text x="600" y="239" text-anchor="middle" font-size="9" fill="#94A3B8">Routes to Genie spaces or vector index, enforces fallback contract</text>
+  <text x="600" y="239" text-anchor="middle" font-size="9" fill="#94A3B8">Routes to natural-language SQL agents or vector index, enforces fallback contract</text>
 
   <!-- Down arrows from supervisor to retrieval tools (query routing) -->
   <line x1="500" y1="248" x2="200" y2="274" stroke="#94A3B8" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#down)"/>
@@ -39,20 +38,20 @@
 
   <!-- Layer 4: Retrieval tools -->
   <rect x="60" y="280" width="280" height="92" rx="10" fill="rgba(6,182,212,0.06)" stroke="#06B6D4" stroke-width="1.5"/>
-  <text x="200" y="304" text-anchor="middle" font-size="12" font-weight="700" fill="#06B6D4">Comments Genie</text>
-  <text x="200" y="324" text-anchor="middle" font-size="9" fill="#22D3EE">LLM-to-SQL over fact_comment</text>
+  <text x="200" y="304" text-anchor="middle" font-size="12" font-weight="700" fill="#06B6D4">Comments Agent</text>
+  <text x="200" y="324" text-anchor="middle" font-size="9" fill="#22D3EE">Natural-language SQL over fact_comment</text>
   <text x="200" y="340" text-anchor="middle" font-size="9" fill="#94A3B8">Sentiment, volume, profanity rate</text>
   <text x="200" y="356" text-anchor="middle" font-size="9" fill="#94A3B8">"How many comments did Title X get?"</text>
 
   <rect x="460" y="280" width="280" height="92" rx="10" fill="rgba(6,182,212,0.06)" stroke="#06B6D4" stroke-width="1.5"/>
-  <text x="600" y="304" text-anchor="middle" font-size="12" font-weight="700" fill="#06B6D4">Engagement Genie</text>
-  <text x="600" y="324" text-anchor="middle" font-size="9" fill="#22D3EE">LLM-to-SQL over engagement star schema</text>
+  <text x="600" y="304" text-anchor="middle" font-size="12" font-weight="700" fill="#06B6D4">Engagement Agent</text>
+  <text x="600" y="324" text-anchor="middle" font-size="9" fill="#22D3EE">Natural-language SQL over engagement star schema</text>
   <text x="600" y="340" text-anchor="middle" font-size="9" fill="#94A3B8">Playtime, device, demographic cuts</text>
   <text x="600" y="356" text-anchor="middle" font-size="9" fill="#94A3B8">"Playtime trends for Title X by device?"</text>
 
   <rect x="860" y="280" width="280" height="92" rx="10" fill="rgba(6,182,212,0.06)" stroke="#06B6D4" stroke-width="1.5"/>
-  <text x="1000" y="304" text-anchor="middle" font-size="12" font-weight="700" fill="#06B6D4">Databricks Vector Search</text>
-  <text x="1000" y="324" text-anchor="middle" font-size="9" fill="#22D3EE">Managed semantic index in Unity Catalog</text>
+  <text x="1000" y="304" text-anchor="middle" font-size="12" font-weight="700" fill="#06B6D4">Managed Vector Index</text>
+  <text x="1000" y="324" text-anchor="middle" font-size="9" fill="#22D3EE">Managed semantic index in the governed catalog</text>
   <text x="1000" y="340" text-anchor="middle" font-size="9" fill="#94A3B8">Embeddings over translated comments</text>
   <text x="1000" y="356" text-anchor="middle" font-size="9" fill="#94A3B8">"What are people saying about the ending?"</text>
 
@@ -63,7 +62,7 @@
 
   <!-- Layer 3: Gold semantic model -->
   <rect x="40" y="432" width="1120" height="86" rx="10" fill="#0A1220" stroke="#06B6D4" stroke-width="1.5"/>
-  <text x="600" y="454" text-anchor="middle" font-size="12" font-weight="700" fill="#E2E8F0">Gold Semantic Model</text>
+  <text x="600" y="454" text-anchor="middle" font-size="12" font-weight="700" fill="#E2E8F0">Semantic Model</text>
   <rect x="80" y="468" width="320" height="38" rx="6" fill="#122033" stroke="#06B6D4"/>
   <text x="240" y="485" text-anchor="middle" font-size="10" font-weight="500" fill="#22D3EE">dim_post</text>
   <text x="240" y="499" text-anchor="middle" font-size="8" fill="#94A3B8">parent_title_id, title_name, season, episode</text>
@@ -81,7 +80,7 @@
 
   <!-- Layer 2: Silver NLP enrichment -->
   <rect x="40" y="560" width="1120" height="68" rx="10" fill="#0A1220" stroke="#06B6D4" stroke-width="1.5"/>
-  <text x="600" y="580" text-anchor="middle" font-size="12" font-weight="700" fill="#E2E8F0">Silver NLP Enrichment</text>
+  <text x="600" y="580" text-anchor="middle" font-size="12" font-weight="700" fill="#E2E8F0">NLP Enrichment</text>
   <rect x="60" y="592" width="210" height="28" rx="5" fill="#122033" stroke="#06B6D4"/>
   <text x="165" y="610" text-anchor="middle" font-size="9" fill="#22D3EE">Arabic - English translation</text>
 
