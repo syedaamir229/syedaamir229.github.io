@@ -20,41 +20,39 @@ Every additional consumer of a metric (a BI dashboard, an ML model, an AI agent,
 
 For a BI-to-DS team specifically the failure mode is concrete. The dashboard says 12,000 at-risk subscribers, the model flags 15,000, and the leadership conversation that follows is a reconciliation, not a decision. The four patterns below are what stops that conversation from happening.
 
-## Pattern 1: Keep shared business entities
+## The Four Bridge Patterns
 
-Data science pipelines should reuse the same governed business entities that power BI: subscriber and account identifiers, lifecycle event definitions, consistent date and segment dimensions.
+### Pattern 1: Keep shared business entities
 
-The concrete artefact is a `dim_subscriber` table. It holds lifecycle status, plan type, registration date, tenure band, and region. On the BI side it powers dashboard filters. On the DS side the same fields become input features for the churn prediction model. Plan type and tenure are strong predictors. Lifecycle status determines which subscribers are eligible for scoring at all. Because both systems consume the same table, the dashboard-versus-model gap stops existing.
+**What it is.** Reuse the same governed business entities that power BI. The concrete artefact is a `dim_subscriber` table: lifecycle status, plan type, registration date, tenure band, region. On the BI side it powers dashboard filters. On the DS side the same fields become input features for the churn prediction model. Plan type and tenure are strong predictors. Lifecycle status determines which subscribers are eligible for scoring at all.
 
-What goes wrong without it: every model the DS team ships has its own subscriber definition, each one slightly different from the dashboards. Every leadership conversation about the model becomes a reconciliation conversation. Trust erodes silently until a single visible disagreement surfaces all the invisible ones.
+**Why it matters.** Shared entities are the load-bearing wall of the whole bridge. Every other pattern degrades gracefully if skipped temporarily; this one does not. Because both BI and DS consume the same table, the dashboard-versus-model gap stops existing structurally, not just procedurally. The 12,000-versus-15,000 churn-count gap that ends BI-to-DS programs starts here.
 
-## Pattern 2: Promote metrics to features carefully
+**What goes wrong without it.** Every model the DS team ships has its own subscriber definition, each one slightly different from the dashboards. Every leadership conversation about the model becomes a reconciliation conversation. Trust erodes silently until a single visible disagreement surfaces all the invisible ones.
 
-Not every BI metric becomes a useful feature. The promotion step requires decomposition, not just reuse.
+### Pattern 2: Promote metrics to features carefully
 
-"Average monthly watch time" was a reliable KPI on dashboards: it tracked engagement trends across subscriber segments and showed up in weekly executive reviews. When promoted directly as a model feature, it collapsed individual variation. A subscriber who watched 60 hours in week one and zero in weeks two through four had the same average as someone who watched 15 hours every week. For a churn model, those are fundamentally different behaviours.
+**What it is.** Decompose BI metrics before promoting them as model features rather than reusing them directly. "Average monthly watch time" tracked engagement trends across subscriber segments on dashboards, but as a model feature it collapsed individual variation: a subscriber who watched 60 hours in week one and zero in weeks two through four had the same average as someone who watched 15 hours every week. What worked instead were profile-level behavioural signals (session count per week, content genre diversity over 30 days, days since last session, peak-hour viewing ratio) that preserved the variation the dashboard KPI smoothed away.
 
-What worked instead were behavioural signals at the profile level: session count per week, content genre diversity over 30 days, days since last session, peak-hour viewing ratio. These preserved the variation that the dashboard KPI smoothed away. The lesson: the right granularity for a dashboard is often the wrong granularity for a model.
+**Why it matters.** The right granularity for a dashboard is often the wrong granularity for a model. A dashboard summarises across users to spot a trend; a model needs the per-user variation that summary erases. Treating promotion as decomposition rather than reuse is what closes that gap.
 
-What goes wrong without it: the DS team adopts BI metrics directly, the model's signal washes out, accuracy stays mediocre, and the team blames the model when the failure was actually in the feature promotion.
+**What goes wrong without it.** The DS team adopts BI metrics directly, the model's signal washes out, accuracy stays mediocre, and the team blames the model when the failure was actually in the feature promotion.
 
-## Pattern 3: Validate for use, not just for score
+### Pattern 3: Validate for use, not just for score
 
-A technically strong model can still fail operationally. Validation has to include downstream activation feasibility, not just statistical performance.
+**What it is.** Include downstream activation feasibility as a formal validation check, not just statistical performance. Before a model is production-ready, the output format, schema, and refresh cadence have to be compatible with the consuming system on day one.
 
-A subscriber scoring model passed every accuracy threshold during development: precision, recall, AUC all in target. When the output was handed to the CRM team, integration stalled for three weeks. The model produced a risk score per subscriber; the CRM tool expected a binary segment flag with a specific schema (subscriber ID, segment label, eligibility timestamp). Score had to be thresholded, mapped, reformatted. That reformatting introduced delays and errors.
+**Why it matters.** A technically strong model can still fail operationally. A subscriber scoring model that passed every accuracy threshold (precision, recall, AUC all in target) stalled for three weeks during CRM integration because the model produced a risk score per subscriber and the CRM tool expected a binary segment flag with a specific schema. Score had to be thresholded, mapped, reformatted; the reformatting introduced delays and errors. Validating for use surfaces those gaps before the model ships, not three weeks after.
 
-After that, validation included activation feasibility as a formal check. Before a model was production-ready, the output format, schema, and refresh cadence had to be compatible with the consuming system on day one.
+**What goes wrong without it.** The model ships, the CRM team cannot consume it, the integration becomes someone else's problem, the project stalls. A model that scores well but cannot be activated is incomplete work.
 
-What goes wrong without it: the model ships, the CRM team cannot consume it, the integration becomes someone else's problem, the project stalls. A model that scores well but cannot be activated is incomplete work.
+### Pattern 4: Evolve roles, not just tools
 
-## Pattern 4: Evolve roles, not just tools
+**What it is.** Make BI and DS accountability explicit as different jobs. BI accountability is metric trust and communication: maintaining dashboards, attending review meetings, ensuring definitions stay consistent. DS accountability is experimentation and inference: building features, training models, evaluating predictions against business outcomes. Both share the same governed data foundation, so neither side duplicates entity logic or reconciles conflicting numbers.
 
-The transition worked when responsibilities became explicit. BI accountability stayed focused on metric trust and communication: maintaining dashboards, attending review meetings, ensuring definitions stayed consistent. DS expanded on experimentation and inference: building features, training models, evaluating predictions against business outcomes. Both shared the same governed data foundation, so neither side duplicated entity logic or reconciled conflicting numbers.
+**Why it matters.** The temptation during a BI-to-DS transition is to treat it as a tooling upgrade: swap the BI tool for a notebook, swap SQL for Python. That misses the point. The real shift is in what you are accountable for. BI accountability is accurate, timely reporting. DS accountability is measurable decision impact. Both need the same data trust underneath, but the outputs and success criteria differ. Making that distinction explicit in role definitions, project scoping, and stakeholder communication is what makes the transition sustainable.
 
-The temptation during a BI-to-DS transition is to treat it as a tooling upgrade: swap Power BI for a notebook, swap SQL for Python. That misses the point. The real shift is in what you are accountable for. BI accountability is accurate, timely reporting. DS accountability is measurable decision impact. Both need the same data trust underneath, but the outputs and success criteria differ. Making that distinction explicit in role definitions, project scoping, and stakeholder communication is what made the phase sustainable.
-
-What goes wrong without it: a tooling-only transition produces a team that owns notebooks but does not own decisions. The ML output is presented to the business, the business does not know what to do with it, and the program quietly winds down.
+**What goes wrong without it.** A tooling-only transition produces a team that owns notebooks but does not own decisions. The ML output is presented to the business, the business does not know what to do with it, and the program quietly winds down.
 
 ## Where I would start
 
