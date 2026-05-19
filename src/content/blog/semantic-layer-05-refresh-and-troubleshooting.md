@@ -10,17 +10,25 @@ series_part: 5
 
 An unmonitored refresh that fails overnight is the kind of outage that leadership sees before the data team does. The Monday standup opens the executive KPI dashboard. Yesterday's row is blank, and the row before it is partial. The overnight refresh failed. Nobody saw the alert. The leadership review in the afternoon is now operating on stale numbers, and the data team is improvising a backfill in front of an audience.
 
-This is the failure mode that ends semantic-layer programs more often than modelling mistakes. The model is correct. The dashboards are configured. The refresh broke, and the recovery path lived in one engineer's head.
+That kind of failure ends programs more often than modelling mistakes do. The model is correct. The dashboards are configured. The refresh broke, and the recovery path lived in one engineer's head.
 
-**Most semantic-layer outages are not modelling failures; they are refresh failures with no documented recovery path.** The remedy is two named procedures: a Six-Stage Refresh Loop that runs every night and a Five-Step Backfill that recovers a missed day without a full reload. After the migration from Power BI Premium to SSAS Tabular on a dedicated VM, refresh and recovery became first-class engineering concerns, because the managed refresh that Power BI Premium provided no longer existed and the team owned every stage of the loop.
+**A semantic-layer team is either operating the refresh as a documented loop or operating it as one engineer's tribal knowledge. Once it lives in someone's head, the next failed refresh produces a missed Monday and a leadership team reporting on numbers that did not refresh; once it lives in a procedure, the same incident becomes a one-shift recovery that the on-call engineer runs from a written runbook.** The way you get there is not more monitoring. It is The Six-Stage Refresh Loop and the Five-Step Backfill that pairs with it, both written down explicitly so the model recovers without a leadership escalation.
+
+## Why this matters now
+
+Semantic-layer reliability is decided in the refresh window, not in the build pipeline. A model that compiles cleanly, validates correctly, and ships smoothly can still be the model that produces an empty dashboard at 9 AM on a Monday because last night's refresh failed silently at 3 AM. The Monday standup opens the executive dashboard and discovers that yesterday's row is blank, the row before is partial, and the leadership review in the afternoon is now operating on stale numbers.
+
+The fix is not better monitoring after the fact. It is a refresh discipline named explicitly: a stable sequence to run nightly, a partition strategy that matches the data behaviour, and a recovery procedure any engineer on the team can run without escalating. Without those three, the model's reliability lives in one engineer's head, and the program is one absence away from a stale-data incident.
 
 ![Refresh Pipeline and Recovery Workflow: Normal Daily Refresh Path runs Upstream Data Jobs, Load Staging, Create Partitions, Model Refresh, Partition Merge. Missed-Day Recovery Path below walks nine deterministic steps from confirming upstream completeness to resuming the standard schedule.](/assets/blog/semantic-series-05-refresh-recovery.svg)
 
 *Reliable refresh operations require both a stable daily path and a tested missed-day recovery path.*
 
-## The Six-Stage Refresh Loop
+## The Refresh Loop
 
-A stable nightly sequence avoids stale joins, partial updates, and the most common refresh failure modes:
+### Stage ordering: the Six-Stage sequence
+
+**What it is.** A stable nightly sequence that runs in fixed order:
 
 1. Upstream curated data jobs complete and emit success flags.
 2. Staging support tables are refreshed.
@@ -29,122 +37,37 @@ A stable nightly sequence avoids stale joins, partial updates, and the most comm
 5. Semantic model processing runs.
 6. Partition merge and cleanup runs.
 
-Most apparent KPI anomalies in production turn out to be stage-ordering violations, not logic issues. A fact partition created before its dimensions are refreshed produces a measure that joins to last week's dimension state and returns numbers nobody can explain.
+**Why it matters.** Most apparent KPI anomalies in production turn out to be stage-ordering violations, not logic issues. A fact partition created before its dimensions are refreshed produces a measure that joins to last week's dimension state and returns numbers nobody can explain. Sequencing the six stages explicitly is what keeps the dimension state and the fact state in sync, and what keeps the morning dashboard answering the same question two days in a row.
 
-## Partition Strategy Matters
+**What goes wrong without it.** Stages run in parallel or out of order. A fact refresh kicks off before its source dimensions have completed, the model joins against a partial dimension table, and the morning dashboard reports numbers that disagree with yesterday's by a few percent for reasons the team cannot explain in five minutes.
 
-Different fact families often need different refresh windows. Practical examples:
+### Partition strategy: per-fact cadence
 
-- short-lag facts: overwrite recent 1 day
-- medium-lag facts: overwrite recent 5 days
-- longer-lag facts: overwrite a multi-week window
+**What it is.** Different fact families need different refresh windows. Short-lag facts overwrite the recent 1 day. Medium-lag facts overwrite the recent 5 days. Longer-lag facts overwrite a multi-week window. The cadence is set per fact, not globally.
 
-This balances freshness with compute cost and late-arriving data behavior.
+**Why it matters.** Late-arriving data is real in some domains (programmatic ad attribution settles over weeks) and irrelevant in others (subscriber events finalise the day they happen). A global refresh window either wastes compute on facts that do not need it or misses late-arriving corrections on facts that do. Per-fact cadence is what makes the refresh budget match the data behaviour, which is what keeps the loop fast enough to run in the overnight window and complete enough to cover settled corrections.
 
-## The Five-Step Backfill
+**What goes wrong without it.** Either every fact runs a multi-week refresh (which is expensive and slow) or every fact runs a one-day refresh (which misses late-arriving corrections and produces numbers that shift after the fact). The team starts running ad-hoc reprocesses for the facts the global window does not fit, and the refresh becomes a set of exceptions instead of a discipline.
 
-When a daily load fails, recovery should be deterministic. The Five-Step Backfill is the procedure that lets any engineer on the team recover a missed day without escalating to the owner of the model:
+### Recovery: the Five-Step Backfill
 
-### Step 1: Validate upstream completeness
+**What it is.** A deterministic five-step procedure that recovers a missed day without a full reload:
 
-Do not start model recovery before source dependencies are complete. A backfill that runs against incomplete upstream data produces a model that is "fixed" but wrong.
+1. Validate upstream completeness. Do not start model recovery before source dependencies are complete.
+2. Backfill staging and curated ranges. Load missing dates in controlled ranges and verify row counts against the same range from the previous week before proceeding.
+3. Reset partition pointers safely. Update partition metadata so partition creation resumes from the correct date boundary.
+4. Reprocess only impacted slices. Targeted partition recreation, not full refresh.
+5. Validate downstream numbers. Compare high-value KPI outputs against baseline slices before reopening dashboards to users.
 
-### Step 2: Backfill staging and curated ranges
+**Why it matters.** A documented procedure means any engineer on the team can recover a missed day without escalating to the model owner. The five steps also prevent the most common backfill mistake: a full reprocess "to be safe" that adds eight hours of compute to a four-hour incident. Targeted partition recreation is what makes recovery a one-shift operation instead of a one-day operation.
 
-Load missing dates in controlled ranges. Verify row counts and key coverage against the same range from the previous week before proceeding.
+**What goes wrong without it.** Recovery depends on tribal knowledge. The engineer who built the model has to run the backfill personally; anyone else escalates. Recovery times stretch into days, leadership reports on stale numbers, and the trust the model loses during the recovery window takes a quarter to rebuild.
 
-### Step 3: Reset partition pointers safely
+## Where I would start
 
-Update partition metadata so partition creation resumes from the correct date boundary. The metadata reset is the safest reentry point; a full reprocess is almost never necessary.
+If you can only document one of the three disciplines this quarter, document the recovery procedure. Stage ordering and partition strategy protect against drift and stale data, both of which the team can work around for a while. The recovery procedure protects against the catastrophic failure mode where the model is offline and leadership is asking for numbers. The cost of one undocumented recovery during a real incident exceeds the cost of writing the other two procedures together.
 
-### Step 4: Reprocess only impacted slices
-
-Targeted partition recreation, not full refresh. A full refresh is the last resort; it usually adds eight hours of compute to a four-hour incident.
-
-### Step 5: Validate downstream numbers
-
-Compare high-value KPI outputs against baseline slices before reopening dashboards to users. The backfill is not complete until the executive KPI dashboard, the AVOD revenue dashboard, and the subscriber base movement dashboard all return numbers within tolerance of the previous week's baseline.
-
-## Operational Guardrails
-
-Use these controls for safer operations:
-
-- dependency checklist before triggering refresh
-- idempotent run scripts where possible
-- clear run logs with timestamps and row counts
-- explicit ownership for each refresh stage
-- incident template for failure communication
-
-## Anti-Patterns to Avoid
-
-- running model refresh before partition creation is complete
-- manually patching facts without updating partition metadata
-- skipping post-refresh validation because jobs show "success"
-- relying on one person who understands the runbook
-
-If your process depends on undocumented tribal knowledge, reliability degrades quickly.
-
-## What Improved with This Playbook
-
-With an explicit refresh and recovery runbook:
-
-- missed-day incidents were resolved faster
-- repeat failure patterns became visible
-- model freshness became predictable
-- dashboard confidence improved after incidents
-
-## Daily Orchestration Template
-
-This is a practical orchestration pattern you can adapt.
-
-```text
-Job 1: Validate upstream completion flags
-Job 2: Load staging helpers
-Job 3: Refresh dimensions
-Job 4: Create or extend fact partitions
-Job 5: Process semantic model
-Job 6: Merge aged partitions
-Job 7: Run post-refresh data-quality checks
-Job 8: Notify success or failure channel
-```
-
-Each job should emit row counts, processing duration, and status code.
-
-## Missed-Day Recovery Procedure
-
-### Step 1: Confirm failure boundary
-
-- identify missing date range
-- confirm whether any partial loads succeeded
-- freeze downstream consumer refresh if needed
-
-### Step 2: Backfill data range
-
-- rerun staging and fact loads for missing dates
-- validate record counts by date and table
-- confirm key integrity before model processing
-
-### Step 3: Reset partition pointers
-
-Use a controlled metadata update in your operations store.
-
-```sql
-UPDATE ops.last_created_partition_details
-SET date_of_last_partition = DATE '2024-01-31'
-WHERE table_name = 'fact_engagement';
-```
-
-### Step 4: Recreate impacted partitions and process model
-
-- recreate partitions from the corrected boundary
-- process dimensions first, then facts
-- run KPI validation checks on high-impact dashboards
-
-### Step 5: Close the incident properly
-
-- document root cause
-- publish affected date windows
-- capture prevention action for next sprint
+Stage ordering ships next, because the ordering rules are the input contract that lets the recovery procedure know which steps it can safely re-run. Partition strategy comes last because it is the discipline that gets refined over time as the team learns which facts settle late; the initial cadence can be wrong and still produce a working loop.
 
 ## One MENA-flavored note
 
