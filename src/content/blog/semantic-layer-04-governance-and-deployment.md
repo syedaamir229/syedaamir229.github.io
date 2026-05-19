@@ -8,7 +8,7 @@ series: semantic-layer
 series_part: 4
 ---
 
-I've shipped enough semantic-model releases to have lived through the one that deletes partitions and roles by default. Friday evening, the deployment wizard ran. A deployment safeguard that controls whether the engine preserves partition definitions and role-to-user mappings on deploy was off by default. By Saturday morning every fact table was empty, every user role had been reset, and every dashboard showed zero. Sunday was restore-from-backup. Monday's leadership meeting reported anyway, on stale numbers, and the team spent the next month rebuilding the trust that the release had taken thirty seconds to lose.
+A Friday-evening deployment wizard ran on a semantic model in production. A deployment safeguard that controls whether the engine preserves partition definitions and role-to-user mappings on deploy was off by default. By Saturday morning every fact table was empty, every user role had been reset, and every dashboard showed zero. Sunday was restore-from-backup. Monday's leadership meeting reported anyway, on stale numbers, and the team spent the next month rebuilding the trust that the release had taken thirty seconds to lose.
 
 The model was not broken. The model was excellent. The release was broken.
 
@@ -109,6 +109,10 @@ Expected Number Changes: yes (definition update for churn_rate denominator)
 Validation Status: passed daily + monthly + segment checks
 Rollback Plan: previous artifact + targeted model reprocess
 ```
+
+## One MENA-flavored note
+
+Release gate cadence in Arabic-OTT needs to read the Ramadan calendar. The two weeks before Ramadan and the four weeks of Ramadan itself are the highest-visibility window of the year for executive dashboards. A failed release in this window costs a year of trust to rebuild, because the dashboards are being read at the moment leadership cares most about what they say. The practical implication: freeze non-critical semantic-layer releases in the two weeks leading into Ramadan and run only fully-rehearsed rollback-tested releases during the window itself. The cycle awareness is operational, not seasonal flavour; the release calendar aligns to the content cycle, not the working week.
 
 ## Closing
 

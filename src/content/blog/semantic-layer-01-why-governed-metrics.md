@@ -8,11 +8,11 @@ series: semantic-layer
 series_part: 1
 ---
 
-I've sat through enough quarterly reviews to recognise the trigger. Three teams arrive with three "active subscribers" numbers off the same source data. Two slightly different definitions: trial users in or out, profile-level or account-level. Twenty minutes of the meeting spent reconciling. The actual decision the room walked in to make goes unspoken.
+A quarterly review opens with three teams arriving with three "active subscribers" numbers off the same source data. Two slightly different definitions: trial users in or out, profile-level or account-level. Twenty minutes of the meeting spent reconciling. The actual decision the room walked in to make goes unspoken.
 
 That is the moment most teams stop choosing to build a semantic layer and get pushed there.
 
-The fix that came out of that meeting was not a tool selection or a new dashboard. It was a governed semantic layer that every downstream consumer could trust. But the failure mode hiding in that sentence is the assumption that "build the semantic layer" means "pick the platform and start modelling." It does not.
+The fix that comes out of that meeting is not a tool selection or a new dashboard. It is a governed semantic layer that every downstream consumer can trust. But the failure mode hiding in that sentence is the assumption that "build the semantic layer" means "pick the platform and start modelling." It does not.
 
 **A semantic-layer program is not a modelling project. It is a conflict-mapping exercise that ends in a modelling project.** The first six weeks decide whether the next six months are spent buying back trust or shipping disconnected metrics nobody uses.
 
@@ -33,7 +33,7 @@ The biggest cost is hidden. Decision latency increases because every leadership 
 
 ## What the semantic layer fixes
 
-A semantic layer centralises business logic in one model that every report consumes. The initial v1 of the build I worked on was Power BI Premium hosting governed measures on top of Gold-layer tables from the enterprise data model. Reports consumed measures via live connections instead of authoring formulas locally. A year later v2 migrated the model to SSAS Tabular for memory-pressure reasons, but the dashboards never changed: same measures, same names, same definitions, just a backend pointer change.
+A semantic layer centralises business logic in one model that every report consumes. The initial v1 architecture is typically Power BI Premium (or equivalent platform) hosting governed measures on top of Gold-layer tables from an enterprise data model. Reports consume measures via live connections instead of authoring formulas locally. A v2 migration to SSAS Tabular often follows for memory-pressure reasons, but the dashboards do not change: same measures, same names, same definitions, just a backend pointer change.
 
 The core behaviour changes:
 
@@ -46,11 +46,11 @@ This shifts effort from repeated report authoring to model stewardship, which is
 
 ## The Conflict-First Rollout
 
-A semantic-layer rollout fails when it is treated as only a technical migration. The rollout that worked for me had four moves, in order. Each one is unglamorous. Skipping any of them undoes the rest.
+A semantic-layer rollout fails when it is treated as only a technical migration. The rollout that works has four moves, in order. Each one is unglamorous. Skipping any of them undoes the rest.
 
 ### Move 1: Start with high-conflict KPIs
 
-Do not migrate every measure immediately. Start with the 20 to 30 KPIs that trigger the most reconciliation effort. In the build I worked on these clustered across four domains: subscriber base movement (churn rate, net adds, active base), engagement (playtime, completion rate, watch hours), monetisation (ad fill rate, AVOD impressions), and content performance.
+Do not migrate every measure immediately. Start with the 20 to 30 KPIs that trigger the most reconciliation effort. In a streaming context these typically cluster across four domains: subscriber base movement (churn rate, net adds, active base), engagement (playtime, completion rate, watch hours), monetisation (ad fill rate, AVOD impressions), and content performance.
 
 The discipline here is honesty. The most painful KPIs are usually the ones the most political teams own. Migrating them first is not a comfortable conversation. It is the conversation that proves the program is real.
 
@@ -78,7 +78,7 @@ The contract is what turns a measure from a dataset entry into a product. A meas
 
 Report developers should consume the model instead of recreating logic locally. This is where the delivery-speed gain shows up. It is also where the political work happens. Report developers have been authoring measures locally for years. The switch to consumption mode is a behaviour change, not a tool change.
 
-The enforcement mechanism that worked for me was simple. The semantic layer was the only authorised source for KPI logic. Local measures in report files were not a violation in the policy sense; they were a tradeoff teams could make. But governance, validation, and refresh support stopped at the model boundary. Local measures were on their own.
+The enforcement mechanism that works is simple. The semantic layer is the only authorised source for KPI logic. Local measures in report files are not a violation in the policy sense; they are a tradeoff teams can make. But governance, validation, and refresh support stop at the model boundary. Local measures are on their own.
 
 ## Step-by-step rollout plan (first 6 weeks)
 

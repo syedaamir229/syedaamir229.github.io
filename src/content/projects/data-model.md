@@ -9,8 +9,8 @@ metrics:
     value: "5"
   - label: "Faster Data Retrieval"
     value: "30%"
-  - label: "Data Accuracy"
-    value: "99%"
+  - label: "Downstream Consumers"
+    value: "BI + ML + AI"
   - label: "Data Volume Scale"
     value: "5x"
 order: 2
@@ -18,7 +18,7 @@ order: 2
 
 ## Challenge
 
-Source schemas diverged across vendors (a video-analytics platform for viewing, a subscription-management platform for subscriptions, a content-metadata system for content, a programmatic ad-serving platform for ads). Data volumes were growing fast enough that ad hoc queries were destabilizing, and the model had to serve both BI and data science consumers without forking into separate ETL workstreams.
+Source schemas diverged across four vendor systems (viewing, subscriptions, content, ads), data volumes were growing fast enough that ad hoc queries against raw tables were destabilizing, and the model had to serve both BI and data science consumers without forking into separate ETL workstreams.
 
 - **Disconnected source systems**: Subscription, viewing, content, and ad data lived in separate vendor platforms with incompatible schemas
 - **Conflicting reporting logic**: Each team wrote their own queries against raw tables, producing inconsistent KPIs for the same business question

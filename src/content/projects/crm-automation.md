@@ -2,7 +2,7 @@
 title: "CRM Campaign Automation Platform"
 description: "CRM campaigns that build themselves across millions of profiles a day, replacing multi-day audience handoffs with daily automated execution."
 category: "AI & Automation"
-tags: ["CleverTap", "Power BI", "Databricks"]
+tags: ["CleverTap", "Power BI", "Databricks", "PySpark"]
 featured: true
 metrics:
   - label: "Profiles Processed Daily"

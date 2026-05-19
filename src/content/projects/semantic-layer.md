@@ -87,6 +87,6 @@ This pattern (governed semantic layer with domain-specific refresh cadences and 
 - **Semantic model**: SSAS Tabular (SQL Server Analysis Services)
 - **KPI definitions**: DAX (Data Analysis Expressions)
 - **Reporting**: Power BI (live connection to SSAS model)
-- **Source integration**: SQL Server, Databricks (Gold layer tables)
-- **Automation**: SQL Server Integration Services (SSIS), Databricks Jobs
+- **Sources**: SQL Server, Databricks (Gold layer tables)
+- **Orchestration**: SQL Server Integration Services (SSIS), Databricks Jobs
 - **Monitoring**: Windows Performance Monitor, SQL Server Extended Events, DMVs

@@ -2,17 +2,17 @@
 title: "Voice-of-Customer Intelligence Platform"
 description: "Arabic and English social feedback from four platforms in one searchable layer that teams can question in plain language."
 category: "AI & Automation"
-tags: ["RAG", "LangGraph", "Vector Search", "NLP"]
+tags: ["Databricks", "Vector Search", "LangGraph", "Genie"]
 featured: true
 metrics:
   - label: "Social Sources Unified"
     value: "4"
   - label: "Sentiment Access Time"
     value: "Hours to seconds"
-  - label: "NLP Enrichments"
-    value: "5"
-  - label: "Genie Spaces + Agent"
-    value: "2 + 1"
+  - label: "Languages Supported"
+    value: "Arabic + English"
+  - label: "Self-Service Query"
+    value: "Natural language"
 order: 3
 ---
 

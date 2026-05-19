@@ -2,7 +2,7 @@
 title: "Behavior-Based Attribute Inference"
 description: "Missing profile attributes filled in from behavior, so audience analysis stops being blocked by signup gaps."
 category: "Data Science"
-tags: ["XGBoost", "scikit-learn", "MLflow"]
+tags: ["XGBoost", "scikit-learn", "MLflow", "Databricks"]
 featured: false
 metrics:
   - label: "Coverage Expansion"
@@ -48,15 +48,14 @@ This enrichment pattern is relevant when customer profiles are incomplete:
 - **E-commerce**: Attribute enrichment for personalization and targeting
 - **Fintech**: Behavior-based profile completion for segmentation support
 - **Advertising**: Audience enrichment for campaign planning
-- **Healthcare engagement**: Behavioral enrichment for communication strategies
+- **Telecom**: Behavioral enrichment for plan recommendations and retention modeling
 
 **When this pattern is NOT appropriate**: Don't infer attributes that downstream consumers will treat as ground truth. If your reporting layer can't distinguish a self-reported value from a model prediction, the inference adds risk without uplift. Same applies if your declared coverage is already above 80%: the marginal lift from inference rarely justifies the model maintenance burden.
 
 ## Tech Stack
 
-- **Modeling**: XGBoost (binary classification) on a self-labeled training subset
-- **Feature engineering**: PySpark on behavioral signals (protagonist exposure, audience affinity, sub-genre preferences)
+- **Modeling**: XGBoost (binary classification) with scikit-learn for CV splits, metrics, and threshold selection
 - **Platform**: Databricks on Delta Lake
 - **Model registry**: MLflow in Unity Catalog (lineage, versioning, model approval)
-- **Output surface**: Separate feature table with usage-guidance metadata so consumers can distinguish predictions from declared values
+- **Output**: Delta table with usage-guidance metadata (kept separate from declared values)
 - **Sources**: Profile-level feature store + declared attributes (validation subset only)

@@ -6,11 +6,11 @@ categories: ["Career", "Data Science"]
 draft: false
 ---
 
-I've lived a Friday afternoon during my BI-to-DS overlap period where two messages landed within an hour. The first: an AVOD engagement dashboard showing zero for last week. The second: a gender prediction model returning nulls for half the active profiles.
+One Friday afternoon during the BI-to-DS overlap, two messages landed within an hour. The first: an AVOD engagement dashboard showing zero for last week. The second: a gender prediction model returning nulls for half the active profiles.
 
 Same channel. Same engineer. Same governed tables underneath. Two different stakeholders, both waiting on me, both with reasonable expectations about turnaround. The afternoon turned into a forced ranking: which side gets the next two hours of attention, and which side gets a Monday-morning apology.
 
-This is the moment most BI-to-DS transitions die. The temptation is to declare one side legacy and one side current, drop one, focus on the other. The data team becomes a DS team that lost its dashboards, or a BI team that wishes it was doing ML. Neither outcome is the one you wanted when you started the transition.
+That kind of split is the moment most BI-to-DS transitions die. The temptation is to declare one side legacy and one side current, drop one, focus on the other. The data team becomes a DS team that lost its dashboards, or a BI team that wishes it was doing ML. Neither outcome is the one you wanted when you started the transition.
 
 **A transition is not a handoff. It is a six-month overlap where both responsibilities have to stay healthy.** Drop either side and you do not get a better team; you get a team with one capability and a credibility gap.
 
@@ -72,4 +72,4 @@ The credibility transfer matters more in MENA, not because the technical work is
 
 Are you transitioning, or are you abandoning?
 
-A transition is six months of overlap, two sides of the work alive at once, both stakeholders kept whole. Abandonment is dropping the BI work to chase ML and discovering eight months in that nobody trusts the model because the dashboards stopped being maintained. The transition pattern requires more discipline. It also produces the only outcome you actually wanted when you started: a team that can deliver both, on a foundation that compounds.
+A transition is six months of overlap, two sides of the work alive at once, both stakeholders kept whole. Abandonment is dropping the BI work to chase ML and discovering eight months in that nobody trusts the model because the dashboards stopped being maintained. The transition pattern requires more discipline. It also produces the only outcome you actually wanted when you started: a team that can deliver both, on a foundation that compounds. The same overlap shape applies to the next transition, whichever one that is. The mechanics change. The discipline does not.

@@ -60,4 +60,4 @@ The same pattern applies anywhere precision at entity level matters:
 - **Sources**: Gold-layer viewing events and account-level signals
 - **Processing**: Incremental refresh job avoiding full recomputation
 - **Validation**: In-pipeline feature quality checks before publish
-- **Output surface**: One Delta table consumed by CRM, clustering, attribute inference, and reporting
+- **Output**: Single Delta table (consumed by CRM, ML, BI)

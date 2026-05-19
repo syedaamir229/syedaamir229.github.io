@@ -9,6 +9,8 @@ metrics:
     value: "Labeled and governed"
   - label: "Profiles Scored"
     value: "Millions"
+  - label: "Validation"
+    value: "Multi-run stability"
 order: 8
 ---
 
@@ -56,6 +58,6 @@ Behavior-first clustering is relevant across many domains:
 - **Modeling**: Python (scikit-learn K-means, pandas, numpy)
 - **Platform**: Databricks (PySpark, Spark ML)
 - **Inputs**: Profile-level feature store (behavior matrix) + sentence-transformer embeddings of content synopses
-- **Validation**: Multi-run stability checks and business-friendly cluster labelling
-- **Output surface**: Segment table written back to the Semantic Layer
+- **Validation**: Multi-run stability checks, business-friendly cluster labels
+- **Output**: Segment table written back to the Semantic Layer
 - **Reporting**: Power BI for segment exploration and content strategy review

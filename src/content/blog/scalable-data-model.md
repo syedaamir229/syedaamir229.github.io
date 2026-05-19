@@ -6,13 +6,13 @@ categories: ["Data Engineering"]
 draft: false
 ---
 
-I've watched leadership reviews where two teams arrived with two defensible counts of active subscribers for the quarter. The subscriptions team had one number on the slide. The content team had reproduced the same metric independently and had a slightly higher one. Neither was technically wrong. Each had been computed against a different filter assumption.
+A leadership review opened with two teams holding two defensible counts of active subscribers for the quarter. The subscriptions team had one number on the slide. The content team had reproduced the same metric independently and had a slightly higher one. Neither was technically wrong. Each had been computed against a different filter assumption.
 
 Twenty minutes of the meeting were spent deciding which number to use as the headline for the quarter. None of it was spent on the decision the room had walked in to make.
 
-This is the scene that gets every enterprise-data-model project funded. It is also the scene that gets it scoped wrong. The word used in the kickoff is "project." The word that should be used is "infrastructure."
+That kind of reconciliation is the scene that gets every enterprise-data-model project funded. It is also the scene that gets it scoped wrong. The word used in the kickoff is "project." The word that should be used is "infrastructure."
 
-**Most data teams treat the data model as a one-time project. The teams that compound treat it as infrastructure.** The same model has been the foundation for every subsequent BI, ML, and AI build: the semantic layer, the ML feature store, the CRM automation platform, and a voice-of-customer agent. None of those layers needed to rebuild it. That is what compounding looks like.
+**A data team is either building a model or building infrastructure. Once it starts building a model, every new consumer rebuilds the foundation underneath it, badly, in a way that introduces drift the layer above pays for; once it starts building infrastructure, the same foundation carries the semantic layer, the feature store, the CRM automation, and the AI agent without rebuilding what is underneath.** The way you get there is not a bigger schema or a longer requirements phase. It is five disciplines applied together, the way most teams apply two or three at a time and then wonder why the model does not survive its third use case.
 
 ## Why this matters now
 
@@ -20,7 +20,7 @@ Data-model investment quietly loses budget every year because it does not photog
 
 The [dbt 2025 State of Analytics Engineering Report](https://www.getdbt.com/resources/state-of-analytics-engineering-2025) makes the picture explicit: 80% of data practitioners now use AI in some form, and data quality is the most critical challenge they report. The teams shipping AI in production are the ones whose data foundation can carry it.
 
-The rules that produce a compounding model are not new. They are five disciplines that most teams apply two or three at a time, then wonder why the model does not survive its third use case.
+The rules below are not new. They are well-documented disciplines that most teams know. The reason this post exists is that knowing them and applying all five together at design time are different things, and only the second produces a model that compounds.
 
 ![The Five Rules of a Compounding Data Model: 1) start with the grain, 2) movement tracking, 3) surrogate keys, 4) feature tables in the model, 5) build for the next consumer. Rule 1 is the load-bearing foundation.](/assets/blog/scalable-data-model-five-rules.svg)
 
@@ -74,13 +74,19 @@ The model was scoped for reporting. It went on to power the semantic layer, the 
 
 What goes wrong without it: each new use case spawns a parallel model. The data team ends up maintaining three or four overlapping models, each with subtly different definitions, each producing slightly different numbers. Maintenance grows linearly with use cases.
 
-## What I would actually build first
+## What you cannot retrofit
 
-Start with the two highest-pain fact tables. On a streaming platform those were play events and subscription transitions. Get the grain right, get the surrogate keys in, ship them. Do not build a hundred-table model in week one.
+The five rules are not equal in cost. Three of them decide the model's shape at design time and cannot be added back cheaply once consumers are reading from it: grain, movement tracking, and feature tables in the model. Two of them are disciplines that survive being applied unevenly and can be tightened later: surrogate keys and next-consumer thinking.
 
-Then add the movement table. Movement tracking is the highest-leverage modelling decision and the one most teams defer to year two. Build it first.
+The practical implication is which rules ship in v1. Grain (Rule 1), movement (Rule 2), and feature tables (Rule 4) are not deferrable. The team that defers them is shipping a model that will be retrofitted under pressure during its second use case, which is the failure mode this list exists to prevent. The other two can ship as conventions and tighten as the model matures. The decision that separates project from infrastructure is which rules go in on day one, not which rules go in eventually.
 
-Then promote one feature table to Gold. Pick the one the most consumers will share (often the user-level feature table). Get BI and ML consuming the same column on day one. The drift that would have appeared in year two never appears.
+## Where I would start
+
+Start with the two highest-pain fact tables. On a streaming platform those are play events and subscription transitions. Get the grain right, get the surrogate keys in, ship them. Do not build a hundred-table model in week one.
+
+Then add the movement table. Movement tracking is the highest-leverage modelling decision and the one most teams defer to year two. Build it first. The cost of building movement on day one is one extra fact table; the cost of building it in year two is rebuilding every churn definition that has since been written against the absence of one.
+
+Then promote one feature table to Gold. Pick the one the most consumers will share, often the user-level feature table. Get BI and ML consuming the same column on day one. The drift that would have appeared in year two never appears, because there was never a parallel column to drift against.
 
 ## One MENA-flavored note
 

@@ -6,13 +6,19 @@ categories: ["Data Science", "BI & Analytics"]
 draft: false
 ---
 
-The BI-versus-DS conflict surfaces clearest in a quarterly review. I've watched it twice. Both times the same shape: a churn model and a churn dashboard disagreeing on a few thousand profiles, the executive in the room asking "which number is the right one?", the answer needing to fit in one room.
+A quarterly review surfaced a churn model and a churn dashboard disagreeing on a few thousand profiles. The executive in the room asked which number was the right one. The answer needed to fit in one room. The same conflict had surfaced six months earlier in a different review, same shape.
 
-Neither was wrong. The model used a 30-day inactivity window to classify churn risk. The dashboard used a billing-cycle definition that only counted subscribers who had actually lapsed. Both were defensible. Both produced different numbers. A non-trivial set of names was now in dispute.
+Neither number was wrong. The model used a 30-day inactivity window to classify churn risk. The dashboard used a billing-cycle definition that only counted subscribers who had actually lapsed. Both were defensible. Both produced different numbers. A non-trivial set of names was now in dispute.
 
-This is the conflict every BI-to-DS transition accumulates quietly until a leadership meeting surfaces it. The gap is not in the model or the dashboard; it is in the entity definitions underneath both. Most transitions discover this in the worst possible place: the leadership review. The bridge patterns below are what stop the accumulation before it shows up in the room.
+That kind of standoff is the conflict every BI-to-DS transition accumulates quietly until a leadership meeting surfaces it. The gap is not in the model or the dashboard; it is in the entity definitions underneath both. Most transitions discover this in the worst possible place: the leadership review. The bridge patterns below are what stop the accumulation before it shows up in the room.
 
-**Model numbers should be explainable from the dashboard, or they are a parallel reality.** When BI and DS consume different entity definitions, every reconciliation conversation becomes a negotiation between two truths. The fix is not better reconciliation logic. It is preventing the divergence at the entity layer.
+**A BI-and-DS team is either building on shared entities or building two parallel realities. Once it builds parallel realities, every model output triggers a reconciliation conversation against the dashboard it implicitly disagrees with; once it builds on shared entities, the same governed table powers both surfaces, and the model and the dashboard cannot structurally diverge.** The way you get there is not better reconciliation logic on the back end. It is four bridge patterns applied at the entity layer, where the divergence would have started.
+
+## Why this matters now
+
+Every additional consumer of a metric (a BI dashboard, an ML model, an AI agent, a CRM activation) is a fresh chance for the metric to drift unless it consumes the same canonical definition. The [dbt 2025 State of Analytics Engineering Report](https://www.getdbt.com/resources/state-of-analytics-engineering-2025) reports that 80% of data practitioners now use AI in some form, and data quality is the most critical challenge they face. Translation: the number of consumers per metric has gone up, the discipline that keeps them aligned has not.
+
+For a BI-to-DS team specifically the failure mode is concrete. The dashboard says 12,000 at-risk subscribers, the model flags 15,000, and the leadership conversation that follows is a reconciliation, not a decision. The four patterns below are what stops that conversation from happening.
 
 ## Pattern 1: Keep shared business entities
 
@@ -50,11 +56,13 @@ The temptation during a BI-to-DS transition is to treat it as a tooling upgrade:
 
 What goes wrong without it: a tooling-only transition produces a team that owns notebooks but does not own decisions. The ML output is presented to the business, the business does not know what to do with it, and the program quietly winds down.
 
-## What I would prioritise
+## Where I would start
 
-If you can only do one of the four patterns first, do Pattern 1.
+If you can only do one of the four patterns first, do Pattern 1. Shared entities are the load-bearing wall. The other three patterns degrade gracefully if skipped temporarily: poorly promoted features hurt accuracy, weak validation slows activation, fuzzy roles cause confusion. Skipping shared entities causes the dashboard-versus-model gap that surfaces in leadership reviews. That conversation is the one that ends BI-to-DS programs.
 
-Shared entities are the load-bearing wall. The other three patterns degrade gracefully if you skip them temporarily: poorly promoted features hurt accuracy, weak validation slows activation, fuzzy roles cause confusion. Skipping shared entities causes the dashboard-versus-model gap that surfaces in leadership reviews. That conversation is the one that ends BI-to-DS programs, and it is the one Pattern 1 is designed to prevent.
+Patterns 2 and 3 come next, in either order. Pattern 2 (careful feature promotion) buys back accuracy that a naive "reuse the BI metric" approach gave away; Pattern 3 (validate for use) buys back activation time that gets eaten by schema mismatches discovered late. Both are visible failures that the team will feel within the first model shipment, so they tend to get prioritised quickly once Pattern 1 is in place.
+
+Pattern 4 (role evolution) is last because it can only be designed once the first three are running. Until then, the role definitions are theoretical; once a model has shipped, drift has been caught, and an activation has cleared validation, the natural responsibility split becomes obvious and can be documented from observation rather than designed in the abstract.
 
 ## One MENA-flavored note
 

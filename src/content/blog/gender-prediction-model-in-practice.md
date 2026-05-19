@@ -6,21 +6,21 @@ categories: ["Data Science"]
 draft: false
 ---
 
-A content team I work with asked: "What does our female audience over 25 actually watch?" The honest first answer was that only a quarter of adult profiles had self-reported gender data. The rest was unknown.
+A content team asked a planning question: what does the female audience over 25 actually watch? The honest first answer was that only a quarter of adult profiles had self-reported gender data. The rest was unknown.
 
 Twelve months later, the answer to the same question was a Power BI report with near-full coverage across millions of adult profiles, the majority of those rows being entirely new predictions on profiles that had no gender data at all. The model behind that report held above a reasonable AUC threshold on a held-out validation set restricted to single-adult-profile accounts.
 
-This is the part most teams celebrate. It is also the part that matters least. Building a behaviour-based gender inference model is not hard. Convincing the planning team to treat an inferred field like inferred data, not like ground truth, is the work.
+That kind of coverage shift is the part most teams celebrate. It is also the part that matters least. Building a behaviour-based gender inference model is not hard. Convincing the planning team to treat an inferred field like inferred data, not like ground truth, is the work.
 
-**Inferred attributes are an asset when they ship with receipts. They are a liability the moment they are treated as declared data.** The model is the easy part. The contract around the model is what decides whether the enrichment is usable.
+**An inference model is either shipped with receipts or treated as ground truth. Once it is treated as ground truth, the first wrong prediction on a high-profile case ends the program, because nobody warned the consumers that the field was probabilistic; once it ships with receipts, the prediction, the confidence flag, and the inferred marker travel together, and downstream consumers learn to threshold instead of trust blindly.** The way you get there is not a better model. It is four guardrails that turn an enrichment from a risky field into a published data product.
 
 ## Why this matters now
 
 Attribute inference is back in the spotlight, in part because explicit demographic collection is under increasing regulatory and platform pressure. [Meta's post-iOS-14 ad-targeting documentation](https://www.facebook.com/business/news/apple-app-tracking-transparency) and similar shifts have pushed advertisers toward inferred attributes. Streaming platforms that depend on declared-attribute targeting are running out of declared data faster than they are gaining it.
 
-MENA streaming has a sharper version of the same problem. Household profile-sharing is structurally higher than Western baselines, profile completion rates are lower, and demographic targeting is essential for both content planning (which Ramadan finale to promote to which segment) and ad operations (which AVOD inventory to allocate to which demographic). Without inference, planning teams are flying half-blind.
+MENA streaming has a sharper version of the same problem. Household profile-sharing is structurally higher than Western baselines, profile completion rates are lower, and demographic targeting is essential for both content planning (which Ramadan finale to promote to which segment) and ad operations (which AVOD inventory to allocate to which demographic). Without inference, planning teams are flying half-blind. With inference but no guardrails, planning teams are flying on a confident hallucination.
 
-The framework that survives contact with a planning team is four guardrails, applied in order, that turn an inference model from a risky enrichment into a published data product.
+The four guardrails below are what makes the difference. Each is independent. Together they make the inferred field defensible.
 
 ## Inference With Receipts
 
@@ -58,13 +58,15 @@ The right drift monitor for MENA streaming is cycle-aware: Ramadan and non-Ramad
 
 What goes wrong without it: either the model goes stale (no monitoring) or the monitoring becomes noise (wrong baseline). Both end the program.
 
-## What I would watch first
+## Where I would start
 
 If you have one dashboard and one alert to set up around an inference model, do not pick accuracy.
 
 Pick re-score stability. The single highest-leverage signal that the model is healthy in production is whether profiles flip predictions between scoring runs. A drop in re-score stability is the first sign of any of three failures: feature pipeline drift, content-metadata corruption, or genuine population shift. Each of those is worth investigating; the stability signal catches them all.
 
-Second priority: a sample-of-the-week qualitative review with the content team. Twenty random profile predictions, walked through with the planning lead, every week. The numbers tell you that the model is statistically sound. The qualitative review tells you whether the predictions are usable.
+Second priority: a sample-of-the-week qualitative review with the content team. Twenty random profile predictions, walked through with the planning lead, every week. The numbers tell you that the model is statistically sound. The qualitative review tells you whether the predictions are usable. The two together cover the gap that pure accuracy reporting always leaves.
+
+Third priority: the `is_inferred` and confidence columns ship with the first downstream table the model writes into. Not the second. Not "we'll add it in v2." Day one. The reason is path dependence: once a downstream consumer has built a dashboard against the inferred column without the marker, getting them to retrofit the marker is an enterprise-wide conversation. Shipping the marker on day one means no consumer ever sees the column without it.
 
 ## One MENA-flavored note
 

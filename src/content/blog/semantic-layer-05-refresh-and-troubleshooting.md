@@ -146,6 +146,10 @@ WHERE table_name = 'fact_engagement';
 - publish affected date windows
 - capture prevention action for next sprint
 
+## One MENA-flavored note
+
+Refresh windows in Arabic-OTT need to absorb the Ramadan late-night viewing pattern. Engagement traffic shifts toward iftar-to-suhoor windows, which means the operational window where data lands and the model has to refresh narrows: the same overnight slot that comfortably runs the full Six-Stage Refresh Loop the rest of the year is competing with peak playback traffic during Ramadan. The practical implication is a Ramadan-mode schedule that pre-stages dimension refreshes earlier in the night and tightens partition windows on the engagement fact, so the model is ready before the morning content meeting opens the dashboards. The cycle awareness lives in the orchestration, not in the model logic.
+
 ## Closing
 
 Is your refresh a process, or a person?

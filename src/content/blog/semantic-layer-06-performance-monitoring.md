@@ -8,11 +8,11 @@ series: semantic-layer
 series_part: 6
 ---
 
-I've watched a high-traffic visual that used to render in two seconds turn into a thirty-second render by the time leadership saw it. The model had not changed. The data had not changed. The query had gotten slower week by week and nobody had been watching.
+A high-traffic visual that used to render in two seconds turned into a thirty-second render by the time leadership saw it. The model had not changed. The data had not changed. The query had gotten slower week by week and nobody had been watching.
 
-This is how semantic-layer programs lose trust slowly, then all at once. The refresh succeeds. The model builds. The KPI definitions stay correct. The queries get slower over time, the visuals get heavier, the report estate accretes weight, and one Wednesday afternoon a single thirty-second render in front of an executive turns the whole program into a question.
+That kind of degradation is how semantic-layer programs lose trust slowly, then all at once. The refresh succeeds. The model builds. The KPI definitions stay correct. The queries get slower over time, the visuals get heavier, the report estate accretes weight, and one Wednesday afternoon a single thirty-second render in front of an executive turns the whole program into a question.
 
-**Monitoring is where semantic-layer maturity becomes visible.** Teams that only monitor refresh success miss the main problem: slow queries, capacity pressure, and model drift that gradually reduce trust. The remedy is a named operating rhythm. The Weekly Optimization Cycle below is the one that has worked for me.
+**Monitoring is where semantic-layer maturity becomes visible.** Teams that only monitor refresh success miss the main problem: slow queries, capacity pressure, and model drift that gradually reduce trust. The remedy is a named operating rhythm. The Weekly Optimization Cycle below is the pattern that holds up after the first year.
 
 ![Performance Monitoring Feedback Loop: Signal Sources feed a Monitoring Store, which feeds a Detection Layer (anomaly checks, failed refresh alerts, slow query alerts, capacity flags, stale partition checks), which feeds Optimization Actions and loops back. The loop only creates value when it drives action.](/assets/blog/semantic-series-06-monitoring-loop.svg)
 
@@ -120,6 +120,10 @@ Over time this rhythm produces measurable stability gains and shrinks the volume
 3. assign action: DAX tuning, model tuning, or report tuning
 4. rerun measurements after fix
 5. close only when metrics return to baseline range
+
+## One MENA-flavored note
+
+The Weekly Optimization Cycle has to read the Ramadan content cycle to stay useful. Query patterns during Ramadan are different from the rest of the year (higher visual interaction, sharper segment-level drilldowns, sustained late-night load), and a baseline calculated against non-Ramadan traffic will alarm on every dashboard during the window itself. The fix is to maintain two baselines: a standard baseline for the forty weeks outside the Ramadan cycle, and a Ramadan-window baseline that the alerting rules switch to during the four-to-six weeks of pre-Ramadan and Ramadan traffic. A monitoring stack that does not know about the cycle generates noise that gets muted, which is how the loop dies.
 
 ## Closing the series
 

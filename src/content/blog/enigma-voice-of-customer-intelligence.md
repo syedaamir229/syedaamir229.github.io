@@ -1,18 +1,18 @@
 ---
-title: "Building a Voice-of-Customer Stack for Multilingual Streaming"
+title: "Voice-of-Customer for Multilingual Streaming: The Five-Layer Stack"
 date: 2026-04-13
 description: "How a five-layer Voice-of-Customer Stack turned scattered, Arabic-language audience feedback from four platforms into a system that answers content-team questions in seconds, with the one architectural decision that decides whether the rest of the system works."
 categories: ["AI & Automation", "Data Science"]
 draft: false
 ---
 
-I have watched product managers wait days for sentiment answers that already live in the data. On the morning of a tentpole launch, a three-day turnaround is a refusal.
+On the morning of a tentpole launch, a product manager filed a request for sentiment on the previous night's premiere. The answer arrived three days later, after exports had been pulled by hand from four platforms, sample-translated from Arabic, sentiment-tagged, aggregated, and assembled into a slide deck. By then the content team had already moved on to the next release. The cycle repeated with the next finale, and the next.
 
-The data is sitting in Twitter, Facebook, YouTube, and the platform's own short-form video surface, mostly in Arabic, in four different schemas, with no shared link back to a title. Pulling exports by hand, sample-translating, tagging sentiment, aggregating, and assembling a slide deck takes the kind of time content windows do not have. By the time the answer arrives, the content team has moved on to the next release. The cycle repeats with the next finale, and the next.
+The data was sitting in Twitter, Facebook, YouTube, and the platform's own short-form video surface, mostly in Arabic, in four different schemas, with no shared link back to a title. The answer existed before the question was asked. The pipeline that surfaces it did not.
 
-This is the scene every voice-of-customer system either solves or pretends to solve. The pretending usually looks like a sentiment dashboard with cross-platform volume charts that nobody opens. The dashboard tells you that volume spiked. It does not tell you what people actually said.
+That kind of refusal is the scene every voice-of-customer system either solves or pretends to solve. The pretending usually looks like a sentiment dashboard with cross-platform volume charts that nobody opens. The dashboard tells you that volume spiked. It does not tell you what people actually said.
 
-**Voice of customer is solved when product managers stop filing data requests, not when sentiment dashboards exist.** The path from "the volume spiked" to "here is the actual feedback, here is the sentiment, here is the title-level breakdown, here is the platform comparison" used to require an analyst between the question and the answer.
+**A voice-of-customer system is either an asset content teams can query or a queue analysts work down. Once it becomes a queue, every release ships with stale feedback and the queue only grows; once it becomes an asset, the answer to "what did people say about Title X last night" arrives in seconds, in the same interface the leadership team is already in.** The way you get there is not a sentiment dashboard or another analyst. It is a five-layer stack with one non-obvious architectural split inside it.
 
 ## Why this matters now
 
@@ -22,7 +22,7 @@ MENA streaming has a sharper version of the same problem. Arabic-language commen
 
 So the projects get scoped. They start. And then most of them get stuck inside Bronze, with a beautiful raw-ingestion pipeline and no usable consumption layer. Or they ship a sentiment dashboard and never get to natural-language query. Or they wire up one Genie space, watch it hallucinate SQL on mixed schemas, and quietly retreat.
 
-The pattern that earned its keep was a five-layer stack with one non-obvious split inside it. The split is the part most teams skip.
+The stack below is the shape that holds up. Five layers, each independent, with one non-obvious architectural split inside Layer 4 that decides whether the rest of the system works.
 
 ![Architecture diagram of the Voice-of-Customer Stack: four social sources feed Bronze ingestion, five-stage NLP enrichment in Silver, a Gold semantic model with dim_post and fact_comment, then two specialized Genie spaces (Comments and Engagement) plus a Databricks Vector Search index, all routed by a LangGraph Supervisor Agent and exposed through a Databricks App](/assets/blog/enigma-voice-of-customer-stack.svg)
 
@@ -84,7 +84,7 @@ This is the non-obvious move. It is also the architectural decision that makes t
 
 Splitting the spaces lets each Genie ship with a curated set of instructions, sample prompts, and join conventions for one schema. Accuracy goes up. Hallucination goes down. The supervisor agent (next layer) picks the right space at routing time, so the user never has to know which to pick.
 
-**What goes wrong without it.** Teams that ship a single general-purpose Genie space watch it hallucinate column names on mixed-intent questions, then add more instructions to the space to compensate, then watch the instructions interact, then quietly retreat to writing SQL by hand. This is the most common architectural mistake in voice-of-customer projects I have seen.
+**What goes wrong without it.** Teams that ship a single general-purpose Genie space watch it hallucinate column names on mixed-intent questions, then add more instructions to the space to compensate, then watch the instructions interact, then quietly retreat to writing SQL by hand. This is the most common architectural mistake in voice-of-customer projects.
 
 **Implementation note.** Each Genie is configured with table descriptions, field-level comments, allowed filters, sample prompts, and explicit instructions. Sample prompts are the single highest-leverage knob: curated examples increase LLM-to-SQL accuracy more than any metadata tweak. Both Genies are consumed by the Supervisor Agent and are also available directly to analysts who want structured answers without writing SQL themselves.
 
@@ -112,7 +112,7 @@ On top of the stack sits a Databricks App built with React on the frontend and F
 
 The UI is intentionally minimal. Plotly for charts. Markdown for structured responses. Session state preserved so the user does not lose context between questions.
 
-## What I would build first
+## Where I would start
 
 If you have raw social comments landing in a Delta table today, the highest-leverage next move is not LLMs. It is the URL-to-title mapping in the Silver layer.
 
@@ -128,6 +128,6 @@ Arabic-OTT made two parts of this stack non-negotiable. Translation is non-optio
 
 ## Closing
 
-Your feedback data is either an asset you can query or a queue your analysts work down. Which one is yours?
+When the next finale airs tonight, will your product manager have an answer by morning, or by the end of next week?
 
-The teams that treat it as a queue ship dashboards, hire more analysts, and watch the queue grow. The teams that treat it as an asset build the stack: Bronze ingestion that survives API changes, Silver enrichment with title mapping as the load-bearing join, a clean Gold semantic model, two specialised Genie spaces, and a thin supervisor agent that routes by intent. The architectural decision that makes the asset version work is the split into two Genie spaces. Most teams skip it and end up with a single space that hallucinates SQL on mixed-intent queries. The work is in the split.
+The teams whose answer is "end of next week" ship dashboards, hire more analysts, and watch the queue grow. The teams whose answer is "by morning" build the stack: Bronze ingestion that survives API changes, Silver enrichment with title mapping as the load-bearing join, a clean Gold semantic model, two specialised Genie spaces, and a thin supervisor agent that routes by intent. The architectural decision that makes the morning answer possible is the split into two Genie spaces. Most teams skip it and end up with a single space that hallucinates SQL on mixed-intent queries. The work is in the split.

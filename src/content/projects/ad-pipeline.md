@@ -1,77 +1,76 @@
 ---
 title: "Ad Inventory & Revenue Pipeline"
-description: "Ad revenue pacing surfaced in Slack the same day, instead of the following week through a spreadsheet review."
+description: "Pacing shortfalls and inventory pressure surface during the campaign, in time to act, instead of reconciling make-goods after it ends."
 category: "Data Engineering"
-tags: ["Databricks", "GAM API", "AWS S3", "Power BI"]
+tags: ["Databricks", "Google Ad Manager", "AWS S3", "Power BI"]
 featured: true
 metrics:
-  - label: "Production Pipelines"
-    value: "4"
-  - label: "Teams Unified"
-    value: "3"
-  - label: "Processing Time Reduction"
-    value: "25%"
-  - label: "Alert Delivery"
+  - label: "Pacing Visibility"
     value: "Same-day"
+  - label: "Settlement Refresh"
+    value: "Multi-week"
+  - label: "Operating Signals"
+    value: "4"
 order: 5
 ---
 
 ## Challenge
 
-A programmatic ad-serving platform's reporting API enforced rate limits that constrained ingestion scheduling, ad impressions settled over a multi-week window for late-arriving attribution requiring periodic historical refreshes on top of daily runs, and three downstream teams with different views into the same pipeline needed shared underlying data without each rebuilding its own ingestion path.
+The reporting API enforced rate limits that constrained ingestion scheduling, programmatic impressions settled over a multi-week window for late-arriving attribution, and three downstream teams reading the same data needed one shared definition rather than rebuilding it three ways.
 
-- **No production pipeline**: Critical ad inventory and revenue data was entirely manual, high effort, error-prone, and not scalable
-- **Limited observability**: Requests, impressions, bookings, and errors were not connected end-to-end in a single view
-- **Late issue detection**: Pacing shortfalls and VAST error spikes were discovered in post-campaign reviews rather than in time to act
-- **Low analytical flexibility**: Country, region, format, and content-level slicing required custom query work each time
+- **Pacing shortfalls visible too late**: Delivery against booked commitments was tracked in a hand-rebuilt spreadsheet, so under-pacing surfaced at end-of-flight when the only remaining lever was the make-good
+- **Late-arriving attribution eroded trust**: Programmatic impressions settle over a multi-week window, so a daily-only view drifted from final figures and finance kept a side spreadsheet against the dashboard
+- **Inventory blind at the content level**: Sellable slots were known in aggregate but not by title, so soft windows where new AVOD-eligible content would clear stayed invisible to Content Operations
+- **VAST errors hidden inside aggregate impressions**: Revenue looked healthy on the dashboard while specific error categories silently eroded effective fill rate, surfacing weeks later in finance reconciliation
 
 ## Key Decisions
 
-### Decision: Unified staging layer with derived measures rather than per-team pipelines
+### Decision: Daily refresh plus a multi-week historical sweep
 
-**Problem:** Three downstream teams needed the same underlying ingest data but with different slicing and business logic applied.
+**Problem:** Programmatic impressions settle over a multi-week window for late-arriving attribution. A daily-only pipeline is always slightly wrong, and the errors compound over a reporting week.
 
 **Options considered:**
 
-- Build separate pipelines per team (independent, but duplicates ingest pulls and derivation logic)
-- Build a shared raw + staging layer with derived fields applied once
+- Daily-only ingestion (simplest, but provisional numbers drift from final figures)
+- One-shot historical backfill on demand (catches settlement, but reactive and bursty)
+- Daily operational refresh plus a periodic sweep over the recent multi-week window
 
-**Chosen:** Shared raw to staging architecture with derived measures (ad format, ad type, VOD model, device group, content ID via regex) applied once at the staging layer.
+**Chosen:** Daily refresh in an early-morning window for same-day decisions, plus a periodic historical sweep that re-pulls the recent multi-week window.
 
-**Why:** Reporting-API rate limits make it wasteful to pull the same data multiple times. Centralizing derivation logic ensures all teams calculate the same totals, especially important for revenue figures where discrepancies between teams were a previous source of friction.
+**Why:** Weekly revenue reports have to reflect final settled figures, not provisional daily numbers. The moment finance keeps a side spreadsheet against the dashboard, the pipeline stops being the source of truth. Splitting schedules separates the use cases cleanly: daily for same-day decisions, periodic for reporting-grade accuracy.
 
 ## Approach
 
-- Built ingestion from the ad-serving platform's reporting API into S3 raw storage and a Databricks staging pipeline with schema normalization
-- Implemented 4 parallel pipelines: Inventory (sell-able ad slots), Impressions (delivered ads + revenue), VAST Errors (error categorization by type), Delivery Pacing (actual vs. booked delivery rate)
-- Applied business derivation logic at staging: Ad Format, Ad Type (programmatic/direct), VOD Model (SVOD/AVOD), Device Category Group, Content Media ID via regex
-- Configured a daily operational refresh plus a periodic historical-data sweep to capture late-arriving impression and revenue attribution
-- Added Slack alerting for pacing shortfalls and VAST error spikes, triggered from pipeline outputs with configurable thresholds
-- Delivered Power BI dashboards connected to staging layer for multi-dimensional slicing (country, region, format, content)
+- Built ingestion from the ad-serving platform's reporting API into S3 raw storage and a Databricks staging layer
+- Implemented the four operating signals as parallel pipelines: Inventory (sellable slots by content, country, format), Impressions (delivered ads and revenue), Delivery Pacing (actual vs. booked), VAST Errors (trended over time)
+- Applied derivation logic once at staging: ad format, ad type, device category group, content media ID via regex
+- Configured a daily operational refresh plus a periodic historical sweep over the recent multi-week settlement window
+- Wired Slack alerts to business-impact thresholds defined by Ad Operations: pacing fires when a flight is on track to miss its commitment, error alerts fire on sustained category shifts rather than transient spikes
+- Delivered Power BI dashboards on the staging layer, shared across Ad Operations, Content Operations, and finance
 
 ## Architecture Overview
 
 ![Ad inventory and revenue pipeline architecture: a programmatic ad-serving platform's reporting API to S3 raw storage to Databricks staging, branching into Inventory, Impressions, VAST Errors, and Delivery Pacing pipelines that output to Power BI dashboards and Slack alerts.](/assets/projects/ad-pipeline.svg)
 
-A programmatic ad-serving platform's reporting API feeds into four processing pipelines (Inventory, Impressions, VAST Errors, Delivery Pacing) via S3 raw storage and Databricks staging, with outputs to Power BI dashboards and Slack alerts.
+The reporting API feeds S3 raw storage and a Databricks staging layer where derivation is applied once. Four downstream pipelines implement the operating signals, feeding shared Power BI dashboards and Slack alerts for pacing and error events that need same-day intervention.
 
 ## Results & Impact
 
-- **What changed in operations**: Three downstream teams now work from a shared, automated data layer with no more parallel spreadsheet maintenance or manual data reconciliation between teams
-- **What changed in decisions**: Pacing issues and VAST error spikes surface same-day via Slack, allowing the operations team to intervene within the same business day rather than discovering issues post-campaign
-- **Content-level revenue visibility**: For the first time, revenue could be attributed to specific content (via Media ID derived from content name), enabling content-performance and monetization analysis
-- **Reliable historical data**: the periodic historical-data sweep corrects late-arriving attribution, ensuring weekly revenue reports reflect final settled figures rather than provisional daily numbers
+- **What changed in operations**: Three teams stopped reconciling parallel spreadsheets and started working from one shared, settled view of supply and demand
+- **What changed in decisions**: Pacing alerts fire during the campaign rather than after, leaving room to redistribute inventory or escalate to Content Operations before a shortfall hardens into a make-good
+- **Cross-team escalation**: Content-level inventory gave Ad Operations a vocabulary to point Content Operations at specific titles where new AVOD-eligible content would actually clear
+- **Reporting-grade accuracy**: The multi-week historical sweep corrected late-arriving attribution, so revenue reports reflected final settled figures and finance retired the side spreadsheet
 
 ## Reusable Pattern
 
-This Detect-Alert-Act pipeline pattern (daily ingestion to derived measure standardization to threshold-based alerting) is applicable beyond ad operations:
+A four-signal operating loop with business-impact alerts applies wherever one team reads the signals and a different team holds the lever that has to move:
 
-- **E-commerce**: Promotion and conversion funnel observability with revenue pacing alerts
-- **Logistics**: Delivery commitment tracking with same-day anomaly notifications
-- **SaaS**: Product usage to revenue conversion monitoring with churn-signal alerts
-- **Any SLA-driven function**: Event monitoring tied to business impact thresholds and action loops
+- **E-commerce**: SKU inventory + conversion + funnel pacing against committed sell-through + checkout errors
+- **Logistics**: Capacity + delivered + on-time against commitment + exception categories
+- **SaaS**: Seat inventory + active usage + renewal pacing against commitment + integration errors
+- **Telecom**: Network capacity + activations + service-level commitment + outage categories
 
-**When this pattern is NOT appropriate**: If your ad operation is small enough that manual daily review is feasible, or if your analytics platform (e.g., a hosted dashboarding tool connected directly to your ad server) already provides adequate visibility, a full custom pipeline adds overhead rather than value. The custom pipeline becomes essential when you need cross-source attribution (content + ad + subscription), derived business logic not available in native ad-server reporting, or multi-team data sharing.
+**When this pattern is NOT appropriate**: When manual daily review is feasible, or when a native vendor dashboard already surfaces the signals against business-impact thresholds. The custom pipeline earns its overhead when you need cross-source attribution, derived business logic native reporting does not support, or shared definitions across teams whose totals must reconcile.
 
 ## Tech Stack
 
@@ -80,4 +79,4 @@ This Detect-Alert-Act pipeline pattern (daily ingestion to derived measure stand
 - **Processing**: PySpark, SQL
 - **Alerting**: Slack (pacing and error alerts)
 - **Reporting**: Power BI
-- **Orchestration**: Databricks Jobs (daily + weekly schedules)
+- **Orchestration**: Databricks Jobs (daily + periodic schedules)

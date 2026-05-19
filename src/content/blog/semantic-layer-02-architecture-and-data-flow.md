@@ -146,6 +146,10 @@ If grain is unstable, stop and fix upstream. Do not encode data corrections insi
 - no local KPI formulas remain in pilot reports
 - refresh pipeline completes within agreed SLA
 
+## One MENA-flavored note
+
+The ownership boundary that fails first in Arabic-OTT is the one between Layer 2 (metric engineering) and Layer 3 (report engineering) during Ramadan, when content launches compress and dashboard requests spike. Report developers under deadline pressure rebuild measures locally because asking for a model change takes a release cycle they do not have. By Eid the model is the source of truth on paper and the report files have absorbed three weeks of drift. The remedy is to staff Layer 2 with extra release-cycle bandwidth heading into Ramadan, not to relax the boundary; the boundary is what makes the layer trustworthy the rest of the year.
+
 ## Closing
 
 Where does your semantic-layer ownership stop, and where does it leak?

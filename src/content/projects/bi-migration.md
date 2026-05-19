@@ -79,4 +79,4 @@ The sequence reduces delivery risk and avoids big-bang migration failures. Each 
 - **Semantic layer**: SSAS Tabular, DAX
 - **Data platform**: Databricks (Gold layer), SQL Server
 - **Access management**: Azure Active Directory
-- **Source systems**: Youbora, Evergent, Google Ad Manager
+- **Sources**: Youbora, Evergent, Google Ad Manager
