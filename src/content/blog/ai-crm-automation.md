@@ -20,6 +20,10 @@ MENA streaming runs a sharper version of the same problem. Release calendars com
 
 The fix that worked was a six-layer architecture. Each layer is independent. Skipping a layer collapses the next one.
 
+![The Six-Layer CRM Operating System: Layer 1 (Data foundation) at the base earns the right to Layer 2 (Scenario engine), then Layer 3 (Profile-to-account resolution), Layer 4 (Behaviour-based prioritisation), Layer 5 (CRM integration), and Layer 6 (Closed-loop performance) at the top, with a feedback arrow from Layer 6 back to Layer 1.](/assets/blog/ai-crm-automation-six-layer-system.svg)
+
+*Each layer earns the right to the next. Layer 6 closes the loop by feeding campaign results back to refine the Layer 1 features.*
+
 ## The Six-Layer CRM Operating System
 
 ### Layer 1: Data foundation
