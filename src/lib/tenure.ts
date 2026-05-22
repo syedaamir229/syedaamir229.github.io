@@ -59,6 +59,24 @@ export function formatDuration(start: string, end: string | null, now = new Date
 }
 
 /**
+ * Total years of professional experience, floored to the nearest 5 so it reads
+ * "10+", "15+", "20+" rather than ticking up every year. Measured from the
+ * earliest role start across all companies, including hidden ones (the
+ * internship record exists precisely to anchor this figure).
+ */
+export function experienceYears(
+  companies: { roles: { start: string }[] }[],
+  now = new Date(),
+): number {
+  const start = companies.flatMap((c) => c.roles).map((r) => r.start).sort()[0];
+  const from = parse(start);
+  const to = parse(toYearMonth(now));
+  const elapsedMonths = (to.year - from.year) * 12 + (to.month - from.month);
+  const years = Math.floor(elapsedMonths / 12);
+  return Math.floor(years / 5) * 5;
+}
+
+/**
  * The overall span of a company: earliest role start to latest role end. If any
  * role is ongoing, the company span is ongoing too.
  */

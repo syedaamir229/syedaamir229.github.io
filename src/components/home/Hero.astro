@@ -1,8 +1,11 @@
 ---
 import { SITE, SOCIAL } from '../../config';
-import { CURRENT_ROLE } from '../../data/experience';
+import { CURRENT_ROLE, EXPERIENCE } from '../../data/experience';
+import { experienceYears } from '../../lib/tenure';
 import Button from '../ui/Button.astro';
 import Icon from '../ui/Icon.astro';
+
+const years = experienceYears(EXPERIENCE);
 ---
 
 <section class="pt-32 pb-16 px-6">
@@ -39,7 +42,7 @@ import Icon from '../ui/Icon.astro';
         </li>
       </ul>
       <p class="text-muted-500 text-sm mb-2">
-        10+ years &middot; Analytics, Data Engineering, Data Science & AI Automation &middot; Dubai, UAE
+        {years}+ years &middot; Analytics, Data Engineering, Data Science & AI Automation &middot; Dubai, UAE
       </p>
       {CURRENT_ROLE && (
         <p class="text-muted-500 text-sm mb-8">

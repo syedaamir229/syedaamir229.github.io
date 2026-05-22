@@ -21,6 +21,9 @@ export interface Company {
   employmentType: string;
   location: string;
   roles: Role[]; // newest first
+  // When true, the entry is kept as a record (and still anchors the
+  // years-of-experience count) but is not rendered in the timeline.
+  hidden?: boolean;
 }
 
 export const EXPERIENCE: Company[] = [
@@ -140,6 +143,29 @@ export const EXPERIENCE: Company[] = [
           'Designed sales, financial, and performance dashboards in Tableau for near real-time executive insights',
           'Built interactive KPI visualisations that moved executive reviews from static decks to live drill-downs',
           'Replaced recurring manual report builds with Alteryx workflows, freeing the team from rebuilding the same exports each cycle',
+        ],
+        projects: [],
+      },
+    ],
+  },
+  {
+    // Earliest professional experience. Hidden from the timeline to keep it
+    // focused on full-time roles, but its start date anchors the headline
+    // years-of-experience figure shown on the home page and experience header.
+    company: 'Central Motors & Equipment (Bosch)',
+    employmentType: 'Internship',
+    location: 'Dubai, UAE',
+    hidden: true,
+    roles: [
+      {
+        title: 'Intern',
+        start: '2016-02',
+        end: '2016-07',
+        bullets: [
+          'Designed and developed sales dashboards for weekly, monthly, quarterly, and yearly tracking',
+          'Analysed weekly turnover reports, identifying areas for improvement and optimisation',
+          'Conducted market analysis and formulated distribution strategies for power tools',
+          'Provided technical sales support for clients, driving new customer acquisition and retention',
         ],
         projects: [],
       },

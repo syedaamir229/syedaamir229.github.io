@@ -1,10 +1,14 @@
 ---
 import PageHeader from '../ui/PageHeader.astro';
 import Eyebrow from '../ui/Eyebrow.astro';
+import { EXPERIENCE } from '../../data/experience';
+import { experienceYears } from '../../lib/tenure';
+
+const years = experienceYears(EXPERIENCE);
 
 const facts = [
   { label: 'Now', text: 'AI automation and advanced analytics at MBC Shahid (MBC Group).' },
-  { label: 'Scope', text: '10+ years across analytics, BI architecture, data science, and AI automation.' },
+  { label: 'Scope', text: `${years}+ years across analytics, BI architecture, data science, and AI automation.` },
   { label: 'Industries', text: 'Media, retail, automotive, government, enterprise consulting.' },
 ];
 ---

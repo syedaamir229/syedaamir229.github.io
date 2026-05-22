@@ -3,7 +3,7 @@ import { EXPERIENCE } from '../../data/experience';
 import { formatPeriod, formatDuration, companySpan } from '../../lib/tenure';
 import SectionHeader from '../ui/SectionHeader.astro';
 
-const companies = EXPERIENCE.map((company) => {
+const companies = EXPERIENCE.filter((company) => !company.hidden).map((company) => {
   const span = companySpan(company.roles);
   return {
     ...company,
