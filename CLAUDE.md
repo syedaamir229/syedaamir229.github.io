@@ -16,6 +16,8 @@ Requires Node 24+ (matches CI). Node is managed via `nvm` (Homebrew formula). If
 source /opt/homebrew/opt/nvm/nvm.sh && nvm use 24
 ```
 
+After a major Node upgrade (for example the Homebrew `node` formula moving 25 to 26), if `npm run build` or `npm run dev` acts up, run `rm -rf node_modules && npm install` to recompile native modules against the new ABI. Nothing in this repo uses APIs removed in Node 26 (stream internals, `http.Server.writeHeader()`), so a clean reinstall is the only step needed.
+
 ## Top-level layout
 
 ```
