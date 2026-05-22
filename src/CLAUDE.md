@@ -88,6 +88,15 @@ import { getPersonSchema } from '../lib/personSchema';
 - `.reveal` elements fade in on viewport entry via an IntersectionObserver in [scripts/scrollReveal.ts](scripts/scrollReveal.ts). Add `class="reveal"` to opt in; respects `prefers-reduced-motion`.
 - `body::before` paints a low-opacity grain overlay across every page. Load-bearing for the brand: do not remove.
 
+## Computed figures: experience durations and years
+
+Anything time-relative on the experience surfaces is **derived at build time from raw dates** in [data/experience.ts](data/experience.ts), never stored as a pre-baked string (a stored "4 yrs 1 mo" goes stale the moment a month passes).
+
+- Role periods, role/company durations, and which role is "current" all come from `start` / `end` (`'YYYY-MM'`; an `end` of `null` means ongoing). The math lives in [lib/tenure.ts](lib/tenure.ts). The ongoing role's tenure also recomputes **client-side** on page load via [scripts/liveTenure.ts](scripts/liveTenure.ts), so it stays exact between deploys while no-JS visitors still get a correct build-time fallback.
+- The headline "X+ years of experience" (home hero, experience header) is `experienceYears(EXPERIENCE)`, floored to the nearest 5 so it reads as a milestone (10+, 15+, 20+) instead of ticking up yearly. It is anchored by the earliest role start in the data, currently the hidden `Central Motors & Equipment (Bosch)` internship (Feb 2016). That entry carries `hidden: true`: it is excluded from the timeline but still anchors this figure.
+
+**One deliberate exception.** The `description` (meta) string in [config.ts](config.ts) hardcodes the same "X+ years". It is search/link-preview only (never visible on the page), changes once every 5 years, and computing it would force `config.ts` to import from `data/` and break the layering rule above. So it stays manual: **bump it by hand at each milestone. Next: 15+ in Feb 2031.**
+
 ## Common tasks
 
 ### Add a blog post

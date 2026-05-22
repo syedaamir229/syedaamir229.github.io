@@ -1,12 +1,8 @@
 export const SITE = {
   name: 'Syed Aamir',
   title: 'Data & AI Solutions Engineer',
-  // The "10+ years" here is the one place this figure stays manual: it is a meta
-  // description (search/link-preview only, not visible on the page), it changes
-  // just once every 5 years, and keeping config free of data/ imports preserves
-  // the layering rule. The visible figures (home hero, experience header) are
-  // computed from the experience data via experienceYears(). Bump this at the
-  // next milestone (15+) when the time comes.
+  // "10+ years" is intentionally manual here (meta description, ~5-year cadence).
+  // Rationale and the milestone to bump live in src/CLAUDE.md, "Computed figures".
   description:
     'Data and AI solutions engineer based in Dubai, UAE. 10+ years delivering practical data platforms, analytics systems, and AI automation.',
   url: 'https://syedaamir229.github.io',
