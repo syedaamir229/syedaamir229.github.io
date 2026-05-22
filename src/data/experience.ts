@@ -1,3 +1,8 @@
+// Raw, authored facts only. Dates are 'YYYY-MM'; an `end` of null marks the
+// ongoing role. Everything derived from these (period labels, durations, the
+// company tenure summary, which role is "current") is computed at build time by
+// the helpers in ../lib/tenure. Never store a computed value here: it will drift.
+
 export interface RoleProject {
   name: string;
   href: string;
@@ -5,29 +10,29 @@ export interface RoleProject {
 
 export interface Role {
   title: string;
-  period: string;
+  start: string; // 'YYYY-MM'
+  end: string | null; // 'YYYY-MM', or null if ongoing
   bullets: string[];
   projects: RoleProject[];
 }
 
 export interface Company {
   company: string;
-  tenure: string;
+  employmentType: string;
   location: string;
-  current: boolean;
-  roles: Role[];
+  roles: Role[]; // newest first
 }
 
 export const EXPERIENCE: Company[] = [
   {
     company: 'MBC Shahid (MBC Group)',
-    tenure: 'Full-time, 4 yrs 1 mo',
+    employmentType: 'Full-time',
     location: 'Dubai, UAE',
-    current: true,
     roles: [
       {
         title: 'Assistant Advanced Analytics and Insights Manager',
-        period: 'Jan 2025 - Present',
+        start: '2025-01',
+        end: null,
         bullets: [
           'Shipped a GenAI-powered voice-of-customer intelligence platform unifying support, review, and social signals',
           'Designed and operationalised a CRM campaign automation platform, cutting manual setup time on recurring campaigns',
@@ -44,7 +49,8 @@ export const EXPERIENCE: Company[] = [
       },
       {
         title: 'Assistant Data and Analytics Manager',
-        period: 'Apr 2024 - Jan 2025',
+        start: '2024-04',
+        end: '2025-01',
         bullets: [
           'Migrated the governed KPI layer from Power BI Premium to SSAS Tabular to resolve memory pressure at scale',
           'Expanded the ad inventory and revenue pipeline with delivery pacing, ad-serving error monitoring, and Slack-based alerting',
@@ -58,29 +64,30 @@ export const EXPERIENCE: Company[] = [
       },
       {
         title: 'Senior BI Analyst',
-        period: 'Mar 2022 - Mar 2024',
+        start: '2022-03',
+        end: '2024-03',
         bullets: [
           'Designed the enterprise data model consolidating 5 source systems into a unified Silver/Gold reporting layer that became the foundation for every downstream BI, ML, and AI project',
-          'Led the BI modernization roadmap, migrating legacy reporting to governed Power BI and Tableau',
+          'Led the BI modernisation roadmap, migrating legacy reporting to governed Power BI and Tableau',
           'Built the governed semantic layer and KPI framework serving finance, marketing, and content teams',
           'Shipped Phase 1 of the ad inventory and revenue pipeline covering ad delivery, performance tracking, and reconciliation',
         ],
         projects: [
           { name: 'Enterprise Data Model', href: '/projects/enterprise-data-model/' },
-          { name: 'BI Modernization', href: '/projects/bi-migration/' },
+          { name: 'BI Migration', href: '/projects/bi-migration/' },
         ],
       },
     ],
   },
   {
     company: 'Beinex',
-    tenure: 'Full-time, 3 yrs 3 mo',
+    employmentType: 'Full-time',
     location: 'Dubai, UAE',
-    current: false,
     roles: [
       {
         title: 'Senior Consultant - Analytics',
-        period: 'Jan 2021 - Mar 2022',
+        start: '2021-01',
+        end: '2022-03',
         bullets: [
           'Owned the HHRC engagement, expanded from short-term into a multi-year delivery track',
           'Led cross-departmental Power BI workshops that drove adoption across teams previously stuck on legacy reports',
@@ -91,7 +98,8 @@ export const EXPERIENCE: Company[] = [
       },
       {
         title: 'Business Intelligence Consultant',
-        period: 'Jan 2019 - Dec 2020',
+        start: '2019-01',
+        end: '2020-12',
         bullets: [
           'Delivered consulting across enterprise clients (ADIC, ADEC, Jaguar Land Rover)',
           'Built ETL processes with SSIS, Alteryx, Tableau Prep, and SQL Server',
@@ -104,13 +112,13 @@ export const EXPERIENCE: Company[] = [
   },
   {
     company: 'Al-Futtaim Engineering and Technologies (Al-Futtaim Group)',
-    tenure: 'Full-time, 9 mo',
+    employmentType: 'Full-time',
     location: 'Dubai, UAE',
-    current: false,
     roles: [
       {
         title: 'Business Intelligence Consultant',
-        period: 'May 2018 - Jan 2019',
+        start: '2018-05',
+        end: '2019-01',
         bullets: [
           'Consolidated fragmented legacy reporting into a governed BI layer that opened cross-department data access',
           'Converted static legacy reports into dynamic Tableau dashboards refreshing without analyst handoff',
@@ -121,13 +129,13 @@ export const EXPERIENCE: Company[] = [
   },
   {
     company: 'Scan Technology LLC',
-    tenure: 'Full-time, 1 yr 7 mo',
+    employmentType: 'Full-time',
     location: 'Dubai, UAE',
-    current: false,
     roles: [
       {
         title: 'Business Intelligence Consultant',
-        period: 'Oct 2016 - Apr 2018',
+        start: '2016-10',
+        end: '2018-04',
         bullets: [
           'Designed sales, financial, and performance dashboards in Tableau for near real-time executive insights',
           'Built interactive KPI visualisations that moved executive reviews from static decks to live drill-downs',
@@ -139,12 +147,11 @@ export const EXPERIENCE: Company[] = [
   },
 ];
 
+/** The ongoing role: first company with a role whose `end` is null. */
 export const CURRENT_ROLE = (() => {
-  const company = EXPERIENCE.find((c) => c.current);
-  const role = company?.roles[0];
-  if (!company || !role) return null;
-  return {
-    company: company.company,
-    title: role.title,
-  };
+  for (const company of EXPERIENCE) {
+    const role = company.roles.find((r) => r.end === null);
+    if (role) return { company: company.company, title: role.title };
+  }
+  return null;
 })();
