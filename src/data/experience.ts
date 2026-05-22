@@ -61,13 +61,13 @@ export const EXPERIENCE: Company[] = [
         period: 'Mar 2022 - Mar 2024',
         bullets: [
           'Designed the enterprise data model consolidating 5 source systems into a unified Silver/Gold reporting layer that became the foundation for every downstream BI, ML, and AI project',
-          'Led the BI modernisation roadmap, migrating legacy reporting to governed Power BI and Tableau',
+          'Led the BI modernization roadmap, migrating legacy reporting to governed Power BI and Tableau',
           'Built the governed semantic layer and KPI framework serving finance, marketing, and content teams',
           'Shipped Phase 1 of the ad inventory and revenue pipeline covering ad delivery, performance tracking, and reconciliation',
         ],
         projects: [
           { name: 'Enterprise Data Model', href: '/projects/enterprise-data-model/' },
-          { name: 'BI Migration', href: '/projects/bi-migration/' },
+          { name: 'BI Modernization', href: '/projects/bi-migration/' },
         ],
       },
     ],
