@@ -1,7 +1,7 @@
 export const PERSON_EXTRAS = {
   address: {
     addressLocality: 'Dubai',
-    addressCountry: 'UAE',
+    addressCountry: 'AE',
   },
   alumniOf: {
     name: 'BITS Pilani Dubai Campus',

@@ -4,6 +4,7 @@ import BaseLayout from './BaseLayout.astro';
 import PostHeader from '../components/blog/PostHeader.astro';
 import SeriesNav from '../components/blog/SeriesNav.astro';
 import type { SeriesInfo } from '../lib/series';
+import { getBlogPostingSchema, getBreadcrumbSchema } from '../lib/structuredData';
 
 interface Props {
   post: CollectionEntry<'blog'>;
@@ -12,12 +13,22 @@ interface Props {
 }
 
 const { post, readingTime, seriesInfo } = Astro.props;
+const ogImagePath = `/og/blog/${post.id}.png`;
+const blogPosting = getBlogPostingSchema(post, Astro.url.pathname, ogImagePath);
+const breadcrumb = getBreadcrumbSchema([
+  { name: 'Home', path: '/' },
+  { name: 'Writing', path: '/blog/' },
+  { name: post.data.title, path: Astro.url.pathname },
+]);
 ---
 
 <BaseLayout
   title={post.data.title}
   description={post.data.description}
-  ogImage={`/og/blog/${post.id}.png`}
+  ogImage={ogImagePath}
+  ogType="article"
+  articlePublished={post.data.date.toISOString()}
+  schemas={[blogPosting, breadcrumb]}
 >
   <article class="pt-32 pb-16 px-6">
     <div class="max-w-3xl mx-auto">

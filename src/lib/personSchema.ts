@@ -7,7 +7,7 @@ export function getPersonSchema() {
     '@type': 'Person',
     name: SITE.name,
     url: SITE.url,
-    sameAs: [SOCIAL.linkedin, SOCIAL.tableau],
+    sameAs: [SOCIAL.linkedin, SOCIAL.github, SOCIAL.tableau],
     jobTitle: SITE.title,
     address: {
       '@type': 'PostalAddress',

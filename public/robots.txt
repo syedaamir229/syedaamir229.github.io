@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://syedaamir229.github.io/sitemap-index.xml
+Sitemap: https://syedaamir.com/sitemap-index.xml

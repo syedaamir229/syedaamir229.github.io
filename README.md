@@ -1,6 +1,6 @@
 # Portfolio
 
-Source for [syedaamir229.github.io](https://syedaamir229.github.io), the personal site of Syed Aamir, a Data & AI Solutions Engineer based in Dubai.
+Source for [syedaamir.com](https://syedaamir.com), the personal site of Syed Aamir, a Data & AI Solutions Engineer based in Dubai.
 
 ![Portfolio preview](public/assets/og-card.jpg)
 

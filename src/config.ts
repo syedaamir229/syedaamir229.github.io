@@ -5,9 +5,9 @@ export const SITE = {
   // Rationale and the milestone to bump live in src/CLAUDE.md, "Computed figures".
   description:
     'Data and AI solutions engineer based in Dubai, UAE. 10+ years delivering practical data platforms, analytics systems, and AI automation.',
-  url: 'https://syedaamir229.github.io',
+  url: 'https://syedaamir.com',
   author: 'Syed Aamir',
-  email: 'saamir259@gmail.com',
+  email: 'aamir@syedaamir.com',
   location: 'Dubai, UAE',
   avatar: '/assets/syedaamir.jpeg',
   ogImage: '/assets/og-card.jpg',
@@ -15,7 +15,14 @@ export const SITE = {
 };
 
 const GMAIL_COMPOSE =
-  'https://mail.google.com/mail/?view=cm&fs=1&to=saamir259@gmail.com&su=Let%27s%20talk';
+  'https://mail.google.com/mail/?' +
+  new URLSearchParams({
+    view: 'cm',
+    fs: '1',
+    to: SITE.email,
+    su: "Let's talk",
+    body: 'Hi Aamir,\n\n',
+  }).toString();
 
 export const SOCIAL = {
   linkedin: 'https://www.linkedin.com/in/syedaamiruddin/',

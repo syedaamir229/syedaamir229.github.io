@@ -3,6 +3,7 @@ import type { CollectionEntry } from 'astro:content';
 import BaseLayout from './BaseLayout.astro';
 import ProjectTOC from '../components/projects/ProjectTOC.astro';
 import Eyebrow from '../components/ui/Eyebrow.astro';
+import { getBreadcrumbSchema } from '../lib/structuredData';
 
 interface Props {
   project: CollectionEntry<'projects'>;
@@ -10,9 +11,14 @@ interface Props {
 
 const { project } = Astro.props;
 const { title, description, category, metrics } = project.data;
+const breadcrumb = getBreadcrumbSchema([
+  { name: 'Home', path: '/' },
+  { name: 'Projects', path: '/projects/' },
+  { name: title, path: Astro.url.pathname },
+]);
 ---
 
-<BaseLayout title={title} description={description}>
+<BaseLayout title={title} description={description} schemas={[breadcrumb]}>
   <article class="pt-32 pb-16 px-6">
     <div class="max-w-5xl mx-auto">
       <!-- Breadcrumb -->

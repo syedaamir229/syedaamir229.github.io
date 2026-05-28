@@ -5,7 +5,7 @@ import sitemap from '@astrojs/sitemap';
 import mdx from '@astrojs/mdx';
 
 export default defineConfig({
-  site: 'https://syedaamir229.github.io',
+  site: 'https://syedaamir.com',
   vite: {
     plugins: [tailwindcss()],
   },
