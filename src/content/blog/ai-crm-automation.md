@@ -1,7 +1,7 @@
 ---
 title: "AI-Powered CRM Automation: The Six-Layer CRM Operating System"
 og_title: "The Six-Layer CRM Operating System"
-date: 2025-11-10
+date: 2026-05-20
 description: "A scenario-based CRM operating system that replaced manual analyst handoffs, gave operators direct targeting, and closed the loop from data to activation."
 categories: ["AI & Automation", "Data Engineering"]
 draft: false

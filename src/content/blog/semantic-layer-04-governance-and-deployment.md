@@ -1,6 +1,6 @@
 ---
 title: "Semantic Layer Series Part 4 of 6: The Three Release Gates"
-date: 2023-11-13
+date: 2026-04-25
 description: "Three release gates that stop the deploy that would reset partitions and roles before it ships to production."
 og_title: "The Deploy That Reset the Whole Model"
 categories: ["Data Governance", "BI & Analytics"]

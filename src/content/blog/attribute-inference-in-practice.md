@@ -1,6 +1,6 @@
 ---
 title: "Attribute Inference in Practice: The Four Guardrails"
-date: 2025-08-11
+date: 2026-05-24
 description: "Lifting profile coverage from sparse to near-full across millions of users, and the four guardrails that decide whether inferred data helps or harms."
 og_title: "Inferred Data: Asset or Liability?"
 categories: ["Data Science"]

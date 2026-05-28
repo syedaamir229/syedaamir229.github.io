@@ -1,6 +1,6 @@
 ---
 title: "Voice-of-Customer for Multilingual Streaming: The Five-Layer Stack"
-date: 2026-04-13
+date: 2026-05-16
 description: "A five-layer stack turns scattered Arabic-language feedback into a system that answers content-team questions in seconds, on one architectural decision."
 og_title: "Voice-of-Customer in Five Layers"
 categories: ["AI & Automation", "Data Science"]

@@ -1,6 +1,6 @@
 ---
 title: "Semantic Layer Series Part 6 of 6: The Weekly Optimization Cycle"
-date: 2024-05-13
+date: 2026-05-02
 description: "A weekly cycle that turns monitoring telemetry into prioritised fixes, before slow queries become a trust problem."
 og_title: "When Slow Queries Kill Trust"
 categories: ["BI & Analytics", "Data Engineering"]

@@ -1,6 +1,6 @@
 ---
 title: "The Three-Phase BI Migration Sequence"
-date: 2024-08-12
+date: 2026-05-09
 description: "A three-phase BI migration (tool, then data layer, then metric logic) replaces big-bang cutovers with validated swaps that survive when numbers move."
 og_title: "BI Migrations Without Big-Bang Cutovers"
 categories: ["BI & Analytics", "Data Engineering"]

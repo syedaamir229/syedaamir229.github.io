@@ -1,7 +1,7 @@
 ---
 title: "Semantic Layer Series Part 1 of 6: Why Governed Metrics Become Non-Negotiable"
 og_title: "Why Governed Metrics Become Non-Negotiable"
-date: 2023-05-12
+date: 2026-04-15
 description: "The first six weeks of a semantic-layer program are not a tooling decision. Resolve every definitional disagreement before the platform choice is made."
 categories: ["BI & Analytics", "Data Governance"]
 draft: false

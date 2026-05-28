@@ -1,7 +1,7 @@
 ---
 title: "BI to Data Science Bridge Patterns: Four Moves That Stop the Numbers from Diverging"
 og_title: "Four Bridges Between BI and Data Science"
-date: 2026-01-12
+date: 2026-04-04
 description: "Four bridge patterns from a BI-to-DS transition: shared entities, careful feature promotion, use-first validation, and role evolution."
 categories: ["Data Science", "BI & Analytics"]
 draft: false

@@ -1,6 +1,6 @@
 ---
 title: "The Five Rules of a Compounding Data Model"
-date: 2026-02-09
+date: 2026-04-08
 description: "Most data models are scoped like projects that end. The ones that compound are designed like infrastructure. Here are five rules that hold over years."
 og_title: "Most Data Models Are Scoped to Die"
 categories: ["Data Engineering"]

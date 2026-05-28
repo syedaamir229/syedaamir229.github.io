@@ -1,6 +1,6 @@
 ---
 title: "Semantic Layer Series Part 2 of 6: The Three Ownership Layers"
-date: 2023-07-10
+date: 2026-04-18
 description: "Draw clean ownership boundaries between data, metric, and report engineering before the first measure ships. This is what decides whether the layer scales."
 og_title: "Three Owners of the Semantic Layer"
 categories: ["BI & Analytics", "Data Engineering"]
