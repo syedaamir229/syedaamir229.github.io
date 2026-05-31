@@ -1,6 +1,6 @@
 ---
 title: "Semantic Layer Series Part 6 of 6: The Weekly Optimization Cycle"
-date: 2026-05-02
+date: 2026-08-12
 description: "A weekly cycle that turns monitoring telemetry into prioritised fixes, before slow queries become a trust problem."
 og_title: "When Slow Queries Kill Trust"
 categories: ["BI & Analytics", "Data Engineering"]
@@ -11,7 +11,7 @@ series_part: 6
 
 A high-traffic visual that used to render in two seconds turned into a thirty-second render by the time leadership saw it. The model had not changed. The data had not changed. The query had gotten slower week by week and nobody had been watching.
 
-That kind of degradation is how semantic-layer programs lose trust slowly, then all at once. The refresh succeeds. The model builds. The KPI definitions stay correct. The queries get slower over time, the visuals get heavier, the report estate accretes weight, and one Wednesday afternoon a single thirty-second render in front of an executive turns the whole program into a question.
+This is how semantic-layer programs lose trust: slowly, then all at once. The refresh succeeds. The model builds. The KPI definitions stay correct. The queries get slower over time, the visuals get heavier, the report estate accretes weight, and one Wednesday afternoon a single thirty-second render in front of an executive turns the whole program into a question.
 
 **A semantic-layer team is either running monitoring as a weekly operating loop or running it as a passive dashboard. Once it is passive, slow queries get slower week by week, alerts get muted as noise, and the first signal that something is wrong arrives in a leadership review; once it is an operating loop, monitoring telemetry becomes a closed-loop process where every flagged item has a layer, an owner, a target date, and a verification gate.** The way you get there is not more alerts. It is The Weekly Optimization Cycle: four stages run every week in the same order, each one named, each one with the discipline that keeps the loop from decaying.
 

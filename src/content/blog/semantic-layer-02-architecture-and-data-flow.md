@@ -1,6 +1,6 @@
 ---
 title: "Semantic Layer Series Part 2 of 6: The Three Ownership Layers"
-date: 2026-04-18
+date: 2026-07-15
 description: "Draw clean ownership boundaries between data, metric, and report engineering before the first measure ships. This is what decides whether the layer scales."
 og_title: "Three Owners of the Semantic Layer"
 categories: ["BI & Analytics", "Data Engineering"]
@@ -11,7 +11,7 @@ series_part: 2
 
 A deployment that deletes partitions and resets user roles is the kind of failure that reveals an ownership boundary. The script is correct. The model is correct. The release that touches data engineering, metric engineering, and report engineering runs without anyone watching the one most likely to break, because the three responsibilities were living on two people. The full scene is told in [Part 4 of this series](/blog/semantic-layer-04-governance-and-deployment/); here it sets up the architectural question this post is for.
 
-That kind of failure looks operational and turns out to be structural. The release scripts ran cleanly; the layout was the problem. When the same engineer owns the curated tables, the semantic model, and the consumption layer, every release reaches across boundaries that were never named, and the next deployment surfaces it.
+It looks operational. It is structural. The release scripts ran cleanly; the layout was the problem. When the same engineer owns the curated tables, the semantic model, and the consumption layer, every release reaches across boundaries that were never named, and the next deployment surfaces it.
 
 **A semantic-layer team is either splitting ownership across three clean layers or accumulating risk on the boundary between two of them. Once the boundaries collapse, the deployment that took thirty seconds to write takes a quarter to recover from; once they hold, the same script can run on Friday evening and the dashboards still come up on Monday morning.** The way you get there is not better deployment tooling. It is The Three Ownership Layers, each with a named owner, a defined release path, and a contract with the layers above and below.
 

@@ -1,6 +1,6 @@
 ---
 title: "Semantic Layer Series Part 5 of 6: The Six-Stage Refresh Loop"
-date: 2026-04-29
+date: 2026-08-05
 description: "How a missed overnight refresh stops being a leadership incident: a six-stage loop and a five-step backfill, run from a written runbook."
 og_title: "When the Overnight Refresh Fails"
 categories: ["Data Engineering", "BI & Analytics"]
@@ -11,7 +11,7 @@ series_part: 5
 
 An unmonitored refresh that fails overnight is the kind of outage that leadership sees before the data team does. The Monday standup opens the executive KPI dashboard. Yesterday's row is blank, and the row before it is partial. The overnight refresh failed. Nobody saw the alert. The leadership review in the afternoon is now operating on stale numbers, and the data team is improvising a backfill in front of an audience.
 
-That kind of failure ends programs more often than modelling mistakes do. The model is correct. The dashboards are configured. The refresh broke, and the recovery path lived in one engineer's head.
+Failures like this one end more programs than modelling mistakes do. The model is correct. The dashboards are configured. The refresh broke, and the recovery path lived in one engineer's head.
 
 **A semantic-layer team is either operating the refresh as a documented loop or operating it as one engineer's tribal knowledge. Once it lives in someone's head, the next failed refresh produces a missed Monday and a leadership team reporting on numbers that did not refresh; once it lives in a procedure, the same incident becomes a one-shift recovery that the on-call engineer runs from a written runbook.** The way you get there is not more monitoring. It is The Six-Stage Refresh Loop and the Five-Step Backfill that pairs with it, both written down explicitly so the model recovers without a leadership escalation.
 

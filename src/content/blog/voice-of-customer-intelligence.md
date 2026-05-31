@@ -1,6 +1,6 @@
 ---
 title: "Voice-of-Customer for Multilingual Streaming: The Five-Layer Stack"
-date: 2026-05-16
+date: 2026-09-16
 description: "A five-layer stack turns scattered Arabic-language feedback into a system that answers content-team questions in seconds, on one architectural decision."
 og_title: "Voice-of-Customer in Five Layers"
 categories: ["AI & Automation", "Data Science"]
@@ -11,7 +11,7 @@ On the morning of a tentpole launch, a product manager filed a request for senti
 
 The data was sitting in Twitter, Facebook, YouTube, and the platform's own short-form video surface, mostly in Arabic, in four different schemas, with no shared link back to a title. The answer existed before the question was asked. The pipeline that surfaces it did not.
 
-That kind of refusal is the scene every voice-of-customer system either solves or pretends to solve. The pretending usually looks like a sentiment dashboard with cross-platform volume charts that nobody opens. The dashboard tells you that volume spiked. It does not tell you what people actually said.
+Every voice-of-customer system either solves that refusal or pretends to. The pretending usually looks like a sentiment dashboard with cross-platform volume charts that nobody opens. The dashboard tells you that volume spiked. It does not tell you what people actually said.
 
 **A voice-of-customer system is either an asset content teams can query or a queue analysts work down. Once it becomes a queue, every release ships with stale feedback and the queue only grows; once it becomes an asset, the answer to "what did people say about Title X last night" arrives in seconds, in the same interface the leadership team is already in.** The way you get there is not a sentiment dashboard or another analyst. It is a five-layer stack with one non-obvious architectural split inside it.
 

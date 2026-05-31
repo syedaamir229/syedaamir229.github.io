@@ -1,6 +1,6 @@
 ---
 title: "AVOD Ad Operations: The Four-Signal Operating Loop"
-date: 2026-05-13
+date: 2026-09-09
 description: "A four-signal AVOD operating loop replaced spreadsheet tracking and escalated inventory pressure to Content Ops before commitments slipped."
 og_title: "Four Signals AVOD Ops Should Be Watching"
 categories: ["Data Engineering", "BI & Analytics"]
@@ -9,7 +9,7 @@ draft: false
 
 A booked campaign ended on a Friday short of its commitment. The pacing shortfall had been visible on Wednesday, actual delivery had been trending under the line for three days. In practice the pacing view was a spreadsheet someone in Ad Operations rebuilt by hand every morning, and the morning it would have mattered, they were clearing the booking inbox instead. By Friday the team owed the advertiser make-goods (the compensation impressions a publisher serves into a later flight when it under-delivers on a commitment), and those make-good impressions came out of inventory already sold to a different campaign. The shortfall propagated forward.
 
-That kind of miss is the shape of reactive AVOD operations. Spreadsheets that someone has to remember to refresh. Trends visible only to whoever is looking at the right tab at the right moment. Numbers that do not surface until after the window to act has closed. The data exists, the people exist, the discipline exists. What is missing is the pipeline that puts the right view in front of the team at the moment it would change a decision.
+That is what reactive ad operations look like. Spreadsheets that someone has to remember to refresh. Trends visible only to whoever is looking at the right tab at the right moment. Numbers that do not surface until after the window to act has closed. The data exists, the people exist, the discipline exists. What is missing is the pipeline that puts the right view in front of the team at the moment it would change a decision.
 
 **An Ad Operations team is either acting on signals or chasing make-goods. Once it starts chasing make-goods, every flight ends in reconciliation and every soft quarter ends with nobody quite sure where the unused inventory was; once it starts acting on signals, Content Operations gets to move the supply lever before a shortfall hardens.** The way you get there is not a fresher dashboard or another analyst. It is a single AVOD Operating Loop: four linked signals feeding one staging layer, one set of dashboards, and a small number of business-impact alerts the team will actually act on.
 

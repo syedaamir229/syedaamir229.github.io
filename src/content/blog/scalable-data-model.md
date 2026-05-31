@@ -1,17 +1,17 @@
 ---
 title: "The Five Rules of a Compounding Data Model"
-date: 2026-04-08
+date: 2026-06-17
 description: "Most data models are scoped like projects that end. The ones that compound are designed like infrastructure. Here are five rules that hold over years."
 og_title: "Most Data Models Are Scoped to Die"
 categories: ["Data Engineering"]
 draft: false
 ---
 
-A leadership review opened with two teams holding two defensible counts of active subscribers for the quarter. The subscriptions team had one number on the slide. The content team had reproduced the same metric independently and had a slightly higher one. Neither was technically wrong. Each had been computed against a different filter assumption.
+Most data models are built to match the launch dashboard. They do it well, and then the second consumer arrives, a churn model or a CRM audience, and the model has to be rebuilt from raw events because it was shaped around a report instead of the business.
 
-Twenty minutes of the meeting were spent deciding which number to use as the headline for the quarter. None of it was spent on the decision the room had walked in to make.
+That rebuild is the tax a team pays for scoping a model like a project. It comes due again at the third consumer, and the fourth.
 
-That kind of reconciliation is the scene that gets every enterprise-data-model project funded. It is also the scene that gets it scoped wrong. The word used in the kickoff is "project." The word that should be used is "infrastructure."
+The word used in the kickoff is "project." The word that should be used is "infrastructure."
 
 **A data team is either building a model or building infrastructure. Once it starts building a model, every new consumer rebuilds the foundation underneath it, badly, in a way that introduces drift the layer above pays for; once it starts building infrastructure, the same foundation carries the semantic layer, the feature store, the CRM automation, and the AI agent without rebuilding what is underneath.** The way you get there is not a bigger schema or a longer requirements phase. It is five disciplines applied together, the way most teams apply two or three at a time and then wonder why the model does not survive its third use case.
 

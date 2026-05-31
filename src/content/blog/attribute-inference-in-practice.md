@@ -1,6 +1,6 @@
 ---
 title: "Attribute Inference in Practice: The Four Guardrails"
-date: 2026-05-24
+date: 2026-09-02
 description: "Lifting profile coverage from sparse to near-full across millions of users, and the four guardrails that decide whether inferred data helps or harms."
 og_title: "Inferred Data: Asset or Liability?"
 categories: ["Data Science"]
@@ -11,7 +11,7 @@ A content team asked a planning question: what does the female audience over 25 
 
 Twelve months later, the answer to the same question was a governed BI report with near-full coverage across millions of adult profiles, the majority of those rows being entirely new predictions on profiles that had no gender data at all. The model behind that report held above a reasonable AUC threshold on a held-out validation set restricted to single-adult-profile accounts.
 
-That kind of coverage shift is the part most teams celebrate. It is also the part that matters least. Building a behaviour-based gender inference model is not hard. Convincing the planning team to treat an inferred field like inferred data, not like ground truth, is the work.
+Most teams celebrate the coverage shift. It is the part that matters least. Building a behaviour-based gender inference model is not hard. Convincing the planning team to treat an inferred field like inferred data, not like ground truth, is the work.
 
 **An inference model is either shipped with receipts or treated as ground truth. Once it is treated as ground truth, the first wrong prediction on a high-profile case ends the program, because nobody warned the consumers that the field was probabilistic; once it ships with receipts, the prediction, the confidence flag, and the inferred marker travel together, and downstream consumers learn to threshold instead of trust blindly.** The way you get there is not a better model. It is four guardrails that turn an enrichment from a risky field into a published data product.
 

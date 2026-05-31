@@ -1,7 +1,7 @@
 ---
 title: "BI to Data Science Bridge Patterns: Four Moves That Stop the Numbers from Diverging"
 og_title: "Four Bridges Between BI and Data Science"
-date: 2026-04-04
+date: 2026-08-19
 description: "Four bridge patterns from a BI-to-DS transition: shared entities, careful feature promotion, use-first validation, and role evolution."
 categories: ["Data Science", "BI & Analytics"]
 draft: false
@@ -11,7 +11,7 @@ A quarterly review surfaced a churn model and a churn dashboard disagreeing on a
 
 Neither number was wrong. The model used a 30-day inactivity window to classify churn risk. The dashboard used a billing-cycle definition that only counted subscribers who had actually lapsed. Both were defensible. Both produced different numbers. A non-trivial set of names was now in dispute.
 
-That kind of standoff is the conflict every BI-to-DS transition accumulates quietly until a leadership meeting surfaces it. The gap is not in the model or the dashboard; it is in the entity definitions underneath both. Most transitions discover this in the worst possible place: the leadership review. The bridge patterns below are what stop the accumulation before it shows up in the room.
+Every BI-to-DS transition accumulates that standoff quietly, until a leadership meeting surfaces it. The gap is not in the model or the dashboard; it is in the entity definitions underneath both. Most transitions discover this in the worst possible place: the leadership review. The bridge patterns below are what stop the accumulation before it shows up in the room.
 
 **A BI-and-DS team is either building on shared entities or building two parallel realities. Once it builds parallel realities, every model output triggers a reconciliation conversation against the dashboard it implicitly disagrees with; once it builds on shared entities, the same governed table powers both surfaces, and the model and the dashboard cannot structurally diverge.** The way you get there is not better reconciliation logic on the back end. It is four bridge patterns applied at the entity layer, where the divergence would have started.
 

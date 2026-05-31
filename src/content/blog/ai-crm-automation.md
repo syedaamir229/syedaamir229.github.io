@@ -1,7 +1,7 @@
 ---
 title: "AI-Powered CRM Automation: The Six-Layer CRM Operating System"
 og_title: "The Six-Layer CRM Operating System"
-date: 2026-05-20
+date: 2026-09-23
 description: "A scenario-based CRM operating system that replaced manual analyst handoffs, gave operators direct targeting, and closed the loop from data to activation."
 categories: ["AI & Automation", "Data Engineering"]
 draft: false
@@ -9,7 +9,7 @@ draft: false
 
 A CRM team filed a Monday-morning request for a same-day re-engagement audience: subscribers who had started but not finished a tentpole series, segmented by region, ahead of a finale promotion that needed to ship by afternoon. The request was structurally the same query the team had filed a dozen times that month under different titles. The analyst quoted three days. By the time the audience was built, the finale promotion had already run; the eligible subscribers had either churned through the window or watched the finale anyway. The campaign was a post-mortem before it shipped.
 
-That kind of miss is the shape of reactive CRM operations. Every campaign starts as a ticket. Every ticket is structurally the same as one the team filed last month under a different title. Every audience has to be rebuilt from scratch because nothing about the previous build is reusable. Most data teams accept this as a fact of life and add capacity. The compounding move is to delete the loop.
+The miss is not the exception. It is how reactive CRM operations run by default. Every campaign starts as a ticket. Every ticket is structurally the same as one the team filed last month under a different title. Every audience has to be rebuilt from scratch because nothing about the previous build is reusable. Most data teams accept this as a fact of life and add capacity. The compounding move is to delete the loop.
 
 **A CRM team is either configuring scenarios or filing tickets. Once it starts filing tickets, every campaign is a negotiation; once it starts configuring scenarios, the data team gets to build infrastructure instead.** The way you get there is not a self-service UI in front of the warehouse. It is a structured operating system that encodes business logic into reusable, composable rules and ships activation as a first-class output.
 

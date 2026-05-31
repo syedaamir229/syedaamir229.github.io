@@ -1,7 +1,7 @@
 ---
 title: "Semantic Layer Series Part 1 of 6: Why Governed Metrics Become Non-Negotiable"
 og_title: "Why Governed Metrics Become Non-Negotiable"
-date: 2026-04-15
+date: 2026-07-08
 description: "The first six weeks of a semantic-layer program are not a tooling decision. Resolve every definitional disagreement before the platform choice is made."
 categories: ["BI & Analytics", "Data Governance"]
 draft: false
@@ -9,7 +9,7 @@ series: semantic-layer
 series_part: 1
 ---
 
-A quarterly review opens with three teams arriving with three "active subscribers" numbers off the same source data. Two slightly different definitions: trial users in or out, profile-level or account-level. Twenty minutes of the meeting spent reconciling. The actual decision the room walked in to make goes unspoken.
+Ask four teams how many active subscribers there were last month and you can get four answers, all off the same source data. The gap is not arithmetic. It is that "active" quietly means something different to each team: trials counted or not, a profile or a whole account. Nobody is wrong, which is exactly why the meeting to reconcile it runs long and settles nothing.
 
 That is the moment most teams stop choosing to build a semantic layer and get pushed there. The fix that comes out of that meeting is not a tool selection or a new dashboard. It is a governed semantic layer that every downstream consumer can trust. But the failure mode hiding in that sentence is the assumption that "build the semantic layer" means "pick the platform and start modelling." It does not.
 

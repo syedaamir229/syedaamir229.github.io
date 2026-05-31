@@ -144,7 +144,7 @@ from the thesis ("Is your X this, or that?").]
 
 ### Beat notes
 
-- **Opening anecdote (beat 1)**: 1 to 2 paragraphs, past tense, third-person about teams or systems. Specific scene with people, numbers, or a moment. Not an abstract problem statement. "Many implementations fail because..." is not an anecdote.
+- **Opening anecdote (beat 1)**: 1 to 2 paragraphs, past tense, third-person about teams or systems. Specific scene with people, numbers, or a moment. Not an abstract problem statement. "Many implementations fail because..." is not an anecdote. Vary the opening device across the catalog, though: most posts open on a scene, but a claim-led or question-led opening is welcome, and often better, precisely so the blog does not read as one reused "a review opened with conflicting numbers" template. What matters is a concrete, specific entry into the post, not the same staged scene every time.
 - **Scene framing (beat 2)**: one paragraph. Names the failure pattern. Distinct from the anecdote: the anecdote is the moment, the framing is the pattern the moment represents.
 - **Bolded thesis (beat 3)**: one bolded paragraph followed by one un-bolded sentence. Someone could disagree. "A semantic layer can still fail after launch if governance is weak" is too weak: who would disagree? The either-or framing forces the disagreement to exist.
 - **Why this matters now (beat 4)**: industry context. External citations are optional, not required. When citing, every citation should be load-bearing; do not bulk-cite. End the section with one sentence that bridges into the framework so the diagram does not arrive cold.
@@ -165,7 +165,7 @@ from the thesis ("Is your X this, or that?").]
 
 ### Post length
 
-Standalone posts: 1,200 to 1,800 words. Series companion posts: 1,000 to 1,500 words per part. Length is a target, not a hard rule. A topic that routinely runs past 2,500 words probably wanted to be a series.
+Standalone posts run long here, roughly 2,000 to 4,000 words. Series companion parts run 1,500 to 2,500 words each. The length is deliberate: depth is the credibility lever for a personal brand, and the current catalog sits in this band. Length follows the argument. Do not pad to reach a number, and do not cut a load-bearing beat (the diagram, the MENA note, the closing) to look shorter. If one post sprawls past roughly 4,500 words and carries more than one framework, that is the signal it wanted to be a series.
 
 ---
 
@@ -383,6 +383,47 @@ Specific seasonal cycles (Ramadan, Eid, World Cup, regional sports finals) appea
 - **Canonical operational example.** Naming a cycle as the headline use case for a generalizable system. **Abstract** to "a predictable recurring window where content priorities shift" or "a seasonal cycle the override system activates automatically by date".
 
 The test is whether removing the named cycle leaves the framework component complete. If the lesson is *"you need declarative seasonal overrides"* and Ramadan is the canonical example, the named cycle is operational and should abstract. If the lesson is *"MENA streaming has compressed-launch dynamics that Western models miss"* and Ramadan is the structural anchor, the named cycle is cultural and stays.
+
+---
+
+## 11. Publishing cadence and distribution
+
+Posts publish weekly, on Wednesdays, one per week. Weekly is sustainable because research and drafting are AI-assisted; the discipline that protects weekly is variety (section 12), not volume. A missed week is invisible. A thin post is not. If a week has nothing ready, skip it rather than ship filler.
+
+Scheduling is date-driven, not draft-driven. Set each post's `date` to its intended publish day. `getPublishedPosts()` in [../src/lib/blog.ts](../src/lib/blog.ts) hides any post whose `date` is still in the future, so a finished post can sit in the repo, dated ahead, and stay invisible until its day arrives. To reveal a due post, trigger a rebuild: push any commit, or run the deploy workflow manually (`workflow_dispatch`). The hands-off upgrade is a daily `schedule:` cron in [../.github/workflows/deploy.yml](../.github/workflows/deploy.yml), which lets each post self-publish on its date.
+
+Ordering is engagement-first, not chronological-by-topic. Lead with the most accessible, human, or contrarian posts; run a multi-part series as a mid-launch block; close on the strongest showcases. A logical topic arc is a fallback, not the default.
+
+Distribution. Every post ships with a LinkedIn companion (section 13). The blog post is the long-form credibility play; the LinkedIn post is the reach play. Publishing one without the other leaves most of the value on the table. Share the companion on Wednesday, early-to-mid afternoon Gulf time, a window that overlaps a live Gulf afternoon, European midday, and a US-East morning. Put the canonical post URL near the end of the copy, not the first line.
+
+---
+
+## 12. Post archetypes
+
+The ten-beat structure in section 4 is the framework archetype. It is the default, not the only shape. Running every post through the same skeleton reads as formulaic in aggregate, and that risk grows at weekly cadence. Rotate across three archetypes:
+
+- **Framework post** (section 4, default). For systems, architectures, and sequences. The full ten beats: anecdote, bolded thesis, named framework with 3 to 6 components, diagram, "Where I would start", MENA note, closing.
+- **War-story / narrative post.** First-person, story-spine: a problem arose, attempts failed, a fix held, here is the lesson. Lighter scaffold, no required diagram, fewer mandatory beats. Use when the lesson lives in the sequence of events, not in a static framework.
+- **Opinion / contrarian essay.** Leads with a debated take and defends it with receipts. No framework or diagram required. The highest-reach format, and the one to reach for when the value is the position itself rather than a how-to.
+
+Pick the archetype before drafting. The bolded either-or thesis and at least one structural MENA anchor carry across all three; the rigid ten beats apply only to the framework archetype.
+
+---
+
+## 13. LinkedIn companion
+
+Every post has a companion LinkedIn draft, written at publish-planning time and stored as a sidecar at `social/linkedin/<slug>.md`. The `<slug>` is the same one the post file uses, which is also the OG card filename (`public/og/blog/<slug>.png`) and the URL path (`/blog/<slug>/`), so the post, its card, and its companion all stay in sync from one identifier. The sidecar lives outside `src/`, so it is never built or schema-validated.
+
+Each draft holds:
+
+- A scroll-stopping first line, the hook rather than the title.
+- The post's core tension and named framework, in a few short paragraphs.
+- One or two concrete specifics lifted from the post.
+- A plain-language takeaway.
+- The canonical post URL `https://syedaamir.com/blog/<slug>/` on its own line near the end. LinkedIn scrapes that URL to render the OG card, and deprioritises links placed in the first line.
+- Two or three relevant hashtags. More than that reads as marketing.
+
+Same hard rules as the post: no em-dashes, no emoji, no exclamation marks, no "feel free to reach out" sign-off, and the employer is never the subject. Vary hooks and closers across companions, and match each one to its post's archetype, so the feed does not read as a template either. A lighter, human register (contractions, a plain aside) is welcome here; it is what keeps the companion from reading as machine-generated.
 
 ---
 

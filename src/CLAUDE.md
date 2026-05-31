@@ -68,6 +68,8 @@ import { getSeriesInfo } from '../lib/series';
 import { getPersonSchema } from '../lib/personSchema';
 ```
 
+`getPublishedPosts()` filters out drafts **and** any post whose `date` is in the future, then sorts newest-first. This is the date-gated drip: a finished post can sit in the repo dated ahead of time and stay hidden from the listing, the post route, and the RSS feed until its day arrives. All three consume this one helper, so the gate is applied in a single place. Publishing cadence and the manual-vs-cron rebuild trigger are documented in [docs/BLOG.md section 11](../docs/BLOG.md#11-publishing-cadence-and-distribution).
+
 **Layouts accept `CollectionEntry`, not flat props.** When you write a new layout for a content collection, define `interface Props { entry: CollectionEntry<'collectionName'> }` so schema changes propagate without layout signature edits.
 
 ## Anti-patterns to avoid
@@ -101,11 +103,13 @@ Anything time-relative on the experience surfaces is **derived at build time fro
 
 ### Add a blog post
 
-1. Create `src/content/blog/<slug>.md`.
-2. Fill frontmatter per [docs/BLOG.md section 3](../docs/BLOG.md#3-frontmatter). `categories` must be in [data/categories.ts](data/categories.ts) `BLOG_CATEGORIES`. `og_title` is required and follows the hook rubric in [docs/BLOG.md section 3](../docs/BLOG.md#3-frontmatter); the schema enforces 8 to 42 characters.
-3. Write per [docs/BLOG.md section 4](../docs/BLOG.md#4-body-structure). Build a fact ledger and cite external claims per [section 8](../docs/BLOG.md#8-voice).
-4. Generate the OG card: `npm run og:blog`. Writes a per-post PNG to `public/og/blog/<slug>.png` using the first entry in `categories` as the eyebrow chip; for posts with `series` + `series_part`, the renderer adds a `<SERIES> · PART N / M` line under the chip. The generated PNG must be committed alongside the post. The script errors if any post is missing `og_title`.
-5. Run `npm run build` and `npm run dev`, check `/blog/<slug>/`.
+1. Create `src/content/blog/<slug>.md`. The `<slug>` is the single identifier the post URL, the OG card filename, and the LinkedIn companion all key off, so choose it once and reuse it everywhere.
+2. Pick the post archetype before drafting per [docs/BLOG.md section 12](../docs/BLOG.md#12-post-archetypes) (framework, war-story, or opinion). Only the framework archetype uses the full ten-beat structure and requires a diagram.
+3. Fill frontmatter per [docs/BLOG.md section 3](../docs/BLOG.md#3-frontmatter). `categories` must be in [data/categories.ts](data/categories.ts) `BLOG_CATEGORIES`. `og_title` is required and follows the hook rubric in [docs/BLOG.md section 3](../docs/BLOG.md#3-frontmatter); the schema enforces 8 to 42 characters. Set `date` to the next free Wednesday slot in the schedule (see [docs/BLOG.md section 11](../docs/BLOG.md#11-publishing-cadence-and-distribution)); a future date keeps the post hidden until that day.
+4. Write per [docs/BLOG.md section 4](../docs/BLOG.md#4-body-structure). Build a fact ledger and cite external claims per [section 8](../docs/BLOG.md#8-voice).
+5. Generate the OG card: `npm run og:blog`. Writes a per-post PNG to `public/og/blog/<slug>.png` using the first entry in `categories` as the eyebrow chip; for posts with `series` + `series_part`, the renderer adds a `<SERIES> · PART N / M` line under the chip. The generated PNG must be committed alongside the post. The script errors if any post is missing `og_title`.
+6. Write the LinkedIn companion at `social/linkedin/<slug>.md` per [docs/BLOG.md section 13](../docs/BLOG.md#13-linkedin-companion). Same slug, embeds the canonical post URL. This is a plain markdown sidecar outside `src/`, so it is never built or schema-validated.
+7. Run `npm run build` and `npm run dev`, check `/blog/<slug>/`. If the post is future-dated it will not appear yet; temporarily set `date` to today to preview, then restore it.
 
 ### Add a project case study
 
@@ -162,7 +166,7 @@ After any structural change to `src/`, run:
 npm run build
 ```
 
-Build must complete with 31 pages (the current page count). New routes increase the count by one. Failed schema validation, broken imports, and TypeScript errors all surface as build errors.
+Build must complete without errors. Failed schema validation, broken imports, and TypeScript errors all surface as build errors. The page count is not a fixed number: `getPublishedPosts()` date-gates the blog (see below), so only posts dated on or before the build day generate pages. A build with every blog post future-dated is expected to emit zero `/blog/<slug>/` pages, and that is correct, not a regression.
 
 For UI-affecting changes, also run `npm run dev` and check the affected page in the browser. Specifically:
 

@@ -1,6 +1,6 @@
 ---
 title: "BI to Data Science: The Three Ways the Transition Dies"
-date: 2026-04-01
+date: 2026-06-03
 description: "A first-person account of the six-month overlap between BI ownership and DS delivery, and the three failure patterns that kill most transitions."
 og_title: "Three Ways the BI-to-DS Move Dies"
 categories: ["Career", "Data Science"]
@@ -11,7 +11,7 @@ One Friday afternoon during the BI-to-DS overlap, two messages landed within an 
 
 Same channel. Same engineer. Same governed tables underneath. Two different stakeholders, both waiting on me, both with reasonable expectations about turnaround. The afternoon turned into a forced ranking: which side gets the next two hours of attention, and which side gets a Monday-morning apology.
 
-That kind of split is the moment most BI-to-DS transitions die. The temptation is to declare one side legacy and one side current, drop one, focus on the other. The data team becomes a DS team that lost its dashboards, or a BI team that wishes it was doing ML. Neither outcome is the one you wanted when you started the transition.
+Most BI-to-DS transitions die in that exact split. The temptation is to declare one side legacy and one side current, drop one, focus on the other. The data team becomes a DS team that lost its dashboards, or a BI team that wishes it was doing ML. Neither outcome is the one you wanted when you started the transition.
 
 **A BI-to-DS team is either keeping both sides of the overlap healthy or quietly abandoning one. Once it abandons one side, the team ends up with one capability and a credibility gap; once it keeps both alive, the data trust earned by years of accurate dashboards transfers to the ML output without being relitigated.** The way you get there is not declaring one side legacy and one side current. It is a six-month overlap discipline that names the three failure modes the transition has to avoid on purpose.
 

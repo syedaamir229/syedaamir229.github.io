@@ -26,6 +26,7 @@ After a major Node upgrade (for example the Homebrew `node` formula moving 25 to
 ├── public/             # Static assets, served as-is
 ├── docs/               # Brand and content specs (see docs/CLAUDE.md)
 ├── scripts/            # Developer utilities (.mjs): OG card builders, diagram verifier
+├── social/             # LinkedIn companion drafts per post (social/linkedin/<slug>.md), not built
 ├── astro.config.mjs    # Astro build config
 ├── tsconfig.json       # TypeScript compiler config
 └── package.json        # Dependencies and `scripts` commands
