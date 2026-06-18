@@ -12,19 +12,14 @@ const socialLinks = [
 
 <footer class="border-t border-cream-100/5 bg-navy-950 mt-24">
   <div class="max-w-6xl mx-auto px-6 py-12">
-    <div class="flex flex-col md:flex-row justify-between items-center md:items-start gap-6">
-      <div class="text-center md:text-left">
-        <p class="font-heading text-cream-100 font-semibold">
-          <a href={SOCIAL.linkedin} target="_blank" rel="noopener" class="hover:text-cyan-400 transition-colors">
-            {SITE.name}
-          </a>
-        </p>
-        <p class="text-sm text-muted-500 mt-1">
-          {SITE.title} &middot; {SITE.location}
-        </p>
-      </div>
+    <div class="flex flex-col items-center gap-5">
+      <p class="font-heading text-cream-100 font-semibold">
+        <a href="/" class="hover:text-cyan-400 transition-colors">
+          {SITE.name}
+        </a>
+      </p>
 
-      <div class="flex items-center gap-5 md:mt-2">
+      <div class="flex items-center gap-5">
         {socialLinks.map(({ href, name, label }) => (
           <a
             href={href}

@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { SITE, SOCIAL, BOOKING } from '../config';
+import { SOCIAL, BOOKING } from '../config';
 import PageHeader from '../components/ui/PageHeader.astro';
 import Button from '../components/ui/Button.astro';
 import Icon from '../components/ui/Icon.astro';
@@ -18,13 +18,13 @@ import Icon from '../components/ui/Icon.astro';
         <Icon name="calendar" />
         Book an intro call
       </Button>
-      <Button variant="pill" href={SOCIAL.emailCompose} target="_blank" rel="noopener">
+      <Button variant="outline" href={SOCIAL.emailCompose} target="_blank" rel="noopener">
         <Icon name="email" class="w-4 h-4 text-cyan-400" />
-        {SITE.email}
+        Email me
       </Button>
-      <Button variant="pill" href={SOCIAL.linkedin} target="_blank" rel="noopener">
+      <Button variant="outline" href={SOCIAL.linkedin} target="_blank" rel="noopener">
         <Icon name="linkedin" class="w-4 h-4 text-cyan-400" />
-        {SOCIAL.linkedinHandle}
+        Connect on LinkedIn
       </Button>
     </div>
   </PageHeader>
