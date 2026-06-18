@@ -2,8 +2,8 @@
 title: "Ad Inventory & Revenue Pipeline"
 description: "Pacing shortfalls and inventory pressure surface during the campaign, in time to act, instead of reconciling make-goods after it ends."
 category: "Data Engineering"
-tags: ["Databricks", "Google Ad Manager", "S3", "Power BI"]
-featured: true
+tags: ["Databricks", "S3", "Power BI"]
+featured: false
 metrics:
   - label: "Pacing Visibility"
     value: "Same-day"
@@ -20,8 +20,8 @@ The reporting API enforced rate limits that constrained ingestion scheduling, pr
 
 - **Pacing shortfalls visible too late**: Delivery against booked commitments was tracked in a hand-rebuilt spreadsheet, so under-pacing surfaced at end-of-flight when the only remaining lever was the make-good
 - **Late-arriving attribution eroded trust**: Programmatic impressions settle over a multi-week window, so a daily-only view drifted from final figures and finance kept a side spreadsheet against the dashboard
-- **Inventory blind at the content level**: Sellable slots were known in aggregate but not by title, so soft windows where new AVOD-eligible content would clear stayed invisible to Content Operations
-- **VAST errors hidden inside aggregate impressions**: Revenue looked healthy on the dashboard while specific error categories silently eroded effective fill rate, surfacing weeks later in finance reconciliation
+- **Inventory blind at the placement level**: Sellable inventory was known in aggregate but not by ad unit, so soft windows where new ad-supported inventory would clear stayed invisible to inventory planning
+- **Ad-serving errors hidden inside aggregate impressions**: Revenue looked healthy on the dashboard while specific error categories silently eroded effective fill rate, surfacing weeks later in finance reconciliation
 
 ## Key Decisions
 
@@ -41,7 +41,7 @@ The reporting API enforced rate limits that constrained ingestion scheduling, pr
 
 ### Decision 2: Centralize derivation logic at the staging layer
 
-**Problem:** Four downstream pipelines (Inventory, Impressions, Delivery Pacing, VAST Errors) all need the same derived fields. Repeating the derivation in each pipeline guarantees drift the first time the logic changes.
+**Problem:** Four downstream pipelines (Inventory, Impressions, Delivery Pacing, Serving Errors) all need the same derived fields. Repeating the derivation in each pipeline guarantees drift the first time the logic changes.
 
 **Options considered:**
 
@@ -51,28 +51,28 @@ The reporting API enforced rate limits that constrained ingestion scheduling, pr
 
 **Chosen:** Apply derivation logic once at staging, then let every operating signal and Slack alert read the same prepared fields.
 
-**Why:** Three teams reading the same data needed one shared definition rather than rebuilding it three ways. Centralizing derivation at staging makes the staging layer the contract: reporting, alerting, and ad-hoc queries all share it without each consumer re-implementing media ID regex or device-group rollups. The fix lives in one file, not four.
+**Why:** Three teams reading the same data needed one shared definition rather than rebuilding it three ways. Centralizing derivation at staging makes the staging layer the contract: reporting, alerting, and ad-hoc queries all share it without each consumer re-implementing ad-unit ID regex or device-group rollups. The fix lives in one file, not four.
 
 ## Approach
 
 - Built ingestion from the ad-serving platform's reporting API into S3 raw storage and a Databricks staging layer
-- Implemented the four operating signals as parallel pipelines: Inventory (sellable slots by content, country, format), Impressions (delivered ads and revenue), Delivery Pacing (actual vs. booked), VAST Errors (trended over time)
-- Applied derivation logic once at staging: ad format, ad type, device category group, content media ID via regex
+- Implemented the four operating signals as parallel pipelines: Inventory (sellable inventory by placement, country, format), Impressions (delivered ads and revenue), Delivery Pacing (actual vs. booked), Serving Errors (error categories trended over time)
+- Applied derivation logic once at staging: ad format, ad type, device category group, ad-unit ID via regex
 - Configured a daily operational refresh plus a periodic historical sweep over the recent multi-week settlement window
 - Wired Slack alerts to business-impact thresholds defined by Ad Operations: pacing fires when a flight is on track to miss its commitment, error alerts fire on sustained category shifts rather than transient spikes
-- Delivered Power BI dashboards on the staging layer, shared across Ad Operations, Content Operations, and finance
+- Delivered Power BI dashboards on the staging layer, shared across Ad Operations, inventory planning, and finance
 
 ## Architecture Overview
 
-![Ad inventory and revenue pipeline architecture: a programmatic ad-serving platform's reporting API to S3 raw storage to Databricks staging, branching into Inventory, Impressions, VAST Errors, and Delivery Pacing pipelines that output to Power BI dashboards and Slack alerts.](/assets/projects/ad-revenue-pipeline.svg)
+![Ad inventory and revenue pipeline architecture: a programmatic ad-serving platform's reporting API to S3 raw storage to Databricks staging, branching into Inventory, Impressions, Serving Errors, and Delivery Pacing pipelines that output to Power BI dashboards and Slack alerts.](/assets/projects/ad-revenue-pipeline.svg)
 
 The reporting API feeds S3 raw storage and a Databricks staging layer where derivation is applied once. Four downstream pipelines implement the operating signals, feeding shared Power BI dashboards and Slack alerts for pacing and error events that need same-day intervention.
 
 ## Results & Impact
 
 - **What changed in operations**: Three teams stopped reconciling parallel spreadsheets and started working from one shared, settled view of supply and demand
-- **What changed in decisions**: Pacing alerts fire during the campaign rather than after, leaving room to redistribute inventory or escalate to Content Operations before a shortfall hardens into a make-good
-- **Cross-team escalation**: Content-level inventory gave Ad Operations a vocabulary to point Content Operations at specific titles where new AVOD-eligible content would actually clear
+- **What changed in decisions**: Pacing alerts fire during the campaign rather than after, leaving room to redistribute inventory or escalate to inventory planning before a shortfall hardens into a make-good
+- **Cross-team escalation**: Placement-level inventory gave Ad Operations a vocabulary to point inventory planning at specific ad units where new ad-supported inventory would actually clear
 - **Reporting-grade accuracy**: The multi-week historical sweep corrected late-arriving attribution, so revenue reports reflected final settled figures and finance retired the side spreadsheet
 
 ## Reusable Pattern
@@ -88,7 +88,7 @@ A four-signal operating loop with business-impact alerts applies wherever one te
 
 ## Tech Stack
 
-- **Ingestion**: Google Ad Manager API, Python
+- **Ingestion**: Programmatic ad-serving platform API, Python
 - **Storage**: AWS S3 (raw), Databricks Delta Lake (staging)
 - **Processing**: PySpark, SQL
 - **Alerting**: Slack (pacing and error alerts)

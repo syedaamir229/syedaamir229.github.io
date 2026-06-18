@@ -2,7 +2,7 @@
 title: "CRM Campaign Automation Platform"
 description: "CRM campaigns that build themselves across millions of profiles a day, replacing multi-day audience handoffs with daily automated execution."
 category: "AI & Automation"
-tags: ["CleverTap", "Power BI", "Databricks", "PySpark"]
+tags: ["Power BI", "Databricks", "PySpark"]
 featured: true
 metrics:
   - label: "Profiles Processed Daily"
@@ -19,7 +19,7 @@ order: 4
 Daily campaigns had to be personalized at a finer grain than the CRM platform could target, land before send windows, and adapt content rules on a calendar schedule without redeploying.
 
 - **Manual setup bottleneck**: Every audience build required a data request and query turnaround, slowing campaign cadence
-- **No profile-level personalization**: CRM targeting was account-level, ignoring the multi-profile structure of subscriber households
+- **No profile-level personalization**: CRM targeting was account-level, ignoring the multi-user structure of shared accounts
 - **Execution fragmentation**: Scheduling, deduplication, and delivery were handled ad hoc with no systematic tracking
 - **No feedback loop**: Campaign setup and outcome analysis lived in separate workflows with no connection between targeting logic and performance results
 
@@ -34,9 +34,9 @@ Daily campaigns had to be personalized at a finer grain than the CRM platform co
 - Process at account level (simple but imprecise)
 - Process at profile level and roll up to account at delivery time (complex but accurate)
 
-**Chosen:** Profile-level processing with configurable account-level rollup (primary profile = profile with highest watch hours).
+**Chosen:** Profile-level processing with configurable account-level rollup (primary profile = profile with highest activity).
 
-**Why:** Preserves per-profile viewing behavior for recommendation logic while meeting the delivery platform's account-level constraint. The rollup method is configurable (primary, dominant, last-active) to adapt to campaign intent.
+**Why:** Preserves per-profile behavior for recommendation logic while meeting the delivery platform's account-level constraint. The rollup method is configurable (primary, dominant, last-active) to adapt to campaign intent.
 
 ### Decision 2: Behavior-based scenario prioritization over calendar rotation
 
@@ -53,10 +53,10 @@ Daily campaigns had to be personalized at a finer grain than the CRM platform co
 
 ## Approach
 
-- Built 3-stage shared data preparation: content metadata rollup (episode to season to show), profile-to-region mapping across regional segments, eligible profile filtering (adult + active only)
-- Implemented 4 parallel recommendation scenarios, each following a 9-step pipeline: load, filter, join eligible profiles, apply content/category filters, exclude watched, exclude recently sent, rank (top 5 per profile), write, validate
+- Built 3-stage shared data preparation: catalog metadata rollup (item to group to category), profile-to-region mapping across regional segments, eligible profile filtering (active only)
+- Implemented 4 parallel recommendation scenarios, each following a 9-step pipeline: load, filter, join eligible profiles, apply item/category filters, exclude already-seen items, exclude recently sent, rank (top 5 per profile), write, validate
 - Built account rollup: union all scenario outputs, select one profile per account, add CRM delivery identifier
-- Implemented scenario selector (phase 4): RFM-based segmentation drives an SVOD/AVOD treatment split, then behavior-based prioritization by days-since-last-play picks one title per account
+- Implemented scenario selector (phase 4): RFM-based segmentation drives a subscription/ad-supported treatment split, then behavior-based prioritization by days-since-last-activity picks one item per account
 - Built temporal configuration system: seasonal overrides activate and deactivate automatically by date, turning content-priority shifts into a configuration change rather than a release
 - Integrated CRM payload phase with deduplication tracking: a multi-week lookback prevents repeat recommendations
 
@@ -64,14 +64,14 @@ Daily campaigns had to be personalized at a finer grain than the CRM platform co
 
 ![CRM automation architecture: shared data prep feeds 4 parallel scenario generators that roll up to account level, pass through scenario selection, and deliver to the customer-engagement platform with multi-week deduplication.](/assets/projects/crm-automation.svg)
 
-5-phase daily pipeline: shared data prep feeds 4 parallel scenario generators (a cluster-based discovery scenario, a re-engagement scenario, a trending-discovery scenario, and an AVOD-tier scenario), which roll up to account level, pass through scenario selection, and deliver to the customer-engagement platform with a multi-week deduplication window.
+5-phase daily pipeline: shared data prep feeds 4 parallel scenario generators (a cluster-based discovery scenario, a re-engagement scenario, a trending-discovery scenario, and an ad-supported-tier scenario), which roll up to account level, pass through scenario selection, and deliver to the customer-engagement platform with a multi-week deduplication window.
 
 ## Results & Impact
 
 - **What changed in operations**: Campaign audience creation moved from multi-day analyst handoff cycles to daily automated execution. CRM teams no longer raise data requests to run recurring campaigns
 - **What changed in decisions**: Targeting shifted from undifferentiated blasts to behavior-segmented scenarios (recency-based routing, regional trending, cluster-based discovery), giving CRM teams control over scenario logic through configuration rather than code
-- **Operational reliability**: Temporal configuration handles predictable recurring windows where content priorities shift automatically, with no emergency deployments or manual overrides needed during peak content periods
-- **Deduplication at scale**: Multi-week content tracking per profile prevents notification fatigue. The same title will not be recommended to the same profile within the deduplication window, regardless of which scenario generates it
+- **Operational reliability**: Temporal configuration handles predictable recurring windows where content priorities shift automatically, with no emergency deployments or manual overrides needed during peak periods
+- **Deduplication at scale**: Multi-week tracking per profile prevents notification fatigue. The same item will not be recommended to the same profile within the deduplication window, regardless of which scenario generates it
 
 ## Reusable Pattern
 
@@ -89,6 +89,6 @@ This decision-driven recommendation-to-activation pattern (profile segmentation 
 - **Platform**: Databricks on AWS (PySpark + Spark SQL)
 - **Storage**: Delta Lake (S3) with ACID transactions on scenario output and infra tables
 - **Orchestration**: Databricks Jobs (daily batch scheduler)
-- **Delivery**: CleverTap API (push notification targeting)
+- **Delivery**: Customer-engagement platform (push notification targeting)
 - **Reporting**: Power BI (campaign performance tracking)
 - **Environments**: Development to Production promotion via Databricks workspace environments

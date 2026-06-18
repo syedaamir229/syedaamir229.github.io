@@ -23,7 +23,7 @@
       <text x="130" y="155" text-anchor="middle" font-size="12" font-weight="600" fill="#06B6D4">Data Layer</text>
     
       <rect x="45" y="170" width="170" height="28" rx="4" stroke-width="1" fill="#122033" stroke="#06B6D4"/>
-      <text x="130" y="189" text-anchor="middle" font-size="9" fill="#06B6D4">Subscriber Features</text>
+      <text x="130" y="189" text-anchor="middle" font-size="9" fill="#06B6D4">Profile Features</text>
     
       <rect x="45" y="205" width="170" height="28" rx="4" stroke-width="1" fill="#122033" stroke="#06B6D4"/>
       <text x="130" y="224" text-anchor="middle" font-size="9" fill="#06B6D4">Cluster Assignments</text>
@@ -54,7 +54,7 @@
       <text x="420" y="253" text-anchor="middle" font-size="10" fill="#06B6D4">Recency &amp; Eligibility Filters</text>
     
       <rect x="300" y="270" width="240" height="28" rx="5" stroke-width="1" fill="#122033" stroke="#06B6D4"/>
-      <text x="420" y="288" text-anchor="middle" font-size="10" fill="#06B6D4">Title Exposure Checks</text>
+      <text x="420" y="288" text-anchor="middle" font-size="10" fill="#06B6D4">Item Exposure Checks</text>
     
       <rect x="300" y="305" width="240" height="28" rx="5" stroke-width="1" fill="#122033" stroke="#06B6D4"/>
       <text x="420" y="323" text-anchor="middle" font-size="10" fill="#06B6D4">Scenario Templates</text>
