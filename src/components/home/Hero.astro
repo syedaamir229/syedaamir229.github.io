@@ -1,5 +1,5 @@
 ---
-import { SITE, SOCIAL } from '../../config';
+import { SITE, BOOKING } from '../../config';
 import { CURRENT_ROLE, EXPERIENCE } from '../../data/experience';
 import { experienceYears } from '../../lib/tenure';
 import Button from '../ui/Button.astro';
@@ -50,9 +50,9 @@ const years = experienceYears(EXPERIENCE);
         </p>
       )}
       <div class="flex flex-wrap items-center gap-4">
-        <Button variant="primary" href={SOCIAL.emailCompose} target="_blank" rel="noopener">
-          <Icon name="email" />
-          Let's Talk
+        <Button variant="primary" href={BOOKING.intro} target="_blank" rel="noopener">
+          <Icon name="calendar" />
+          Book an intro call
         </Button>
         <a
           href="/projects/"

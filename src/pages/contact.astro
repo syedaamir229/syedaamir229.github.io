@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { SITE, SOCIAL } from '../config';
+import { SITE, SOCIAL, BOOKING } from '../config';
 import PageHeader from '../components/ui/PageHeader.astro';
 import Button from '../components/ui/Button.astro';
 import Icon from '../components/ui/Icon.astro';
@@ -10,10 +10,14 @@ import Icon from '../components/ui/Icon.astro';
   <PageHeader
     eyebrow="Contact"
     title="Let's talk."
-    description="I'm based in Dubai and work with teams worldwide on data platforms, BI modernization, and AI automation. Open to project and advisory engagements."
+    description="I'm based in Dubai and work with teams worldwide on data platforms, BI modernization, and AI automation."
     maxWidth="narrow"
   >
     <div class="flex flex-col sm:flex-row gap-3 mt-10">
+      <Button variant="primary" href={BOOKING.intro} target="_blank" rel="noopener">
+        <Icon name="calendar" />
+        Book an intro call
+      </Button>
       <Button variant="pill" href={SOCIAL.emailCompose} target="_blank" rel="noopener">
         <Icon name="email" class="w-4 h-4 text-cyan-400" />
         {SITE.email}

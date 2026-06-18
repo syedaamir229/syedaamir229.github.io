@@ -4,6 +4,7 @@ type IconName =
   | 'linkedin'
   | 'github'
   | 'tableau'
+  | 'calendar'
   | 'arrow-right'
   | 'arrow-left'
   | 'menu'
@@ -43,6 +44,11 @@ const ICONS: Record<IconName, IconDef> = {
   tableau: {
     mode: 'fill',
     path: 'M11.654.174V3.66h-2.7v1.573h2.7V8.82h1.628V5.233h2.7V3.66h-2.7V.174h-1.628zM5.654 4.174V6.66h-2.7v1.573h2.7V11.82h1.628V8.233h2.7V6.66h-2.7V4.174H5.654zM17.654 4.174V6.66h-2.7v1.573h2.7V11.82h1.628V8.233h2.7V6.66h-2.7V4.174h-1.628zM11.654 10.174V13.66h-2.7v1.573h2.7V18.82h1.628v-3.587h2.7V13.66h-2.7v-3.486h-1.628zM5.654 16.174V18.66h-2.7v1.573h2.7V23.82h1.628v-3.587h2.7V18.66h-2.7v-2.486H5.654zM17.654 16.174V18.66h-2.7v1.573h2.7V23.82h1.628v-3.587h2.7V18.66h-2.7v-2.486h-1.628z',
+  },
+  calendar: {
+    mode: 'stroke',
+    path: 'M8 3v3M16 3v3M3 10h18M5 5h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z',
+    strokeWidth: 2,
   },
   'arrow-right': { mode: 'stroke', path: 'M9 5l7 7-7 7', strokeWidth: 2 },
   'arrow-left': { mode: 'stroke', path: 'M15 19l-7-7 7-7', strokeWidth: 2 },

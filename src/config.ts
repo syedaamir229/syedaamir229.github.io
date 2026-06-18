@@ -32,6 +32,13 @@ export const SOCIAL = {
   emailCompose: GMAIL_COMPOSE,
 };
 
+// Google Calendar appointment scheduling: public intro call only.
+// The discovery call link is shared privately after a good intro call, so it
+// intentionally does not live here.
+export const BOOKING = {
+  intro: 'https://calendar.app.google/FfXvw4dDF2aaNQYC9',
+};
+
 export const NAV_LINKS = [
   { label: 'Home', href: '/' },
   { label: 'Projects', href: '/projects/' },
