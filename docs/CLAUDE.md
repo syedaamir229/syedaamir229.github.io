@@ -8,7 +8,7 @@ Four files. Each owns one thing. Loads cleanly because of the access-pattern spl
 |---|---|---|
 | [BRAND.md](BRAND.md) | Visual identity (palette, type, surface, texture) and tone principles. Source of truth for both. | When changing colors, fonts, voice, or anything brand-defining. Every other spec inherits from this. |
 | [SITE.md](SITE.md) | Landing-surface copy rules (home, capability cards, hero, section heads, CTAs). | When editing home-page copy or any non-blog, non-project copy. |
-| [BLOG.md](BLOG.md) | Per-post writing spec: frontmatter, ten-beat body structure, H3 micro-format, diagrams, checklist, confidentiality. | Every time you write a blog post. |
+| [BLOG.md](BLOG.md) | Per-post writing spec: frontmatter, first-person body spine, H3 format, diagrams, checklist, confidentiality. | Every time you write a blog post. |
 | [PROJECTS.md](PROJECTS.md) | Per-project case-study spec: frontmatter, body structure, diagram conventions, checklist, confidentiality. | Every time you add a project case study. |
 
 ## Dependency graph

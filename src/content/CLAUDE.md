@@ -10,7 +10,7 @@ Read [../../docs/BLOG.md](../../docs/BLOG.md) and follow it end to end. Highligh
 
 - File path: `src/content/blog/<slug>.md`. Always `.md`, never `.mdx`.
 - Frontmatter `categories` must be values from `BLOG_CATEGORIES` in [../data/categories.ts](../data/categories.ts). Build fails on typos.
-- Pick a post archetype first per [BLOG.md section 12](../../docs/BLOG.md#12-post-archetypes): framework (the ten-beat structure in [section 4](../../docs/BLOG.md#4-body-structure)), war-story, or opinion. The full ten beats and the required diagram apply only to the framework archetype.
+- Pick a post archetype first per [BLOG.md section 12](../../docs/BLOG.md#12-post-archetypes): framework (the full body spine in [section 4](../../docs/BLOG.md#4-body-structure)), war-story, or opinion. The full spine applies only to the framework archetype, and even there the diagram is recommended, not required.
 - Set `date` to a scheduled future Wednesday so the post drips on cadence; it stays hidden until that day. See [BLOG.md section 11](../../docs/BLOG.md#11-publishing-cadence-and-distribution).
 - Every post gets a LinkedIn companion at `social/linkedin/<slug>.md`. See [BLOG.md section 13](../../docs/BLOG.md#13-linkedin-companion).
 - No author bio block, no "related posts" links, no CTA box. Inbound is handled by the contact page.
