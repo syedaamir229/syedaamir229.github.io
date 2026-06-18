@@ -132,7 +132,6 @@ async function svgToJpg(svg, quality = 90) {
 
 export async function renderBlogCard({
   title,
-  category,
   series,
   byline = 'Syed Aamir · Data & AI Solutions Engineer',
 }) {
@@ -149,19 +148,9 @@ export async function renderBlogCard({
     .map((l, i) => `<tspan x="80" dy="${i === 0 ? 0 : LINE_HEIGHT}">${escapeXml(l)}</tspan>`)
     .join('');
 
-  let chipFragment = '';
-  if (category) {
-    const chipText = category.toUpperCase();
-    // Approximate width based on chars; chip is small so absolute accuracy is
-    // not critical. Bias toward a slightly oversized pill rather than cramped.
-    const approxWidth = Math.ceil(chipText.length * 11.5) + 56;
-    const chipWidth = Math.max(140, approxWidth);
-    chipFragment = `<g transform="translate(80, 130)">
-      <rect x="0" y="0" width="${chipWidth}" height="44" rx="22" fill="${COLORS.cyan500}" fill-opacity="0.10" stroke="${COLORS.cyan500}" stroke-opacity="0.35"/>
-      <text x="${chipWidth / 2}" y="29" font-family="Inter, sans-serif" font-size="17" font-weight="600" letter-spacing="3" fill="${COLORS.cyan400}" text-anchor="middle">${escapeXml(chipText)}</text>
-    </g>`;
-  }
-
+  // The category eyebrow was deliberately dropped from blog cards: in the feed
+  // the title hook carries the card, and a category pill above it reads as
+  // clutter. The series "PART N / M" line (navigation, not a category tag) stays.
   let seriesFragment = '';
   if (series && series.label && series.part && series.total) {
     const seriesText = `${series.label.toUpperCase()} · PART ${series.part} / ${series.total}`;
@@ -174,7 +163,6 @@ export async function renderBlogCard({
   ${defsBlock()}
   ${backgroundBlock()}
   ${constellationBlock()}
-  ${chipFragment}
   ${seriesFragment}
   <text x="80" y="${firstBaseline}" font-family="Inter, sans-serif" font-size="${FONT_SIZE}" font-weight="700" fill="${COLORS.cream}" letter-spacing="-1.5">${titleTspans}</text>
   <text x="80" y="540" font-family="Inter, sans-serif" font-size="22" font-weight="400" fill="${COLORS.muted}">${escapeXml(byline)}</text>
