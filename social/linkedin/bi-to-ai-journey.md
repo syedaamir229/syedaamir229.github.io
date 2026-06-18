@@ -2,18 +2,20 @@
 
 - Post: https://syedaamir.com/blog/bi-to-ai-journey/
 - Publish: 2026-06-24 (Wed)
-- Archetype: opinion
+- Archetype: framework
 
 ---
 
-Your AI roadmap will either inherit years of BI work, or start from scratch and spend six months apologising for the gap. There isn't really a third option.
+A few years ago, bad data just gave you a wrong dashboard. Now it gives you an AI confidently doing the wrong thing.
 
-A team I watched set out to build a behaviour-based prediction model the textbook way: raw events, features engineered from nothing. What was actually sitting there was a governed feature table built three years earlier for dashboards. The hardest part of the pipeline was mostly done before anyone wrote a line of model code.
+For years I built the boring part: the trustworthy tables under a dashboard, while the real AI work seemed to live one desk over.
 
-That isn't luck. It's a stack that compounds: foundations, analytics, data science, automation, each layer earning the next. Skip one and the layers above quietly pay for it.
+Then I shipped a model and realised it was standing on a foundation I'd built years before. Most of the groundwork was already there.
 
-AI gets sold as a place you transfer to. In practice it's built by the people who laid every layer underneath it.
+A data team is either compounding what it builds, or quietly starting over every couple of years.
+
+I wrote up how I think about it, the four floors and where I'd start:
 
 https://syedaamir.com/blog/bi-to-ai-journey/
 
-#AI #DataEngineering
+#DataEngineering #AI #DataStrategy
