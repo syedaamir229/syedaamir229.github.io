@@ -164,7 +164,7 @@ Tone and word choice follow [BRAND.md section 5](BRAND.md#5-voice-and-tone-appli
 - **Vendor abstraction**: vendor names appear only in Tech Stack and in frontmatter `tags`. Body prose, Architecture captions, and diagram labels use category descriptors ("a video-analytics platform", "a customer-engagement platform", "a programmatic ad-serving platform"). This is the rule that keeps the body reading as the work rather than as a vendor briefing. The full reasoning lives in section 9.
 - **Bullets and prose**: Approach opens in prose then closes with bullets; Challenge, Results & Impact, and Tech Stack are bullet-led with prose framing; Architecture and My Role are prose. Bullets are readable in ~2 seconds each. Quantification stays relative (percentages, throughput multipliers, "Hours to seconds", "Multi-week") rather than commercial. CV verbs ("built", "designed", "delivered") are welcome inside the body but not on the listing card description.
 
-> **Freelance-portfolio override (2026-06-12):** "MENA / OTT vocabulary is on-brand" is superseded for the live portfolio. Scrub all OTT/streaming vocabulary and reframe to a generic vertical; MBC must never be inferable. See the override in section 9 and the `case-study-copywriter` skill.
+> **Discretion:** case-study bodies and diagrams are scrubbed to a generic vertical, with OTT/streaming vocabulary removed and MBC never inferable. Full rules in section 9 and the `case-study-copywriter` skill.
 
 ---
 
@@ -196,7 +196,7 @@ Mechanical rules (no em-dashes, no emoji, `.md` not `.mdx`, no `import` lines, f
 >
 > Authoritative rules: `~/.claude/skills/case-study-copywriter/SKILL.md` and the freelancer hub's CLAUDE.md Hard rules.
 
-Project case studies are written while the author is employed. Same posture as blog posts: the company is on the CV and LinkedIn, not the subject of any sentence in the case study body. Case studies are *artifact-anchored* by default ("the platform", "the system", "the pipeline"), which already satisfies the rule structurally. Cross-reference: [BLOG.md section 9](BLOG.md#9-confidentiality).
+Project case studies are written while the author is employed. Same posture as blog posts: the company is on the CV and LinkedIn, not the subject of any sentence in the case study body. Case studies are *artifact-anchored* by default ("the platform", "the system", "the pipeline"), which already satisfies the rule structurally. Cross-reference: [BLOG.md section 10](BLOG.md#10-confidentiality).
 
 Project-specific rules:
 
@@ -210,8 +210,8 @@ Project-specific rules:
   - **Frontmatter `metrics`: abstract.** Magnitude / relative descriptors only, no exact figures (see rule above).
   - **Frontmatter `tags`: explicit.** Vendor tags fine individually (they sit alongside Tech Stack as the same surface).
 - **No vendor-specific operational quantity paired with a named vendor.** Even in Tech Stack. "GAM with a 14-day attribution window" pairs a vendor name with a vendor-specific cadence and uniquely fingerprints the deployment. Either name the vendor without the quantity, or describe the operational behavior ("late-arriving attribution requires a multi-week historical refresh") without naming the vendor.
-- **No named seasonal cycle as the canonical operational example.** Naming Ramadan, Eid, World Cup, or a regional sports final as the headline use case for a generalizable system (especially in the My Role transfer note) ties the pattern to one industry. Abstract to "a predictable recurring window" or "a seasonal cycle the override system activates automatically by date". Cultural-anchor framing is different and still allowed (see [BLOG.md section 9](BLOG.md#9-confidentiality) for the test).
-- **Internal column-name conventions**: column and table names with an in-house prefix that fingerprints the warehouse (e.g. `dwh_user_id`, `dwh_content_id`) get renamed to conventional equivalents in body and diagrams. Public API field names and Kimball star-schema patterns (`dim_*`, `fact_*`) stay. Cross-reference: [BLOG.md section 9](BLOG.md#9-confidentiality).
+- **No named seasonal cycle as the canonical operational example.** Naming Ramadan, Eid, World Cup, or a regional sports final as the headline use case for a generalizable system (especially in the My Role transfer note) ties the pattern to one industry. Abstract to "a predictable recurring window" or "a seasonal cycle the override system activates automatically by date". Cultural-anchor framing is different and still allowed (see [BLOG.md section 10](BLOG.md#10-confidentiality) for the test).
+- **Internal column-name conventions**: column and table names with an in-house prefix that fingerprints the warehouse (e.g. `dwh_user_id`, `dwh_content_id`) get renamed to conventional equivalents in body and diagrams. Public API field names and Kimball star-schema patterns (`dim_*`, `fact_*`) stay. Cross-reference: [BLOG.md section 10](BLOG.md#10-confidentiality).
 - **Body sections**: first person for your own judgment and role ("I migrated", "I owned"); the system is the subject for what it does ("the pipeline ran"). The company is never the subject and is never named. Past employers can be named in passing only when load-bearing for a My Role transfer example.
 - **`description`**: lead with the change, not the company. The description is the listing-card line and shows up everywhere on the site.
 

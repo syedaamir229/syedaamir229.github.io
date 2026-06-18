@@ -115,7 +115,7 @@ Anything time-relative on the experience surfaces is **derived at build time fro
 
 1. Create `src/content/projects/<slug>.md`.
 2. Fill frontmatter per [docs/PROJECTS.md section 3](../docs/PROJECTS.md#3-frontmatter). `category` must be in `PRACTICE_AREA_NAMES`.
-3. Write the seven-section body per [docs/PROJECTS.md section 4](../docs/PROJECTS.md#4-body-structure).
+3. Write the body per [docs/PROJECTS.md section 4](../docs/PROJECTS.md#4-body-structure) (six H2 sections in fixed order).
 4. Drop the diagram SVG at `public/assets/projects/<slug>.svg`.
 5. Run `npm run build` and `npm run dev`, check `/projects/<slug>/`.
 

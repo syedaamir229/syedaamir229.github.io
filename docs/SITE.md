@@ -83,15 +83,13 @@ Use universal entities instead: customers, transactions, operations, finance, ma
 
 The Pipeline section on the home page ("How I Work") is the model for tone here: it already does vertical-agnostic well. Read it before editing other landing copy.
 
-**Project case studies and blog posts are the opposite**: vertical-specific is the brand. They are evidence, not pitch.
+**Project case studies and blog posts are the opposite**: concrete and specific about the work (evidence, not pitch), but still scrubbed to a generic vertical so MBC is never inferable. See [PROJECTS.md section 9](PROJECTS.md#9-confidentiality).
 
 ---
 
 ## 5. Mechanical rules (inherited from BRAND.md)
 
-- No em-dashes. Use colons, periods, or restructure.
-- No emoji.
-- No exclamation marks.
+- No em-dashes, no emoji, no exclamation marks: see [BRAND.md section 5](BRAND.md#5-voice-and-tone-applies-to-every-surface) for the canonical statement.
 - No AI attribution in commits or PR bodies.
 - Domain-relevant examples where natural in non-landing surfaces.
 

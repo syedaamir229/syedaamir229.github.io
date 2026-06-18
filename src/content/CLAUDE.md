@@ -21,18 +21,14 @@ Read [../../docs/PROJECTS.md](../../docs/PROJECTS.md). Highlights:
 
 - File path: `src/content/projects/<slug>.md`.
 - Frontmatter `category` must be one of the four `PRACTICE_AREA_NAMES` in [../data/categories.ts](../data/categories.ts).
-- Seven H2 sections in fixed order: Challenge, Key Decisions, Approach, Architecture Overview, Results & Impact, Reusable Pattern, Tech Stack.
+- Six H2 sections in fixed order: Challenge, Approach, Results & Impact, Architecture, Tech Stack, My Role. See [../../docs/PROJECTS.md section 4](../../docs/PROJECTS.md#4-body-structure) for the canonical structure.
 - Architecture diagram lives at `public/assets/projects/<slug>.svg`.
 
 ## Voice for both
 
-Tone principles are inherited from [../../docs/BRAND.md](../../docs/BRAND.md) section 5. Hard rules apply across both collections:
+Tone principles and the hard rules (no em-dashes, no emoji, no exclamation marks, no AI attribution) are inherited from [../../docs/BRAND.md](../../docs/BRAND.md) section 5. One content-specific rule on top:
 
-- No em-dashes.
-- No emoji.
-- No exclamation marks.
-- No AI attribution.
-- Current employer is implicit through the CV, not the subject of any blog post or project body. See [BLOG.md section 9](../../docs/BLOG.md#9-confidentiality) and [PROJECTS.md section 9](../../docs/PROJECTS.md#9-confidentiality).
+- Current employer is implicit through the CV, not the subject of any blog post or project body. See [BLOG.md section 10](../../docs/BLOG.md#10-confidentiality) and [PROJECTS.md section 9](../../docs/PROJECTS.md#9-confidentiality).
 
 ## How the build sees this folder
 

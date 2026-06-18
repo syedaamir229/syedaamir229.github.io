@@ -259,9 +259,9 @@ Posts make two kinds of claims, handled differently.
 - **Fact ledger.** Before writing, list every number, tool name, architecture detail, date, role, and decision the post will rely on. Pull from authoritative sources: the project case study, internal docs, the original PDF documenting the work. The draft does not invent numbers.
 - **External claims.** Any claim beyond personal delivery (industry adoption stats, vendor benchmarks, recent thinking from named practitioners) needs a citation. Run a targeted web search and link inline to authoritative sources: vendor docs, named analysts, recent benchmark reports. Every citation should be load-bearing. Do not bulk-cite. Citations are optional, not required; a strong why-now can stand on the structural problem alone.
 
-### No regional anchoring (freelance-discretion override, 2026)
+### No regional anchoring
 
-Earlier versions of this spec treated MENA / Arabic-OTT depth as the differentiator and required a regional anchor in every post. That is reversed for the freelance portfolio. Under Aamir's own name, an Arabic-OTT / Ramadan / subscriber anchor points straight at the current employer, which the discretion rule forbids (see section 10 and the hub's CLAUDE.md Hard rules). The differentiator is now lived delivery experience, abstracted to a generic vertical. Scrub regional and employer tells rather than leaning on them. Use universal entities (customers, accounts, content, records, operations) the way landing copy does.
+Under Aamir's own name, an Arabic-OTT / Ramadan / subscriber anchor points straight at the current employer, which the discretion rule forbids (see section 10 and the hub's CLAUDE.md Hard rules). The differentiator is lived delivery experience, abstracted to a generic vertical: scrub regional and employer tells rather than leaning on them, and use universal entities (customers, accounts, content, records, operations) the way landing copy does.
 
 ---
 
@@ -339,7 +339,7 @@ Kimball-pattern table names (`dim_*`, `fact_*`) and public-domain field names (`
 - Quoted Slack messages or quoted statements attributed to a specific internal role.
 - Specific show or title names tied to operational anecdotes.
 - Specific batch-window times or named SLAs ("7 AM Dubai daily run", "10 AM SLA").
-- Named seasonal cycles (Ramadan, Eid, World Cup, regional sports finals), in any role. Always abstract to "a seasonal cycle", "a predictable recurring window", "calendar-driven shifts every industry handles differently". The earlier cultural-anchor exception is removed under the freelance-discretion override: a named regional cycle under Aamir's own name points at the current employer.
+- Named seasonal cycles (Ramadan, Eid, World Cup, regional sports finals), in any role. Always abstract to "a seasonal cycle", "a predictable recurring window", "calendar-driven shifts every industry handles differently": a named regional cycle under Aamir's own name points at the current employer.
 
 ### What does appear
 
@@ -347,11 +347,11 @@ Kimball-pattern table names (`dim_*`, `fact_*`) and public-domain field names (`
 - Past employers in factual career-history references. Career-narrative posts can and should name them.
 - Relative outcomes ("X% improvement", "from roughly a quarter to near-full coverage", "hours to seconds").
 - Composite anecdotes that draw on multiple incidents to surface a pattern.
-- Generic, vertical-agnostic structural patterns that stand in for the real context: a seasonal demand cycle, multilingual text processing, shared household accounts, content licensing windows. State the structural mechanic without the regional label. The freelance-discretion override removed MENA / Arabic-OTT / Ramadan as named anchors (see section 8).
+- Generic, vertical-agnostic structural patterns that stand in for the real context: a seasonal demand cycle, multilingual text processing, shared household accounts, content licensing windows. State the structural mechanic without the regional label (see section 8).
 
 ### Named seasonal cycles always abstract
 
-Under the freelance-discretion override there is no longer a two-role test. Specific seasonal cycles (Ramadan, Eid, World Cup, regional sports finals) always abstract to a generic equivalent: "a predictable recurring window where demand shifts", "a seasonal cycle the system handles by date", "calendar-driven shifts every industry handles differently". The structural lesson (you need declarative seasonal overrides; a generic month filter aggregates across structurally different periods) carries fully without the regional name. Keep the mechanic, drop the label.
+There is no two-role test. Specific seasonal cycles (Ramadan, Eid, World Cup, regional sports finals) always abstract to a generic equivalent: "a predictable recurring window where demand shifts", "a seasonal cycle the system handles by date", "calendar-driven shifts every industry handles differently". The structural lesson (you need declarative seasonal overrides; a generic month filter aggregates across structurally different periods) carries fully without the regional name. Keep the mechanic, drop the label.
 
 ---
 

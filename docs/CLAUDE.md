@@ -1,8 +1,8 @@
 # `docs/` Conventions
 
-Four files. Each owns one thing. Loads cleanly because of the access-pattern split: identity is in one place, per-surface operational specs are in one place each.
+Four specs, plus one work queue. Each spec owns one thing. Loads cleanly because of the access-pattern split: identity is in one place, per-surface operational specs are in one place each. [BLOG-BACKLOG.md](BLOG-BACKLOG.md) is not a spec; it is the blog rewrite queue (which old posts still need re-voicing and a discretion scrub), kept here because it is blog-factory state, not roadmap.
 
-## The four files
+## The four specs
 
 | File | What it owns | When you open it |
 |---|---|---|
