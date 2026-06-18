@@ -33,7 +33,7 @@ export const EXPERIENCE: Company[] = [
     location: 'Dubai, UAE',
     roles: [
       {
-        title: 'Advanced Analytics and AI Assistant Manager - Forward Deployed (Data & AI)',
+        title: 'Assistant AI and Analytics Manager (Forward Deployed)',
         start: '2025-02',
         end: null,
         bullets: [
