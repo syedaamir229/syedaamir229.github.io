@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 460" font-family="Inter, system-ui, sans-serif">
+  <defs>
+    <marker id="ar" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#06B6D4"/>
+    </marker>
+    <marker id="ar2" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#122033"/>
+    </marker>
+  </defs>
+
+  <rect width="920" height="460" rx="12" fill="#050B14"/>
+  <text x="460" y="35" text-anchor="middle" font-size="16" font-weight="700" fill="#E2E8F0">Customer Intelligence Copilot</text>
+
+  <!-- Source -->
+  <rect x="30" y="80" width="150" height="90" rx="8" stroke-width="1.5" fill="#0A1220" stroke="#06B6D4"/>
+  <text x="105" y="118" text-anchor="middle" font-size="11" font-weight="600" fill="#E2E8F0">Customer Reviews</text>
+  <text x="105" y="136" text-anchor="middle" font-size="9" fill="#94A3B8">Public dataset</text>
+
+  <!-- Arrow -->
+  <line x1="180" y1="125" x2="227" y2="125" stroke-width="2" marker-end="url(#ar)" stroke="#06B6D4"/>
+
+  <!-- Ingestion -->
+  <rect x="235" y="70" width="165" height="110" rx="8" fill="rgba(6,182,212,0.06)" stroke="#06B6D4" stroke-width="1.5"/>
+  <text x="317" y="95" text-anchor="middle" font-size="11" font-weight="600" fill="#06B6D4">Ingestion</text>
+
+  <rect x="250" y="108" width="135" height="26" rx="4" stroke-width="1" fill="#122033" stroke="#06B6D4"/>
+  <text x="317" y="125" text-anchor="middle" font-size="9" fill="#06B6D4">Chunk reviews</text>
+
+  <rect x="250" y="142" width="135" height="26" rx="4" stroke-width="1" fill="#122033" stroke="#06B6D4"/>
+  <text x="317" y="159" text-anchor="middle" font-size="9" fill="#06B6D4">Embed (OpenAI)</text>
+
+  <!-- Arrow -->
+  <line x1="400" y1="125" x2="447" y2="125" stroke-width="2" marker-end="url(#ar)" stroke="#06B6D4"/>
+
+  <!-- Vector store -->
+  <rect x="455" y="70" width="175" height="110" rx="8" fill="#122033"/>
+  <text x="542" y="95" text-anchor="middle" font-size="12" font-weight="700" fill="#E2E8F0">Supabase pgvector</text>
+
+  <rect x="470" y="108" width="145" height="26" rx="4" stroke-width="1" fill="#122033" stroke="#06B6D4"/>
+  <text x="542" y="125" text-anchor="middle" font-size="9" fill="#06B6D4">Documents</text>
+
+  <rect x="470" y="142" width="145" height="26" rx="4" stroke-width="1" fill="#122033" stroke="#06B6D4"/>
+  <text x="542" y="159" text-anchor="middle" font-size="9" fill="#06B6D4">Embeddings</text>
+
+  <!-- Arrow down to query layer -->
+  <line x1="542" y1="180" x2="542" y2="238" stroke-width="2" marker-end="url(#ar)" stroke="#06B6D4"/>
+
+  <!-- Retrieval + generation layer -->
+  <rect x="90" y="248" width="740" height="110" rx="10" fill="rgba(6,182,212,0.06)" stroke="#06B6D4" stroke-width="1.5"/>
+  <text x="460" y="272" text-anchor="middle" font-size="12" font-weight="600" fill="#06B6D4">Retrieval + Generation</text>
+
+  <rect x="110" y="288" width="200" height="52" rx="6" stroke-width="1.5" fill="#122033" stroke="#06B6D4"/>
+  <text x="210" y="310" text-anchor="middle" font-size="10" font-weight="500" fill="#06B6D4">Retrieve top-k reviews</text>
+  <text x="210" y="327" text-anchor="middle" font-size="8" fill="#94A3B8">Semantic search</text>
+
+  <rect x="360" y="288" width="200" height="52" rx="6" stroke-width="1.5" fill="#122033" stroke="#06B6D4"/>
+  <text x="460" y="310" text-anchor="middle" font-size="10" font-weight="500" fill="#06B6D4">Grounded answer</text>
+  <text x="460" y="327" text-anchor="middle" font-size="8" fill="#94A3B8">Cited quotes (OpenAI)</text>
+
+  <rect x="610" y="288" width="200" height="52" rx="6" stroke-width="1.5" fill="#122033" stroke="#06B6D4"/>
+  <text x="710" y="310" text-anchor="middle" font-size="10" font-weight="500" fill="#06B6D4">Sentiment rollup</text>
+  <text x="710" y="327" text-anchor="middle" font-size="8" fill="#94A3B8">Tone per topic</text>
+
+  <!-- Retrieve -> answer -> sentiment chaining -->
+  <line x1="310" y1="314" x2="357" y2="314" stroke-width="1.5" marker-end="url(#ar)" stroke="#06B6D4"/>
+  <line x1="560" y1="314" x2="607" y2="314" stroke-width="1.5" marker-end="url(#ar)" stroke="#06B6D4"/>
+
+  <!-- Converge down to app -->
+  <line x1="210" y1="340" x2="210" y2="372" stroke-width="1.5" stroke="#06B6D4"/>
+  <line x1="710" y1="340" x2="710" y2="372" stroke-width="1.5" stroke="#06B6D4"/>
+  <line x1="210" y1="372" x2="710" y2="372" stroke-width="1.5" stroke="#06B6D4"/>
+  <line x1="460" y1="372" x2="460" y2="392" stroke-width="1.5" marker-end="url(#ar)" stroke="#06B6D4"/>
+
+  <!-- Web app -->
+  <rect x="360" y="397" width="200" height="45" rx="8" fill="#122033"/>
+  <text x="460" y="417" text-anchor="middle" font-size="11" font-weight="600" fill="#E2E8F0">Web App</text>
+  <text x="460" y="431" text-anchor="middle" font-size="8" fill="#06B6D4">Q&amp;A + Sentiment</text>
+
+  <!-- User -->
+  <rect x="720" y="397" width="150" height="45" rx="6" stroke-width="1.5" fill="#0A1220" stroke="#06B6D4"/>
+  <text x="795" y="417" text-anchor="middle" font-size="10" font-weight="600" fill="#E2E8F0">User</text>
+  <text x="795" y="431" text-anchor="middle" font-size="8" fill="#94A3B8">Asks in plain language</text>
+
+  <line x1="560" y1="419" x2="717" y2="419" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#ar2)" stroke="#06B6D4"/>
+</svg>

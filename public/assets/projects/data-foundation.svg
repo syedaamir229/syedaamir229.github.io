@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 470" font-family="Inter, system-ui, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#06B6D4"/>
+    </marker>
+  </defs>
+
+  <rect width="980" height="470" rx="12" fill="#050B14"/>
+  <text x="490" y="36" text-anchor="middle" font-size="16" font-weight="700" fill="#E2E8F0">Enterprise Data Foundation Architecture</text>
+
+  <!-- Source Systems -->
+  <rect x="24" y="120" width="156" height="250" rx="8" fill="rgba(6,182,212,0.06)" stroke="#06B6D4" stroke-width="1.5"/>
+  <text x="102" y="146" text-anchor="middle" font-size="12" font-weight="600" fill="#06B6D4">Source Systems</text>
+  <rect x="36" y="158" width="132" height="26" rx="4" fill="#122033" stroke="#06B6D4" stroke-width="1"/>
+  <text x="102" y="175" text-anchor="middle" font-size="9" fill="#E2E8F0">Engagement events</text>
+  <rect x="36" y="190" width="132" height="26" rx="4" fill="#122033" stroke="#06B6D4" stroke-width="1"/>
+  <text x="102" y="207" text-anchor="middle" font-size="9" fill="#E2E8F0">Subscription &amp; billing</text>
+  <rect x="36" y="222" width="132" height="26" rx="4" fill="#122033" stroke="#06B6D4" stroke-width="1"/>
+  <text x="102" y="239" text-anchor="middle" font-size="9" fill="#E2E8F0">Product catalog</text>
+  <rect x="36" y="254" width="132" height="26" rx="4" fill="#122033" stroke="#06B6D4" stroke-width="1"/>
+  <text x="102" y="271" text-anchor="middle" font-size="9" fill="#E2E8F0">Ad delivery</text>
+  <rect x="36" y="286" width="132" height="26" rx="4" fill="#122033" stroke="#06B6D4" stroke-width="1"/>
+  <text x="102" y="303" text-anchor="middle" font-size="9" fill="#E2E8F0">Reference data</text>
+  <text x="102" y="338" text-anchor="middle" font-size="8" fill="#94A3B8">5 systems, diverging schemas</text>
+
+  <line x1="180" y1="240" x2="210" y2="240" stroke-width="2" marker-end="url(#arr)" stroke="#06B6D4"/>
+
+  <!-- Bronze -->
+  <rect x="214" y="170" width="116" height="150" rx="8" fill="#122033"/>
+  <text x="272" y="200" text-anchor="middle" font-size="14" font-weight="700" fill="#E2E8F0">Bronze</text>
+  <text x="272" y="222" text-anchor="middle" font-size="9" fill="#06B6D4">Raw landing</text>
+  <text x="272" y="240" text-anchor="middle" font-size="8" fill="#94A3B8">S3, immutable</text>
+
+  <line x1="330" y1="240" x2="360" y2="240" stroke-width="2" marker-end="url(#arr)" stroke="#06B6D4"/>
+
+  <!-- Silver -->
+  <rect x="364" y="120" width="160" height="250" rx="8" fill="rgba(6,182,212,0.06)" stroke="#06B6D4" stroke-width="1.5"/>
+  <text x="444" y="146" text-anchor="middle" font-size="12" font-weight="600" fill="#06B6D4">Silver</text>
+  <rect x="376" y="158" width="136" height="26" rx="4" fill="#122033" stroke="#06B6D4" stroke-width="1"/>
+  <text x="444" y="175" text-anchor="middle" font-size="9" fill="#E2E8F0">Fact: engagement</text>
+  <rect x="376" y="190" width="136" height="26" rx="4" fill="#122033" stroke="#06B6D4" stroke-width="1"/>
+  <text x="444" y="207" text-anchor="middle" font-size="9" fill="#E2E8F0">Fact: subscriptions</text>
+  <rect x="376" y="222" width="136" height="26" rx="4" fill="#122033" stroke="#06B6D4" stroke-width="1"/>
+  <text x="444" y="239" text-anchor="middle" font-size="9" fill="#E2E8F0">Dim: customer, catalog</text>
+  <rect x="376" y="254" width="136" height="26" rx="4" fill="#122033" stroke="#06B6D4" stroke-width="1"/>
+  <text x="444" y="271" text-anchor="middle" font-size="9" fill="#E2E8F0">daily_movement</text>
+  <text x="444" y="338" text-anchor="middle" font-size="8" fill="#94A3B8">Conformed fact &amp; dim</text>
+
+  <line x1="524" y1="240" x2="554" y2="240" stroke-width="2" marker-end="url(#arr)" stroke="#06B6D4"/>
+
+  <!-- Gold -->
+  <rect x="558" y="170" width="124" height="150" rx="8" fill="#122033"/>
+  <text x="620" y="200" text-anchor="middle" font-size="14" font-weight="700" fill="#E2E8F0">Gold</text>
+  <text x="620" y="222" text-anchor="middle" font-size="9" fill="#06B6D4">Feature store</text>
+  <text x="620" y="240" text-anchor="middle" font-size="8" fill="#94A3B8">Individual-user grain</text>
+  <text x="620" y="256" text-anchor="middle" font-size="8" fill="#94A3B8">Millions of profiles</text>
+
+  <line x1="682" y1="210" x2="716" y2="176" stroke-width="2" marker-end="url(#arr)" stroke="#06B6D4"/>
+  <line x1="682" y1="280" x2="716" y2="324" stroke-width="2" marker-end="url(#arr)" stroke="#06B6D4"/>
+
+  <!-- Semantic Layer -->
+  <rect x="720" y="130" width="170" height="82" rx="8" fill="rgba(6,182,212,0.06)" stroke="#06B6D4" stroke-width="1.5"/>
+  <text x="805" y="158" text-anchor="middle" font-size="12" font-weight="600" fill="#06B6D4">Semantic Layer</text>
+  <text x="805" y="178" text-anchor="middle" font-size="9" fill="#94A3B8">SSAS Tabular</text>
+  <text x="805" y="196" text-anchor="middle" font-size="9" fill="#94A3B8">100+ DAX measures</text>
+
+  <line x1="805" y1="212" x2="805" y2="240" stroke-width="2" marker-end="url(#arr)" stroke="#06B6D4"/>
+
+  <!-- Power BI -->
+  <rect x="748" y="244" width="114" height="44" rx="6" fill="#122033"/>
+  <text x="805" y="264" text-anchor="middle" font-size="11" font-weight="600" fill="#E2E8F0">Power BI</text>
+  <text x="805" y="279" text-anchor="middle" font-size="8" fill="#06B6D4">live connection</text>
+
+  <!-- ML & AI consumers -->
+  <rect x="720" y="312" width="170" height="66" rx="8" fill="rgba(6,182,212,0.06)" stroke="#06B6D4" stroke-width="1.5"/>
+  <text x="805" y="336" text-anchor="middle" font-size="11" font-weight="600" fill="#06B6D4">ML &amp; AI Consumers</text>
+  <text x="805" y="354" text-anchor="middle" font-size="8" fill="#94A3B8">Read Gold directly</text>
+  <text x="805" y="370" text-anchor="middle" font-size="8" fill="#94A3B8">Segmentation · CRM · VoC</text>
+
+  <text x="490" y="454" text-anchor="middle" font-size="10" fill="#94A3B8">Databricks · Delta Lake · AWS S3 · SSAS Tabular · Power BI</text>
+</svg>

@@ -47,7 +47,7 @@
       <text x="505" y="174" text-anchor="middle" font-size="8" fill="#94A3B8">Revenue &amp; impression tracking</text>
     
       <rect x="415" y="190" width="180" height="38" rx="6" stroke-width="1" fill="#122033" stroke="#06B6D4"/>
-      <text x="505" y="207" text-anchor="middle" font-size="10" font-weight="500" fill="#06B6D4">VAST Errors Pipeline</text>
+      <text x="505" y="207" text-anchor="middle" font-size="10" font-weight="500" fill="#06B6D4">Serving Errors Pipeline</text>
       <text x="505" y="220" text-anchor="middle" font-size="8" fill="#94A3B8">Error categorization &amp; tracking</text>
     
       <rect x="415" y="236" width="180" height="38" rx="6" stroke-width="1" fill="#122033" stroke="#06B6D4"/>
@@ -55,8 +55,8 @@
       <text x="505" y="266" text-anchor="middle" font-size="8" fill="#94A3B8">Booked vs. delivered tracking</text>
     
       <rect x="415" y="282" width="180" height="38" rx="6" stroke-width="1" fill="#122033" stroke="#06B6D4"/>
-      <text x="505" y="299" text-anchor="middle" font-size="10" font-weight="500" fill="#06B6D4">Content Mapping</text>
-      <text x="505" y="312" text-anchor="middle" font-size="8" fill="#94A3B8">Media ID enrichment</text>
+      <text x="505" y="299" text-anchor="middle" font-size="10" font-weight="500" fill="#06B6D4">Placement Mapping</text>
+      <text x="505" y="312" text-anchor="middle" font-size="8" fill="#94A3B8">Ad-unit ID enrichment</text>
     
       <!-- Arrows to outputs -->
       <line x1="610" y1="140" x2="660" y2="140" stroke-width="2" marker-end="url(#arr)" stroke="#06B6D4"/>
