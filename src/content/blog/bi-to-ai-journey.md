@@ -2,7 +2,7 @@
 title: "From BI to AI: The Four-Layer Compounding Stack"
 date: 2026-06-24
 description: "Most teams treat BI, analytics, data science, and AI as separate careers. The ones that compound treat them as one stack, where each layer builds on the last."
-og_title: "Why AI Inherits Years of BI Work"
+og_title: "AI Just Raised the Price of Bad Data"
 categories: ["Data Engineering", "AI & Automation"]
 draft: false
 ---
