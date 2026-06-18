@@ -33,8 +33,8 @@ export const EXPERIENCE: Company[] = [
     location: 'Dubai, UAE',
     roles: [
       {
-        title: 'Assistant Advanced Analytics and Insights Manager',
-        start: '2025-01',
+        title: 'Advanced Analytics and AI Assistant Manager - Forward Deployed (Data & AI)',
+        start: '2025-02',
         end: null,
         bullets: [
           'Shipped a GenAI-powered voice-of-customer intelligence platform unifying support, review, and social signals',
@@ -45,15 +45,14 @@ export const EXPERIENCE: Company[] = [
         projects: [
           { name: 'CRM Automation', href: '/projects/crm-automation/' },
           { name: 'Voice-of-Customer', href: '/projects/voice-of-customer/' },
-          { name: 'Attribute Inference', href: '/projects/attribute-inference/' },
-          { name: 'Feature Store', href: '/projects/profile-feature-store/' },
-          { name: 'Audience Segmentation', href: '/projects/audience-segmentation/' },
+          { name: 'Segmentation & Inference', href: '/projects/segmentation-inference/' },
+          { name: 'Data Foundation', href: '/projects/data-foundation/' },
         ],
       },
       {
         title: 'Assistant Data and Analytics Manager',
         start: '2024-04',
-        end: '2025-01',
+        end: '2025-02',
         bullets: [
           'Migrated the governed KPI layer from Power BI Premium to SSAS Tabular to resolve memory pressure at scale',
           'Expanded the ad inventory and revenue pipeline with delivery pacing, ad-serving error monitoring, and Slack-based alerting',
@@ -61,7 +60,7 @@ export const EXPERIENCE: Company[] = [
           'Mentored the BI and analytics team on DAX, SQL, and Power BI, building bench depth across the function',
         ],
         projects: [
-          { name: 'Semantic Layer', href: '/projects/semantic-layer/' },
+          { name: 'Data Foundation', href: '/projects/data-foundation/' },
           { name: 'Ad Inventory & Revenue', href: '/projects/ad-revenue-pipeline/' },
         ],
       },
@@ -76,8 +75,7 @@ export const EXPERIENCE: Company[] = [
           'Shipped Phase 1 of the ad inventory and revenue pipeline covering ad delivery, performance tracking, and reconciliation',
         ],
         projects: [
-          { name: 'Enterprise Data Model', href: '/projects/enterprise-data-model/' },
-          { name: 'BI Migration', href: '/projects/bi-migration/' },
+          { name: 'Data Foundation', href: '/projects/data-foundation/' },
         ],
       },
     ],
