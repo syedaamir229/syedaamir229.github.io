@@ -25,3 +25,9 @@ pnpm-debug.log*
 
 # local review artifacts (Playwright screenshots)
 /screenshots/
+
+# un-rewritten blog drafts kept out of the public repo until scrubbed
+_drafts/
+
+# Claude Code local session state
+.claude/
