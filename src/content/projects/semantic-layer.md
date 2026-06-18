@@ -1,9 +1,9 @@
 ---
 title: "Enterprise Semantic Layer & KPI Framework"
-description: "One governed definition of every KPI, moved onto a dedicated tabular engine that removed the capacity ceiling, so teams stopped arguing over numbers and started building on shared measures."
+description: "One governed definition of every KPI, so teams stopped reconciling conflicting numbers and report builds dropped 60-70%."
 category: "BI & Analytics"
 tags: ["SSAS", "DAX", "Power BI", "SSIS"]
-featured: false
+featured: true
 metrics:
   - label: "Query Performance"
     value: "50% Faster"
@@ -18,76 +18,42 @@ order: 2
 
 ## Challenge
 
-A governed KPI layer was hitting the memory ceiling of an in-tool capacity model as data volumes grew, while the same KPI still returned different numbers depending on which team you asked.
+Ask four teams for last month's active-customer count and you could get four answers off the same source data. "Active" quietly meant something different to each: trials counted or not, an account or an individual profile. Nobody was wrong, which is exactly why every reconciliation meeting ran long and settled nothing.
 
-- **Metric inconsistency**: The same KPI carried conflicting definitions across teams. "Active" meant trials included to one team and excluded to another, an account to one and an individual profile to the next. Every reconciliation meeting ran long and settled nothing
-- **Capacity ceiling**: The governed model ran on a premium-capacity reporting tier and pushed against its memory limits as volumes climbed. Refreshes lengthened and queries degraded, and buying more capacity only moved the same ceiling further out
-- **Report-local logic drift**: Every new dashboard rebuilt KPI logic inside its own file. The same measure took three shapes across the estate, and nothing in the build pipeline caught the drift
-- **Reconciliation overhead**: Analysts spent their time proving numbers instead of analysing them, and every leadership conversation opened with "which number is correct?" instead of "what do we do next?"
-- **No governed definition layer**: There was no central place for approved, documented KPI definitions. The logic lived inside individual report files and in the heads of the people who wrote them
+For a large subscription-based consumer business, that costs more than it looks. Every leadership conversation opened with "which number is correct?" instead of "what do we do next?", and analysts spent their week proving numbers instead of analysing them. Underneath, the governed model that was supposed to be the tiebreaker had outgrown its premium-capacity reporting tier: refreshes were lengthening, queries were degrading, and buying a bigger tier only pushed the same ceiling further out.
 
-## Key Decisions
-
-### Decision 1: Migrate the engine to SSAS Tabular, not buy more in-tool capacity
-
-**Problem:** The governed model had outgrown the memory headroom of its premium-capacity reporting tier. The model could stay where it was and absorb a larger capacity tier, or move to a dedicated tabular engine with explicit partition and memory control. Each path had different consequences for recurring cost, refresh control, and how long the headroom would last.
-
-**Options considered:**
-
-- Scale up the premium-capacity tier (fast, but a recurring cost that returns the same ceiling at the next volume step)
-- Optimise the existing in-tool model (buys months of headroom, not a structural fix)
-- Migrate the model to SSAS Tabular, served to the reporting tool over live connection (dedicated memory and partition control, at the cost of a migration)
-
-**Chosen:** Migrate the governed model to SSAS Tabular and serve it to Power BI over live connection.
-
-**Why:** A dedicated tabular engine gave explicit partition control and memory headroom that scaling the in-tool capacity tier could not, and it stopped the recurring capacity bill from climbing while the same ceiling returned. The live connection also decoupled the model lifecycle from the reporting tool: report files stopped importing their own data and started consuming governed measures by name, which is what made the model the single source of truth rather than one copy among many.
-
-### Decision 2: Govern every KPI in a three-layer DAX stack with published contracts
-
-**Problem:** KPI logic lived in report files and drifted. An audit of one high-traffic KPI returned three different formulas across three reports, none producing the same number for the same period. A model alone does not fix this: without a measure-engineering discipline above it, the same KPI keeps taking new shapes every time a report is built.
-
-**Options considered:**
-
-- A certified shared dataset with a handful of blessed measures (light to stand up, but governance stops at the dataset boundary and report-local DAX continues)
-- Per-report measures with a published style guide (no enforcement, so drift continues unchecked)
-- A layered measure model with a published contract per measure and a named owner per KPI domain
-
-**Chosen:** A three-layer DAX stack (base aggregations, business measures, consumption logic) with a published contract for every governed measure and an explicit owner per domain.
-
-**Why:** Layering keeps base measures as pure aggregations, business measures referencing base measures only, and consumption measures referencing business measures only, so a change in one layer propagates cleanly to the layer above instead of forking into spaghetti. The per-measure contract (business meaning, expression, data grain, included and excluded segments, validation query, last approved date) turns a measure from a dataset entry into a product the next consumer can adopt without a phone call, and gives change requests a published definition to review against instead of tribal knowledge.
+- KPI logic lived inside individual report files, so the same measure drifted into three shapes across the estate and nothing in the build pipeline caught it.
+- There was no central, documented definition anyone could point to. The truth lived in whoever happened to write the report.
+- The reporting tier was at its memory ceiling, so the fix had to be an engine change, not just better governance, and it had to land without taking live dashboards down.
 
 ## Approach
 
-- Migrated the governed KPI layer from the premium-capacity reporting tier to SSAS Tabular, served to Power BI over live connection so report files stopped importing their own data
-- Built measures in a three-layer DAX stack: base aggregations (event counts, active base, impressions), business KPIs (net adds, churn rate, ARPU, retention, engagement) composed from base measures with `DIVIDE` and explicit fallbacks, and a consumption layer for time-intelligence windows and segment cuts
-- Defined 100+ governed DAX measures across four business domains, each with a published contract covering meaning, grain, inclusions, exclusions, a validation query, and a named owner
-- Implemented tiered incremental partition refresh by domain (engagement one-day, base movement five-day, ad attribution a multi-week window) sequenced through a staging to dimension to fact to model-process loop with dependency ordering
-- Routed every KPI change through three release gates: owner approval against a published change summary, a measure regression suite run against pre-release baselines, and a documented rollback path before any deploy
-- Built a performance-monitoring loop over query statistics, Extended Events, and Dynamic Management Views, with a weekly triage that traced each slow query to its cause layer (model, refresh, or report) and assigned an owner and a close date
+Two calls carried the rest of the work.
 
-## Architecture Overview
+The first was the engine. The easy option was to buy a bigger capacity tier. I moved the model to SSAS Tabular instead, served to Power BI over live connection. A bigger tier is a recurring bill that returns you to the same ceiling at the next volume step; a dedicated tabular engine gave explicit partition control and real memory headroom, and the live connection meant report files stopped importing their own data and started consuming governed measures by name. That is what made the model the single source of truth rather than one copy among many.
 
-![Governed semantic layer architecture: conformed fact and dimension tables feed an SSAS Tabular model migrated off a premium-capacity tier, where measures are layered as base, business, and consumption, secured by role and refreshed by incremental partition, then served to Power BI over live connection and to ad-hoc analysis, with release gates and weekly monitoring around the model.](/assets/projects/semantic-layer.svg)
+The second was how the measures were built. An audit of one high-traffic KPI had come back with three different formulas across three reports, none agreeing for the same period. A model alone does not fix that: without discipline above it, the same KPI keeps taking new shapes. So I built the measures in three layers. Base measures do nothing but aggregate. Business measures (net adds, churn, ARPU, retention) compose only from base measures. A consumption layer for time-intelligence and segment cuts composes only from business measures. Every governed measure got a published contract: its meaning, its grain, what it includes and excludes, a validation query, and a named owner. A measure with a contract is one the next person can pick up without a phone call.
 
-Conformed fact and dimension tables feed an SSAS Tabular model migrated off the premium-capacity tier. Inside the model, measures are layered base to business to consumption, secured by role, and refreshed by domain-specific incremental partitions. Power BI consumes governed measures by name over live connection, and the same model serves ad-hoc analysis. Release gates and a weekly monitoring loop wrap the model so changes deploy safely and slow queries are caught before they reach a leadership review.
+Around those two decisions sat the operational work:
+
+- 100+ governed DAX measures across four business domains, refreshed by domain-specific incremental partitions: one day for fast-settling data, a multi-week window for late-arriving attribution, sequenced through a staging, dimension, fact, then model-process loop.
+- Every KPI change routed through three release gates: owner approval, a regression suite against pre-release baselines, and a documented rollback path before deploy. An earlier deploy had reset partitions and user roles because the rollback was improvised, so these gates exist to make sure that does not happen twice.
+- A weekly monitoring loop over query statistics and capacity, where each slow query is traced to its layer (model, refresh, or report) and given an owner and a close date.
+
+The migration ran in parallel with live reporting. Old and new stayed up side by side until each report passed an equivalence check, so nothing went dark during the cutover.
 
 ## Results & Impact
 
-- **What changed in operations**: Report teams stopped rebuilding KPI logic per file. Every new dashboard now starts from shared, governed measures consumed by name, and report development runs an estimated 60-70% faster than building directly against raw tables
-- **What changed in decisions**: Metric disputes resolved to "check the measure contract" instead of "ask which team's calculation", and leadership conversations started on what to do next rather than on which number was correct
-- **What changed in capacity**: Moving to a dedicated tabular engine removed the memory ceiling the in-tool model kept hitting and improved query performance by roughly 50%, and the full estate migrated with zero reporting downtime through parallel running and report-by-report equivalence checks
-- **Foundation for downstream work**: The governed measure set became the authoritative KPI reference cited in data documentation, onboarding, and stakeholder reviews, and the same trusted numbers now feed downstream ML and AI consumers rather than each team recomputing its own
+- Report teams stopped rebuilding KPI logic per file. New dashboards start from shared governed measures, and build time dropped an estimated 60-70%.
+- Query performance improved roughly 50% on the dedicated engine, and the capacity ceiling that triggered the project is gone. The whole estate migrated with zero reporting downtime.
+- Metric disputes now resolve to "check the measure contract" instead of "ask which team's calculation." Leadership meetings start on the decision, not on which number to trust.
+- The governed measure set became the reference cited in documentation and onboarding, and the same trusted numbers now feed downstream ML and AI work instead of each team recomputing its own.
 
-## Reusable Pattern
+## Architecture
 
-This pattern (a governed semantic layer with layered measures, published contracts, and a dedicated tabular engine when the model outgrows in-tool capacity) applies to any organisation where teams report different numbers for the same KPI and the governed model has started straining its reporting tier:
+![Governed semantic layer architecture: conformed fact and dimension tables feed an SSAS Tabular model migrated off a premium-capacity tier, where measures are layered as base, business, and consumption, secured by role and refreshed by incremental partition, then served to Power BI over live connection and to ad-hoc analysis, with release gates and weekly monitoring around the model.](/assets/projects/semantic-layer.svg)
 
-- **SaaS**: Product, revenue, and customer-health metrics defined once and shared across product, finance, and customer success, with the model sized for a dedicated engine once self-serve query volume climbs
-- **Fintech**: Portfolio, risk, and compliance metrics with an auditable, documented definition layer, where the contract per measure doubles as the audit artefact
-- **Telecom**: Subscriber, usage, and billing KPIs consolidated into one governed model shared by finance, marketing, and operations instead of per-team spreadsheets
-- **E-commerce**: Conversion, margin, and inventory measures governed once and reused across merchandising, finance, and operations, with incremental partitions matched to how each domain settles
-
-**When this pattern is NOT appropriate**: If fewer than three or four teams build reports, or the data fits comfortably in a single imported model, a dedicated tabular engine is over-engineering. A certified shared dataset with a few blessed measures covers the governance need without the infrastructure overhead. The tabular migration earns its cost only once the governed model hits the capacity ceiling of its reporting tier and partition-level refresh control becomes the constraint.
+Conformed fact and dimension tables feed an SSAS Tabular model migrated off the premium-capacity tier. Inside the model, measures are layered base to business to consumption, secured by role, and refreshed by domain-specific incremental partitions. Power BI consumes governed measures by name over live connection, and the same model serves ad-hoc analysis. Release gates and a weekly monitoring loop wrap the model, so changes deploy safely and slow queries are caught before they reach a leadership review.
 
 ## Tech Stack
 
@@ -97,3 +63,7 @@ This pattern (a governed semantic layer with layered measures, published contrac
 - **Sources**: SQL Server, Databricks (conformed Gold tables)
 - **Orchestration**: SQL Server Integration Services (SSIS), Databricks Jobs
 - **Monitoring**: SQL Server Extended Events, Dynamic Management Views, query statistics
+
+## My Role
+
+I owned this end to end: the engine migration, the measure architecture, the governance gates, and mentoring the team on the DAX and SQL needed to maintain it. The pattern transfers to any business where several teams report different numbers for the same KPI and the governed model has started straining its reporting tier. The contracts and the layered measures earn their keep from day one; the dedicated engine only once you actually hit the ceiling.

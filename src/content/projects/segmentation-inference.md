@@ -1,6 +1,6 @@
 ---
 title: "Behavioral Segmentation & Attribute Inference"
-description: "Raw behavior turned into governed, activatable segments and inferred profile attributes, so marketing and planning act on behavior instead of sparse signup data."
+description: "Raw behavior turned into governed, activatable segments and inferred attributes, so marketing and planning act on what customers do instead of sparse signup data."
 category: "Data Science"
 tags: ["scikit-learn", "XGBoost", "MLflow", "Databricks"]
 featured: false
@@ -16,74 +16,41 @@ order: 7
 
 ## Challenge
 
-Behavioral signals had to become stable, interpretable segments and audit-safe inferred attributes, activatable in existing targeting workflows without being mistaken for declared ground truth.
+Marketing wanted to target customers by what they actually did, but the only thing it could segment on was the demographic box people ticked at signup, when they bothered to tick it at all. So campaigns went out to broad age-and-region buckets that bore no resemblance to behavior, and the planning team had no shared way to talk about who their audiences really were.
 
-- **Low segmentation fidelity**: Existing demographic groups did not reflect how customers actually behaved
-- **Sparse profile data**: Key attributes were missing or unreliable, especially on shared accounts where declared values cannot be trusted
-- **Activation gap**: Broad segments and missing fields were hard to convert into campaign actions
-- **Trust boundary**: Inferred values had to stay distinct from declared data so downstream reporting did not quietly drift
+For a large subscription-based consumer business, behavior is the richest signal you own and declared profile data is the thinnest. The hard part is turning raw activity into segments a non-technical stakeholder can name and act on, and filling in missing attributes without anyone downstream mistaking a model's guess for a fact the customer told you.
 
-## Key Decisions
-
-### Decision 1: Combine behavioral signals with semantic embeddings, not behavior alone
-
-**Problem:** An activity matrix captures what customers do but misses why catalog items group together. Pure behavior matrices produce clusters that statisticians like but content and marketing teams cannot describe or act on.
-
-**Options considered:**
-
-- Behavior matrix only (operational, but clusters are hard to label and explain)
-- Semantic embeddings only (rich vocabulary, but disconnected from actual behavior)
-- Combine the behavior matrix with semantic embeddings of catalog item descriptions in a shared space
-
-**Chosen:** A combined feature space of the behavior matrix and semantic embeddings, clustered with K-means.
-
-**Why:** Semantic embeddings give business teams a vocabulary for each segment (affinity-based groups they can name) that pure behavioral clusters lack, while the behavior matrix keeps the segmentation tied to what customers actually did. The combined space produces segments that are both statistically coherent and describable to a non-technical stakeholder, which is what makes them activatable rather than purely analytical.
-
-### Decision 2: Publish inferred attributes to a separate surface, not into the declared-attribute table
-
-**Problem:** If predictions land in the same column as self-reported values, every downstream consumer treats them as ground truth, and reporting quietly drifts from declared data.
-
-**Options considered:**
-
-- Overwrite declared values with predictions where available (highest coverage, lowest auditability)
-- Write to the same table with a confidence column (auditable, but trust depends on every consumer reading the confidence)
-- Publish predictions to a separate feature surface with usage guidance
-
-**Chosen:** A separate enrichment surface, kept distinct from the declared-attribute table.
-
-**Why:** Isolating predictions keeps the inference layer auditable, lets each downstream consumer decide whether to trust it for their use case, and prevents reporting from silently inheriting model output as fact. The cost is a second read for consumers that want both signals; the benefit is that nothing downstream mistakes an inference for a declared value.
+- Demographic groups did not reflect how customers actually behaved, so segmentation steered campaigns by a signal that barely correlated with intent.
+- Key profile attributes were missing or unreliable, and on shared accounts declared values cannot be trusted in the first place.
+- Broad segments and empty fields were hard to convert into anything targeting could action.
+- Any inferred value had to stay visibly distinct from declared data, or reporting would quietly start treating predictions as ground truth.
 
 ## Approach
 
-- Prepared profile-level behavioral features from the shared feature store as the common input for both workstreams
-- Built a combined feature space (behavior matrix plus semantic embeddings of catalog item descriptions), ran K-means, and validated segments across multiple runs for stability before publishing
-- Mapped segments into business-friendly profiles with explicit labels and wrote them back to the semantic layer for campaign and planning use
-- Trained an attribute classifier on a naturally clean self-labeled subset (accounts with a single identifiable user), sidestepping large-scale labeling and its noise
-- Registered the model in MLflow on Unity Catalog and scored millions of customer profiles into a separate enrichment surface with usage guidance
+Two calls shaped the work.
 
-## Architecture Overview
+The first was what to cluster on. Pure behavior was the obvious choice and it captures what customers do, but it misses why catalog items group together, and the clusters it produces are ones statisticians like and business teams cannot describe. I rejected behavior-only for that reason, and embeddings-only for the opposite one: rich vocabulary, no tie to actual activity. I built a combined feature space instead, a behavior matrix joined with semantic embeddings of catalog item descriptions, then clustered with K-means. The embeddings gave each segment a vocabulary teams could name it by, while the behavior matrix kept it anchored to what people actually did. That combination is what made the segments activatable rather than purely analytical.
 
-![Behavioral segmentation and attribute inference pipeline: a shared profile-level feature store feeds two branches. A behavior matrix plus semantic embeddings feed K-means, producing stability-validated labeled segments written to the semantic layer. A clean self-labeled subset trains an XGBoost classifier, registered via MLflow, scoring millions of profiles into a separate enrichment surface.](/assets/projects/segmentation-inference.svg)
+The second was where the inferred attributes landed. The tempting option was to backfill predictions straight into the declared-attribute table for maximum coverage, but then every downstream consumer treats a guess as ground truth and reporting drifts off declared data without anyone noticing. Writing to the same table with a confidence column was auditable only if every consumer remembered to read the confidence. I published predictions to a separate enrichment surface with explicit usage guidance instead. The cost is a second read for anyone who wants both signals; the benefit is that nothing downstream can mistake an inference for something the customer declared.
 
-A shared profile-level feature store feeds two branches. In the segmentation branch, a behavior matrix and semantic embeddings of catalog descriptions feed K-means; segments are validated for run-to-run stability, labeled, and written back to the semantic layer. In the inference branch, a clean self-labeled subset trains an XGBoost classifier registered through MLflow on Unity Catalog, which scores millions of customer profiles into a separate enrichment surface with usage guidance.
+- Prepared profile-level behavioral features from the shared feature store as the common input for both the segmentation and inference workstreams.
+- Ran K-means over the combined behavior-plus-embedding space and validated segments across multiple runs for stability before publishing anything.
+- Mapped each segment to a business-friendly profile with explicit labels and wrote them back to the semantic layer for campaign and planning use.
+- Trained the attribute classifier on a naturally clean self-labeled subset, accounts with a single identifiable user, which sidestepped large-scale labeling and its noise.
+- Registered the model in MLflow on Unity Catalog and scored millions of customer profiles into the separate enrichment surface.
 
 ## Results & Impact
 
-- **What changed in activation**: Campaign audiences shifted from broad demographic blasts to behavior-anchored segments that targeting could act on directly
-- **What changed in planning**: Teams gained a behavioral lens on segments where declared signals were too sparse to act on, and a shared vocabulary for audiences by behavioral shape rather than demographic shorthand
-- **What changed in governance**: Segments and inferred attributes lived in published, governed surfaces kept distinct from declared data, so different teams meant the same thing and nothing downstream inherited model output as fact
-- **Foundation for downstream work**: Stable segments and inferred attributes fed personalization and analytics workflows as shared references rather than per-team rebuilds
+- Campaign audiences moved off broad demographic blasts onto behavior-anchored segments that targeting could action directly.
+- Planning gained a behavioral lens on cohorts where declared signals were too sparse to act on, plus a shared vocabulary for describing audiences by behavioral shape.
+- Attribute coverage roughly quadrupled by filling missing fields from inference, with predictions kept on a published surface distinct from declared data so nothing downstream inherited model output as fact.
+- The stable segments and inferred attributes became shared references for personalization and analytics workflows instead of something each team rebuilt on its own.
 
-## Reusable Pattern
+## Architecture
 
-Behavior-first segmentation and audit-safe enrichment apply anywhere customer profiles are incomplete and demographics are weaker signals than behavior:
+![Behavioral segmentation and attribute inference pipeline: a shared profile-level feature store feeds two branches. A behavior matrix plus semantic embeddings feed K-means, producing stability-validated labeled segments written to the semantic layer. A clean self-labeled subset trains an XGBoost classifier, registered via MLflow, scoring millions of profiles into a separate enrichment surface.](/assets/projects/segmentation-inference.svg)
 
-- **E-commerce**: Browsing and purchase segments, plus attribute enrichment for personalization
-- **Fintech**: Transaction-pattern segments and behavior-based profile completion for product fit
-- **Gaming**: Player archetypes and behavioral enrichment for retention and progression
-- **SaaS**: Product-usage segments and inferred firmographics for onboarding and expansion
-
-**When this pattern is NOT appropriate**: Skip clustering if your audience is small enough to manage with hand-defined segments (under ~100k customers) or if your activation channels cannot act on segment-level differences. Skip inference if your reporting layer cannot distinguish a prediction from a declared value, or if declared coverage is already above 80%, where the marginal lift rarely justifies the model maintenance.
+A shared profile-level feature store feeds two branches. In the segmentation branch, a behavior matrix and semantic embeddings of catalog descriptions feed K-means; the resulting segments are validated for run-to-run stability, labeled, and written back to the semantic layer. In the inference branch, a clean self-labeled subset trains an XGBoost classifier registered through MLflow on Unity Catalog, which scores millions of customer profiles into a separate enrichment surface with usage guidance.
 
 ## Tech Stack
 
@@ -93,3 +60,7 @@ Behavior-first segmentation and audit-safe enrichment apply anywhere customer pr
 - **Model registry**: MLflow on Unity Catalog (lineage, versioning, approval)
 - **Validation**: Multi-run stability checks; separate enrichment surface with usage guidance
 - **Reporting**: Power BI
+
+## My Role
+
+I owned both workstreams end to end: the feature engineering, the combined-space segmentation, the classifier trained on the clean self-labeled subset, and the governance decision to keep inferred values on their own surface. I also wrote the segment labels and usage guidance that let marketing and planning pick the work up without me in the room. The pattern transfers anywhere customer profiles are incomplete and behavior is a stronger signal than demographics. It earns its keep less cleanly when the audience is small enough to hand-define, when activation channels cannot act on segment-level differences, or when declared coverage is already high enough that inference adds little a team would maintain.

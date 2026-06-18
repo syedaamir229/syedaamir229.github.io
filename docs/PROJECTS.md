@@ -10,8 +10,8 @@ Tone and voice principles live in [BRAND.md](BRAND.md). This file owns *how to w
 
 1. Create `src/content/projects/<slug>.md`.
 2. Fill the frontmatter (4 required fields, 4 optional).
-3. Write seven markdown H2 sections in this order: Challenge, Key Decisions, Approach, Architecture Overview, Results & Impact, Reusable Pattern, Tech Stack.
-4. Drop the diagram SVG at `public/assets/projects/<slug>.svg` and reference it with `![alt](/assets/projects/<slug>.svg)` under Architecture Overview.
+3. Write six markdown H2 sections in this order: Challenge, Approach, Results & Impact, Architecture, Tech Stack, My Role.
+4. Drop the diagram SVG at `public/assets/projects/<slug>.svg` and reference it with `![alt](/assets/projects/<slug>.svg)` under Architecture.
 5. Run `npm run dev` and check `/projects/<slug>/`.
 
 ---
@@ -67,100 +67,74 @@ That is it for frontmatter. Decisions, tech stack, and any narrative live in the
 
 ## 4. Body structure
 
-Seven H2 sections in fixed order. Every case study uses this structure regardless of the `featured` flag. The flag controls home-page selection, not body shape. No lead paragraph above `## Challenge`; the header already sets context.
+Six H2 sections in fixed order. Every case study uses this structure regardless of the `featured` flag. The flag controls home-page selection, not body shape. No lead paragraph above `## Challenge`; the header already sets context.
 
-When phrasing or density is in question, mirror [crm-automation.md](../src/content/projects/crm-automation.md), [enterprise-data-model.md](../src/content/projects/enterprise-data-model.md), [semantic-layer.md](../src/content/projects/semantic-layer.md), or [voice-of-customer.md](../src/content/projects/voice-of-customer.md). These four are the anchor for the pattern.
+The structure follows the data-freelancer portfolio framework: lead with the outcome, fold the technical decisions into a first-person narrative, and keep it concise enough to survive a skim. The rigid four-part "Key Decisions" grid and the four-industry "Reusable Pattern" block were dropped on 2026-06-18 because their uniform cadence read as machine-generated; decisions now live in the Approach narrative and transfer lives in one honest sentence in My Role. When phrasing or density is in question, mirror [semantic-layer.md](../src/content/projects/semantic-layer.md): it is the reference for the pattern.
 
 ````markdown
 ## Challenge
 
-One required prelude sentence (16 to 25 words) naming the binding constraints:
-data sources, SLAs, regulatory limits, no-disruption rules, scale requirements.
-Then 3 to 5 bulleted problems.
-
-- **Problem name**: explanation
-- **Problem name**: explanation
-
-## Key Decisions
-
-Target 2 decisions. Each decision is an H3 followed by the four bold-label paragraphs:
-
-### Decision 1: Title of the decision
-
-**Problem:** What made this a decision worth thinking about.
-
-**Options considered:**
-
-- Option A (parenthetical on the tradeoff)
-- Option B (parenthetical on the tradeoff)
-- Option C (parenthetical on the tradeoff)
-
-**Chosen:** What you picked, in one sentence.
-
-**Why:** The rationale. One paragraph.
-
-### Decision 2: ...
-
-(same shape)
+Open with the sharp version of the problem: a concrete scene, a question that
+returned four different answers, the moment it started costing something. Then
+one short paragraph of industry context and why it matters. Then 2 to 4 bullets
+that each agitate a distinct facet of the pain. The bullets do not need to be
+mechanically parallel; vary them so they read like a person wrote them.
 
 ## Approach
 
-Target 6 implementation bullets (4 to 6 acceptable). Past tense, system as the
-subject. What was built, not narrative.
+First person, past tense for the work. Lead with the one or two decisions that
+carried the project, told as reasoning ("Two calls carried the rest of the
+work. The first was..."), not as a Problem / Options / Chosen / Why grid. Name
+the option you rejected and why in a sentence, inside the prose. A real anecdote
+earns its place when it shows judgment. Then a short set of operational bullets
+for what was actually built.
 
-- Built X using Y...
-- Implemented Z with...
+- Built X that did Y...
+- Routed Z through...
 
-## Architecture Overview
+## Results & Impact
+
+Target 4 bullets. Lead each with the business outcome and a checkable number,
+before/after where possible. A bold category label is optional, not required;
+do not force the same label cadence onto every bullet.
+
+- Report teams stopped rebuilding KPI logic per file, and build time dropped 60-70%.
+- ...
+
+## Architecture
 
 ![Descriptive alt text covering the full flow shown in the diagram.](/assets/projects/<slug>.svg)
 
 One paragraph explaining the flow in words for readers who skim the diagram.
 
-## Results & Impact
-
-Target 4 bullets. Each leads with a bold category label, then the outcome from
-the user or business perspective. What changed, not what was built.
-
-- **What changed in operations**: ...
-- **What changed in decisions**: ...
-- **Foundation for future work**: ...
-- **<Category label>**: ...
-
-## Reusable Pattern
-
-One intro paragraph framing where this pattern applies, then 4
-industry-anchored bullets showing how it transfers. Close with a **When this
-pattern is NOT appropriate** paragraph so readers can self-disqualify.
-
-- **E-commerce**: ...
-- **Fintech**: ...
-- **SaaS**: ...
-- **Telecom**: ...
-
-**When this pattern is NOT appropriate**: ...
-
 ## Tech Stack
 
 - **Category**: Tool / system used
 - **Category**: Tool / system used
+
+## My Role
+
+First person. One short paragraph naming what you owned and did on this project
+(your specific role, not the team's). Close with one or two sentences on where
+the pattern transfers and when it does not, so a reader can place their own
+situation. One honest sentence about transfer beats four templated industry
+bullets.
 ````
 
 ### Section notes
 
-- **Challenge prelude**: required. One sentence, 16 to 25 words. Lead with the binding constraints, not the goal. The prelude is what tells the reader "this is what made the problem hard"; the bullets enumerate the symptoms.
-- **Key Decisions**: target 2 decisions. One is acceptable only when the project genuinely had a single architectural choice worth documenting; never invent a second to hit the count. Each decision is an H3 (`### Decision N: Title`) followed by the four bold-label paragraphs (`**Problem:**`, `**Options considered:**` as bullets, `**Chosen:**` as one sentence, `**Why:**` as one paragraph). Options bullets should carry a short parenthetical on the tradeoff so the reader sees the comparison without reading further.
-- **Approach**: target 6 bullets, 4 to 6 acceptable. Implementation, not narrative. Past tense, system as the subject. Each bullet is a concrete thing built, not a process description.
-- **Architecture Overview**: one image + one caption paragraph. The alt text is a single sentence (roughly 30 to 45 words) naming the major components and how they connect, so it stands alone for screen readers and search indexers. The caption paragraph names the same flow in words for readers who skim the diagram. See the four reference files for the alt-text shape: name the sources, the intermediate layers, and the consumers in order of flow.
-- **Results & Impact**: target 4 bullets. Each leads with a bold category label, then the outcome from the user or business perspective. Canonical labels: **What changed in operations**, **What changed in decisions**, **What changed in governance**, **What changed in activation**, **What changed in planning**, **What changed in targeting**, **What changed in modeling**, **Maintenance overhead**, **Operational reliability**, **Cross-team escalation**, **Reporting-grade accuracy**, **Activation surface**, **Foundation for future work**, **Foundation for downstream work**. Pick from this set or coin a similar one. The bold label is required: it is what makes the section scannable.
-- **Reusable Pattern**: this separates a case study from a war story. Show how to apply the pattern in a different context, then disqualify cases where it does not fit. The 4 industry bullets are drawn from a canonical set (E-commerce, Fintech, SaaS, Telecom, Logistics, Gaming, Advertising); pick the four that best fit the pattern. The "When this pattern is NOT appropriate" paragraph is what lets a reader recognize their own situation as outside scope, and it is required.
-- **Tech Stack**: bulleted label-value list. Last section in the body. 4 to 6 bullets. Values are inventory shape (tool and product names, optional short parenthetical), not prose sentences. Pick labels from the canonical set where possible: **Platform**, **Storage**, **Processing**, **Modeling**, **Reporting**, **Orchestration**, **Sources**, **Delivery**, **Application**. Project-specific labels (**Alerting**, **Monitoring**, **Validation**, **Output**, **Agents**, **Model registry**, **Semantic layer**, **KPI definitions**, **Access management**) are welcome where the category is genuinely distinct. Use **Sources** (not "Source systems") and **Orchestration** (not "Automation") for the shared concepts.
+- **Challenge**: open with the sharp, concrete version of the problem (a real scene or a one-line stake), not a generic prelude. Follow with one short paragraph of industry context and why it matters, then 2 to 4 bullets that agitate distinct facets. First person is allowed; vivid framing is the point. Do not rush to the solution here.
+- **Approach**: first person, past tense for the work. Fold the key technical decisions into the narrative rather than a labeled grid: name the call, name the option you rejected, give the reason in a sentence. A real anecdote (the deploy that broke, the audit that found three formulas) earns its place when it shows judgment. Follow the narrative with a short set of operational bullets (3 to 6) for what was built. The system still does things; the judgment is yours.
+- **Results & Impact**: target 4 bullets, each led by a business outcome and a checkable number. Before/after beats adjectives. A bold category label is optional; uniform label cadence across every bullet is the AI-tell to avoid, so vary the openings.
+- **Architecture**: one image + one caption paragraph. The alt text is a single sentence (roughly 30 to 45 words) naming the major components and how they connect, so it stands alone for screen readers and search indexers. The caption paragraph names the same flow in words for readers who skim the diagram: name the sources, the intermediate layers, and the consumers in order of flow.
+- **Tech Stack**: bulleted label-value list. 4 to 6 bullets. Values are inventory shape (tool and product names, optional short parenthetical), not prose sentences. Pick labels from the canonical set where possible: **Platform**, **Storage**, **Processing**, **Modeling**, **Reporting**, **Orchestration**, **Sources**, **Delivery**, **Application**. Project-specific labels (**Alerting**, **Monitoring**, **Validation**, **Output**, **Agents**, **Model registry**, **Semantic model**, **KPI definitions**, **Access management**) are welcome where the category is genuinely distinct. Use **Sources** (not "Source systems") and **Orchestration** (not "Automation") for the shared concepts.
+- **My Role**: last section in the body. First person, one short paragraph on what you specifically owned and did (your role, not the team's), then one or two sentences on where the pattern transfers and when it does not. This is where the data-freelancer framework's "your specific role" and the old Reusable Pattern collapse into one honest, non-templated close. One real sentence about transfer beats a four-industry list.
 
 ---
 
 ## 5. Architecture diagrams
 
-Every case study has exactly one Architecture Overview diagram in the H2 slot of the same name. No exceptions: a case study without a diagram is incomplete.
+Every case study has exactly one Architecture diagram in the H2 slot of the same name. No exceptions: a case study without a diagram is incomplete.
 
 - **File path**: `public/assets/projects/<slug>.svg`.
 - **Markdown reference**: `![Alt text covering the flow shown in the diagram.](/assets/projects/<slug>.svg)`.
@@ -186,9 +160,9 @@ Do not duplicate any of these in the body.
 
 Tone and word choice follow [BRAND.md section 5](BRAND.md#5-voice-and-tone-applies-to-every-surface). Three project-specific anchors:
 
-- **Tense and subject**: past tense throughout. The system is the subject of the body ("the platform processed", "the pipeline ran", "the model produced"), not the company and not the author. Use "the platform", "the pipeline", "the system", "the model" as the referent.
-- **Vendor abstraction**: vendor names appear only in Tech Stack and in frontmatter `tags`. Body prose, Architecture Overview captions, and diagram labels use category descriptors ("a video-analytics platform", "a customer-engagement platform", "a programmatic ad-serving platform"). This is the rule that keeps the body reading as the work rather than as a vendor briefing. The full reasoning lives in section 9.
-- **Bullets and prose**: Challenge, Approach, Results & Impact, Reusable Pattern, and Tech Stack are bullet-led. Key Decisions and Architecture Overview are prose. Bullets are readable in ~2 seconds each. Quantification stays relative (percentages, throughput multipliers, "Hours to seconds", "Multi-week") rather than commercial. MENA / OTT vocabulary is on-brand because case studies are evidence, not pitch. CV verbs ("built", "designed", "delivered") are welcome inside the body but not on the listing card description.
+- **Tense and subject**: first person for judgment, past tense for the work. You are the subject when describing decisions and ownership ("I migrated", "I chose", "I owned"); the system is the subject when describing what it does ("the pipeline ran", "the model produced"). The company is never the subject. First person is what makes the case study read like the author rather than a template, and it matches the voice of the blog.
+- **Vendor abstraction**: vendor names appear only in Tech Stack and in frontmatter `tags`. Body prose, Architecture captions, and diagram labels use category descriptors ("a video-analytics platform", "a customer-engagement platform", "a programmatic ad-serving platform"). This is the rule that keeps the body reading as the work rather than as a vendor briefing. The full reasoning lives in section 9.
+- **Bullets and prose**: Approach opens in prose then closes with bullets; Challenge, Results & Impact, and Tech Stack are bullet-led with prose framing; Architecture and My Role are prose. Bullets are readable in ~2 seconds each. Quantification stays relative (percentages, throughput multipliers, "Hours to seconds", "Multi-week") rather than commercial. CV verbs ("built", "designed", "delivered") are welcome inside the body but not on the listing card description.
 
 > **Freelance-portfolio override (2026-06-12):** "MENA / OTT vocabulary is on-brand" is superseded for the live portfolio. Scrub all OTT/streaming vocabulary and reframe to a generic vertical; MBC must never be inferable. See the override in section 9 and the `case-study-copywriter` skill.
 
@@ -198,17 +172,16 @@ Tone and word choice follow [BRAND.md section 5](BRAND.md#5-voice-and-tone-appli
 
 Mechanical rules (no em-dashes, no emoji, `.md` not `.mdx`, no `import` lines, frontmatter schema, build pass) are covered by [BRAND.md](BRAND.md) and the build process. This checklist is structural judgment only.
 
-- [ ] Confidentiality pass per section 9 complete: company is not the subject of any sentence in the body, no internal codenames in body or diagram, no uniquely identifying vendor combinations across `tags` and Tech Stack.
+- [ ] Confidentiality pass per section 9 complete: company is not the subject of any sentence in the body (first person about your own role is fine; the employer is never named), no internal codenames in body or diagram, no uniquely identifying vendor combinations across `tags` and Tech Stack.
 - [ ] Header `metrics` are relative or magnitude-based. No exact subscriber, profile, or revenue counts.
 - [ ] No vendor-specific operational quantity paired with a named vendor in body, diagram, or Tech Stack.
 - [ ] Architecture diagram labels strip internal codenames and the warehouse fingerprint (`dwh_*` prefixes etc.).
-- [ ] Body has the seven sections in order; no lead paragraph above `## Challenge`.
-- [ ] Challenge prelude leads with the binding constraints, not the goal, in one sentence (16 to 25 words). Then 3 to 5 bulleted problems with bold names.
-- [ ] Key Decisions has 2 decisions, each with `**Problem:**`, `**Options considered:**` bullets, `**Chosen:**`, `**Why:**`.
-- [ ] Approach has 4 to 6 implementation bullets, past tense, system as the subject.
-- [ ] Architecture Overview references a real SVG at `/assets/projects/<slug>.svg` with self-explanatory alt text + one caption paragraph.
-- [ ] Results & Impact has 4 bullets, each leading with a bold category label.
-- [ ] Reusable Pattern has an intro paragraph + 4 industry bullets + a *When this pattern is NOT appropriate* paragraph.
+- [ ] Body has the six sections in order (Challenge, Approach, Results & Impact, Architecture, Tech Stack, My Role); no lead paragraph above `## Challenge`.
+- [ ] Challenge opens with the sharp, concrete version of the problem, then context and why it matters, then 2 to 4 bullets that agitate distinct facets.
+- [ ] Approach is first person, leads with the decisions as narrative (not a Problem/Options/Chosen/Why grid, names the rejected option in a sentence), and closes with 3 to 6 operational bullets.
+- [ ] Architecture references a real SVG at `/assets/projects/<slug>.svg` with self-explanatory alt text + one caption paragraph.
+- [ ] Results & Impact has ~4 bullets, each led by a business outcome and a checkable number; openings are varied, not a uniform bold-label cadence.
+- [ ] My Role is first person: what you owned, then one or two sentences on transfer and limits.
 - [ ] Tech Stack has 4 to 6 `**Label**: value` bullets, labels from the canonical set.
 - [ ] Body prose and diagrams use category descriptors, not vendor names.
 - [ ] `/projects/<slug>/` renders correctly at desktop and mobile widths.
@@ -237,9 +210,9 @@ Project-specific rules:
   - **Frontmatter `metrics`: abstract.** Magnitude / relative descriptors only, no exact figures (see rule above).
   - **Frontmatter `tags`: explicit.** Vendor tags fine individually (they sit alongside Tech Stack as the same surface).
 - **No vendor-specific operational quantity paired with a named vendor.** Even in Tech Stack. "GAM with a 14-day attribution window" pairs a vendor name with a vendor-specific cadence and uniquely fingerprints the deployment. Either name the vendor without the quantity, or describe the operational behavior ("late-arriving attribution requires a multi-week historical refresh") without naming the vendor.
-- **No named seasonal cycle as the canonical operational example.** Naming Ramadan, Eid, World Cup, or a regional sports final as the headline use case for a generalizable system (especially in the Reusable Pattern section) ties the pattern to one industry. Abstract to "a predictable recurring window" or "a seasonal cycle the override system activates automatically by date". Cultural-anchor framing is different and still allowed (see [BLOG.md section 9](BLOG.md#9-confidentiality) for the test).
+- **No named seasonal cycle as the canonical operational example.** Naming Ramadan, Eid, World Cup, or a regional sports final as the headline use case for a generalizable system (especially in the My Role transfer note) ties the pattern to one industry. Abstract to "a predictable recurring window" or "a seasonal cycle the override system activates automatically by date". Cultural-anchor framing is different and still allowed (see [BLOG.md section 9](BLOG.md#9-confidentiality) for the test).
 - **Internal column-name conventions**: column and table names with an in-house prefix that fingerprints the warehouse (e.g. `dwh_user_id`, `dwh_content_id`) get renamed to conventional equivalents in body and diagrams. Public API field names and Kimball star-schema patterns (`dim_*`, `fact_*`) stay. Cross-reference: [BLOG.md section 9](BLOG.md#9-confidentiality).
-- **Body sections**: the system is the subject, not the company. Use "the platform", "the pipeline", "the model" as referents. Past employers can be named in passing only when load-bearing for a Reusable Pattern example.
+- **Body sections**: first person for your own judgment and role ("I migrated", "I owned"); the system is the subject for what it does ("the pipeline ran"). The company is never the subject and is never named. Past employers can be named in passing only when load-bearing for a My Role transfer example.
 - **`description`**: lead with the change, not the company. The description is the listing-card line and shows up everywhere on the site.
 
 ---
