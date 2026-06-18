@@ -190,6 +190,8 @@ Tone and word choice follow [BRAND.md section 5](BRAND.md#5-voice-and-tone-appli
 - **Vendor abstraction**: vendor names appear only in Tech Stack and in frontmatter `tags`. Body prose, Architecture Overview captions, and diagram labels use category descriptors ("a video-analytics platform", "a customer-engagement platform", "a programmatic ad-serving platform"). This is the rule that keeps the body reading as the work rather than as a vendor briefing. The full reasoning lives in section 9.
 - **Bullets and prose**: Challenge, Approach, Results & Impact, Reusable Pattern, and Tech Stack are bullet-led. Key Decisions and Architecture Overview are prose. Bullets are readable in ~2 seconds each. Quantification stays relative (percentages, throughput multipliers, "Hours to seconds", "Multi-week") rather than commercial. MENA / OTT vocabulary is on-brand because case studies are evidence, not pitch. CV verbs ("built", "designed", "delivered") are welcome inside the body but not on the listing card description.
 
+> **Freelance-portfolio override (2026-06-12):** "MENA / OTT vocabulary is on-brand" is superseded for the live portfolio. Scrub all OTT/streaming vocabulary and reframe to a generic vertical; MBC must never be inferable. See the override in section 9 and the `case-study-copywriter` skill.
+
 ---
 
 ## 8. Pre-publication checklist
@@ -214,6 +216,12 @@ Mechanical rules (no em-dashes, no emoji, `.md` not `.mdx`, no `import` lines, f
 ---
 
 ## 9. Confidentiality
+
+> **Freelance-portfolio override (2026-06-12):** This section was written for a "written while employed" posture, where MBC is on the CV and the vendor fingerprint is merely *contained* to Tech Stack. The freelance portfolio is stricter: it is shown to prospects, not hiring managers, so MBC must never be inferable. Two changes apply over everything below:
+> 1. **Identifying vendor names are dropped from every surface, including Tech Stack and `tags`** (not just abstracted in the body). The OTT-specific cluster Youbora + Evergent + Mediagenix is the fingerprint; remove it entirely. Keep only generic, cross-industry tooling (Databricks, Power BI, Delta Lake, SSAS, etc.).
+> 2. **No MENA / OTT / streaming framing anywhere.** Reframe to a generic vertical ("a large subscription-based consumer business"). Scrub viewing/watch/episode/household/AVOD/VAST/Arabic-residency vocabulary.
+>
+> Authoritative rules: `~/.claude/skills/case-study-copywriter/SKILL.md` and the freelancer hub's CLAUDE.md Hard rules.
 
 Project case studies are written while the author is employed. Same posture as blog posts: the company is on the CV and LinkedIn, not the subject of any sentence in the case study body. Case studies are *artifact-anchored* by default ("the platform", "the system", "the pipeline"), which already satisfies the rule structurally. Cross-reference: [BLOG.md section 9](BLOG.md#9-confidentiality).
 

@@ -50,6 +50,7 @@ The palette is defined in `src/styles/global.css` as Tailwind v4 `@theme` tokens
 - **Primary accent**: cyan-500 for CTAs, key words, eyebrows. One dominant accent per visual hierarchy level.
 - **No white**: `#ffffff` is not in the palette. The lightest surface is `cream-100` for text only.
 - **Borders**: always navy-tinted (`cream-100/5` opacity, or `navy-700`). Never cold neutral gray, never warm brown.
+- **muted-600** (`#64748B`): borders and decorative separators only, never text. At 4.1:1 on navy-950 it is below WCAG AA for body text. `muted-500` is the floor for anything a reader reads.
 
 ---
 
@@ -94,7 +95,7 @@ Adjacent `<section>` elements inside `<main>` get a 1px cream-tinted top border 
 
 ## 5. Voice and tone (applies to every surface)
 
-These principles apply identically to landing copy, blog posts, project case studies, social excerpts, and ad copy. Surface-specific specs add *structural* rules on top; tone is consistent.
+The **DNA** below (direct, specific, opinionated, no hedging) is constant across landing copy, blog posts, project case studies, social excerpts, and ad copy. The **register** shifts: landing and case-study surfaces are impersonal and declarative; long-form and personal writing (blog, LinkedIn, essays) is first-person and reflective. The "Long-form and first-person voice" subsection below defines that second register. Surface-specific specs add *structural* rules on top.
 
 ### Principles
 
@@ -111,6 +112,20 @@ These principles apply identically to landing copy, blog posts, project case stu
 - **Concrete before abstract**: lead with the result, follow with the mechanism.
 - **Short headline + longer supporting line**: never bury the lead.
 - **One italic accent per major heading**: a single `<em>` phrase rendered with the italic-accent style. Use sparingly. Once per hero, once per major statement section. Not on every heading.
+
+### Long-form and first-person voice (blog posts, personal essays, LinkedIn)
+
+Landing copy is impersonal and imperative ("Stop hiring to scale. Start wiring."). Long-form is the opposite register: Aamir, in first person, telling you what he learned from doing the work. Same DNA, different delivery. The rules below are what make a piece read like him and not like a brand or an AI. The reference implementation is the bi-to-ai blog post.
+
+- **First person, reflective.** Write as "I". Lead with lived experience, not a thesis statement. The pilot opens "For a long time I thought the interesting work was always one desk over," not "Data teams must compound their stack." The thesis arrives after the story has earned it.
+- **Plain language first, then the precise term.** Name the human version before the technical one: "the part of data nobody gets excited about: the trustworthy tables and definitions that sit under a dashboard." Never lead with jargon and define it after. If a finance director would not say the word out loud, it is not the opening word.
+- **One running motif, paid off at the end.** A piece carries a single thread ("the boring part") that opens it, recurs once or twice, and lands in the closing line. One motif, not a pile. No mixed metaphors, no cliché load-bearing image (the rejected "plumbing holding up the whole building" is the anti-pattern).
+- **Conviction without the clipped cadence.** State the thesis flatly and once ("a data team is either compounding everything it builds, or quietly starting over every couple of years"), then let the prose breathe. Long-form is warm and conversational between its hard claims; it does not stack imperatives like a landing page.
+- **Subheads are arguments, not labels.** "Floor 1: the tables everyone trusts," not "Layer 1: Data Foundations." A reader skimming only the subheads should get the argument. Labels are for documentation, not persuasion.
+- **One bolded payoff per section.** Each section earns exactly one bold line: its single takeaway. More than one and none of them lands. The bold is the sentence you would want quoted back.
+- **Cite only load-bearing sources; reserve the signature number.** Drop any borrowed stat that every post on the topic already uses (the generic "80% of teams use AI" line was cut from the pilot). If the argument stands on your own observation, let it. Reserve one concrete number as the framework's signature (the "15,000 vs 12,000" meeting) and spend it where it hits hardest.
+- **Examples are lived, then abstracted.** Real moments from real work, scrubbed of employer tells per BLOG.md confidentiality. A specific scene beats a hypothetical, but the scene must never be traceable.
+- **Cut the flourish you would not say out loud.** The voice rejects writerly phrases that are not yours: "plumbing," "cash a cheque," "heuristic," "does not photograph well," "live-tweets," "job board." Test every line against "would I say this in a meeting?" If it is a writer performing, cut it.
 
 ### Words to use
 
@@ -149,11 +164,22 @@ Use universal entities: customers, transactions, operations, finance, marketing,
 
 **Project case studies and blog posts are the opposite**: stay vertical-specific. They are evidence, not pitch. MENA / OTT / MBC Shahid context is the brand's defensible differentiator and should be structural in posts about delivered work.
 
+> **Freelance-portfolio override (2026-06-12):** The sentence above predates the freelance discretion decision and is superseded for the live portfolio. Case studies must NOT lean into MENA / OTT / MBC Shahid. Scrub all OTT/streaming vocabulary and reframe to a generic vertical; MBC must never be inferable. Authoritative rules: `case-study-copywriter` skill + the freelancer hub's CLAUDE.md Hard rules.
+
 ---
 
 ## 6. Logo and wordmark
 
-Personal-brand wordmark only today ("Syed Aamir", Inter 700, `cream-100` on `navy-950`). No separate logo. Consulting-brand name is held for a separate naming session; when it lands, replace the wordmark in Nav and Footer in one pass, keep Inter 600 or 700, and skip the icon at launch.
+Two marks, both from the same identity. Source assets live in `public/assets/logo/` and the full set (marks plus site icons) is regenerated with `npm run logo` (`scripts/build-logo.mjs`). Both render in true Inter via embedded fonts, so letterforms are locked and identical everywhere.
+
+- **Wordmark (primary):** "Syed Aamir", Inter 700, `cream-100` on `navy-950`, with the cyan node-graph accent to its left. Use anywhere with horizontal room: nav, footer, documents, proposals, email signature. A light variant (navy ink on white) exists for light backgrounds such as printed contracts.
+- **SA monogram (compact mark):** "SA" in Inter 700, `cyan-400` on a `navy-800` rounded square. Use only where a square or tiny space cannot fit the name: favicon, social avatar, app icon.
+
+The node-graph accent is the brand's decorative motif (it also appears on the OG card and in diagrams). The wordmark carries the identity; the monogram carries it into square slots.
+
+Site icons (`favicon.png`, `apple-touch-icon.png`, `icon-192.png`, `icon-512.png`, `site.webmanifest`) are generated from the SA mark. `favicon.svg` is a lightweight vector with an Inter-first font stack; `favicon.ico` remains the legacy 16/32px version (the difference is imperceptible at that size).
+
+When a separate consulting-brand name lands from a future naming session, replace the wordmark in Nav and Footer in one pass and regenerate the marks; keep Inter 600 or 700.
 
 ---
 

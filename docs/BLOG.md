@@ -2,7 +2,7 @@
 
 Operational spec for adding a blog post. Posts are written in plain markdown with a small structured frontmatter block on top. No JSX, no components, no imports inside the body.
 
-Tone and voice principles live in [BRAND.md](BRAND.md). This file owns *how to write the post*: frontmatter, body structure, framework H3 micro-format, diagram conventions, checklist.
+Tone and voice principles live in [BRAND.md](BRAND.md). This file owns *how to write the post*: frontmatter, body structure, framework H3 format, diagram conventions, checklist.
 
 ---
 
@@ -10,8 +10,8 @@ Tone and voice principles live in [BRAND.md](BRAND.md). This file owns *how to w
 
 1. Create `src/content/blog/<slug>.md`.
 2. Fill the frontmatter (4 required fields, 3 optional).
-3. Write the ten-beat framework-led body in this order: opening anecdote, scene framing, bolded either-or thesis, "Why this matters now", diagram + caption, named framework H2 with three-beat H3 components, optional auxiliary H2, "Where I would start", "One MENA-flavored note", "Closing".
-4. Drop the diagram SVG at `public/assets/blog/<slug>-<name>.svg` and reference it under the "Why this matters now" section.
+3. Write the body in your first-person narrative voice (see BRAND.md "Long-form and first-person voice"). Default spine: opening hook (a lived moment or a claim), the either-or thesis once it is earned, "Why this matters now", the named framework H2 with argument-subhead sections, optional auxiliary H2, "Where I would start", a short "One note from experience" reflection, "Closing". Each framework section carries one bolded payoff line, not a three-bold label stack.
+4. Drop the diagram SVG at `public/assets/blog/<slug>-<name>.svg` and reference it under the "Why this matters now" section (recommended for framework posts).
 5. Run `npm run dev` and check `/blog/<slug>/`.
 
 ---
@@ -71,89 +71,87 @@ Decisions, tech, and any narrative live in the markdown body. Org and timeline d
 
 ## 4. Body structure
 
-Ten beats, in fixed order. Every framework-led post uses this structure. The labels below are scaffolding for the writer, not section headings the reader sees (only beats 4 onward have H2 headings).
+A spine, not a fixed checklist. The framework archetype follows the beats below in roughly this order, written in first person throughout (see BRAND.md "Long-form and first-person voice"). The labels are scaffolding for the writer, not headings the reader sees (only the H2 beats carry headings). Beats can flex: the thesis can be woven into the opening rather than stand alone, and the diagram is recommended, not mandatory. What does not flex is the voice (first person, plain-then-precise, one motif) and the spine (hook, why-now, framework, where-to-start, closing).
 
-When phrasing or density is in question, mirror [voice-of-customer-intelligence.md](../src/content/blog/voice-of-customer-intelligence.md). It is the canonical anchor for the pattern.
+When phrasing or density is in question, mirror [bi-to-ai-journey.md](../src/content/blog/bi-to-ai-journey.md). It is the canonical anchor for the voice and the structure.
 
 ````markdown
-[1. Opening anecdote. 1 to 2 paragraphs, past tense, one concrete scene
-that names the failure mode. No section heading.]
+[1. Opening hook. 1 to 2 paragraphs, first person. A lived moment
+("For a long time I thought the interesting work was always one desk
+over...") or a claim that earns attention. Plain language first, the
+precise term second. Introduce the running motif here. No section heading.]
 
-[2. Scene framing paragraph. Abstracts the anecdote to the pattern it
-represents. Usually opens with "That kind of X is the shape of..." or
-"That kind of X is the scene that...". No section heading.]
-
-[3. Bolded either-or thesis. Standalone bolded paragraph. Pattern:
-**A [X] team is either [right thing] or [wrong thing]. Once it starts
-[wrong]...; once it starts [right]...** The way you get there is not
-[naive fix]. It is [the named framework].]
+[2. The either-or thesis. State it once, flatly, in your own voice, after
+the opening has earned it. Pattern: "a [X] team is either [right thing],
+or [wrong thing]." It can sit in its own short paragraph or close the
+opening. The inverse must be defensible, or the thesis has no teeth.]
 
 ## Why this matters now
 
-[4. Industry context, optional external citation, MENA sharpening.
-1 to 3 paragraphs. End with a single transitional sentence that hands
-off to the framework.]
+[3. Why the argument is sharper today than a few years ago. 1 to 3
+paragraphs. Stakes, not citations: cite a source only if it is
+load-bearing, never the generic stat every post on the topic uses.
+End on one sentence that hands off to the framework. Carries one
+bolded payoff line.]
 
 ![Alt text describing the framework concretely.](/assets/blog/<slug>-<name>.svg)
 
-*[5. Italic caption: one sentence tying the diagram to the framework's
-main claim.]*
+*[Italic caption: one sentence tying the diagram to the framework's main
+claim. Recommended for framework posts; omit on narrative or opinion posts.]*
 
 ## The Named Framework
 
-[6. Framework H2 with 3 to 6 H3 components. Each H3 uses the three
-bold-inline beats locked in section 5: **What it is.**, **Why it
-matters.**, **What goes wrong without it.**]
+[4. Framework H2 with 3 to 6 sections. Subheads are arguments, not labels:
+"Floor 1: the tables everyone trusts", not "Layer 1: Data Foundations".
+A reader skimming only the subheads gets the argument. Each section is
+flowing first-person prose carrying exactly one bolded payoff line: the
+single sentence you would want quoted back. No three-bold label stack
+(see section 5).]
 
-### Component 1: Title
+### Floor 1: the argument this section makes
 
-**What it is.** ...
+[Flowing prose. The plain version first, the precise term second. One
+bolded payoff line: **the single takeaway, the sentence worth quoting.**]
 
-**Why it matters.** ...
-
-**What goes wrong without it.** ...
-
-### Component 2: Title
+### Floor 2: the argument this section makes
 ...
 
 ## [Optional auxiliary H2]
 
-[7. A single design discipline or extension surface that holds the
-framework together ("Parameter design: every recurring ask is a knob";
-"What you cannot retrofit"; "The workspace UI: three modes, one
-supervisor"). Allowed between the framework and "Where I would start".
-Omit when not load-bearing.]
+[5. A single discipline or observation that holds the framework together
+and does not fit inside any one section. Allowed between the framework and
+"Where I would start". Omit when not load-bearing.]
 
 ## Where I would start
 
-[8. Sequenced prioritization. 3 to 4 paragraphs. The one section where
-first-person ("I would") is welcome. Format: "If you can only do one
-of N, do X" or "First deliverable... Second deliverable...".]
+[6. Sequenced prioritization, first person. 2 to 4 paragraphs. "Build the
+foundation first" then what that means in practice, in order. Carries one
+bolded payoff line.]
 
-## One MENA-flavored note
+## One note from experience
 
-[9. A single tight paragraph anchoring the framework to MENA / Arabic-OTT
-structural context. Pass the structural-vs-decorative test in section 8.]
+[7. A short, personal reflection that lands the motif: what you understand
+now that you did not early on. First person, no internal disclosure, no
+regional tells. This replaces the old mandatory MENA note.]
 
 ## Closing
 
-[10. Leading rhetorical question, then a one or two paragraph answer
-contrasting the two outcomes from the bolded thesis. Often the binary
-from the thesis ("Is your X this, or that?").]
+[8. A leading question (often the binary from the thesis), then a short
+answer contrasting the two outcomes. Land the motif from the opening in
+the final line.]
 ````
 
 ### Beat notes
 
-- **Opening anecdote (beat 1)**: 1 to 2 paragraphs, past tense, third-person about teams or systems. Specific scene with people, numbers, or a moment. Not an abstract problem statement. "Many implementations fail because..." is not an anecdote. Vary the opening device across the catalog, though: most posts open on a scene, but a claim-led or question-led opening is welcome, and often better, precisely so the blog does not read as one reused "a review opened with conflicting numbers" template. What matters is a concrete, specific entry into the post, not the same staged scene every time.
-- **Scene framing (beat 2)**: one paragraph. Names the failure pattern. Distinct from the anecdote: the anecdote is the moment, the framing is the pattern the moment represents.
-- **Bolded thesis (beat 3)**: one bolded paragraph followed by one un-bolded sentence. Someone could disagree. "A semantic layer can still fail after launch if governance is weak" is too weak: who would disagree? The either-or framing forces the disagreement to exist.
-- **Why this matters now (beat 4)**: industry context. External citations are optional, not required. When citing, every citation should be load-bearing; do not bulk-cite. End the section with one sentence that bridges into the framework so the diagram does not arrive cold.
-- **Diagram + caption (beat 5)**: required for every framework-led post. See section 5 for the H3 micro-format and section 6 for diagram conventions.
-- **Named framework (beat 6)**: H2 with a name that has weight. "The Four-Signal Operating Loop", "The Six-Layer System", "The Voice-of-Customer Stack", "The Three-Phase Migration Sequence". Not "Approach" or "Methodology". 3 to 6 H3 components; the framework can be whatever size it actually has. Each H3 follows the locked micro-format in section 5.
-- **Auxiliary H2 (beat 7)**: optional. Use when one design discipline or extension surface holds the framework together and does not naturally fit inside any single H3. The auxiliary H2 sits between the framework and "Where I would start".
-- **Where I would start (beat 8)**: incremental ordering of how to ship the framework. Dictated by trust, not roadmap. First-person allowed.
-- **MENA-flavored note (beat 9)**: one paragraph, not a section with sub-headings. Pass the structural-vs-decorative test in section 8.
-- **Closing (beat 10)**: rhetorical question that challenges the reader's current approach, then one or two paragraphs answering it. The answer contrasts the two outcomes from the bolded thesis; collapsing the contrast into one tight paragraph is fine when the rhythm calls for it.
+- **Opening hook (beat 1)**: 1 to 2 paragraphs, first person. A lived moment ("For a long time I thought the interesting work was always one desk over") or a claim that earns attention. Plain language first, the precise term second. Introduce the running motif here. Vary the opening device across the catalog: a scene, a claim, or a question all work, so the blog does not read as one reused template. What matters is a concrete, personal entry, not an abstract problem statement.
+- **Either-or thesis (beat 2)**: state it once, flatly, in your own voice, after the opening has earned it. It can stand in a short paragraph or close the opening. Someone could disagree: "a data team is either compounding everything it builds, or quietly starting over every couple of years." If the inverse is not also defensible, the thesis has no teeth. Not bolded by default; the bold budget is one payoff per section.
+- **Why this matters now (beat 3)**: why the argument is sharper today than a few years ago. Stakes, not citations. Cite a source only when it is load-bearing; drop the generic stat every post on the topic uses. End on one sentence that hands off to the framework so the diagram does not arrive cold. One bolded payoff line.
+- **Diagram + caption**: recommended for framework posts, not mandatory. A framework with a genuine shape earns one; a narrative or opinion post does not need one. See section 6 for conventions.
+- **Named framework (beat 4)**: H2 with a name that has weight. "The Four-Layer Compounding Stack", "The Voice-of-Customer Stack", "The Three-Phase Migration Sequence". Not "Approach" or "Methodology". 3 to 6 sections; the framework can be whatever size it actually has. Subheads are arguments, not labels. Each section is flowing first-person prose with exactly one bolded payoff line (see section 5).
+- **Auxiliary H2 (beat 5)**: optional. Use when one discipline or observation holds the framework together and does not fit inside any single section. Sits between the framework and "Where I would start".
+- **Where I would start (beat 6)**: incremental ordering of how to ship the framework. Dictated by trust, not roadmap. First person. One bolded payoff line ("**Build the foundation first.**").
+- **One note from experience (beat 7)**: a short, personal reflection that lands the motif: what you understand now that you did not early on. First person, no internal disclosure, no regional tells. Replaces the old mandatory MENA note.
+- **Closing (beat 8)**: a leading question that challenges the reader's current approach (often the binary from the thesis), then a short answer contrasting the two outcomes. Land the opening motif in the final line.
 
 ### Closing questions to aim for
 
@@ -165,65 +163,43 @@ from the thesis ("Is your X this, or that?").]
 
 ### Post length
 
-Standalone posts run long here, roughly 2,000 to 4,000 words. Series companion parts run 1,500 to 2,500 words each. The length is deliberate: depth is the credibility lever for a personal brand, and the current catalog sits in this band. Length follows the argument. Do not pad to reach a number, and do not cut a load-bearing beat (the diagram, the MENA note, the closing) to look shorter. If one post sprawls past roughly 4,500 words and carries more than one framework, that is the signal it wanted to be a series.
+Standalone posts run long here, roughly 2,000 to 4,000 words. Series companion parts run 1,500 to 2,500 words each. The length is deliberate: depth is the credibility lever for a personal brand, and the current catalog sits in this band. Length follows the argument. Do not pad to reach a number, and do not cut a load-bearing beat (the framework, the "One note from experience", the closing) to look shorter. If one post sprawls past roughly 4,500 words and carries more than one framework, that is the signal it wanted to be a series.
 
 ---
 
-## 5. The framework H3 micro-format
+## 5. The framework H3 format
 
-Locked. Three bold-inline beats per H3 under the named framework. Two variants, depending on whether the framework names solution components or failure modes. A post uses one variant throughout; mixing variants inside the same post is out.
+### Default: argument subhead + one bolded payoff
 
-### Solution-component variant (default)
+This is the standard for every framework post. Each H3 under the named framework is flowing first-person prose, not a label stack. Two rules:
 
-Use when the H3s name parts of the system that work together: layers, signals, rules, patterns, guardrails. The three beats describe what the component is, why it matters, and the failure mode it prevents.
-
-````markdown
-### Component N: Title
-
-**What it is.** One short paragraph describing the component. Include
-load-bearing technical detail (cadence, idempotency keys, partition
-strategy) here when it explains *what* the component does. No code
-blocks unless the code is the component (a DAX measure on a DAX-stack
-post, a SQL snippet on a query-engine post).
-
-**Why it matters.** One paragraph on what the component does for the
-system as a whole. The rhetorical center of the H3. This is where the
-reader learns why this layer earns its place.
-
-**What goes wrong without it.** One paragraph on the failure mode the
-component prevents. The closing beat of every H3. Concrete: name the
-symptom the team would notice if the layer were missing.
-````
-
-### Failure-mode variant
-
-Use when the H3s name failure modes the framework prevents (for example, "The Four Traps of Semantic Layer Programs"). The "What goes wrong without it" beat does not work here, because the trap *is* the failure mode. The three beats describe the trap, why it is fatal, and the corrective discipline that breaks it.
+- **The subhead is an argument, not a label.** "Floor 1: the tables everyone trusts", not "Layer 1: Data Foundations". "Floor 3: the models that reuse it all", not "Layer 3: Data Science". A reader who skims only the subheads should come away with the argument. The label belongs in documentation; the argument belongs in a blog.
+- **Exactly one bolded payoff line per section.** The section builds in plain prose toward a single bolded sentence: the one takeaway you would want quoted back. One bold, not two, not zero. More than one and none of them lands.
 
 ````markdown
-### Trap N: Title
+### Floor N: the argument this section makes
 
-**What it looks like.** One short paragraph describing the trap.
-Concrete symptoms a reader can recognise in their own program.
-
-**Why it kills the program.** One paragraph on why this trap is fatal,
-not just annoying. The rhetorical center of the H3.
-
-**What to do instead.** One paragraph naming the corrective discipline
-that breaks the trap. Short enough that the full corrective architecture
-lives in "Where I would start", not duplicated inside every H3.
+Flowing prose, first person. Open with the plain version of the idea,
+then the precise term. Build the case in two or three short paragraphs.
+Land it on one bolded line: **the single sentence worth quoting back.**
 ````
 
-### Shared rules
+Load-bearing technical detail (cadence, partition strategy, keys) is welcome inside the prose when it explains the idea. No code blocks unless the code *is* the subject (a DAX measure on a DAX post, a SQL snippet on a query-engine post).
 
-- **Bold-inline format required.** `**Label.**` followed by inline prose. Plain prose labels (`What it tracks: ...`) are out. The bold-inline format is what makes the framework H3s scannable across 4 to 6 components.
-- **No fourth beat.** No `**Implementation note.**`, no `**Examples.**`, no `**Edge cases.**`. Technical implementation detail belongs inside the first beat or in the corresponding [project case study](../src/content/projects/), not in a separate inline note.
-- **One variant per post.** Pick the right variant for the framework. Solution-component variant is the default; reach for the failure-mode variant only when the framework's H3s genuinely name failure modes rather than solution components.
+### Optional: the three-bold reference format
+
+For genuinely reference-style or troubleshooting posts where scannability beats narrative, the older three-bold-inline format is still available. It is no longer the default, because in aggregate it reads mechanical. Use it deliberately, not by habit, and one variant per post.
+
+- **Solution-component variant.** `**What it is.** / **Why it matters.** / **What goes wrong without it.**` Use when the H3s name parts of a system that work together.
+- **Failure-mode variant.** `**What it looks like.** / **Why it kills the program.** / **What to do instead.**` Use when the H3s name failure modes the framework prevents (for example, "The Four Traps of Semantic Layer Programs"), where "what goes wrong without it" does not apply because the trap *is* the failure mode.
+
+No fourth beat in either variant. No `**Implementation note.**`, no `**Examples.**`. Implementation detail lives in the prose or in the corresponding [project case study](../src/content/projects/).
 
 ---
 
 ## 6. Diagrams
 
-Every framework-led post ships with one architecture or framework diagram. No exceptions: a framework-led post without a diagram is incomplete.
+A framework post with a genuine shape (layers, a loop, a pipeline) should ship one architecture or framework diagram. It is strongly recommended, not mandatory: a framework whose value is visual is incomplete without one, but a narrative or opinion post, or a framework that does not draw cleanly, can stand on prose alone. Do not manufacture a diagram to satisfy a checklist.
 
 - **File path**: `public/assets/blog/<slug>-<name>.svg`.
 - **Markdown reference**: `![Alt text describing the framework concretely](/assets/blog/<slug>-<name>.svg)`.
@@ -271,10 +247,10 @@ Tone and word choice follow [BRAND.md section 5](BRAND.md#5-voice-and-tone-appli
 
 Blog-specific anchors:
 
-- **Tense and subject**: past tense for the opening anecdote, present tense for the framework and the analysis. The system or the team is the subject, not the company.
-- **Person**: third-person throughout, except in "Where I would start" where first-person ("If you can only do one, I would do X") is welcome.
-- **Posture**: stated opinions someone could disagree with. The bolded either-or thesis is the test: if the inverse is not also defensible, the thesis has no teeth.
-- **MENA anchoring**: the defensible differentiator is delivery experience in MENA / Arabic-OTT that no generic consultant can fake. Surface it as structural pattern (one paragraph, late in the post), not as decorative reference.
+- **Person**: first person throughout. This is the default that makes a post read like Aamir and not like a brand. Write "I built", "I would start", "what I understand now". See BRAND.md "Long-form and first-person voice" for the full register.
+- **Tense**: past tense for the lived opening, present tense for the framework and the analysis. The subject is your experience and the system, never the current employer.
+- **Posture**: stated opinions someone could disagree with. The either-or thesis is the test: if the inverse is not also defensible, the thesis has no teeth.
+- **The differentiator is lived delivery, abstracted**: the credibility no generic consultant can fake is that you have built and broken these systems. Surface that through concrete, abstracted experience (the "One note from experience" beat), not through regional or employer tells. Do not lean on MENA / Arabic-OTT / Ramadan as the anchor: under your own name it points straight at the current employer, which the discretion rule forbids (see section 10).
 
 ### Fact ledger and external citations
 
@@ -283,11 +259,9 @@ Posts make two kinds of claims, handled differently.
 - **Fact ledger.** Before writing, list every number, tool name, architecture detail, date, role, and decision the post will rely on. Pull from authoritative sources: the project case study, internal docs, the original PDF documenting the work. The draft does not invent numbers.
 - **External claims.** Any claim beyond personal delivery (industry adoption stats, vendor benchmarks, recent thinking from named practitioners) needs a citation. Run a targeted web search and link inline to authoritative sources: vendor docs, named analysts, recent benchmark reports. Every citation should be load-bearing. Do not bulk-cite. Citations are optional, not required; a strong why-now can stand on the structural problem alone.
 
-### MENA anchoring: structural vs decorative
+### No regional anchoring (freelance-discretion override, 2026)
 
-A MENA reference is **structural** if removing it would leave the framework component incomplete. It is **decorative** if removing it leaves the post intact. A post about delivered work needs at least one structural anchor. The "One MENA-flavored note" section in [voice-of-customer-intelligence.md](../src/content/blog/voice-of-customer-intelligence.md) is the worked example: translation is non-optional because half the comments are Arabic, and the date dimension carries Ramadan-window flags because a generic month filter would aggregate across structurally different release periods. Both are structural; removing them would break specific framework components.
-
-Specific seasonal cycles (Ramadan, Eid, World Cup, regional sports finals) follow the cultural-vs-operational test in section 10.
+Earlier versions of this spec treated MENA / Arabic-OTT depth as the differentiator and required a regional anchor in every post. That is reversed for the freelance portfolio. Under Aamir's own name, an Arabic-OTT / Ramadan / subscriber anchor points straight at the current employer, which the discretion rule forbids (see section 10 and the hub's CLAUDE.md Hard rules). The differentiator is now lived delivery experience, abstracted to a generic vertical. Scrub regional and employer tells rather than leaning on them. Use universal entities (customers, accounts, content, records, operations) the way landing copy does.
 
 ---
 
@@ -295,17 +269,17 @@ Specific seasonal cycles (Ramadan, Eid, World Cup, regional sports finals) follo
 
 Mechanical rules (no em-dashes, no emoji, no exclamation marks, no AI attribution, frontmatter schema, build pass) are covered by [BRAND.md](BRAND.md) and the build process. This checklist is structural judgment only.
 
-- [ ] Confidentiality pass per section 10 complete: current employer is not the subject of any sentence, no internal codenames in body or diagram, vendor names abstracted to category descriptors throughout the body and the diagram labels.
-- [ ] All ten beats present in order. No missing diagram. No missing MENA note. No missing closing.
-- [ ] Opening anecdote is a specific scene with people, numbers, or a moment (not an abstract statement).
-- [ ] Bolded thesis appears at or near paragraph 4, follows the "A team is either X or Y. Once it starts X...; once it starts Y... The way you get there is not A. It is B." template.
-- [ ] Framework has a name with weight (not "Approach" or "Methodology"), 3 to 6 H3 components.
-- [ ] Every framework H3 follows the section 5 micro-format: three bold-inline beats in order. Solution-component variant uses `**What it is.** / **Why it matters.** / **What goes wrong without it.**`; failure-mode variant uses `**What it looks like.** / **Why it kills the program.** / **What to do instead.**`. One variant per post. No fourth beat (no `**Implementation note.**`) left over from earlier drafts.
-- [ ] "Where I would start" section is explicit about which component earns the next.
-- [ ] At least one structural MENA anchor present (section 8's structural-vs-decorative test).
+- [ ] Confidentiality pass per section 10 complete: current employer is not the subject of any sentence, no internal codenames in body or diagram, no regional / Arabic-OTT / seasonal tells, vendor names abstracted to category descriptors throughout the body and the diagram labels.
+- [ ] Written in first person throughout (not third-person about "teams" or "systems"). Reads like Aamir, not like a brand.
+- [ ] The spine is present: opening hook, why-now, named framework, "Where I would start", "One note from experience", closing. No mandatory diagram or regional note.
+- [ ] Opening hook is a specific, personal entry (a lived moment or a sharp claim), not an abstract problem statement. The running motif is introduced here and lands in the closing line.
+- [ ] The either-or thesis is stated once, someone could disagree with it, and the inverse is defensible.
+- [ ] Framework has a name with weight (not "Approach" or "Methodology"), 3 to 6 sections, with argument subheads (not label subheads).
+- [ ] Each framework section carries exactly one bolded payoff line (no three-bold label stack, unless the post deliberately uses the optional reference format from section 5).
+- [ ] "Where I would start" is explicit about which part earns the next, in first person.
 - [ ] Closing question challenges the reader's current approach.
 - [ ] Fact ledger built before drafting. External citations are load-bearing and link to authoritative sources, or the post stands without one.
-- [ ] Diagram references a real SVG at `public/assets/blog/<slug>-<name>.svg` with descriptive alt text and an italic caption. Diagram labels use category descriptors.
+- [ ] If the post has a diagram: it references a real SVG at `public/assets/blog/<slug>-<name>.svg` with descriptive alt text and an italic caption, and the labels use category descriptors. (Diagrams are recommended for framework posts, not mandatory.)
 - [ ] `og_title` set, follows one of the three section 3 patterns (tension, specific number, counter-intuitive claim), reads as a feed hook rather than a chapter heading, and is 28 to 42 characters.
 - [ ] `description` is 140 to 160 characters, leads with the change, and earns the click with a specific number, scope, or mechanism.
 - [ ] `/blog/<slug>/` renders correctly at desktop and mobile widths.
@@ -322,7 +296,7 @@ The post's subject is one of:
 
 - **The author's craft.** First-person framing in the "Where I would start" section: "If you can only do one of these first, do X."
 - **The artifact.** System-anchored framing: "The Voice-of-Customer stack is a five-layer pipeline..."
-- **The industry pattern.** Trend-anchored framing: "Arabic-content OTT platforms face a Ramadan-cycle problem..."
+- **The industry pattern.** Trend-anchored framing in a generic vertical: "Subscription businesses face a seasonal-cycle problem..." Not regional, not OTT-specific.
 
 Anonymization-as-descriptor ("a major MENA streaming platform") is the wrong move. It sounds hedged, conflicts with the brand voice, and does not actually anonymize given the LinkedIn experience section. Don't use it. Reframe instead.
 
@@ -365,7 +339,7 @@ Kimball-pattern table names (`dim_*`, `fact_*`) and public-domain field names (`
 - Quoted Slack messages or quoted statements attributed to a specific internal role.
 - Specific show or title names tied to operational anecdotes.
 - Specific batch-window times or named SLAs ("7 AM Dubai daily run", "10 AM SLA").
-- Named seasonal cycles (Ramadan, Eid, World Cup, regional sports finals) used as the *canonical operational example* for a generalizable system. Abstract to "a seasonal cycle", "a predictable recurring window", "calendar-driven shifts every industry handles differently". The exception is cultural-anchor framing (see "what does appear" below).
+- Named seasonal cycles (Ramadan, Eid, World Cup, regional sports finals), in any role. Always abstract to "a seasonal cycle", "a predictable recurring window", "calendar-driven shifts every industry handles differently". The earlier cultural-anchor exception is removed under the freelance-discretion override: a named regional cycle under Aamir's own name points at the current employer.
 
 ### What does appear
 
@@ -373,22 +347,17 @@ Kimball-pattern table names (`dim_*`, `fact_*`) and public-domain field names (`
 - Past employers in factual career-history references. Career-narrative posts can and should name them.
 - Relative outcomes ("X% improvement", "from roughly a quarter to near-full coverage", "hours to seconds").
 - Composite anecdotes that draw on multiple incidents to surface a pattern.
-- MENA / Arabic-OTT structural cultural context: Ramadan release cycles as a *cultural pattern* that explains real industry dynamics, RTL UX, household profile sharing, dialectal Arabic in NLP, regional content licensing. The cultural anchor is the niche differentiator; surface it when the framework component genuinely depends on it.
+- Generic, vertical-agnostic structural patterns that stand in for the real context: a seasonal demand cycle, multilingual text processing, shared household accounts, content licensing windows. State the structural mechanic without the regional label. The freelance-discretion override removed MENA / Arabic-OTT / Ramadan as named anchors (see section 8).
 
-### The cultural-vs-operational test for named seasonal cycles
+### Named seasonal cycles always abstract
 
-Specific seasonal cycles (Ramadan, Eid, World Cup, regional sports finals) appear in two roles. They are handled differently:
-
-- **Cultural-pattern anchor.** Naming a cycle to surface MENA / Arabic-OTT niche depth, as a structural pattern that explains real cultural-and-operational reality not present in Western streaming. **Keep** in posts where the cycle is the structural anchor and removing it would lose niche depth the post depends on.
-- **Canonical operational example.** Naming a cycle as the headline use case for a generalizable system. **Abstract** to "a predictable recurring window where content priorities shift" or "a seasonal cycle the override system activates automatically by date".
-
-The test is whether removing the named cycle leaves the framework component complete. If the lesson is *"you need declarative seasonal overrides"* and Ramadan is the canonical example, the named cycle is operational and should abstract. If the lesson is *"MENA streaming has compressed-launch dynamics that Western models miss"* and Ramadan is the structural anchor, the named cycle is cultural and stays.
+Under the freelance-discretion override there is no longer a two-role test. Specific seasonal cycles (Ramadan, Eid, World Cup, regional sports finals) always abstract to a generic equivalent: "a predictable recurring window where demand shifts", "a seasonal cycle the system handles by date", "calendar-driven shifts every industry handles differently". The structural lesson (you need declarative seasonal overrides; a generic month filter aggregates across structurally different periods) carries fully without the regional name. Keep the mechanic, drop the label.
 
 ---
 
 ## 11. Publishing cadence and distribution
 
-Posts publish weekly, on Wednesdays, one per week. Weekly is sustainable because research and drafting are AI-assisted; the discipline that protects weekly is variety (section 12), not volume. A missed week is invisible. A thin post is not. If a week has nothing ready, skip it rather than ship filler.
+Posts publish bi-weekly, on Wednesdays, one every two weeks. Bi-weekly is the sustainable starting cadence around a full-time job: it protects the rewrite-and-scrub plus review cycle each post needs. Pick up the pace to weekly only once the factory is fast and a buffer of finished posts exists. Decouple writing from publishing: rewrite in batches when there is time, publish on the steady bi-weekly drumbeat. A missed slot is invisible. A thin post is not. If a slot has nothing ready, skip it rather than ship filler.
 
 Scheduling is date-driven, not draft-driven. Set each post's `date` to its intended publish day. `getPublishedPosts()` in [../src/lib/blog.ts](../src/lib/blog.ts) hides any post whose `date` is still in the future, so a finished post can sit in the repo, dated ahead, and stay invisible until its day arrives. To reveal a due post, trigger a rebuild: push any commit, or run the deploy workflow manually (`workflow_dispatch`). The hands-off upgrade is a daily `schedule:` cron in [../.github/workflows/deploy.yml](../.github/workflows/deploy.yml), which lets each post self-publish on its date.
 
@@ -400,13 +369,13 @@ Distribution. Every post ships with a LinkedIn companion (section 13). The blog 
 
 ## 12. Post archetypes
 
-The ten-beat structure in section 4 is the framework archetype. It is the default, not the only shape. Running every post through the same skeleton reads as formulaic in aggregate, and that risk grows at weekly cadence. Rotate across three archetypes:
+The spine in section 4 is the framework archetype. It is the default, not the only shape. Running every post through the same skeleton reads as formulaic in aggregate, and that risk grows at weekly cadence. All three archetypes are first person; what changes is the scaffold:
 
-- **Framework post** (section 4, default). For systems, architectures, and sequences. The full ten beats: anecdote, bolded thesis, named framework with 3 to 6 components, diagram, "Where I would start", MENA note, closing.
-- **War-story / narrative post.** First-person, story-spine: a problem arose, attempts failed, a fix held, here is the lesson. Lighter scaffold, no required diagram, fewer mandatory beats. Use when the lesson lives in the sequence of events, not in a static framework.
+- **Framework post** (section 4, default). For systems, architectures, and sequences. The full spine: hook, why-now, named framework with 3 to 6 argument-subhead sections, recommended diagram, "Where I would start", "One note from experience", closing.
+- **War-story / narrative post.** Story-spine: a problem arose, attempts failed, a fix held, here is the lesson. Lighter scaffold, no diagram, fewer beats. Use when the lesson lives in the sequence of events, not in a static framework.
 - **Opinion / contrarian essay.** Leads with a debated take and defends it with receipts. No framework or diagram required. The highest-reach format, and the one to reach for when the value is the position itself rather than a how-to.
 
-Pick the archetype before drafting. The bolded either-or thesis and at least one structural MENA anchor carry across all three; the rigid ten beats apply only to the framework archetype.
+Pick the archetype before drafting. First person, the either-or thesis, the running motif, and the discretion scrub carry across all three; the full framework spine applies only to the framework archetype.
 
 ---
 
@@ -414,16 +383,27 @@ Pick the archetype before drafting. The bolded either-or thesis and at least one
 
 Every post has a companion LinkedIn draft, written at publish-planning time and stored as a sidecar at `social/linkedin/<slug>.md`. The `<slug>` is the same one the post file uses, which is also the OG card filename (`public/og/blog/<slug>.png`) and the URL path (`/blog/<slug>/`), so the post, its card, and its companion all stay in sync from one identifier. The sidecar lives outside `src/`, so it is never built or schema-validated.
 
+**Length and the fold.** Keep the whole post under 800 characters. LinkedIn truncates the feed preview with a "see more" link after roughly 140 to 210 characters, so the first line or two must carry the hook on their own: the part above the fold is the whole ad for the rest. Do not open with the link or a throat-clearing line. The reference companion is the bi-to-ai sidecar.
+
 Each draft holds:
 
-- A scroll-stopping first line, the hook rather than the title.
+- A scroll-stopping first line, the hook rather than the title, written to land above the "see more" fold.
 - The post's core tension and named framework, in a few short paragraphs.
 - One or two concrete specifics lifted from the post.
 - A plain-language takeaway.
 - The canonical post URL `https://syedaamir.com/blog/<slug>/` on its own line near the end. LinkedIn scrapes that URL to render the OG card, and deprioritises links placed in the first line.
 - Two or three relevant hashtags. More than that reads as marketing.
 
-Same hard rules as the post: no em-dashes, no emoji, no exclamation marks, no "feel free to reach out" sign-off, and the employer is never the subject. Vary hooks and closers across companions, and match each one to its post's archetype, so the feed does not read as a template either. A lighter, human register (contractions, a plain aside) is welcome here; it is what keeps the companion from reading as machine-generated.
+Same hard rules as the post: no em-dashes, no emoji, no exclamation marks, no "feel free to reach out" sign-off, and the employer is never the subject. No markdown bold or headings: LinkedIn strips them, so the draft is plain text. Vary hooks and closers across companions, and match each one to its post's archetype, so the feed does not read as a template either. A lighter, human register (contractions, a plain aside) is welcome here; it is what keeps the companion from reading as machine-generated.
+
+### OG card and link handling
+
+Posting the blog link is what renders the rich preview card (the OG card) in the feed, pulling `og_title`, the description, and the OG image from the live page. That card is the credibility and click-through anchor, so the default is link-in-post, not link-in-first-comment. The reach trade-off (LinkedIn slightly favours link-free posts) is outweighed at this stage by the card and the click to an owned property.
+
+- **Keep the URL near the end** of the copy, never the first line (LinkedIn penalises a first-line link hardest, and it competes with the hook).
+- **Clean-card trick:** when composing in LinkedIn, paste the URL, wait for the card to render below, then delete the raw URL text from the post. The card stays and the copy reads clean. The card itself is the clickable link.
+- **Port before sharing:** the card reads from the live page, so the post must be published on syedaamir.com first. Sharing before porting renders the old version's card.
+- **First-comment alternative:** only if maximising raw reach matters more than the card for a given post. Then the card does not render on the post, so rely on the hook alone and drop the link in the first comment.
 
 ---
 
@@ -434,4 +414,4 @@ Same hard rules as the post: no em-dashes, no emoji, no exclamation marks, no "f
 - **Content schema**: [src/content.config.ts](../src/content.config.ts).
 - **Series registry**: [src/data/series.ts](../src/data/series.ts).
 - **Layout that wraps the markdown body**: [src/layouts/BlogPost.astro](../src/layouts/BlogPost.astro).
-- **Canonical anchor for the pattern**: [src/content/blog/voice-of-customer-intelligence.md](../src/content/blog/voice-of-customer-intelligence.md).
+- **Canonical anchor for the voice and structure**: [src/content/blog/bi-to-ai-journey.md](../src/content/blog/bi-to-ai-journey.md).
