@@ -4,7 +4,7 @@ date: 2026-06-10
 description: "Most AI initiatives stall on the data model, not the model. The unglamorous foundation work is the real strategy, and naming it that decides where the budget goes."
 og_title: "AI Strategy Is Data Modeling in Disguise"
 categories: ["AI & Automation", "Data Engineering"]
-draft: false
+draft: true
 ---
 
 Most AI strategy is a data-modeling problem wearing a costume.

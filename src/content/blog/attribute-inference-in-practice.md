@@ -4,7 +4,7 @@ date: 2026-09-02
 description: "Lifting profile coverage from sparse to near-full across millions of users, and the four guardrails that decide whether inferred data helps or harms."
 og_title: "Inferred Data: Asset or Liability?"
 categories: ["Data Science"]
-draft: false
+draft: true
 ---
 
 A content team asked a planning question: what does the female audience over 25 actually watch? The honest first answer was that only a quarter of adult profiles had self-reported gender data. The rest was unknown.

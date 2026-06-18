@@ -4,7 +4,7 @@ date: 2026-07-01
 description: "Semantic-layer programs collapse into four predictable traps because they are scoped like engineering projects. Here is the rollout that breaks all four."
 og_title: "Why Most Semantic Layers Fail"
 categories: ["Data Governance"]
-draft: false
+draft: true
 ---
 
 The first Monday of a quarterly review opened with the three-different-numbers slide. Three teams, three counts for "monthly active subscribers" in the same month. The subscriptions team had one number. The engagement team had a higher one. The ad-ops team had a lower one. None were technically wrong. Each had been calculated against a different filter assumption: trial users included or excluded, internal accounts in or out, household-shared profiles counted once or per device.

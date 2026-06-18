@@ -4,7 +4,7 @@ date: 2026-08-05
 description: "How a missed overnight refresh stops being a leadership incident: a six-stage loop and a five-step backfill, run from a written runbook."
 og_title: "When the Overnight Refresh Fails"
 categories: ["Data Engineering", "BI & Analytics"]
-draft: false
+draft: true
 series: semantic-layer
 series_part: 5
 ---

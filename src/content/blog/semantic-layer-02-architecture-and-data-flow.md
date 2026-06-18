@@ -4,7 +4,7 @@ date: 2026-07-15
 description: "Draw clean ownership boundaries between data, metric, and report engineering before the first measure ships. This is what decides whether the layer scales."
 og_title: "Three Owners of the Semantic Layer"
 categories: ["BI & Analytics", "Data Engineering"]
-draft: false
+draft: true
 series: semantic-layer
 series_part: 2
 ---

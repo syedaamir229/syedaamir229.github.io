@@ -4,7 +4,7 @@ date: 2026-07-29
 description: "Three release gates that stop the deploy that would reset partitions and roles before it ships to production."
 og_title: "The Deploy That Reset the Whole Model"
 categories: ["Data Governance", "BI & Analytics"]
-draft: false
+draft: true
 series: semantic-layer
 series_part: 4
 ---

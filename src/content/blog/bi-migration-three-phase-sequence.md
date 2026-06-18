@@ -4,7 +4,7 @@ date: 2026-08-26
 description: "A three-phase BI migration (tool, then data layer, then metric logic) replaces big-bang cutovers with validated swaps that survive when numbers move."
 og_title: "BI Migrations Without Big-Bang Cutovers"
 categories: ["BI & Analytics", "Data Engineering"]
-draft: false
+draft: true
 ---
 
 The mid-cutover review opened with two numbers for the same KPI: the new platform's and the old platform's, same reporting period, three percent apart. The executive sponsor asked the room which one to ship to the board next week. The team had migrated the BI tool, the data layer, and a hundred KPI definitions in parallel. There was no honest way to point at a single layer and say "that is where the difference came from." The three percent might have been the new metric definition, the new data join, or the new rendering. "We'll come back with a reconciliation" was the only available answer.

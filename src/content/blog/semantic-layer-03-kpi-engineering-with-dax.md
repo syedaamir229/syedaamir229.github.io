@@ -4,7 +4,7 @@ date: 2026-07-22
 description: "DAX measure design is what decides whether a semantic layer scales. Build measure logic in three layers, or the same KPI shows up in three shapes."
 og_title: "Why One KPI Has Three Shapes"
 categories: ["BI & Analytics", "Data Modeling"]
-draft: false
+draft: true
 series: semantic-layer
 series_part: 3
 ---

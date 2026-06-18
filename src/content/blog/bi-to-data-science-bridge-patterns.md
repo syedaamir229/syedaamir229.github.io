@@ -4,7 +4,7 @@ og_title: "Four Bridges Between BI and Data Science"
 date: 2026-08-19
 description: "Four bridge patterns from a BI-to-DS transition: shared entities, careful feature promotion, use-first validation, and role evolution."
 categories: ["Data Science", "BI & Analytics"]
-draft: false
+draft: true
 ---
 
 A quarterly review surfaced a churn model and a churn dashboard disagreeing on a few thousand profiles. The executive in the room asked which number was the right one. The answer needed to fit in one room. The same conflict had surfaced six months earlier in a different review, same shape.

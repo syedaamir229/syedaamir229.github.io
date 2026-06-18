@@ -4,7 +4,7 @@ date: 2026-09-16
 description: "A five-layer stack turns scattered Arabic-language feedback into a system that answers content-team questions in seconds, on one architectural decision."
 og_title: "Voice-of-Customer in Five Layers"
 categories: ["AI & Automation", "Data Science"]
-draft: false
+draft: true
 ---
 
 On the morning of a tentpole launch, a product manager filed a request for sentiment on the previous night's premiere. The answer arrived three days later, after exports had been pulled by hand from four platforms, sample-translated from Arabic, sentiment-tagged, aggregated, and assembled into a slide deck. By then the content team had already moved on to the next release. The cycle repeated with the next finale, and the next.

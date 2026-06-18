@@ -4,7 +4,7 @@ og_title: "The Six-Layer CRM Operating System"
 date: 2026-09-23
 description: "A scenario-based CRM operating system that replaced manual analyst handoffs, gave operators direct targeting, and closed the loop from data to activation."
 categories: ["AI & Automation", "Data Engineering"]
-draft: false
+draft: true
 ---
 
 A CRM team filed a Monday-morning request for a same-day re-engagement audience: subscribers who had started but not finished a tentpole series, segmented by region, ahead of a finale promotion that needed to ship by afternoon. The request was structurally the same query the team had filed a dozen times that month under different titles. The analyst quoted three days. By the time the audience was built, the finale promotion had already run; the eligible subscribers had either churned through the window or watched the finale anyway. The campaign was a post-mortem before it shipped.

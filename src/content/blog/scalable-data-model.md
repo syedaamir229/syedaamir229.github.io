@@ -4,7 +4,7 @@ date: 2026-06-17
 description: "Most data models are scoped like projects that end. The ones that compound are designed like infrastructure. Here are five rules that hold over years."
 og_title: "Most Data Models Are Scoped to Die"
 categories: ["Data Engineering"]
-draft: false
+draft: true
 ---
 
 Most data models are built to match the launch dashboard. They do it well, and then the second consumer arrives, a churn model or a CRM audience, and the model has to be rebuilt from raw events because it was shaped around a report instead of the business.

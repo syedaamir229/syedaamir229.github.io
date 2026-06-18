@@ -4,7 +4,7 @@ date: 2026-08-12
 description: "A weekly cycle that turns monitoring telemetry into prioritised fixes, before slow queries become a trust problem."
 og_title: "When Slow Queries Kill Trust"
 categories: ["BI & Analytics", "Data Engineering"]
-draft: false
+draft: true
 series: semantic-layer
 series_part: 6
 ---

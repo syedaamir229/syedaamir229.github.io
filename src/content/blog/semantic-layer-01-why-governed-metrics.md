@@ -4,7 +4,7 @@ og_title: "Why Governed Metrics Become Non-Negotiable"
 date: 2026-07-08
 description: "The first six weeks of a semantic-layer program are not a tooling decision. Resolve every definitional disagreement before the platform choice is made."
 categories: ["BI & Analytics", "Data Governance"]
-draft: false
+draft: true
 series: semantic-layer
 series_part: 1
 ---
