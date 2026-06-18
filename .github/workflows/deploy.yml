@@ -4,6 +4,11 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  schedule:
+    # Daily rebuild so date-gated posts self-publish on their date.
+    # 06:00 UTC = 10:00 Dubai, before the afternoon LinkedIn share window.
+    # (GitHub may delay scheduled runs by a few minutes under load.)
+    - cron: '0 6 * * *'
 
 permissions:
   contents: read
