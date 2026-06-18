@@ -46,7 +46,7 @@ export const EXPERIENCE: Company[] = [
           { name: 'CRM Automation', href: '/projects/crm-automation/' },
           { name: 'Voice-of-Customer', href: '/projects/voice-of-customer/' },
           { name: 'Segmentation & Inference', href: '/projects/segmentation-inference/' },
-          { name: 'Data Foundation', href: '/projects/data-foundation/' },
+          { name: 'Data Model', href: '/projects/data-foundation/' },
         ],
       },
       {
@@ -60,7 +60,8 @@ export const EXPERIENCE: Company[] = [
           'Mentored the BI and analytics team on DAX, SQL, and Power BI, building bench depth across the function',
         ],
         projects: [
-          { name: 'Data Foundation', href: '/projects/data-foundation/' },
+          { name: 'Semantic Layer', href: '/projects/semantic-layer/' },
+          { name: 'Data Model', href: '/projects/data-foundation/' },
           { name: 'Ad Inventory & Revenue', href: '/projects/ad-revenue-pipeline/' },
         ],
       },
@@ -75,7 +76,8 @@ export const EXPERIENCE: Company[] = [
           'Shipped Phase 1 of the ad inventory and revenue pipeline covering ad delivery, performance tracking, and reconciliation',
         ],
         projects: [
-          { name: 'Data Foundation', href: '/projects/data-foundation/' },
+          { name: 'Semantic Layer', href: '/projects/semantic-layer/' },
+          { name: 'Data Model', href: '/projects/data-foundation/' },
         ],
       },
     ],

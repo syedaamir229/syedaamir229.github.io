@@ -57,7 +57,7 @@ export const CAPABILITIES: Capability[] = [
     ],
     icon: 'chart',
     heroTitle: 'Enterprise Semantic Layer & KPI Framework',
-    heroLink: '/projects/data-foundation/',
+    heroLink: '/projects/semantic-layer/',
     allWorkLink: '/projects/#bi-analytics',
     allWorkLabel: 'All BI & analytics work',
   },
