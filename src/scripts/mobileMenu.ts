@@ -1,14 +1,13 @@
 const btn = document.getElementById('mobile-menu-btn');
 const menu = document.getElementById('mobile-menu');
-const icon = document.getElementById('menu-icon');
-
-const HAMBURGER = 'M4 6h16M4 12h16M4 18h16';
-const CLOSE = 'M6 18L18 6M6 6l12 12';
+const openIcon = document.querySelector<SVGElement>('.menu-icon-open');
+const closeIcon = document.querySelector<SVGElement>('.menu-icon-close');
 
 function setOpen(open: boolean) {
-  if (!menu || !icon) return;
+  if (!menu) return;
   menu.classList.toggle('hidden', !open);
-  icon.setAttribute('d', open ? CLOSE : HAMBURGER);
+  openIcon?.classList.toggle('hidden', open);
+  closeIcon?.classList.toggle('hidden', !open);
   btn?.setAttribute('aria-expanded', String(open));
 }
 
