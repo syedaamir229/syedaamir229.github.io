@@ -4,7 +4,7 @@ Living scratchpad. Active work goes under Current; everything else lives under F
 
 ## Current
 
-(empty)
+- **Write a standalone BI & Analytics case study (semantic layer + KPI framework).** The 6-to-3 project consolidation (done in the freelancer-hub context) folded the semantic-layer work into `data-foundation` (categorized Data Engineering), which left BI & Analytics with no dedicated case study: the BI capability card and the `/projects/#bi-analytics` filter have nothing behind them, even though BI is the deepest, most-provable part of the profile and the literal evidence for the [bi-to-ai-journey](src/content/blog/bi-to-ai-journey.md) thesis ("AI is a dividend on BI foundation work"). Decision (2026-06-18): keep leading with Data/AI, but add BI back as depth, not as the headline. Write a focused study covering the governed semantic layer, KPI framework, and the Power BI Premium to SSAS Tabular migration. `category: "BI & Analytics"`, `featured: false` (backs the BI card and fills the filter without competing with the Data/AI featured row). Source material: old `semantic-layer.md` in git history + the semantic-layer blog series. Follow the `case-study-copywriter` skill and the freelancer-hub discretion rules (write, scrub, hand-coded diagram, verify). When it ships, repoint the BI capability card hero link in [src/data/capabilities.ts](src/data/capabilities.ts) and the relevant experience chip in [src/data/experience.ts](src/data/experience.ts) from `data-foundation` to the new study.
 
 ## Future enhancements
 
