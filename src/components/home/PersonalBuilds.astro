@@ -1,0 +1,99 @@
+---
+import { getPublishedProjects } from '../../lib/projects';
+import Card from '../ui/Card.astro';
+import Eyebrow from '../ui/Eyebrow.astro';
+import Tag from '../ui/Tag.astro';
+
+const builds = (await getPublishedProjects({ kind: 'personal' })).map((p) => {
+  const heroMetric = p.data.metrics?.[0];
+  return {
+    title: p.data.title,
+    description: p.data.description,
+    tags: (p.data.tags ?? []).slice(0, 3),
+    metric: heroMetric ? `${heroMetric.value} ${heroMetric.label}`.trim() : null,
+    href: `/projects/${p.id}/`,
+    diagram: `/assets/projects/${p.id}.svg`,
+  };
+});
+
+const isSpotlight = builds.length === 1;
+const spotlight = builds[0];
+---
+
+{builds.length > 0 && (
+  <section class="pb-16 px-6 reveal">
+    <div class="max-w-6xl mx-auto">
+      <div class="flex items-start justify-between gap-6 mb-10">
+        <div>
+          <Eyebrow class="mb-3">Personal builds</Eyebrow>
+          <h2 class="text-2xl md:text-3xl font-bold mb-2">
+            Built end to end, on my own
+          </h2>
+          <p class="text-muted-500 text-sm max-w-xl">
+            Full-stack systems I designed, built, and deployed myself, from ingestion to interface.
+          </p>
+        </div>
+        <a href="/projects/" class="shrink-0 text-cyan-400 hover:text-cyan-300 text-sm font-medium transition-colors mt-1">
+          View all <span aria-hidden="true">&rarr;</span>
+        </a>
+      </div>
+
+      {isSpotlight ? (
+        <Card as="a" href={spotlight.href} hover padding="lg" class="md:grid md:grid-cols-2 md:gap-8 md:items-center">
+          <div class="rounded-lg border border-cream-100/5 bg-navy-900/60 p-4 mb-6 md:mb-0">
+            <img
+              src={spotlight.diagram}
+              alt={`${spotlight.title} architecture diagram`}
+              loading="lazy"
+              class="w-full h-auto"
+            />
+          </div>
+          <div>
+            {spotlight.metric && (
+              <div class="flex items-center gap-2 mb-3">
+                <Tag>{spotlight.metric}</Tag>
+              </div>
+            )}
+            <h3 class="text-cream-100 font-semibold text-xl md:text-2xl mb-3 group-hover:text-cyan-400 transition-colors">
+              {spotlight.title}
+            </h3>
+            <p class="text-muted-500 text-sm leading-relaxed mb-4">
+              {spotlight.description}
+            </p>
+            <div class="flex flex-wrap gap-2 mb-5">
+              {spotlight.tags.map((tag) => (
+                <Tag variant="tag">{tag}</Tag>
+              ))}
+            </div>
+            <span class="text-cyan-400 group-hover:text-cyan-300 text-sm font-medium transition-colors">
+              Read the case study <span aria-hidden="true">&rarr;</span>
+            </span>
+          </div>
+        </Card>
+      ) : (
+        <div class="grid md:grid-cols-2 gap-6">
+          {builds.map((build) => (
+            <Card as="a" href={build.href} hover>
+              {build.metric && (
+                <div class="flex items-center gap-2 mb-3">
+                  <Tag>{build.metric}</Tag>
+                </div>
+              )}
+              <h3 class="text-cream-100 font-semibold text-lg mb-2 group-hover:text-cyan-400 transition-colors">
+                {build.title}
+              </h3>
+              <p class="text-muted-500 text-sm leading-relaxed mb-4">
+                {build.description}
+              </p>
+              <div class="flex flex-wrap gap-2">
+                {build.tags.map((tag) => (
+                  <Tag variant="tag">{tag}</Tag>
+                ))}
+              </div>
+            </Card>
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+)}

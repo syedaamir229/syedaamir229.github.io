@@ -4,6 +4,7 @@ import Hero from '../components/home/Hero.astro';
 import Pipeline from '../components/home/Pipeline.astro';
 import Capabilities from '../components/home/Capabilities.astro';
 import FeaturedProjects from '../components/home/FeaturedProjects.astro';
+import PersonalBuilds from '../components/home/PersonalBuilds.astro';
 import { getWebSiteSchema } from '../lib/structuredData';
 
 const website = getWebSiteSchema();
@@ -14,4 +15,5 @@ const website = getWebSiteSchema();
   <Pipeline />
   <Capabilities />
   <FeaturedProjects />
+  <PersonalBuilds />
 </BaseLayout>
