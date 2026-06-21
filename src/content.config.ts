@@ -32,6 +32,7 @@ const projects = defineCollection({
     tags: z.array(z.string()).default([]),
     featured: z.boolean().default(false),
     draft: z.boolean().default(false),
+    kind: z.enum(['enterprise', 'personal']).default('enterprise'),
     metrics: z
       .array(
         z.object({

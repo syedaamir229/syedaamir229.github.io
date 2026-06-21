@@ -1,15 +1,16 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHeader from '../../components/ui/PageHeader.astro';
-import CategoryFilter from '../../components/ui/CategoryFilter.astro';
+import Eyebrow from '../../components/ui/Eyebrow.astro';
 import ProjectGrid from '../../components/projects/ProjectGrid.astro';
 import { getPublishedProjects } from '../../lib/projects';
-import { PRACTICE_AREA_NAMES } from '../../data/categories';
 import { PROJECTS_TAGLINE } from '../../data/projects';
 
 const allProjects = await getPublishedProjects();
-const presentCategories = new Set(allProjects.map((p) => p.data.category));
-const categories = PRACTICE_AREA_NAMES.filter((c) => presentCategories.has(c));
+const enterpriseProjects = allProjects.filter(
+  (p) => (p.data.kind ?? 'enterprise') === 'enterprise',
+);
+const personalProjects = allProjects.filter((p) => p.data.kind === 'personal');
 ---
 
 <BaseLayout
@@ -23,9 +24,34 @@ const categories = PRACTICE_AREA_NAMES.filter((c) => presentCategories.has(c));
   />
 
   <section class="py-16 px-6 reveal">
-    <div class="max-w-6xl mx-auto">
-      <CategoryFilter categories={categories} />
-      <ProjectGrid projects={allProjects} />
+    <div class="max-w-6xl mx-auto space-y-20">
+      {enterpriseProjects.length > 0 && (
+        <div>
+          <Eyebrow class="mb-3">Enterprise work</Eyebrow>
+          <h2 class="text-2xl md:text-3xl font-bold leading-tight mb-3">
+            Delivered in production, at scale
+          </h2>
+          <p class="text-muted-500 text-base leading-relaxed max-w-2xl mb-8">
+            Data and analytics systems built inside a large consumer business,
+            anonymized for confidentiality.
+          </p>
+          <ProjectGrid projects={enterpriseProjects} />
+        </div>
+      )}
+
+      {personalProjects.length > 0 && (
+        <div>
+          <Eyebrow class="mb-3">Personal builds</Eyebrow>
+          <h2 class="text-2xl md:text-3xl font-bold leading-tight mb-3">
+            Built end to end, on my own
+          </h2>
+          <p class="text-muted-500 text-base leading-relaxed max-w-2xl mb-8">
+            Full-stack systems I designed, built, and deployed myself, from
+            ingestion to interface.
+          </p>
+          <ProjectGrid projects={personalProjects} />
+        </div>
+      )}
     </div>
   </section>
 </BaseLayout>
