@@ -85,9 +85,6 @@ The trust contract in action. Pushed to attribute Apple's margin gains to genera
 
 The live path reads left to right. A question goes to the backend's agent, which runs hybrid retrieval, searching by meaning and by keyword and fusing the two rankings, against the indexed store. It hands the best passages to the language model to draft an answer, then puts that draft through the grounding validator. The validator is the gate: if every citation maps to a retrieved passage, the cited answer streams back; if not, it refuses rather than guess. Below, a one-time ingestion pipeline parses, splits, embeds, and stores documents into the same indexed store the retrieval step reads from, extracting tables as structured rows so a citation can show a whole table rather than a fragment.
 
-<!-- DEMO VIDEO PLACEHOLDER (add after recording): a short walkthrough of asking a question, reading the cited answer, opening a source passage, and seeing the refusal.
-     Paste the final URL here and surface it in the body or link it from the Architecture caption: https://... -->
-
 ## Tech Stack
 
 - **Application**: React + TypeScript SPA (Vite), FastAPI backend, deployed end to end on Railway
