@@ -30,6 +30,19 @@ I built Document Copilot to take that out of the way: point it at a set of docum
 
 To prove it on something real and public, I loaded it with SEC annual reports from five large companies, but the same system works on any documents you give it.
 
+## Demo
+
+<div class="video-embed">
+  <iframe
+    src="https://www.youtube.com/embed/fqIJTqflDAA?rel=0&modestbranding=1"
+    title="Document Copilot demo video"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    allowfullscreen
+  ></iframe>
+</div>
+
+A short walkthrough of asking a question, opening the cited source passage, and seeing the assistant refuse an unsupported claim.
+
 ## Approach
 
 Three calls carried the rest of the work.
