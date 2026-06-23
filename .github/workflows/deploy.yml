@@ -6,9 +6,11 @@ on:
   workflow_dispatch:
   schedule:
     # Daily rebuild so date-gated posts self-publish on their date.
-    # 06:00 UTC = 10:00 Dubai, before the afternoon LinkedIn share window.
+    # 01:00 UTC = 05:00 Dubai. Posts are dated at UTC midnight, so this is the
+    # earliest run that clears the date gate; the blog is live before the
+    # morning LinkedIn share window, with the link safe hours ahead.
     # (GitHub may delay scheduled runs by a few minutes under load.)
-    - cron: '0 6 * * *'
+    - cron: '0 1 * * *'
 
 permissions:
   contents: read
