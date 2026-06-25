@@ -133,7 +133,7 @@ async function svgToJpg(svg, quality = 90) {
 export async function renderBlogCard({
   title,
   series,
-  byline = 'Syed Aamir · Data & AI Solutions Engineer',
+  byline = 'Syed Aamir · Data & AI Solutions Architect',
 }) {
   const fonts = await loadFonts();
 
@@ -176,7 +176,7 @@ export async function renderHomepageCard({
   name = 'Syed Aamir',
   tagline = 'Data that works as hard as your business does.',
   location = 'Dubai, UAE',
-  eyebrow = 'DATA & AI SOLUTIONS ENGINEER',
+  eyebrow = 'DATA & AI SOLUTIONS ARCHITECT',
 } = {}) {
   const fonts = await loadFonts();
 

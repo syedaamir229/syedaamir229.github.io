@@ -1,10 +1,10 @@
 export const SITE = {
   name: 'Syed Aamir',
-  title: 'Data & AI Solutions Engineer',
+  title: 'Data & AI Solutions Architect',
   // "10+ years" is intentionally manual here (meta description, ~5-year cadence).
   // Rationale and the milestone to bump live in src/CLAUDE.md, "Computed figures".
   description:
-    'Data and AI solutions engineer based in Dubai, UAE. 10+ years delivering practical data platforms, analytics systems, and AI automation.',
+    'Data and AI solutions architect based in Dubai, UAE. 10+ years architecting data platforms, analytics systems, and AI automation at enterprise scale.',
   url: 'https://syedaamir.com',
   author: 'Syed Aamir',
   email: 'aamir@syedaamir.com',
