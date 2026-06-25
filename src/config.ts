@@ -4,7 +4,7 @@ export const SITE = {
   // "10+ years" is intentionally manual here (meta description, ~5-year cadence).
   // Rationale and the milestone to bump live in src/CLAUDE.md, "Computed figures".
   description:
-    'Data and AI solutions architect based in Dubai, UAE. 10+ years architecting data platforms, analytics systems, and AI automation at enterprise scale.',
+    'Data and AI solutions architect based in Dubai, UAE. 10+ years across data platforms and analytics systems, now building production AI.',
   url: 'https://syedaamir.com',
   author: 'Syed Aamir',
   email: 'aamir@syedaamir.com',
