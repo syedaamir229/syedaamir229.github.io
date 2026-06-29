@@ -33,6 +33,14 @@ See [BRAND.md](BRAND.md) "Long-form and first-person voice" for the voice, [BLOG
 
 The semantic-layer series (parts 1-6) is one Low-reach block with one higher-reach entry point (part 1). Its scrub is the most mechanical in the catalog: swap streaming KPI examples for generic ones, delete the per-post Ramadan note. Consider rewriting the six as a single batch even though they publish across separate slots.
 
+## Net-new posts (not rewrites)
+
+Original posts written fresh in the current voice, outside the rewrite queue.
+
+| Slug | Status | Notes |
+|------|--------|-------|
+| data-ai-maturity-ladder | **Done — draft:false, scheduled 2026-07-01 (date-gated)** | Net-new framework post building on Dan Martell's AI Adoption Ladder, adding the data-foundation ("wall") dimension. Voice-calibrated against Aamir's own corpus; passed the blog and LinkedIn persona panels and the discretion scrub. Diagram skipped deliberately (concept-illustration risk). Re-voiced line by line in a later pass (Plain-recognition dial); the companion close was reworked to a reader-challenge CTA and the proof line swapped to the decade-in-data receipt. Companion at `social/linkedin/data-ai-maturity-ladder.md`. Goes live on the daily rebuild on its date. |
+
 ## Cut from the catalog
 
 | Slug | Why cut |
