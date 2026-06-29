@@ -182,7 +182,7 @@ Landing-surface copy (home page, capability cards, section subheads, hero, CTAs)
 
 Use universal entities: customers, transactions, operations, finance, marketing, sales, risk, intent, records, content, accounts.
 
-**Project case studies and blog posts are the opposite**: stay concrete and specific about the delivered work. They are evidence, not pitch. But they must NOT lean into MENA / OTT / MBC Shahid: scrub all OTT/streaming vocabulary, reframe to a generic vertical, and never let MBC be inferable. Show delivery depth through abstracted specifics, not regional or employer tells. Authoritative rules: the `case-study-copywriter` skill and the freelancer hub's CLAUDE.md Hard rules.
+**Project case studies and blog posts are the opposite**: stay concrete and specific about the delivered work. They are evidence, not pitch. But they must NOT lean into MENA / OTT / MBC Shahid: scrub all OTT/streaming vocabulary, reframe to a generic vertical, and never let MBC be inferable. Show delivery depth through abstracted specifics, not regional or employer tells. Authoritative rules: the `case-study-copywriter` and `blog-writeup` skills, vendored in this repo under `.claude/skills/`.
 
 ---
 

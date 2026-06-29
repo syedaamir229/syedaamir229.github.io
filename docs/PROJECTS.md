@@ -9,7 +9,7 @@ Tone and voice principles live in [BRAND.md](BRAND.md). This file owns *how to w
 ## 1. TL;DR
 
 1. Create `src/content/projects/<slug>.md`.
-2. Fill the frontmatter (4 required fields, 4 optional).
+2. Fill the frontmatter (4 required fields, 5 optional).
 3. Write six markdown H2 sections in this order: Challenge, Approach, Results & Impact, Architecture, Tech Stack, My Role.
 4. Drop the diagram SVG at `public/assets/projects/<slug>.svg` and reference it with `![alt](/assets/projects/<slug>.svg)` under Architecture.
 5. Run `npm run dev` and check `/projects/<slug>/`.
@@ -20,7 +20,7 @@ Tone and voice principles live in [BRAND.md](BRAND.md). This file owns *how to w
 
 - **Path**: `src/content/projects/<slug>.md`
 - **Format**: plain markdown. No `.mdx`, no imports, no JSX.
-- **Slug**: lowercase kebab-case (`semantic-layer`, `ad-revenue-pipeline`, `bi-migration`, `voice-of-customer`).
+- **Slug**: lowercase kebab-case (`semantic-layer`, `ad-revenue-pipeline`, `data-foundation`, `voice-of-customer`).
 
 ---
 
@@ -50,9 +50,11 @@ metrics:                            # 3-4 quantitative outcomes; rendered as the
 
 `title`, `description`, `category`, `metrics`.
 
+`title`, `description`, and `category` are enforced by the schema. `metrics` defaults to `[]` in the schema but is editorially required: every case study ships a 3 to 4 entry metrics row.
+
 ### Optional fields
 
-`tags`, `featured`, `order`, `draft`.
+`tags`, `featured`, `order`, `draft`, `kind`.
 
 ### Field guide
 
@@ -194,7 +196,7 @@ Mechanical rules (no em-dashes, no emoji, `.md` not `.mdx`, no `import` lines, f
 > 1. **Identifying vendor names are dropped from every surface, including Tech Stack and `tags`** (not just abstracted in the body). The OTT-specific cluster Youbora + Evergent + Mediagenix is the fingerprint; remove it entirely. Keep only generic, cross-industry tooling (Databricks, Power BI, Delta Lake, SSAS, etc.).
 > 2. **No MENA / OTT / streaming framing anywhere.** Reframe to a generic vertical ("a large subscription-based consumer business"). Scrub viewing/watch/episode/household/AVOD/VAST/Arabic-residency vocabulary.
 >
-> Authoritative rules: `~/.claude/skills/case-study-copywriter/SKILL.md` and the freelancer hub's CLAUDE.md Hard rules.
+> Authoritative rules: the `case-study-copywriter` skill, vendored in this repo at `.claude/skills/case-study-copywriter/SKILL.md`.
 
 Project case studies are written while the author is employed. Same posture as blog posts: the company is on the CV and LinkedIn, not the subject of any sentence in the case study body. Case studies are *artifact-anchored* by default ("the platform", "the system", "the pipeline"), which already satisfies the rule structurally. Cross-reference: [BLOG.md section 10](BLOG.md#10-confidentiality).
 
@@ -210,7 +212,7 @@ Project-specific rules:
   - **Frontmatter `metrics`: abstract.** Magnitude / relative descriptors only, no exact figures (see rule above).
   - **Frontmatter `tags`: explicit.** Vendor tags fine individually (they sit alongside Tech Stack as the same surface).
 - **No vendor-specific operational quantity paired with a named vendor.** Even in Tech Stack. "GAM with a 14-day attribution window" pairs a vendor name with a vendor-specific cadence and uniquely fingerprints the deployment. Either name the vendor without the quantity, or describe the operational behavior ("late-arriving attribution requires a multi-week historical refresh") without naming the vendor.
-- **No named seasonal cycle as the canonical operational example.** Naming Ramadan, Eid, World Cup, or a regional sports final as the headline use case for a generalizable system (especially in the My Role transfer note) ties the pattern to one industry. Abstract to "a predictable recurring window" or "a seasonal cycle the override system activates automatically by date". Cultural-anchor framing is different and still allowed (see [BLOG.md section 10](BLOG.md#10-confidentiality) for the test).
+- **No named seasonal cycle as the canonical operational example.** Naming Ramadan, Eid, World Cup, or a regional sports final as the headline use case for a generalizable system (especially in the My Role transfer note) ties the pattern to one industry. Abstract to "a predictable recurring window" or "a seasonal cycle the override system activates automatically by date". Cross-reference: [BLOG.md section 10](BLOG.md#10-confidentiality).
 - **Internal column-name conventions**: column and table names with an in-house prefix that fingerprints the warehouse (e.g. `dwh_user_id`, `dwh_content_id`) get renamed to conventional equivalents in body and diagrams. Public API field names and Kimball star-schema patterns (`dim_*`, `fact_*`) stay. Cross-reference: [BLOG.md section 10](BLOG.md#10-confidentiality).
 - **Body sections**: first person for your own judgment and role ("I migrated", "I owned"); the system is the subject for what it does ("the pipeline ran"). The company is never the subject and is never named. Past employers can be named in passing only when load-bearing for a My Role transfer example.
 - **`description`**: lead with the change, not the company. The description is the listing-card line and shows up everywhere on the site.

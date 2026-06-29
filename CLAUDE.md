@@ -1,6 +1,6 @@
 # Portfolio Project
 
-Personal portfolio for Syed Aamir, Data & AI Solutions Engineer based in Dubai, UAE. Astro v6 + Tailwind v4, deployed to GitHub Pages.
+Personal portfolio for Syed Aamir, Data & AI Solutions Architect based in Dubai, UAE. Astro v6 + Tailwind v4, deployed to GitHub Pages.
 
 ## Commands
 
@@ -10,13 +10,13 @@ npm run build    # Production build to dist/
 npm run preview  # Preview the build locally
 ```
 
-Requires Node 24+ (matches CI). Node is managed via `nvm` (Homebrew formula). If `npm` is not on PATH in a fresh shell, source nvm first:
+Requires Node 24+ (matches CI). Node is managed via `nvm` (the standalone install at `~/.nvm`, not the Homebrew formula). If `npm` is not on PATH in a fresh shell, source nvm first:
 
 ```bash
-source /opt/homebrew/opt/nvm/nvm.sh && nvm use 24
+source ~/.nvm/nvm.sh && nvm use 24
 ```
 
-After a major Node upgrade (for example the Homebrew `node` formula moving 25 to 26), if `npm run build` or `npm run dev` acts up, run `rm -rf node_modules && npm install` to recompile native modules against the new ABI. Nothing in this repo uses APIs removed in Node 26 (stream internals, `http.Server.writeHeader()`), so a clean reinstall is the only step needed.
+After installing a new major Node version with `nvm` (for example `nvm install 25`), if `npm run build` or `npm run dev` acts up, run `rm -rf node_modules && npm install` to recompile native modules against the new ABI. Nothing in this repo uses APIs removed in recent Node majors (stream internals, `http.Server.writeHeader()`), so a clean reinstall is the only step needed.
 
 ## Top-level layout
 
@@ -25,7 +25,7 @@ After a major Node upgrade (for example the Homebrew `node` formula moving 25 to
 ├── src/                # Application code (see src/CLAUDE.md)
 ├── public/             # Static assets, served as-is
 ├── docs/               # Brand and content specs (see docs/CLAUDE.md)
-├── scripts/            # Developer utilities (.mjs): OG card builders, diagram verifier
+├── scripts/            # Developer utilities (.mjs): OG card builders, diagram verifier, logo builder, screenshot tool
 ├── social/             # LinkedIn companion drafts per post (social/linkedin/<slug>.md), not built
 ├── astro.config.mjs    # Astro build config
 ├── tsconfig.json       # TypeScript compiler config

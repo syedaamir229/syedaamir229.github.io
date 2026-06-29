@@ -241,9 +241,8 @@ See [BRAND.md section 7](BRAND.md#7-diagrams). Hand-coded SVG XML, brand palette
 
 You write only the body and frontmatter. The layout at [src/layouts/BlogPost.astro](../src/layouts/BlogPost.astro) adds:
 
-- **Header chrome**: category kicker (Eyebrow), title, date, description, reading time.
-- **Series badge**: "Part N of M" pill and prev/next series navigation, for posts with a `series` field. Driven by [src/components/blog/SeriesNav.astro](../src/components/blog/SeriesNav.astro).
-- **Right-rail sticky TOC**, auto-extracted from your body's H2s.
+- **Header chrome**: category pills (Tag), title, date, description, reading time.
+- **Series badge**: "Part N of M" pill (rendered in [src/components/blog/PostHeader.astro](../src/components/blog/PostHeader.astro)) and prev/next series navigation (driven by [src/components/blog/SeriesNav.astro](../src/components/blog/SeriesNav.astro)), for posts with a `series` field.
 - **Breadcrumb** "← All posts" link at the top.
 
 Do not duplicate any of these in the body. No author bio, no "related posts" links, no CTA box. Inbound is handled by the contact page.
@@ -270,7 +269,7 @@ Posts make two kinds of claims, handled differently.
 
 ### No regional anchoring
 
-Under Aamir's own name, an Arabic-OTT / Ramadan / subscriber anchor points straight at the current employer, which the discretion rule forbids (see section 10 and the hub's CLAUDE.md Hard rules). The differentiator is lived delivery experience, abstracted to a generic vertical: scrub regional and employer tells rather than leaning on them, and use universal entities (customers, accounts, content, records, operations) the way landing copy does.
+Under Aamir's own name, an Arabic-OTT / Ramadan / subscriber anchor points straight at the current employer, which the discretion rule forbids (see section 10 and the `blog-writeup` skill at `.claude/skills/blog-writeup/SKILL.md`). The differentiator is lived delivery experience, abstracted to a generic vertical: scrub regional and employer tells rather than leaning on them, and use universal entities (customers, accounts, content, records, operations) the way landing copy does.
 
 ---
 
@@ -289,7 +288,7 @@ Mechanical rules (no em-dashes, no emoji, no exclamation marks, no AI attributio
 - [ ] Closing question challenges the reader's current approach.
 - [ ] Fact ledger built before drafting. External citations are load-bearing and link to authoritative sources, or the post stands without one.
 - [ ] If the post has a diagram: it references a real SVG at `public/assets/blog/<slug>-<name>.svg` with descriptive alt text and an italic caption, and the labels use category descriptors. (Diagrams are recommended for framework posts, not mandatory.)
-- [ ] `og_title` set, follows one of the three section 3 patterns (tension, specific number, counter-intuitive claim), reads as a feed hook rather than a chapter heading, and is 28 to 42 characters.
+- [ ] `og_title` set, follows one of the three section 3 patterns (tension, specific number, counter-intuitive claim), reads as a feed hook rather than a chapter heading, and is 28 to 40 characters.
 - [ ] `description` is 140 to 160 characters, leads with the change, and earns the click with a specific number, scope, or mechanism.
 - [ ] `/blog/<slug>/` renders correctly at desktop and mobile widths.
 
@@ -368,7 +367,7 @@ There is no two-role test. Specific seasonal cycles (Ramadan, Eid, World Cup, re
 
 Posts publish bi-weekly, on Wednesdays, one every two weeks. Bi-weekly is the sustainable starting cadence around a full-time job: it protects the rewrite-and-scrub plus review cycle each post needs. Pick up the pace to weekly only once the factory is fast and a buffer of finished posts exists. Decouple writing from publishing: rewrite in batches when there is time, publish on the steady bi-weekly drumbeat. A missed slot is invisible. A thin post is not. If a slot has nothing ready, skip it rather than ship filler.
 
-Scheduling is date-driven, not draft-driven. Set each post's `date` to its intended publish day. `getPublishedPosts()` in [../src/lib/blog.ts](../src/lib/blog.ts) hides any post whose `date` is still in the future, so a finished post can sit in the repo, dated ahead, and stay invisible until its day arrives. A daily `schedule:` cron in [../.github/workflows/deploy.yml](../.github/workflows/deploy.yml) rebuilds the site every morning (06:00 UTC), so each due post self-publishes on its date with no manual step. To force an immediate rebuild before the next daily run, push any commit or run the deploy workflow manually (`workflow_dispatch`).
+Scheduling is date-driven, not draft-driven. Set each post's `date` to its intended publish day. `getPublishedPosts()` in [../src/lib/blog.ts](../src/lib/blog.ts) hides any post whose `date` is still in the future, so a finished post can sit in the repo, dated ahead, and stay invisible until its day arrives. A daily `schedule:` cron in [../.github/workflows/deploy.yml](../.github/workflows/deploy.yml) rebuilds the site every morning (01:00 UTC, 05:00 Dubai), so each due post self-publishes on its date with no manual step. To force an immediate rebuild before the next daily run, push any commit or run the deploy workflow manually (`workflow_dispatch`).
 
 Ordering is engagement-first, not chronological-by-topic. Lead with the most accessible, human, or contrarian posts; run a multi-part series as a mid-launch block; close on the strongest showcases. A logical topic arc is a fallback, not the default.
 

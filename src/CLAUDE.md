@@ -13,7 +13,7 @@ src/
 ├── lib/                   # Pure helper functions (getPublishedPosts, readingTime, ...)
 ├── scripts/               # Client-side TS imported by Astro <script> tags
 ├── layouts/               # Astro page layouts (BaseLayout, BlogPost, Project)
-├── pages/                 # File-based routes (index, experience, contact, 404, blog/, projects/)
+├── pages/                 # File-based routes (index, experience, contact, 404, rss.xml, blog/, projects/)
 ├── components/
 │   ├── ui/                # Reusable primitives, no page knowledge (props in, markup out)
 │   ├── layout/            # Cross-page chrome (Nav, Footer)
@@ -55,7 +55,7 @@ If your change is a new identity field referenced by many components, put it in 
 | Filter-bar chip with active state | `<FilterChip>` |
 | Category-filter bar wired to `[data-categories]` | `<CategoryFilter>` |
 | Action button | `<Button variant="primary" \| "outline" \| "pill">` |
-| Inline icon | `<Icon name="email" \| "linkedin" \| "github" \| "tableau" \| "arrow-right" \| "arrow-left" \| "menu" \| "close" \| "database" \| "chart" \| "brain" \| "robot">` |
+| Inline icon | `<Icon name="email" \| "linkedin" \| "github" \| "tableau" \| "calendar" \| "arrow-right" \| "arrow-left" \| "menu" \| "close" \| "database" \| "chart" \| "brain" \| "robot">` |
 | Card chrome (rounded-xl + border + bg) | `<Card>` |
 
 **Use the helpers.** Do not re-write the query inline.

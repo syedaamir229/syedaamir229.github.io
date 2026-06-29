@@ -15,7 +15,7 @@ See [BRAND.md](BRAND.md) "Long-form and first-person voice" for the voice, [BLOG
 
 | # | Slug | Reach | Discretion to scrub | Effort | Source case study | Status | Target slot (tentative) |
 |---|------|-------|---------------------|--------|-------------------|--------|-------------------------|
-| 1 | bi-to-ai-journey | High | done (clean) | done | data-foundation, segmentation-inference | **Done — live #1** | 2026-06-24 |
+| 1 | bi-to-ai-journey | High | done (clean) | done | data-foundation, segmentation-inference | **Done: live #1** | 2026-06-24 |
 | 2 | ai-strategy-is-data-modeling | High | MENA note + 1 inference example | Light | data-foundation | Queued | 2026-07-08 |
 | 3 | why-most-semantic-layers-fail | High | abstract KPIs, kill Ramadan note | Medium | data-foundation | Queued | 2026-07-22 |
 | 4 | scalable-data-model | High | swap streaming examples, kill OTT note | Medium | data-foundation | Queued | 2026-08-05 |
@@ -24,7 +24,7 @@ See [BRAND.md](BRAND.md) "Long-form and first-person voice" for the voice, [BLOG
 | 7 | attribute-inference-in-practice | Medium | SEVERE: topic is gender-on-viewers; reframe to generic inferred attribute | Heavy | segmentation-inference | Queued | 2026-09-16 |
 | 8 | ai-crm-automation | Medium | SEVERE: OTT-saturated body, retitle scenario examples | Heavy | crm-automation | Queued | 2026-09-30 |
 | 9 | semantic-layer-01-why-governed-metrics | Medium | swap KPIs, delete Ramadan note | Mechanical | data-foundation | Queued | 2026-10-14 |
-| 10 | voice-of-customer-intelligence | Low-Med | SEVERE: retitle off "Multilingual Streaming", abstract throughout | Heavy | voice-of-customer, customer-intelligence-copilot | Queued | 2026-10-28 |
+| 10 | voice-of-customer-intelligence | Low-Med | SEVERE: retitle off "Multilingual Streaming", abstract throughout | Heavy | voice-of-customer, document-copilot | Queued | 2026-10-28 |
 | 11 | semantic-layer-02-architecture-and-data-flow | Low | swap fact table names, delete Ramadan note | Mechanical | data-foundation | Queued | 2026-11-11 |
 | 12 | semantic-layer-03-kpi-engineering-with-dax | Low | swap KPIs, delete Ramadan note | Mechanical | data-foundation | Queued | 2026-11-25 |
 | 13 | semantic-layer-04-governance-and-deployment | Low | delete Ramadan freeze-window note | Mechanical | data-foundation | Queued | 2026-12-09 |
@@ -39,7 +39,7 @@ Original posts written fresh in the current voice, outside the rewrite queue.
 
 | Slug | Status | Notes |
 |------|--------|-------|
-| data-ai-maturity-ladder | **Done — draft:false, scheduled 2026-07-01 (date-gated)** | Net-new framework post building on Dan Martell's AI Adoption Ladder, adding the data-foundation ("wall") dimension. Voice-calibrated against Aamir's own corpus; passed the blog and LinkedIn persona panels and the discretion scrub. Diagram skipped deliberately (concept-illustration risk). Re-voiced line by line in a later pass (Plain-recognition dial); the companion close was reworked to a reader-challenge CTA and the proof line swapped to the decade-in-data receipt. Companion at `social/linkedin/data-ai-maturity-ladder.md`. Goes live on the daily rebuild on its date. |
+| data-ai-maturity-ladder | **Done, draft:false, scheduled 2026-07-01 (date-gated)** | Net-new framework post building on Dan Martell's AI Adoption Ladder, adding the data-foundation ("wall") dimension. Voice-calibrated against Aamir's own corpus; passed the blog and LinkedIn persona panels and the discretion scrub. Diagram skipped deliberately (concept-illustration risk). Re-voiced line by line in a later pass (Plain-recognition dial); the companion close was reworked to a reader-challenge CTA and the proof line swapped to the decade-in-data receipt. Companion at `social/linkedin/data-ai-maturity-ladder.md`. Goes live on the daily rebuild on its date. |
 
 ## Cut from the catalog
 
@@ -48,15 +48,6 @@ Original posts written fresh in the current voice, outside the rewrite queue.
 | bi-to-data-science-transition-story | Overlapped with bi-to-ai-journey (same first-person career arc) and carried a SEVERE live tell (AVOD dashboard + gender-prediction opener). Deleted 2026-06-18. |
 | avod-ad-operations-four-signal-loop | Low reach + SEVERE title-level tell ("AVOD") + heavy scrub. Not worth a slot. Deleted 2026-06-18. |
 
-## Separate cleanup (case-study frontmatter)
-
-Two case studies carry media-tied vendor names in their tags, a discretion tell independent of the blog rewrites:
-
-- `crm-automation`: CleverTap in tags.
-- `ad-revenue-pipeline`: Google Ad Manager in tags.
-
-Abstract both to category descriptors per BLOG.md section 10 vendor list when touched.
-
 ## Source material (what anchors a rewrite)
 
 - **data-foundation** (case study): richest anchor. Medallion + feature store, semantic layer, tiered refresh, three-phase parallel-run migration. Anchors most posts. Already discretion-scrubbed.
@@ -64,4 +55,4 @@ Abstract both to category descriptors per BLOG.md section 10 vendor list when to
 - **voice-of-customer**: NLP enrichment, two NL-SQL agents + supervisor, RAG. Anchors the VoC post. Softened to "non-English".
 - **crm-automation**: scenario engine, behavior-based prioritization, multi-week dedup. Anchors the CRM post.
 - **ad-revenue-pipeline**: four operating signals, settlement sweep, business-impact alerts.
-- **customer-intelligence-copilot** (`draft: true`, personal): fully clean RAG demo over public reviews data. The safest reusable substance for any RAG/VoC rewrite without re-introducing tells.
+- **document-copilot** (`draft: false`, personal): fully clean RAG demo over public SEC filings. The safest reusable substance for any RAG rewrite without re-introducing tells.

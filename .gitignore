@@ -29,5 +29,7 @@ pnpm-debug.log*
 # un-rewritten blog drafts kept out of the public repo until scrubbed
 _drafts/
 
-# Claude Code local session state
-.claude/
+# Claude Code local session state (ignore everything except vendored skills + shared settings)
+.claude/*
+!.claude/skills/
+!.claude/settings.json
