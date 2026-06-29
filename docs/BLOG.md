@@ -186,6 +186,15 @@ Land it on one bolded line: **the single sentence worth quoting back.**
 
 Load-bearing technical detail (cadence, partition strategy, keys) is welcome inside the prose when it explains the idea. No code blocks unless the code *is* the subject (a DAX measure on a DAX post, a SQL snippet on a query-engine post).
 
+### When the subheads form a set, read them as a group
+
+When a framework's subheads are a numbered sequence (five rungs, four floors, three phases), readers skim them as a set, so the set has to cohere. Punch comes from brevity and a shared silhouette, not from forced parallelism. Rigid sameness (every heading bent into the identical grammatical mould) reads flat, the same way identical opening lines do. Aim for a common shape, then allow a warm outlier: in the maturity-ladder post the rung headings mostly take a "the [thing] that [tell]" form ("the tool people stop double-checking", "the AI no one opens an app for"), while the first is left looser ("chatting, and keeping nothing") on purpose.
+
+Two failures to check for across a set:
+
+- **Odd structure.** One heading in a different grammatical form ("when AI runs and no one opens an app" sitting among noun phrases) is what makes a set feel off. Fix the one outlier rather than regimenting all of them.
+- **Odd axis.** Every heading should sit on the same axis: name what the section *is*, not a different dimension. "the rung almost nobody reaches" describes rarity while its siblings describe behaviour; re-aim it to the behaviour ("the system that learns on its own") and let the section body carry the rarity.
+
 ### Optional: the three-bold reference format
 
 For genuinely reference-style or troubleshooting posts where scannability beats narrative, the older three-bold-inline format is still available. It is no longer the default, because in aggregate it reads mechanical. Use it deliberately, not by habit, and one variant per post.
@@ -383,7 +392,7 @@ Pick the archetype before drafting. First person, the either-or thesis, the runn
 
 Every post has a companion LinkedIn draft, written at publish-planning time and stored as a sidecar at `social/linkedin/<slug>.md`. The `<slug>` is the same one the post file uses, which is also the OG card filename (`public/og/blog/<slug>.png`) and the URL path (`/blog/<slug>/`), so the post, its card, and its companion all stay in sync from one identifier. The sidecar lives outside `src/`, so it is never built or schema-validated.
 
-**Length and the fold.** Keep the whole post under 800 characters. LinkedIn truncates the feed preview with a "see more" link after roughly 140 to 210 characters, so the first line or two must carry the hook on their own: the part above the fold is the whole ad for the rest. Do not open with the link or a throat-clearing line. The reference companion is the bi-to-ai sidecar.
+**Length and the fold.** Keep the whole post under 800 characters. LinkedIn truncates the feed preview with a "see more" link after roughly 140 to 210 characters, so the first line or two must carry the hook on their own: the part above the fold is the whole ad for the rest. Do not open with the link or a throat-clearing line. The reference companions are the bi-to-ai sidecar and the data-ai-maturity-ladder sidecar.
 
 Each draft holds:
 
@@ -393,6 +402,11 @@ Each draft holds:
 - A plain-language takeaway.
 - The canonical post URL `https://syedaamir.com/blog/<slug>/` on its own line near the end. LinkedIn scrapes that URL to render the OG card, and deprioritises links placed in the first line.
 - Two or three relevant hashtags. More than that reads as marketing.
+
+Two choices decide whether the companion earns the click, and both are easy to get wrong:
+
+- **Close on a reader challenge, not a description of the article.** The last line before the URL should make the reader self-diagnose, not summarise the contents. "So which rung are you really on: the one your demos can reach, or the one your data can hold?" pulls far harder than "The five rungs, and the wall each one needs:". The post's own closing question (section 4, beat 8) is usually the best CTA already written. Vary the actual question per post; never reuse one phrasing.
+- **If you include a proof beat, make it the strongest on-thesis receipt, not a niche tangent.** A specific one-rung project detail ("I built a document assistant that...") narrows a whole-argument post right before the ask. A decade-in-data line carries more authority and reinforces the thesis instead of detouring from it. One receipt, the biggest one, doing double duty as credibility and CTA setup.
 
 Same hard rules as the post: no em-dashes, no emoji, no exclamation marks, no "feel free to reach out" sign-off, and the employer is never the subject. No markdown bold or headings: LinkedIn strips them, so the draft is plain text. Vary hooks and closers across companions, and match each one to its post's archetype, so the feed does not read as a template either. A lighter, human register (contractions, a plain aside) is welcome here; it is what keeps the companion from reading as machine-generated.
 

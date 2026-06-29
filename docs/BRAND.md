@@ -119,13 +119,33 @@ Landing copy is impersonal and imperative ("Stop hiring to scale. Start wiring."
 
 - **First person, reflective.** Write as "I". Lead with lived experience, not a thesis statement. The pilot opens "For a long time I thought the interesting work was always one desk over," not "Data teams must compound their stack." The thesis arrives after the story has earned it.
 - **Plain language first, then the precise term.** Name the human version before the technical one: "the part of data nobody gets excited about: the trustworthy tables and definitions that sit under a dashboard." Never lead with jargon and define it after. If a finance director would not say the word out loud, it is not the opening word.
-- **One running motif, paid off at the end.** A piece carries a single thread ("the boring part") that opens it, recurs once or twice, and lands in the closing line. One motif, not a pile. No mixed metaphors, no cliché load-bearing image (the rejected "plumbing holding up the whole building" is the anti-pattern).
+- **One running motif, paid off at the end.** A piece carries a single thread ("the boring part") that opens it, recurs once or twice, and lands in the closing line. One motif, not a pile. No mixed metaphors, no cliché load-bearing image (the rejected "plumbing holding up the whole building" is the anti-pattern). Keep the motif's verbs consistent, not just its noun: if the image is a wall, the load it takes is one verb throughout (it *holds*), and a synonym swap (it *holds* in four places, then *bears* in a fifth) quietly breaks the thread.
 - **Conviction without the clipped cadence.** State the thesis flatly and once ("a data team is either compounding everything it builds, or quietly starting over every couple of years"), then let the prose breathe. Long-form is warm and conversational between its hard claims; it does not stack imperatives like a landing page.
 - **Subheads are arguments, not labels.** "Floor 1: the tables everyone trusts," not "Layer 1: Data Foundations." A reader skimming only the subheads should get the argument. Labels are for documentation, not persuasion.
 - **One bolded payoff per section.** Each section earns exactly one bold line: its single takeaway. More than one and none of them lands. The bold is the sentence you would want quoted back.
 - **Cite only load-bearing sources; reserve the signature number.** Drop any borrowed stat that every post on the topic already uses (the generic "80% of teams use AI" line was cut from the pilot). If the argument stands on your own observation, let it. Reserve one concrete number as the framework's signature (the "15,000 vs 12,000" meeting) and spend it where it hits hardest.
 - **Examples are lived, then abstracted.** Real moments from real work, scrubbed of employer tells per BLOG.md confidentiality. A specific scene beats a hypothetical, but the scene must never be traceable.
 - **Cut the flourish you would not say out loud.** The voice rejects writerly phrases that are not yours: "plumbing," "cash a cheque," "heuristic," "does not photograph well," "live-tweets," "job board." Test every line against "would I say this in a meeting?" If it is a writer performing, cut it.
+- **Ground claims in your own experience, never borrowed authority.** First-person observation, not "analysts say," "people are saying," or "there is a popular explanation going around." If an outside source is used at all, it is one load-bearing link, not a vague crowd.
+- **No literary self-narration, no staged strawman, no soft hedges.** Not "it gave me language for X" or "something I had half-understood for years." Do not set up "people think X" before the point; go straight to the claim. Drop "I also think" and "reframed how I think about."
+- **Time-honesty.** A decade in data, the recent stretch in AI. Never imply long AI tenure ("for a long time I assumed..." about AI). The long experience is in data; AI just made the lesson sharp.
+- **Each post is its own piece.** Do not reuse a previous post's signature phrasing or motif (the pilot owns "the boring part"). A fresh image per post.
+- **The one bold per section is the most quotable line, not a restatement of the sentence before it.** If a section makes its point twice, promote the vivid version to the bold and cut the other.
+- **When a line resists two or three good rewrites, cut it.** It usually has an existence problem, not a wording one, and the surrounding sentences often already carry the point.
+
+### Reframes in practice
+
+The rules above say *what* to cut; these are the *moves* that do it, drawn from real re-voicing passes. When a line reads like a copywriter wrote it, the fix is almost always a plainer, more concrete verb and a human subject, not more words. Use these as the pattern, not a closed list.
+
+| Reads like a copywriter | Reads like Aamir | The move |
+|---|---|---|
+| and it named something I keep running into | and it lined up almost exactly with what I keep running into | swap the literary verb ("named") for a plain, concrete one |
+| one day it is switched off without ceremony | one day someone just switches it off | drop the flourish; put a human in the sentence |
+| a stronger model to survive contact with production | a stronger model to hold up in production | cut the borrowed idiom (the military "no plan survives contact") |
+| it is also the surface of a simpler problem | but underneath it is a simpler problem | replace an abstract construction with a plain, spatial one |
+| a single feed the job can trust | one source that stays put, keeps its shape, and is there every run | make an abstract noun concrete by naming what it does |
+
+Keep crafted payoff lines (the one bold per section) doing their job: scrub a borrowed or clichéd *word* inside one, but do not flatten the balanced punchline into plain prose. The dial is plain-but-sharp, not plain-and-flat.
 
 ### Words to use
 
@@ -146,7 +166,7 @@ These words drag tone backward toward CV mode or marketing mode.
 
 ### Hard rules
 
-- **No em-dashes** anywhere in human-written or agent-written prose: no `—`, no `--` substitute. Use colons, periods, or restructure the sentence. (SQL `--` comments inside fenced code blocks are exempt.)
+- **No em-dashes** anywhere in human-written or agent-written prose: no `—`, no `--` substitute. Use colons, periods, or restructure the sentence, and rotate between the three. Do not let the colon become the default em-dash replacement: the `statement: elaboration` colon turns into a tic in bulk, and a long-form piece should not lean on it a dozen times. When one paragraph stacks two colons, or several sections open with the same `X is Y: Z` frame, convert some to periods or restructure. The fix for too many colons is a period or a rewrite, never a comma (a comma in those spots only creates a splice). (SQL `--` comments inside fenced code blocks are exempt.)
 - **No emoji** in any content surface, page, component, or commit message.
 - **No exclamation marks** outside quoted speech.
 - **No passive voice in headlines.** Active subject doing the verb.
