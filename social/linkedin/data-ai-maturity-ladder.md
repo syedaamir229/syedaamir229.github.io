@@ -1,6 +1,6 @@
 Title: What Your AI Leans On: The Data & AI Maturity Ladder
 Post URL: https://syedaamir.com/blog/data-ai-maturity-ladder/
-Publish date: 2026-07-01 (Wednesday)
+Publish date: 2026-07-22 (Wednesday)
 Archetype: Framework
 Note: when posting, @mention Dan Martell for credit and reach. One link only (the blog URL). The X link to Martell's original lives inside the blog post.
 
@@ -8,15 +8,15 @@ Note: when posting, @mention Dan Martell for credit and reach. One link only (th
 
 Your real AI maturity isn't the highest rung you can reach. It's the highest rung your data can hold.
 
-I keep watching the same AI project win the room in a demo and quietly get switched off months later. Not the model's fault. There was just nothing solid enough behind it.
+I keep watching the same AI project win the room in a demo and quietly get switched off months later. It is not the model. The data behind it was never solid enough.
 
-Dan Martell's AI Adoption Ladder maps how deeply you've woven AI into your work. What it leaves out is the wall every rung leans on: your data.
+Dan Martell's AI Adoption Ladder maps how deeply AI runs in your work. What it leaves out is the wall every rung leans on: your data.
 
-A decade on the data side taught me the wall is the hard part. It takes years to build, and it decides how high anything on top can go.
+You don't choose your rung. Your data chooses it for you. The ones I've seen stall were a rung or two above what their data could hold.
 
 So which rung are you really on: the one your demos can reach, or the one your data can hold?
 
-I wrote up all five rungs and the wall each one needs:
+Here's the honest version, rung by rung, and the wall each one leans on:
 https://syedaamir.com/blog/data-ai-maturity-ladder/
 
-#AI #DataEngineering #AIstrategy
+#AI #DataEngineering #AIadoption
