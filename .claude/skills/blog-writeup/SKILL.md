@@ -131,14 +131,21 @@ only this, could they tell it was an OTT/streaming platform or the employer?" Fi
 anything that fingerprints. This is a required pass even if Stage 3 looked clean.
 
 ### Stage 5 — Land it
-- Write the post to `src/content/blog/<slug>.md` with `draft: true`.
+- Write the post to `src/content/blog/<slug>.md` with `draft: true` and a
+  **placeholder `date: 2099-01-01`**. The content schema requires a `date`, so
+  `npx astro sync` fails outright without one, but the real publish slot is not
+  chosen yet. A far-future placeholder keeps the post hidden by *both* `draft:
+  true` and the future-date gate in `getPublishedPosts()`, so it cannot publish
+  by accident if the draft flag is ever flipped before its date is set. (Do not
+  use today's or a past date as the placeholder: that would auto-publish the
+  moment `draft` flips.)
 - Write the companion to `social/linkedin/<slug>.md` (header convention: title,
   Post URL, Publish date, Archetype, then `---`, then the plain-text copy).
 - Run `npx astro sync` to confirm the schema validates.
 - Update the post's row in `docs/BLOG-BACKLOG.md` to Done.
-- **Do not deploy. Do not flip `draft: false`. Do not set a publish date.** Tell
-  Aamir it is staged, and that to publish he flips `draft: false`, stamps the
-  next bi-weekly Wednesday `date`, commits, and deploys.
+- **Do not deploy. Do not flip `draft: false`. Do not set a real publish date.**
+  Tell Aamir it is staged, and that to publish he flips `draft: false`, replaces
+  the placeholder with the next bi-weekly Wednesday `date`, commits, and deploys.
 
 ### Re-voice mode (a surgical pass, not a full factory run)
 
@@ -312,7 +319,7 @@ diagram) but the same first person, thesis, motif, and discretion scrub.
 ```yaml
 ---
 title: "..."                 # name the framework where possible
-date: 2026-06-24             # bi-weekly Wednesday; set only at publish time
+date: 2099-01-01             # placeholder while draft:true (schema requires a date). Replace with the bi-weekly Wednesday at publish time.
 description: "..."           # 140-160 chars, leads with the change
 og_title: "..."              # 28-42 chars, feed hook (tension / number / counter-claim)
 categories: ["Data Engineering", "AI & Automation"]   # from src/data/categories.ts enum
@@ -370,7 +377,8 @@ not machine, matches the post); discretion. Same scoring and fix format.
 - [ ] Hard rules: no em-dashes, no emoji, no exclamation marks, no hedges, no
       filler, no AI attribution.
 - [ ] Structure: the spine is present; frontmatter complete and valid; `draft:
-      true`; `npx astro sync` passes.
+      true`; placeholder `date: 2099-01-01` (schema requires a date, real slot set
+      at publish); `npx astro sync` passes.
 - [ ] Companion: under 800 chars, hook above the fold, URL near the end, plain
       text, header block present.
 - [ ] Review: all five blog personas at 8+; discretion officer cleared it.
