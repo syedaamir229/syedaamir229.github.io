@@ -15,7 +15,7 @@ A slower second opinion, only for the answers it isn't sure about.
 An offline judge that rereads yesterday's conversations to catch drift.
 A rehearsal against hundreds of synthetic customers before a real one arrives.
 
-None of the four checks has to be smarter than the model. Each just answers an easier question. So can you trust the answer when nobody's checking?
+None of the four has to solve the model's whole problem. Each just answers an easier question. So can you trust the answer when nobody's checking?
 
 https://syedaamir.com/blog/rag-verification-layer/
 

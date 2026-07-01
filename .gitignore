@@ -26,6 +26,10 @@ pnpm-debug.log*
 # local review artifacts (Playwright screenshots)
 /screenshots/
 
+# generated LinkedIn carousel output (regenerate from the per-post
+# social/linkedin/carousel/<slug>.json spec via `npm run carousel <slug>`)
+social/linkedin/carousel/*/
+
 # un-rewritten blog drafts kept out of the public repo until scrubbed
 _drafts/
 

@@ -13,6 +13,7 @@
     "verify:diagram": "node scripts/verify-diagram.mjs",
     "og:home": "node scripts/build-og-card.mjs",
     "og:blog": "node scripts/build-blog-og-cards.mjs",
+    "carousel": "node scripts/build-carousel.mjs",
     "logo": "node scripts/build-logo.mjs",
     "screenshots": "node scripts/screenshot.mjs"
   },
