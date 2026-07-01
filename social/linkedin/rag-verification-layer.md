@@ -7,16 +7,17 @@ Note: credits DoorDash's two public engineering posts inside the blog.
 
 ---
 
-Anyone can build a RAG system that answers. The more difficult part is what catches the answer when it is wrong and no one is reading.
+Anyone can build a RAG system that answers. Almost no one builds the part that catches it when the answer is wrong and nobody is watching.
 
-DoorDash published how they built the RAG behind their support automation. The answer is just a first draft. Four checks turn it into something you can trust:
+That part is the actual job.
 
-A cheap gate on every answer: grounded in what we retrieved, or made up?
-A slower second opinion, only for the answers it isn't sure about.
-An offline judge that rereads yesterday's conversations to catch drift.
-A rehearsal against hundreds of synthetic customers before a real one arrives.
+The answer a model gives you is a first draft. What makes it safe to ship is the checking that happens after: does it hold up, or did it quietly make something up?
 
-None of the four has to solve the model's whole problem. Each just answers an easier question. So can you trust the answer when nobody's checking?
+DoorDash published how they built theirs, and it comes down to four checks, each running at a different moment.
+
+The part that stuck with me: none of the four has to be smarter than the model. Checking an answer is a narrower job than writing one, which is why you can afford to run one on every single answer.
+
+If you are running RAG in production, which of these four do you actually have today?
 
 #RAG #AIEngineering #LLM
 
