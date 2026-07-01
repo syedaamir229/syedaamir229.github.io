@@ -36,6 +36,12 @@ export const ACTIVE_CERTS: ActiveCertification[] = [
     url: 'https://www.credly.com/badges/1e24ad00-28b1-4501-b8fb-e9d2b860a29f',
     badge: 'https://images.credly.com/size/680x680/images/ef3e7933-f1f1-4bba-9b10-f278188c72ad/image.png',
   },
+  {
+    name: 'Datalumina Certified: AI Engineer Expert',
+    issuer: 'Datalumina',
+    url: 'https://www.credly.com/badges/20530501-9b14-494e-acc1-2c9338f005bc',
+    badge: '/assets/datalumina-ai-engineer-expert.png',
+  },
 ];
 
 export const PAST_CERTS: string[] = [
