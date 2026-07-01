@@ -34,7 +34,7 @@ The repo is self-contained: the Claude tooling it relies on travels with a fresh
   - `blog-writeup`: the blog factory (drafting, re-voicing, and discretion-scrubbing posts plus their LinkedIn companions).
   - `case-study-copywriter`: the project case-study writer.
 
-  Both read their rules only from in-repo specs in [docs/](docs/) (BRAND.md, BLOG.md, PROJECTS.md), so they work identically on any clone.
+  Both read their rules only from in-repo specs in [docs/](docs/) (BRAND-voice.md, BLOG.md, PROJECTS.md), so they work identically on any clone.
 - **`deep-research`** is an optional built-in Claude Code skill the blog factory uses for research at intake. It ships with the CLI, not this repo; if it is unavailable in a given environment, the factory falls back to WebSearch.
 - **Settings.** [.claude/settings.json](.claude/settings.json) is committed and carries a couple of harmless read-only command allows. `.claude/settings.local.json` is intentionally **not** committed (machine-local convenience permissions); a clone can re-add its own without affecting anyone else.
 

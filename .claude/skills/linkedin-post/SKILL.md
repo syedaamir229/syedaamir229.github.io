@@ -16,9 +16,9 @@ This skill writes the LinkedIn caption and first comment for a blog post. A
 companion that re-lists the framework the image already shows is a failure. One
 that earns a save and makes someone reply with their rung number is the goal.
 
-Source of truth: `docs/BLOG.md` section 13. This skill encodes the mechanics so
-you can run it cold, but when anything here conflicts with BLOG.md section 13,
-BLOG.md wins.
+Source of truth: `docs/LINKEDIN.md`. This skill encodes the mechanics so
+you can run it cold, but when anything here conflicts with LINKEDIN.md,
+LINKEDIN.md wins.
 
 ---
 
@@ -31,7 +31,7 @@ Before writing anything:
 2. `social/linkedin/<slug>-feed-portrait.png` — Read the image (use the Read
    tool; Claude renders it inline). What does the diagram already show? The
    caption must not repeat it.
-3. `docs/BLOG.md` section 13 — the full companion spec.
+3. `docs/LINKEDIN.md` — the full companion spec.
 
 If the feed portrait does not exist yet, note what diagram or framework the post
 describes and work from that.
@@ -201,3 +201,7 @@ build the feed image:
 - The companion header block has the format note and any post-time reminders.
 - If the feed portrait already exists and no redesign was requested, this step
   is optional.
+
+## After this run
+
+If this run required more than two correction cycles, or the output missed the mark significantly, invoke the **skill-retrospective** skill. Pass it: which skill was used, what the expected output was, what actually came out, and which correction cycles were needed. It will diagnose the gap and propose specific edits to this SKILL.md.

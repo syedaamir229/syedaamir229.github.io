@@ -2,7 +2,7 @@
 
 Operational spec for adding a project case study. Project case studies are written in plain markdown with a small structured frontmatter block on top. No JSX, no components, no imports inside the body.
 
-Tone and voice principles live in [BRAND.md](BRAND.md). This file owns *how to write the case study*: frontmatter, body structure, diagram conventions, checklist.
+Tone and voice principles live in [BRAND-voice.md](BRAND-voice.md). This file owns *how to write the case study*: frontmatter, body structure, diagram conventions, checklist.
 
 ---
 
@@ -142,7 +142,7 @@ Every case study has exactly one Architecture diagram in the H2 slot of the same
 - **Markdown reference**: `![Alt text covering the flow shown in the diagram.](/assets/projects/<slug>.svg)`.
 - **Caption**: one prose paragraph directly below the image, explaining the flow in words for readers who skim the diagram.
 
-For how to build the SVG and verify the rendered output, see [BRAND.md section 7](BRAND.md#7-diagrams). Same workflow as blog diagrams: hand-coded SVG XML, brand palette baked in, verified via `npm run verify:diagram <path>` and reading the resulting PNG.
+For how to build the SVG and verify the rendered output, see [BRAND-visual.md section 7](BRAND-visual.md#7-diagrams). Same workflow as blog diagrams: hand-coded SVG XML, brand palette baked in, verified via `npm run verify:diagram <path>` and reading the resulting PNG.
 
 ---
 
@@ -160,7 +160,7 @@ Do not duplicate any of these in the body.
 
 ## 7. Voice
 
-Tone and word choice follow [BRAND.md section 5](BRAND.md#5-voice-and-tone-applies-to-every-surface). Three project-specific anchors:
+Tone and word choice follow [BRAND-voice.md](BRAND-voice.md). Three project-specific anchors:
 
 - **Tense and subject**: first person for judgment, past tense for the work. You are the subject when describing decisions and ownership ("I migrated", "I chose", "I owned"); the system is the subject when describing what it does ("the pipeline ran", "the model produced"). The company is never the subject. First person is what makes the case study read like the author rather than a template, and it matches the voice of the blog.
 - **Vendor abstraction**: vendor names appear only in Tech Stack and in frontmatter `tags`. Body prose, Architecture captions, and diagram labels use category descriptors ("a video-analytics platform", "a customer-engagement platform", "a programmatic ad-serving platform"). This is the rule that keeps the body reading as the work rather than as a vendor briefing. The full reasoning lives in section 9.
@@ -172,7 +172,7 @@ Tone and word choice follow [BRAND.md section 5](BRAND.md#5-voice-and-tone-appli
 
 ## 8. Pre-publication checklist
 
-Mechanical rules (no em-dashes, no emoji, `.md` not `.mdx`, no `import` lines, frontmatter schema, build pass) are covered by [BRAND.md](BRAND.md) and the build process. This checklist is structural judgment only.
+Mechanical rules (no em-dashes, no emoji, `.md` not `.mdx`, no `import` lines, frontmatter schema, build pass) are covered by [BRAND-voice.md](BRAND-voice.md) and the build process. This checklist is structural judgment only.
 
 - [ ] Confidentiality pass per section 9 complete: company is not the subject of any sentence in the body (first person about your own role is fine; the employer is never named), no internal codenames in body or diagram, no uniquely identifying vendor combinations across `tags` and Tech Stack.
 - [ ] Header `metrics` are relative or magnitude-based. No exact subscriber, profile, or revenue counts.
@@ -221,7 +221,7 @@ Project-specific rules:
 
 ## Cross-references
 
-- **Tone, words to use and avoid, hard rules**: [BRAND.md](BRAND.md) section 5.
+- **Tone, words to use and avoid, hard rules**: [BRAND-voice.md](BRAND-voice.md).
 - **Category enum (source of truth)**: [src/data/categories.ts](../src/data/categories.ts).
 - **Content schema**: [src/content.config.ts](../src/content.config.ts).
 - **Layout that wraps the markdown body**: [src/layouts/Project.astro](../src/layouts/Project.astro).

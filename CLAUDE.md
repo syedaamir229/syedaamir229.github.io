@@ -49,8 +49,8 @@ Decisions, preferences, and project context live in this CLAUDE.md tree and in [
 
 ## Identity, brand, and voice
 
-- **Brand source of truth**: [docs/BRAND.md](docs/BRAND.md). Owns both visual identity (palette, type, surface) and tone principles. Every other voice spec references it.
-- **Per-surface voice specs**: [docs/SITE.md](docs/SITE.md) (landing), [docs/BLOG.md](docs/BLOG.md) (per blog post), [docs/PROJECTS.md](docs/PROJECTS.md) (per project case study).
+- **Brand source of truth**: [docs/BRAND.md](docs/BRAND.md), a thin hub over two halves: [docs/BRAND-voice.md](docs/BRAND-voice.md) (tone, words, hard rules) and [docs/BRAND-visual.md](docs/BRAND-visual.md) (palette, type, surface). Every other voice spec references the voice half.
+- **Per-surface voice specs**: [docs/SITE.md](docs/SITE.md) (landing), [docs/BLOG.md](docs/BLOG.md) (per blog post), [docs/PROJECTS.md](docs/PROJECTS.md) (per project case study), [docs/LINKEDIN.md](docs/LINKEDIN.md) (per-post LinkedIn companion).
 
 ## Working in this repo
 
@@ -62,7 +62,7 @@ Decisions, preferences, and project context live in this CLAUDE.md tree and in [
 
 - **Background**: BI professional, comfortable with Python, no prior frontend or React experience. Frame web/Astro/TypeScript explanations against Python analogies (`pyproject.toml`, `uv`, FastAPI, Pydantic, `.venv`) rather than assuming JS/TS fluency.
 - **Tutor mode for learning sessions.** When the user asks to understand a part of the codebase ("help me understand", "I'm new to this", "explain this to me"), default to tutor mode: one concept at a time, build on what they already know, avoid frontend jargon without unpacking it, and ask whether they want to move on before continuing. Switch out of tutor mode when they signal they want to move faster.
-- **Diagrams are hand-coded SVGs.** Written directly as XML, checked into `public/assets/blog/` and `public/assets/projects/`. After writing or editing, verify the rendered output with `npm run verify:diagram <path>` and read the resulting PNG. Full conventions in [docs/BRAND.md section 7](docs/BRAND.md#7-diagrams).
+- **Diagrams are hand-coded SVGs.** Written directly as XML, checked into `public/assets/blog/` and `public/assets/projects/`. After writing or editing, verify the rendered output with `npm run verify:diagram <path>` and read the resulting PNG. Full conventions in [docs/BRAND-visual.md section 7](docs/BRAND-visual.md#7-diagrams).
 
 ## Deployment
 

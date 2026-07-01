@@ -28,9 +28,9 @@ Three layers stack here, in priority order when they conflict:
 3. **Craft and review** (what makes it land, and how it is verified)
 
 Sources of truth in the repo (read them, do not just trust this file):
-- Voice: `docs/BRAND.md` section 5, especially "Long-form and first-person voice".
+- Voice: `docs/BRAND-voice.md`, especially "Long-form and first-person voice".
 - Structure and confidentiality: `docs/BLOG.md` (spine in section 4, H3 format in
-  section 5, confidentiality in section 10, LinkedIn in section 13).
+  section 5, confidentiality in section 10). LinkedIn companion: `docs/LINKEDIN.md`.
 - The work queue: `docs/BLOG-BACKLOG.md` (slugs, reach, scrub notes, source case study).
 - The reference implementations (voice + structure): `src/content/blog/bi-to-ai-journey.md`
   (the canonical anchor), and `src/content/blog/data-ai-maturity-ladder.md` (a second
@@ -47,7 +47,7 @@ continue. This matches how the pilot was built.
 
 ### Stage 0 — Intake
 Take a backlog slug or a fresh topic.
-- Read: BRAND.md long-form voice, BLOG.md, the BLOG-BACKLOG.md row, the source
+- Read: BRAND-voice.md long-form voice, BLOG.md, the BLOG-BACKLOG.md row, the source
   case study named there, and the existing old post if this is a rewrite.
 - Identify the archetype (framework / war-story-narrative / opinion-contrarian),
   the central either-or thesis, the running motif, and the specific discretion
@@ -69,14 +69,14 @@ Take a backlog slug or a fresh topic.
   *is* it. Calibrate from his published, path-stable writing first:
   - His live posts in `src/content/blog/`, especially the two exemplars
     (`bi-to-ai-journey.md`, `data-ai-maturity-ladder.md`).
-  - The durable voice rules in `docs/BRAND.md` ("Long-form and first-person
+  - The durable voice rules in `docs/BRAND-voice.md` ("Long-form and first-person
     voice") and its "Reframes in practice" table — treat this as the source of
     truth. It travels with the repo and loads when you are working inside the
     portfolio project.
-  - **Do not sweep the chat transcripts by default.** BRAND.md plus the two
+  - **Do not sweep the chat transcripts by default.** BRAND-voice.md plus the two
     exemplars above are enough to calibrate the voice. A full mine of raw session
     transcripts is slow, burns a lot of context, and mostly re-derives what
-    BRAND.md already states. Reach for raw chat only as a narrow last resort, when
+    BRAND-voice.md already states. Reach for raw chat only as a narrow last resort, when
     a specific voice question is genuinely unanswered by the docs and the
     exemplars, and even then read a targeted slice. His *raw chat* voice is also
     looser than his *published* voice, so treat it as signal about instincts,
@@ -109,7 +109,7 @@ thesis, and the running motif. Wait for approval.
 Write the post body per the voice and structure layer below.
 
 Before showing anything, run the draft once yourself against the "Anti-patterns
-that cause rewrite loops" list below and the BRAND.md "Long-form and first-person
+that cause rewrite loops" list below and the BRAND-voice.md "Long-form and first-person
 voice" rules, and fix what you find. The draft Aamir first sees should already be
 voice-clean, so his attention goes to substance, not to catching the same tics
 every round.
@@ -164,9 +164,9 @@ Do not run the full five-stage factory for this. Use a lighter pass.
    say so. Inventing edits to look busy is its own failure; a clean section is a
    valid result.
 4. **Keep the payoffs, scrub the words.** The one bolded payoff per section stays a
-   punchline; only fix a borrowed or clichéd *word* inside it. Apply the BRAND.md
+   punchline; only fix a borrowed or clichéd *word* inside it. Apply the BRAND-voice.md
    "Reframes in practice" moves and the BLOG.md heading-set rules.
-5. **Calibrate from BRAND.md and the two exemplars, not a transcript sweep** (see
+5. **Calibrate from BRAND-voice.md and the two exemplars, not a transcript sweep** (see
    Stage 0).
 
 Checkpoint the same way: one section at a time, wait for Aamir. This is the mode
@@ -230,7 +230,7 @@ them). The tell is the cluster, not the single word.
 
 ## 2. Voice and structure
 
-Full spec in BRAND.md "Long-form and first-person voice" and BLOG.md sections 4,
+Full spec in BRAND-voice.md "Long-form and first-person voice" and BLOG.md sections 4,
 5, 12. The essentials so this skill stands alone:
 
 ### Voice (what makes it read like Aamir)
@@ -328,13 +328,13 @@ behind all five: **deliver information in the order Aamir actually learned it.**
 **Heuristic for stuck lines:** if a sentence resists two or three good-faith
 rewrites, it usually has an existence problem, not a wording problem. Cut it; the
 surrounding sentences often already carry the point. (This and the rules above are
-codified in `docs/BRAND.md` "Long-form and first-person voice", the source of truth
+codified in `docs/BRAND-voice.md` "Long-form and first-person voice", the source of truth
 this section traces back to.)
 
 **The humanizer catalog: a lens, not an authority.** The `blader/humanizer` skill
-(its 33-pattern anti-AI-writing list) is where the machine-cadence tics in BRAND.md
+(its 33-pattern anti-AI-writing list) is where the machine-cadence tics in BRAND-voice.md
 were drawn from. Run it as a *diagnostic* if a draft feels AI-ish, but never as an
-authority over BRAND.md, and do not install it as a live `/humanizer` command here.
+authority over BRAND-voice.md, and do not install it as a live `/humanizer` command here.
 Four of its rules conflict with this brand's deliberate house style and must be
 handled carefully:
 
@@ -347,7 +347,7 @@ handled carefully:
   ("It had no preference. No prior. No nostalgia."). Earned staccato with real
   content behind it stays.
 
-Use it to catch cadence tics; keep BRAND.md the source of truth on everything else.
+Use it to catch cadence tics; keep BRAND-voice.md the source of truth on everything else.
 
 ### Structure (the spine, not a rigid checklist)
 
@@ -416,7 +416,7 @@ specific, quoted fixes. Apply fixes, re-run any persona that scored below 8.
 2. **The business reader (the buyer).** A finance/product leader. Is it relevant
    and clear without jargon? Does the value land on a skim of the subheads and
    bold lines alone?
-3. **Brand-voice guardian.** Against BRAND.md "Long-form and first-person voice":
+3. **Brand-voice guardian.** Against BRAND-voice.md "Long-form and first-person voice":
    does it sound like Aamir, first person, one motif, one bold per section,
    argument subheads? Flag any AI-slop, cliché, or flourish he would not say.
 4. **Discretion officer.** Against the discretion layer: any employer tell, OTT
@@ -448,3 +448,7 @@ specific, quoted fixes. Apply fixes, re-run any persona that scored below 8.
       draft:false. Aamir told how to publish.
 - [ ] Skim test: read only the title, subheads, and bold lines. Does the argument
       land, and does it sound like Aamir?
+
+## After this run
+
+If this run required more than two correction cycles, or the output missed the mark significantly, invoke the **skill-retrospective** skill. Pass it: which skill was used, what the expected output was, what actually came out, and which correction cycles were needed. It will diagnose the gap and propose specific edits to this SKILL.md.

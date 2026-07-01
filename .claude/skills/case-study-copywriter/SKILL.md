@@ -114,7 +114,7 @@ tell it was an Arabic OTT platform?" If yes, it is not scrubbed.
 
 ## 2. Voice and structure
 
-Tone source of truth: `docs/BRAND.md` section 5. Structure source of truth:
+Tone source of truth: `docs/BRAND-voice.md`. Structure source of truth:
 `docs/PROJECTS.md`. The essentials, so this skill stands alone:
 
 ### Voice
@@ -197,7 +197,7 @@ The reference exemplar is `src/content/projects/semantic-layer.md`.
    paragraph. Alt text names sources → layers → consumers in flow. This skill
    writes the copy, not the diagram. For the SVG itself (hand-coded, brand
    palette, abstract referents not vendor icons, verified with
-   `npm run verify:diagram`), follow `docs/BRAND.md` section 7 and
+   `npm run verify:diagram`), follow `docs/BRAND-visual.md` section 7 and
    `docs/PROJECTS.md` section 5. A deliberate labeled diagram is not "AI slop";
    the slop rule is about generic decorative AI images, not technical diagrams.
 5. **Tech Stack** — 4-6 `**Label**: value` bullets. Canonical labels: Platform,
@@ -283,3 +283,7 @@ The structure is the skeleton; this is what makes a skimmer stop.
       checkable number; My Role closes in first person.
 - [ ] Skim test: read only the title, description, metrics, and the first line of
       each section. Does the value still land?
+
+## After this run
+
+If this run required more than two correction cycles, or the output missed the mark significantly, invoke the **skill-retrospective** skill. Pass it: which skill was used, what the expected output was, what actually came out, and which correction cycles were needed. It will diagnose the gap and propose specific edits to this SKILL.md.

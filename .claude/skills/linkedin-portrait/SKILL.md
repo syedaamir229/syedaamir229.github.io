@@ -215,3 +215,7 @@ For simpler diagrams (flow/pipeline, layered stack, quadrant matrix), the
 pattern is straightforward: `<rect>` + `<line>` + `<text>` elements with the
 brand palette. No reference file needed; use the pitfalls table and layout
 zones above.
+
+## After this run
+
+If this run required more than two correction cycles, or the output missed the mark significantly, invoke the **skill-retrospective** skill. Pass it: which skill was used, what the expected output was, what actually came out, and which correction cycles were needed. It will diagnose the gap and propose specific edits to this SKILL.md.

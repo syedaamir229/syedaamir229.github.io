@@ -2,14 +2,14 @@
 
 The rewrite queue for the blog catalog. Every post here was written in the old voice (third-person, rigid template, MENA/OTT tells) and needs re-voicing to the new first-person standard plus a discretion scrub before it goes live. This file is the factory's work queue.
 
-See [BRAND.md](BRAND.md) "Long-form and first-person voice" for the voice, [BLOG.md](BLOG.md) for structure and the section 10 confidentiality scrub, and `social/linkedin/<slug>.md` for each post's companion.
+See [BRAND-voice.md](BRAND-voice.md) "Long-form and first-person voice" for the voice, [BLOG.md](BLOG.md) for structure and the section 10 confidentiality scrub, and `social/linkedin/<slug>.md` for each post's companion.
 
 ## How the queue works
 
 - **Nothing leaks.** Every un-rewritten post is `draft: true`, so it stays hidden no matter its date. The only publishable post is the one most recently finished.
 - **Finish, then publish.** When a rewrite passes the voice + discretion + review pass, flip it to `draft: false` and stamp its `date` with the next open slot. Until then it stays drafted.
 - **Cadence: bi-weekly Wednesdays.** Decouple writing from publishing: rewrite in batches, publish on the drumbeat. Pick up to weekly once a buffer exists. Dates below are tentative planning aids; the real date is assigned at publish time.
-- **Each post ships with its LinkedIn companion** (`social/linkedin/<slug>.md`), rewritten in the same pass. Under 800 chars, hook above the fold, link near the end. See BLOG.md section 13.
+- **Each post ships with its LinkedIn companion** (`social/linkedin/<slug>.md`), rewritten in the same pass. Under 800 chars, hook above the fold, link near the end. See [LINKEDIN.md](LINKEDIN.md).
 
 ## Queue (ordered by reach/impact, scrub effort and runway as tie-breakers)
 

@@ -2,7 +2,7 @@
 
 Voice and copy rules for landing surfaces: the home page, capability cards, project listing card descriptions, section headers, CTAs, and the experience page header.
 
-Tone and brand-voice principles live in [BRAND.md](BRAND.md). This file is the short, surface-specific spec for everything that is *not* a blog post or a project case study.
+Tone and brand-voice principles live in [BRAND-voice.md](BRAND-voice.md). This file is the short, surface-specific spec for everything that is *not* a blog post or a project case study.
 
 For long-form blog voice, see [BLOG.md](BLOG.md). For project case-study voice, see [PROJECTS.md](PROJECTS.md).
 
@@ -60,7 +60,7 @@ Avoid quietly resume-style framing. The reader is not buying a person; they are 
 
 ## 3. Vocabulary
 
-For the full lists of words to use and avoid, see [BRAND.md section 5](BRAND.md#5-voice-and-tone-applies-to-every-surface). Landing-surface-specific reminders:
+For the full lists of words to use and avoid, see [BRAND-voice.md](BRAND-voice.md). Landing-surface-specific reminders:
 
 - **Avoid CV verbs on landing copy**: built, designed, developed, delivered, implemented, deployed, stood up, contributed to, led, drove, owned, championed. These belong in case-study bodies, not on the home page.
 - **Avoid free-floating adjectives**: "leveraging", "utilizing", "comprehensive", "robust", "scalable" (as adjectives without a specific number behind them).
@@ -87,9 +87,9 @@ The Pipeline section on the home page ("How I Work") is the model for tone here:
 
 ---
 
-## 5. Mechanical rules (inherited from BRAND.md)
+## 5. Mechanical rules (inherited from BRAND-voice.md)
 
-- No em-dashes, no emoji, no exclamation marks: see [BRAND.md section 5](BRAND.md#5-voice-and-tone-applies-to-every-surface) for the canonical statement.
+- No em-dashes, no emoji, no exclamation marks: see [BRAND-voice.md](BRAND-voice.md) for the canonical statement.
 - No AI attribution in commits or PR bodies.
 - Domain-relevant examples where natural in non-landing surfaces.
 
@@ -103,7 +103,7 @@ Read the line out loud as if you were sitting across from a finance director who
 
 ## Cross-references
 
-- **Tone, words to use and avoid, hard rules**: [BRAND.md](BRAND.md) section 5.
+- **Tone, words to use and avoid, hard rules**: [BRAND-voice.md](BRAND-voice.md).
 - **Where landing copy lives in code**:
   - Hero copy: [src/components/home/Hero.astro](../src/components/home/Hero.astro).
   - Capability cards: [src/data/capabilities.ts](../src/data/capabilities.ts).

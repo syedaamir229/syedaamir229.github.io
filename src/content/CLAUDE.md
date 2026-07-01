@@ -12,7 +12,7 @@ Read [../../docs/BLOG.md](../../docs/BLOG.md) and follow it end to end. Highligh
 - Frontmatter `categories` must be values from `BLOG_CATEGORIES` in [../data/categories.ts](../data/categories.ts). Build fails on typos.
 - Pick a post archetype first per [BLOG.md section 12](../../docs/BLOG.md#12-post-archetypes): framework (the full body spine in [section 4](../../docs/BLOG.md#4-body-structure)), war-story, or opinion. The full spine applies only to the framework archetype, and even there the diagram is recommended, not required.
 - Set `date` to a scheduled future Wednesday so the post drips on cadence; it stays hidden until that day. See [BLOG.md section 11](../../docs/BLOG.md#11-publishing-cadence-and-distribution).
-- Every post gets a LinkedIn companion at `social/linkedin/<slug>.md`. See [BLOG.md section 13](../../docs/BLOG.md#13-linkedin-companion).
+- Every post gets a LinkedIn companion at `social/linkedin/<slug>.md`. See [LINKEDIN.md](../../docs/LINKEDIN.md).
 - No author bio block, no "related posts" links, no CTA box. Inbound is handled by the contact page.
 
 ## When you are writing a project case study
@@ -26,7 +26,7 @@ Read [../../docs/PROJECTS.md](../../docs/PROJECTS.md). Highlights:
 
 ## Voice for both
 
-Tone principles and the hard rules (no em-dashes, no emoji, no exclamation marks, no AI attribution) are inherited from [../../docs/BRAND.md](../../docs/BRAND.md) section 5. One content-specific rule on top:
+Tone principles and the hard rules (no em-dashes, no emoji, no exclamation marks, no AI attribution) are inherited from [../../docs/BRAND-voice.md](../../docs/BRAND-voice.md). One content-specific rule on top:
 
 - Current employer is implicit through the CV, not the subject of any blog post or project body. See [BLOG.md section 10](../../docs/BLOG.md#10-confidentiality) and [PROJECTS.md section 9](../../docs/PROJECTS.md#9-confidentiality).
 
