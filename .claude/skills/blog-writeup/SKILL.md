@@ -340,12 +340,40 @@ draft: true                  # always true when this skill writes it
 ---
 ```
 
-### LinkedIn companion (section 13)
+### LinkedIn companion (BLOG.md section 13)
 
-Plain text, under 800 characters, no markdown bold. First line is the hook and
-must land above the "see more" fold (~140-210 chars). Canonical post URL on its
-own line near the end (never the first line). Two or three hashtags. Header block
-above the `---`: title, Post URL, Publish date, Archetype.
+Plain text, no markdown bold (LinkedIn strips it). First line is the hook, above
+the "see more" fold (~140-210 chars). Two or three hashtags. Header block above
+the `---`: title, Post URL, Publish date, Archetype, and a **Format** line (which
+visual, and where the link goes).
+
+**Pick the post format before writing the caption** (full decision matrix in
+BLOG.md section 13). A bare link post is heavily reach-taxed, so almost every post
+ships as a native visual with the link in the first comment:
+
+- **Single feed image (default).** A portrait (~4:5), feed-optimized variant of
+  the post's diagram: feed hook as the title, an attribution + link footer, stored
+  at `social/linkedin/<slug>-feed-portrait.png`. Build the portrait variant; do
+  not re-crop the landscape in-post diagram (it reads as a wide strip in-feed).
+- **Carousel (exception).** `npm run carousel -- <slug>` from a slide spec at
+  `social/linkedin/carousel/<slug>.json`. Only for genuinely sequential ideas; a
+  single framework diagram usually carries more (whole shape in one frame). Commit
+  the JSON spec, not the generated PDF/PNGs (gitignored).
+- **Link-only post (rare).** Paste the URL, the OG card renders, no image. Max
+  click-through, less reach. Only when you deliberately do not want a visual.
+
+**Link handling:** for a native visual the write-up link goes in the FIRST COMMENT
+(caption stays link-free, aim under ~800 chars); for a link-only post the link is
+the post. Never a first-line link.
+
+**Caption craft (when there is a visual):** the image already shows the framework,
+so the caption complements it and never re-lists it. Contrarian hook, then the
+reframe/stakes in short lines with whitespace, then one save-worthy nugget, then a
+comment-bait self-diagnostic question close. Credibility via the external source
+you credit, not an "I built X" flex (put any proof beat in a first-comment reply).
+Time-honesty applies: no line implying long AI tenure (RAG etc. are ~18 months
+old). At post time, reply to the first comments within 30-60 min (comment velocity
+and dwell are the 2026 ranking signals).
 
 ---
 
@@ -392,8 +420,10 @@ not machine, matches the post); discretion. Same scoring and fix format.
 - [ ] Structure: the spine is present; frontmatter complete and valid; `draft:
       true`; placeholder `date: 2099-01-01` (schema requires a date, real slot set
       at publish); `npx astro sync` passes.
-- [ ] Companion: under 800 chars, hook above the fold, URL near the end, plain
-      text, header block present.
+- [ ] Companion: post format chosen (feed image / carousel / link-only); caption
+      under ~800 chars, hook above the fold, link in the first comment (not the
+      caption) unless it is a link-only post; caption complements the visual and
+      does not re-list it; plain text; header block with a Format line present.
 - [ ] Review: all five blog personas at 8+; discretion officer cleared it.
 - [ ] Landed as draft, backlog row updated, NOT deployed, NOT flipped to
       draft:false. Aamir told how to publish.
