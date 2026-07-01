@@ -6,17 +6,17 @@ Note: when posting, @mention Dan Martell for credit and reach. One link only (th
 
 ---
 
+The AI project wins the demo. Gets the budget. Then six months later someone switches it off.
+
+The model wasn't the problem.
+
+Every one of those projects was reaching for a rung one or two above what their data could hold. Dan Martell's AI Adoption Ladder maps the climb. Add the wall and it sticks.
+
+A demo asks almost nothing of that wall. Production asks for all of it.
+
 Your real AI maturity isn't the highest rung you can reach. It's the highest rung your data can hold.
 
-I keep watching the same AI project win the room in a demo and quietly get switched off months later. It is not the model. The data behind it was never solid enough.
-
-Dan Martell's AI Adoption Ladder maps how deeply AI runs in your work. What it leaves out is the wall every rung leans on: your data.
-
-You don't choose your rung. Your data chooses it for you. The ones I've seen stall were a rung or two above what their data could hold.
-
-So which rung are you really on: the one your demos can reach, or the one your data can hold?
-
-Here's the honest version, rung by rung, and the wall each one leans on:
+I wrote up what each rung actually needs from your data:
 https://syedaamir.com/blog/data-ai-maturity-ladder/
 
 #AI #DataEngineering #AIadoption
