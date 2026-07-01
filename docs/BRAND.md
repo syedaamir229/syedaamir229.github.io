@@ -132,6 +132,14 @@ Landing copy is impersonal and imperative ("Stop hiring to scale. Start wiring."
 - **Each post is its own piece.** Do not reuse a previous post's signature phrasing or motif (the pilot owns "the boring part"). A fresh image per post.
 - **The one bold per section is the most quotable line, not a restatement of the sentence before it.** If a section makes its point twice, promote the vivid version to the bold and cut the other.
 - **When a line resists two or three good rewrites, cut it.** It usually has an existence problem, not a wording one, and the surrounding sentences often already carry the point.
+- **Watch the machine-cadence tics that survive a spell-check.** Each reads fine once and as an algorithm in bulk, so give each a once-or-twice budget, not a habit. Drawn from the `blader/humanizer` anti-AI-writing catalog, kept only where they do not fight house style:
+  - *Negative parallelism.* The "not X, it is Y" flip (and "not only... but") is fine once or twice; past that it becomes a detectable spine. Convert some to plain positive assertions.
+  - *Aphorism formulas.* The bolded payoff states a concrete, arguable claim ("symmetric layouts feel more predictable"), never an abstract maxim ("symmetry is the language of trust"). Keep the payoff device, cut the abstraction.
+  - *Persuasive-authority tropes.* Drop "the real question is", "at its core", "what really matters"; state the claim.
+  - *Staccato runs.* One clipped sentence lands emphasis. A run of three or more short fragments in a row reads engineered. This sharpens, and never overrides, the one-bold-per-section rule: a single crafted payoff is not a staccato run.
+  - *Forced triples.* Use the item count the point actually has; a rule-of-three whose third item is padding is a tell.
+  - *Copula avoidance.* "serves as", "stands as", "boasts", "represents" are dressed-up ways to say "is" or "has". Use the plain verb.
+  - *Filler phrases.* "in order to" is "to"; "due to the fact that" is "because"; "has the ability to" is "can".
 
 ### Reframes in practice
 
@@ -161,6 +169,7 @@ These words drag tone backward toward CV mode or marketing mode.
 
 - CV verbs on landing copy: built, designed, developed, delivered, implemented, deployed, stood up, contributed to, led, drove, owned, championed. These belong in case-study bodies.
 - Marketing fillers: cutting-edge, state-of-the-art, next-generation, revolutionary, game-changing, robust, scalable (as a free-floating adjective), comprehensive, leveraging, utilizing.
+- AI-tell vocabulary (the post-2023 cluster): delve, landscape, tapestry, testament, underscore, showcase, seamless, garner, intricate, interplay, pivotal, vibrant, realm, nuanced, multifaceted, foster, elevate. Reads as machine-generated in clusters; prefer the plain synonym.
 - Hedges: might, could potentially, perhaps, in some cases, generally.
 - Closing-CTA cliches: "hope this helped", "feel free to reach out", "let's connect".
 

@@ -286,6 +286,19 @@ surrounding sentences often already carry the point. (This and the rules above a
 codified in `docs/BRAND.md` "Long-form and first-person voice", the source of truth
 this section traces back to.)
 
+**The humanizer catalog: a lens, not an authority.** The `blader/humanizer` skill
+(its 33-pattern anti-AI-writing list) is where the machine-cadence tics in BRAND.md
+were drawn from. Run it as a *diagnostic* if a draft feels AI-ish, but never as an
+authority over BRAND.md, and do not install it as a live `/humanizer` command here.
+Three of its rules fight this brand's deliberate house style and must be ignored:
+
+- It strips boldface. This blog *requires* exactly one bolded payoff per section.
+- It sentence-cases headings. Post titles here are intentionally title-cased.
+- It de-hyphenates predicate compounds ("cross functional"). Keep the correct
+  hyphens ("real-time", "first-person", "four-check").
+
+Use it to catch cadence tics; keep BRAND.md the source of truth on everything else.
+
 ### Structure (the spine, not a rigid checklist)
 
 Default framework-post spine, first person throughout:
