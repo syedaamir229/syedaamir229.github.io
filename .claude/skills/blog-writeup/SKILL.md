@@ -1,18 +1,18 @@
 ---
 name: blog-writeup
 description: >-
-  Write or rewrite blog posts (and their LinkedIn companions) for Aamir's
-  data/AI personal-brand site, this Astro repo (posts in src/content/blog/,
-  companions in social/linkedin/). This is the blog "factory": use it whenever
-  drafting a new post, rewriting an old post into Aamir's first-person voice,
-  scrubbing a post for employer discretion, or producing the matching LinkedIn
-  companion, even when phrased as "write up the X post", "make this read like
-  me", "re-voice this blog", or "do the next one from the backlog". It encodes
-  the first-person long-form voice, the BLOG.md structure, the multi-persona
-  review cycle, and the discretion scrub that keeps the work unattributable to
-  Aamir's employer. It runs with a checkpoint at each stage and writes drafts
-  straight into the portfolio repo as draft:true (never deploys, never flips
-  draft:false on its own).
+  Write or rewrite blog posts for Aamir's data/AI personal-brand site, this
+  Astro repo (posts in src/content/blog/). This is the blog "factory": use it
+  whenever drafting a new post, rewriting an old post into Aamir's first-person
+  voice, or scrubbing a post for employer discretion, even when phrased as
+  "write up the X post", "make this read like me", "re-voice this blog", or
+  "do the next one from the backlog". It encodes the first-person long-form
+  voice, the BLOG.md structure, the five-persona review cycle, and the
+  discretion scrub that keeps the work unattributable to Aamir's employer. It
+  runs with a checkpoint at each stage and writes drafts straight into the
+  portfolio repo as draft:true (never deploys, never flips draft:false on its
+  own). After landing the post, hand off to linkedin-post to write the
+  companion.
 ---
 
 # Blog Write-up (the factory)
@@ -106,8 +106,7 @@ on, pulled from the case study or the old post. Mark each as usable or not:
 thesis, and the running motif. Wait for approval.
 
 ### Stage 2 — Draft
-Write the post body per the voice and structure layer below, plus the LinkedIn
-companion per BLOG.md section 13. Output both as working drafts.
+Write the post body per the voice and structure layer below.
 
 Before showing anything, run the draft once yourself against the "Anti-patterns
 that cause rewrite loops" list below and the BRAND.md "Long-form and first-person
@@ -115,8 +114,8 @@ voice" rules, and fix what you find. The draft Aamir first sees should already b
 voice-clean, so his attention goes to substance, not to catching the same tics
 every round.
 
-**CHECKPOINT 3 — the draft.** Show the full post and the companion. Wait for
-Aamir's reactions and edits. Iterate here until he is happy with the shape.
+**CHECKPOINT 3 — the draft.** Show the full post. Wait for Aamir's reactions
+and edits. Iterate here until he is happy with the shape.
 
 ### Stage 3 — Multi-persona review
 Run the review panel below (spawn the personas as subagents, each returns a score
@@ -139,13 +138,13 @@ anything that fingerprints. This is a required pass even if Stage 3 looked clean
   by accident if the draft flag is ever flipped before its date is set. (Do not
   use today's or a past date as the placeholder: that would auto-publish the
   moment `draft` flips.)
-- Write the companion to `social/linkedin/<slug>.md` (header convention: title,
-  Post URL, Publish date, Archetype, then `---`, then the plain-text copy).
 - Run `npx astro sync` to confirm the schema validates.
 - Update the post's row in `docs/BLOG-BACKLOG.md` to Done.
 - **Do not deploy. Do not flip `draft: false`. Do not set a real publish date.**
   Tell Aamir it is staged, and that to publish he flips `draft: false`, replaces
   the placeholder with the next bi-weekly Wednesday `date`, commits, and deploys.
+- **Hand off to linkedin-post.** Tell Aamir to run `/linkedin-post` with the
+  slug to write the LinkedIn companion and build the feed portrait.
 
 ### Re-voice mode (a surgical pass, not a full factory run)
 
@@ -183,7 +182,7 @@ go out under his own name, so the bar is the same strict one the
 `case-study-copywriter` skill uses. The vendor *combination* and the OTT
 vocabulary *cluster* are the fingerprint, not any single generic word.
 
-### Blocklist — never appears in body, frontmatter, diagram, alt text, or companion
+### Blocklist — never appears in body, frontmatter, diagram, or alt text
 
 - **Identifying vendor names:** Youbora, Evergent, Mediagenix (OTT analytics,
   subscription billing, broadcast scheduling). Also keep media-tied delivery
@@ -279,6 +278,52 @@ edits on past posts; avoiding them up front is where the time is saved.
   wall, no floor-words ("standing on", "built on", "foundation" as the noun).
 - **Over-claimed or repeated proof.** Name his public project (Document Copilot)
   once, lightly; abstract employer work; don't open multiple sections with "I built".
+- **AI vocabulary.** The words that signal machine generation: "testament",
+  "landscape", "showcasing", "pivotal", "crucial", "delve", "notable", "it's worth
+  noting". Replace with the plain version: "is" not "serves as a testament to";
+  "matters" not "plays a crucial role".
+- **Copula overreach.** "Serves as", "features", "boasts" are AI-decorated verbs.
+  Use "is" and "has". If the sentence flattens on the simpler verb, the decoration
+  was hiding a weak claim.
+- **Signposting announcements.** "Let's dive in", "Here's what you need to know",
+  "In this post we'll explore" are chatbot openers. Start with the content.
+- **Aphorism formulas.** "Data is the language of trust", "Clarity is not a
+  feature, it's a foundation." Framework posts attract machine-generated wisdom
+  sentences. Replace with the actual claim.
+- **Significance inflation.** "Marking a pivotal moment in the evolution of AI",
+  "represents a fundamental shift." AI frames everything as historic. State the
+  fact; let the reader decide if it matters.
+
+**Sequencing traps (the joints, not the words).** The anti-patterns above are
+word- and claim-level. These are order-level: the draft reads clean line by line
+while the *arc* is wrong, which is why they cause the longest rewrite loops (a
+whole session of them produced the maturity-ladder opening). The organizing rule
+behind all five: **deliver information in the order Aamir actually learned it.**
+
+- **Spoiled reveal.** Never state the payoff conclusion in the setup. If he did
+  not know it at the time, narrating it as known both kills the later turn and
+  misreports the timeline. Keep the wrong first instinct genuinely wrong on the
+  page; land the reveal where the insight actually clicked. (The maturity-ladder
+  opening once carried "the model was rarely the part that failed" in the *setup*,
+  four paragraphs before the reveal earned it. Every edit after that was undoing
+  the spoiler.)
+- **Borrowed-framework overclaim.** When a post builds on someone else's framework
+  whose value is *what it leaves out*, introduce it as a partial map, never as the
+  answer. No setup praise the later turn has to retract ("it lined up almost
+  exactly", "it helped me understand the problem"). Credit the naming; keep the
+  insight, and the gap, Aamir's. The frame locates the climb; the point is what
+  the frame does not show.
+- **Scale teleport.** Watch any transition that jumps zoom level (one project to
+  "the difference between businesses"; one line of code to the whole industry).
+  Bridge the jump in the same sentence, or the reader feels the seam. Micro to
+  macro with nothing in between reads as a break even when every sentence is clean.
+- **Whiplash turn.** Do not stack endorsement right before a "But". The height of
+  the praise sets the size of the whiplash. If the next paragraph reverses the
+  frame, give it a modest setup to turn from, not a rave.
+- **Metaphor paid off before it is introduced.** The sequencing half of the
+  mixed-metaphor rule: introduce the load-bearing image before you land a punch on
+  it. Naming "the wall" in a reveal before the wall motif exists hits air.
+  Introduce, then pay off, never the reverse.
 
 **Heuristic for stuck lines:** if a sentence resists two or three good-faith
 rewrites, it usually has an existence problem, not a wording problem. Cut it; the
@@ -290,12 +335,17 @@ this section traces back to.)
 (its 33-pattern anti-AI-writing list) is where the machine-cadence tics in BRAND.md
 were drawn from. Run it as a *diagnostic* if a draft feels AI-ish, but never as an
 authority over BRAND.md, and do not install it as a live `/humanizer` command here.
-Three of its rules fight this brand's deliberate house style and must be ignored:
+Four of its rules conflict with this brand's deliberate house style and must be
+handled carefully:
 
 - It strips boldface. This blog *requires* exactly one bolded payoff per section.
 - It sentence-cases headings. Post titles here are intentionally title-cased.
 - It de-hyphenates predicate compounds ("cross functional"). Keep the correct
   hyphens ("real-time", "first-person", "four-check").
+- Pattern 31 (manufactured staccato) requires judgment: Aamir's voice uses genuine
+  short-sentence rhythm. The tell is dramatic fragments with no concrete payload
+  ("It had no preference. No prior. No nostalgia."). Earned staccato with real
+  content behind it stays.
 
 Use it to catch cadence tics; keep BRAND.md the source of truth on everything else.
 
@@ -315,6 +365,16 @@ Default framework-post spine, first person throughout:
 8. `## One note from experience` — short personal reflection landing the motif.
 9. `## Closing` — a leading question (often the binary from the thesis), then a
    short answer; land the motif in the final line.
+
+**The framework-opening shape (beats 1-2).** Most framework posts open on the same
+four-beat arc, and both exemplars use it: a lived failure or wrong instinct, then
+someone else's frame introduced as a partial map, then the turn (what the frame
+leaves out), then the either-or thesis. Draft from this shape so the arc is right
+before the words are: the failure stays wrong until the reveal, the borrowed frame
+gets credit for naming and nothing more, the scale does not teleport between beats,
+and the thesis lands last. The opening of `data-ai-maturity-ladder.md` (the first
+four paragraphs) is the worked example. Watch the sequencing traps in the
+anti-pattern list above at each joint between beats.
 
 War-story and opinion archetypes use a lighter scaffold (no required framework or
 diagram) but the same first person, thesis, motif, and discretion scrub.
@@ -340,41 +400,6 @@ draft: true                  # always true when this skill writes it
 ---
 ```
 
-### LinkedIn companion (BLOG.md section 13)
-
-Plain text, no markdown bold (LinkedIn strips it). First line is the hook, above
-the "see more" fold (~140-210 chars). Two or three hashtags. Header block above
-the `---`: title, Post URL, Publish date, Archetype, and a **Format** line (which
-visual, and where the link goes).
-
-**Pick the post format before writing the caption** (full decision matrix in
-BLOG.md section 13). A bare link post is heavily reach-taxed, so almost every post
-ships as a native visual with the link in the first comment:
-
-- **Single feed image (default).** A portrait (~4:5), feed-optimized variant of
-  the post's diagram: feed hook as the title, an attribution + link footer, stored
-  at `social/linkedin/<slug>-feed-portrait.png`. Build the portrait variant; do
-  not re-crop the landscape in-post diagram (it reads as a wide strip in-feed).
-- **Carousel (exception).** `npm run carousel -- <slug>` from a slide spec at
-  `social/linkedin/carousel/<slug>.json`. Only for genuinely sequential ideas; a
-  single framework diagram usually carries more (whole shape in one frame). Commit
-  the JSON spec, not the generated PDF/PNGs (gitignored).
-- **Link-only post (rare).** Paste the URL, the OG card renders, no image. Max
-  click-through, less reach. Only when you deliberately do not want a visual.
-
-**Link handling:** for a native visual the write-up link goes in the FIRST COMMENT
-(caption stays link-free, aim under ~800 chars); for a link-only post the link is
-the post. Never a first-line link.
-
-**Caption craft (when there is a visual):** the image already shows the framework,
-so the caption complements it and never re-lists it. Contrarian hook, then the
-reframe/stakes in short lines with whitespace, then one save-worthy nugget, then a
-comment-bait self-diagnostic question close. Credibility via the external source
-you credit, not an "I built X" flex (put any proof beat in a first-comment reply).
-Time-honesty applies: no line implying long AI tenure (RAG etc. are ~18 months
-old). At post time, reply to the first comments within 30-60 min (comment velocity
-and dwell are the 2026 ranking signals).
-
 ---
 
 ## 3. The multi-persona review (Stage 3)
@@ -398,12 +423,10 @@ specific, quoted fixes. Apply fixes, re-run any persona that scored below 8.
    vocabulary, regional anchor, vendor leak, or exact figure? This persona can
    block release on its own.
 5. **Editor.** Structure, flow, motif discipline (introduced and paid off),
-   one-bold-per-section, the closing landing the opening. Cuts the saggy lines.
-
-### LinkedIn panel (4 personas)
-
-Hook strength above the fold; under-800 and no-bold compliance; voice (human,
-not machine, matches the post); discretion. Same scoring and fix format.
+   one-bold-per-section, the closing landing the opening. Also arc integrity: no
+   spoiled reveal, no scale teleport, no whiplash turn, borrowed frameworks
+   credited as partial maps (see the sequencing traps in section 2). Cuts the
+   saggy lines.
 
 ---
 
@@ -420,10 +443,6 @@ not machine, matches the post); discretion. Same scoring and fix format.
 - [ ] Structure: the spine is present; frontmatter complete and valid; `draft:
       true`; placeholder `date: 2099-01-01` (schema requires a date, real slot set
       at publish); `npx astro sync` passes.
-- [ ] Companion: post format chosen (feed image / carousel / link-only); caption
-      under ~800 chars, hook above the fold, link in the first comment (not the
-      caption) unless it is a link-only post; caption complements the visual and
-      does not re-list it; plain text; header block with a Format line present.
 - [ ] Review: all five blog personas at 8+; discretion officer cleared it.
 - [ ] Landed as draft, backlog row updated, NOT deployed, NOT flipped to
       draft:false. Aamir told how to publish.

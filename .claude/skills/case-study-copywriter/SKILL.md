@@ -139,6 +139,28 @@ Tone source of truth: `docs/BRAND.md` section 5. Structure source of truth:
   comprehensive, leveraging, utilizing.
 - Hedges (list above).
 
+### AI cadence tells (kill these in the first draft)
+
+Case studies attract a specific set of machine-writing patterns. They look
+professional at a glance but signal a template to any reader who slows down.
+
+- **AI vocabulary.** "Testament", "landscape", "pivotal", "crucial", "delve",
+  "notable", "showcasing", "it's worth noting." Replace with the plain version:
+  "is" not "serves as a testament to"; "matters" not "plays a crucial role".
+- **Significance inflation.** "This project marked a significant milestone in
+  the organisation's data journey." State the result; let the reader decide if it
+  matters.
+- **Copula overreach.** "Serves as a foundation for", "boasts the ability to",
+  "features robust pipelines." Use "is" and "has". If the sentence weakens on
+  the simpler verb, the claim was weak to begin with.
+- **Aphorism formulas in My Role.** "Data without context is just noise",
+  "Speed without accuracy is just fast failure." Replace the formula with the
+  honest one-sentence transfer claim the role section asks for.
+- **Challenge openers.** "In today's data-driven world..." or "As organisations
+  increasingly rely on AI..." These are the generic setups. Start with the
+  concrete problem: the number nobody agreed on, the call that returned four
+  different answers, the report that took a day to build.
+
 ### Hard rules (mechanical, non-negotiable)
 
 - **No em-dashes.** Not `—`, not `--`. Use colons, periods, or restructure. (SQL

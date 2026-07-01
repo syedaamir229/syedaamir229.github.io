@@ -7,19 +7,19 @@ categories: ["AI & Automation", "Data Engineering"]
 draft: true
 ---
 
-More than once I have watched the same kind of AI project win the room in a demo. Someone asks a question, the system answers, the room cheers, the budget gets approved. Then it meets the real world, the answers stop being trustworthy, and one day someone just switches it off. My first instinct was that the gap was a modeling problem, that the demo version just needed a better prompt or a stronger model to hold up in production. The model was rarely the part that failed.
+More than once I have watched the same kind of AI project win the room in a demo. Someone asks a question, the system answers, the room cheers, the budget gets approved. Then it meets the real world, the answers stop being trustworthy, and one day someone just switches it off. My first thought was that the gap was a modeling problem, that the demo version just needed a better prompt or a stronger model to hold up in production.
 
-A while back I came across Dan Martell's [AI Adoption Ladder](https://x.com/danmartell/status/2027111498691043335), and it lined up almost exactly with what I keep running into in my own work. His point is that the difference between businesses is not who has access to AI, since everyone does now, but how deeply they have woven it into how they actually work. He lays it out as five levels, from the occasional chat at the bottom to custom systems running the business at the top. It is a clean way to see the climb, and it changed how I judge where a business actually is.
+And then I came across Dan Martell's [AI Adoption Ladder](https://x.com/danmartell/status/2027111498691043335), and it pulled me back from the one project I kept staring at to the whole climb behind it. His point is that the difference between businesses is not who has access to AI, since everyone does now, but how deeply they have woven it into how they actually work. He lays it out as five levels, from the occasional chat at the bottom to custom systems running the business at the top. It is a clean way to see the climb.
 
-But the more I sat with it, the more I noticed what the ladder doesn't show you. A ladder on its own does not stand. It leans on something. And every rung of an AI climb leans on the same thing the picture leaves out: your data. That is what I was actually running into, every time I first assumed the problem was the model.
+But the more I sat with it, the more I noticed what the ladder doesn't show you. A ladder on its own does not stand. It leans on something. And every rung of an AI climb leans on the same thing: your data. That is what I was actually running into, every time I blamed the model.
 
-Your real AI maturity isn't the highest rung you can reach. It's the highest rung your data can hold.
+**Your real AI maturity isn't the highest rung you can reach. It's the highest rung your data can support.**
 
 ## What got easier, and what didn't
 
-A ladder reaches only as high as the wall it leans on. Prop one against a tall wall and you can climb all the way up. Prop the same ladder against a wall half its height and the top rungs have nothing behind them. The wall is your data. The height you are reaching for is the AI. Most of the falls I have seen were not people reaching too high. They were people reaching past where their wall stopped.
+A ladder reaches only as high as the wall it leans on. Prop one against a tall wall and you can climb all the way up. Prop the same ladder against a wall half its height and the top rungs have nothing behind them. The wall is your data and the height you are reaching for is the AI. Most of the falls I have seen were not people reaching too high. They were people reaching past where their wall stopped.
 
-What changed recently is not the wall. It is how close the top of the ladder suddenly looks. A few years ago, anything on the upper rungs took a team and the better part of a year, so few people attempted it on a wall that could not hold them. Now a weekend with the right tools puts a convincing version of rung 4 in front of anyone, leaning on a wall that was never built for it. A demo asks almost nothing of the wall. Production asks for all of it, and that is where the gap shows: not as a wrong answer someone catches in time, but as a system that quietly loses trust. **The top of the ladder has never looked closer but the wall behind it did not get any taller.**
+What changed recently is not the wall. It is how close the top of the ladder suddenly looks. A few years ago, anything on the upper rungs took a team and the better part of a year, so few people attempted it on a wall that could not hold them. Now a weekend with the right tools puts a convincing version of rung 4 in front of anyone, leaning on a wall that was never built for it. A demo asks almost nothing of the wall but production asks for all of it. **The top of the ladder has never looked closer but the wall behind it did not get any taller.**
 
 ## The Data & AI Maturity Ladder
 
@@ -65,14 +65,10 @@ That gap, between the rung a business wants and the rung its data can hold, is w
 
 ## How I would climb it
 
-If I were starting fresh, I would resist the urge to climb. The instinct is always to reach for the top rung, because that is the one that gets the budget approved. The teams I have seen do well went the other way. They found the highest rung their data could already hold, which is usually lower than they hoped, and they raised the wall first, then climbed one rung at a time.
+If I were starting fresh, I would resist the urge to climb to rung 5. The instinct is always to reach for the top rung, because that is the one that gets the budget approved. The teams I have seen do well went the other way. They found the highest rung their data could already hold, which is usually lower than they hoped, and they raised the wall first, then climbed one rung at a time.
 
-In practice that means picking a single thing you want AI to do, being honest about the rung it really needs, and asking whether the data behind it can hold that weight. If it cannot, the project is not an AI project yet. It is a data project, and pretending otherwise is how you end up with another flawless demo and another quiet shutdown. Before you reach for a higher rung, find out which one your data can already hold. The climb is cheap once the wall is there. Building it is the slow part, and it is the part that lasts.
-
-## The wall was there first
-
-Up close, the model is rarely where things break. The systems that work were leaning on a wall someone had already built tall and kept standing, often long before there was an AI reason to. The AI did not earn that wall. It inherited it.
+In practice that means picking a single thing you want AI to do, being honest about the rung it really needs, and asking whether the data behind it can hold that weight. If it cannot, the project is not an AI project yet. It is a data project, and pretending otherwise is how you end up with another flawless demo and another quiet shutdown. Before you reach for a higher rung, find out which one your data can already hold. The climb is cheap once the wall is there. 
 
 ## Which rung are you really on?
 
-The one your demos can reach, or the one your data can hold? They are rarely the same rung, and the distance between them is the most honest number you have about your own AI. Most people never measure it, because the demo rung feels so much better to report. A demo can reach any rung. A production system reaches only what your wall can hold today. The wall is yours to raise.
+The one your demos can reach, or the one your data can hold? They are rarely the same rung, and the distance between them is the most honest number you have about your own AI. Most people never measure it, because the demo rung feels so much better to report. A demo can reach any rung. A production system reaches only what your wall can hold today.
