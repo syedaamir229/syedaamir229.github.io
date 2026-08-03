@@ -1,0 +1,30 @@
+---
+import { SKILLS } from '../../data/skills';
+import SectionHeader from '../ui/SectionHeader.astro';
+---
+
+<section class="py-16 px-6 reveal">
+  <div class="max-w-5xl mx-auto">
+    <SectionHeader
+      eyebrow="Stack"
+      title="Skills and technologies"
+      description="The tools I reach for, grouped by what they solve."
+    />
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {SKILLS.map((group) => (
+        <div class="p-5 rounded-xl border border-cream-100/5 bg-navy-800/40">
+          <h3 class="text-sm font-semibold text-cream-100 mb-1.5">{group.category}</h3>
+          <p class="text-xs text-muted-500 leading-relaxed mb-4">{group.subtitle}</p>
+          <div class="flex flex-wrap gap-2">
+            {group.items.map((item) => (
+              <span class="text-xs px-2.5 py-1 rounded-md bg-navy-700/60 text-cream-200 border border-cream-100/5">
+                {item}
+              </span>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

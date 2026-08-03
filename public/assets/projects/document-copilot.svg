@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 585" font-family="Inter, system-ui, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#06B6D4"/>
+    </marker>
+    <marker id="arrMuted" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#94A3B8"/>
+    </marker>
+  </defs>
+
+  <rect width="1040" height="585" rx="12" fill="#050B14"/>
+
+  <text x="520" y="38" text-anchor="middle" font-size="17" font-weight="700" fill="#E2E8F0">Document Copilot · Grounded Document Intelligence</text>
+  <text x="520" y="59" text-anchor="middle" font-size="11" fill="#94A3B8">Trust contract: answer only from retrieved passages · cite every claim · refuse when unsupported</text>
+
+  <!-- ============ MAIN SEQUENCE (left to right) ============ -->
+
+  <!-- 1 ASK -->
+  <rect x="28" y="170" width="150" height="78" rx="8" fill="#122033" stroke="#2A4561" stroke-width="1"/>
+  <text x="103" y="194" text-anchor="middle" font-size="10" font-weight="700" fill="#06B6D4">1 · ASK</text>
+  <text x="103" y="216" text-anchor="middle" font-size="11" font-weight="600" fill="#E2E8F0">Question</text>
+  <text x="103" y="233" text-anchor="middle" font-size="9" fill="#94A3B8">plain English · React</text>
+
+  <line x1="178" y1="209" x2="214" y2="209" stroke="#06B6D4" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- 2 RETRIEVE -->
+  <rect x="216" y="158" width="178" height="102" rx="8" fill="#122033" stroke="#2A4561" stroke-width="1"/>
+  <text x="305" y="182" text-anchor="middle" font-size="10" font-weight="700" fill="#06B6D4">2 · RETRIEVE</text>
+  <text x="305" y="203" text-anchor="middle" font-size="11" font-weight="600" fill="#E2E8F0">Hybrid retrieval</text>
+  <text x="305" y="221" text-anchor="middle" font-size="9" fill="#94A3B8">meaning (pgvector)</text>
+  <text x="305" y="236" text-anchor="middle" font-size="9" fill="#94A3B8">+ keyword (full-text)</text>
+  <text x="305" y="251" text-anchor="middle" font-size="9" fill="#94A3B8">fuse rankings · RRF</text>
+
+  <line x1="394" y1="209" x2="430" y2="209" stroke="#06B6D4" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- 3 GENERATE -->
+  <rect x="432" y="158" width="170" height="102" rx="8" fill="#122033" stroke="#2A4561" stroke-width="1"/>
+  <text x="517" y="182" text-anchor="middle" font-size="10" font-weight="700" fill="#06B6D4">3 · GENERATE</text>
+  <text x="517" y="203" text-anchor="middle" font-size="11" font-weight="600" fill="#E2E8F0">Draft answer</text>
+  <text x="517" y="221" text-anchor="middle" font-size="9" fill="#94A3B8">language model (OpenAI)</text>
+  <text x="517" y="236" text-anchor="middle" font-size="9" fill="#94A3B8">drafts from best</text>
+  <text x="517" y="251" text-anchor="middle" font-size="9" fill="#94A3B8">passages · with citations</text>
+
+  <line x1="602" y1="209" x2="638" y2="209" stroke="#06B6D4" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- 4 VERIFY / GROUND  (HERO) -->
+  <rect x="640" y="138" width="200" height="142" rx="10" fill="rgba(6,182,212,0.06)" stroke="#06B6D4" stroke-width="2"/>
+  <text x="740" y="164" text-anchor="middle" font-size="11" font-weight="700" fill="#06B6D4">4 · VERIFY · GROUND</text>
+  <text x="740" y="187" text-anchor="middle" font-size="12" font-weight="700" fill="#E2E8F0">Grounding validator</text>
+  <text x="740" y="208" text-anchor="middle" font-size="9" fill="#94A3B8">does every citation map to</text>
+  <text x="740" y="222" text-anchor="middle" font-size="9" fill="#94A3B8">a passage that was actually</text>
+  <text x="740" y="236" text-anchor="middle" font-size="9" fill="#94A3B8">retrieved?</text>
+  <text x="740" y="263" text-anchor="middle" font-size="9" fill="#06B6D4" font-weight="600">the gate · two outcomes</text>
+
+  <!-- gate to PASS (up-right) -->
+  <path d="M 840 178 L 902 158" fill="none" stroke="#06B6D4" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="876" y="150" text-anchor="middle" font-size="9" fill="#06B6D4" font-weight="600">supported</text>
+
+  <!-- gate to REFUSE (down-right, muted dashed) -->
+  <path d="M 840 244 L 902 268" fill="none" stroke="#94A3B8" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#arrMuted)"/>
+  <text x="878" y="290" text-anchor="middle" font-size="9" fill="#94A3B8" font-weight="600">unsupported</text>
+
+  <!-- PASS outcome: CITED ANSWER -->
+  <rect x="904" y="120" width="120" height="76" rx="8" fill="#122033" stroke="#06B6D4" stroke-width="1.5"/>
+  <text x="964" y="146" text-anchor="middle" font-size="11" font-weight="700" fill="#E2E8F0">Cited answer</text>
+  <text x="964" y="165" text-anchor="middle" font-size="9" fill="#94A3B8">streamed back</text>
+  <text x="964" y="180" text-anchor="middle" font-size="9" fill="#94A3B8">every claim cited</text>
+
+  <!-- REFUSE outcome -->
+  <rect x="904" y="238" width="120" height="76" rx="8" fill="#0A1220" stroke="#94A3B8" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <text x="964" y="264" text-anchor="middle" font-size="11" font-weight="700" fill="#94A3B8">Refusal</text>
+  <text x="964" y="283" text-anchor="middle" font-size="9" fill="#94A3B8">fail closed · no guess</text>
+  <text x="964" y="298" text-anchor="middle" font-size="9" fill="#94A3B8">not enough evidence</text>
+
+  <!-- typed agent bracket under steps 2-3-4 -->
+  <line x1="216" y1="290" x2="840" y2="290" stroke="#2A4561" stroke-width="1"/>
+  <line x1="216" y1="285" x2="216" y2="290" stroke="#2A4561" stroke-width="1"/>
+  <line x1="840" y1="285" x2="840" y2="290" stroke="#2A4561" stroke-width="1"/>
+  <text x="600" y="306" text-anchor="middle" font-size="9" fill="#94A3B8">backend typed agent (PydanticAI) on FastAPI · steps 2 to 4 server-side</text>
+
+  <!-- ============ INGESTION FEEDER (smaller, below) ============ -->
+
+  <rect x="216" y="392" width="624" height="118" rx="8" fill="#0A1220" stroke="#2A4561" stroke-width="1"/>
+  <text x="234" y="416" font-size="10" font-weight="700" fill="#94A3B8">INGESTION PIPELINE · prepares the store (offline)</text>
+
+  <!-- parse -->
+  <rect x="234" y="430" width="116" height="58" rx="6" fill="#122033" stroke="#2A4561" stroke-width="1"/>
+  <text x="292" y="455" text-anchor="middle" font-size="10" font-weight="600" fill="#E2E8F0">Parse</text>
+  <text x="292" y="472" text-anchor="middle" font-size="9" fill="#94A3B8">documents</text>
+  <line x1="350" y1="459" x2="372" y2="459" stroke="#94A3B8" stroke-width="1.5" marker-end="url(#arrMuted)"/>
+
+  <!-- split -->
+  <rect x="374" y="430" width="116" height="58" rx="6" fill="#122033" stroke="#2A4561" stroke-width="1"/>
+  <text x="432" y="455" text-anchor="middle" font-size="10" font-weight="600" fill="#E2E8F0">Split</text>
+  <text x="432" y="472" text-anchor="middle" font-size="9" fill="#94A3B8">into passages</text>
+  <line x1="490" y1="459" x2="512" y2="459" stroke="#94A3B8" stroke-width="1.5" marker-end="url(#arrMuted)"/>
+
+  <!-- embed -->
+  <rect x="514" y="430" width="116" height="58" rx="6" fill="#122033" stroke="#2A4561" stroke-width="1"/>
+  <text x="572" y="455" text-anchor="middle" font-size="10" font-weight="600" fill="#E2E8F0">Embed</text>
+  <text x="572" y="472" text-anchor="middle" font-size="9" fill="#94A3B8">vectorize</text>
+  <line x1="630" y1="459" x2="652" y2="459" stroke="#94A3B8" stroke-width="1.5" marker-end="url(#arrMuted)"/>
+
+  <!-- store -->
+  <rect x="654" y="430" width="170" height="58" rx="6" fill="#122033" stroke="#06B6D4" stroke-width="1.5"/>
+  <text x="739" y="451" text-anchor="middle" font-size="10" font-weight="700" fill="#E2E8F0">Indexed store</text>
+  <text x="739" y="467" text-anchor="middle" font-size="9" fill="#94A3B8">Supabase Postgres</text>
+  <text x="739" y="481" text-anchor="middle" font-size="9" fill="#06B6D4">meaning index + keyword index</text>
+
+  <!-- feeder arrow: store top -> retrieve bottom (reads from), via the clear gap below the caption -->
+  <path d="M 800 430 C 800 372, 360 372, 300 262" fill="none" stroke="#06B6D4" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="556" y="388" text-anchor="middle" font-size="9" fill="#06B6D4">retrieval reads the store</text>
+
+  <text x="234" y="503" font-size="8" fill="#06B6D4">tables extracted as structured rows · kept whole for citation</text>
+  <text x="828" y="503" text-anchor="end" font-size="8" fill="#94A3B8">25 documents to 19,826 passages</text>
+
+  <!-- footer -->
+  <text x="520" y="556" text-anchor="middle" font-size="10" fill="#94A3B8">React · FastAPI · PydanticAI · Supabase Postgres (pgvector + full-text) · OpenAI · Railway</text>
+  <text x="520" y="574" text-anchor="middle" font-size="9" fill="#94A3B8">works on any document set: contracts · reports · policies · research · demo corpus: SEC 10-Ks</text>
+</svg>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 470" font-family="Inter, system-ui, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#06B6D4"/>
+    </marker>
+  </defs>
+
+  <rect width="980" height="470" rx="12" fill="#050B14"/>
+  <text x="490" y="36" text-anchor="middle" font-size="16" font-weight="700" fill="#E2E8F0">Governed Semantic Layer &amp; KPI Framework</text>
+
+  <!-- Conformed Layer -->
+  <rect x="24" y="100" width="168" height="296" rx="8" fill="rgba(6,182,212,0.06)" stroke="#06B6D4" stroke-width="1.5"/>
+  <text x="108" y="126" text-anchor="middle" font-size="12" font-weight="600" fill="#06B6D4">Conformed Layer</text>
+  <rect x="36" y="138" width="144" height="24" rx="4" fill="#122033" stroke="#06B6D4" stroke-width="1"/>
+  <text x="108" y="154" text-anchor="middle" font-size="9" fill="#E2E8F0">fact_engagement</text>
+  <rect x="36" y="168" width="144" height="24" rx="4" fill="#122033" stroke="#06B6D4" stroke-width="1"/>
+  <text x="108" y="184" text-anchor="middle" font-size="9" fill="#E2E8F0">fact_subscriptions</text>
+  <rect x="36" y="198" width="144" height="24" rx="4" fill="#122033" stroke="#06B6D4" stroke-width="1"/>
+  <text x="108" y="214" text-anchor="middle" font-size="9" fill="#E2E8F0">fact_ad_impressions</text>
+  <rect x="36" y="228" width="144" height="24" rx="4" fill="#122033" stroke="#06B6D4" stroke-width="1"/>
+  <text x="108" y="244" text-anchor="middle" font-size="9" fill="#E2E8F0">dim_customer</text>
+  <rect x="36" y="258" width="144" height="24" rx="4" fill="#122033" stroke="#06B6D4" stroke-width="1"/>
+  <text x="108" y="274" text-anchor="middle" font-size="9" fill="#E2E8F0">dim_content</text>
+  <rect x="36" y="288" width="144" height="24" rx="4" fill="#122033" stroke="#06B6D4" stroke-width="1"/>
+  <text x="108" y="304" text-anchor="middle" font-size="9" fill="#E2E8F0">dim_date</text>
+  <text x="108" y="348" text-anchor="middle" font-size="8" fill="#94A3B8">Conformed fact &amp; dim</text>
+
+  <line x1="192" y1="246" x2="216" y2="246" stroke-width="2" marker-end="url(#arr)" stroke="#06B6D4"/>
+
+  <!-- Semantic Model -->
+  <rect x="216" y="84" width="330" height="312" rx="8" fill="rgba(6,182,212,0.06)" stroke="#06B6D4" stroke-width="1.5"/>
+  <text x="381" y="110" text-anchor="middle" font-size="12" font-weight="600" fill="#06B6D4">SSAS Tabular Semantic Model</text>
+  <text x="381" y="128" text-anchor="middle" font-size="9" fill="#94A3B8">migrated from premium-capacity tier</text>
+
+  <rect x="232" y="146" width="298" height="58" rx="6" fill="#122033" stroke="#06B6D4" stroke-width="1"/>
+  <text x="381" y="170" text-anchor="middle" font-size="11" font-weight="600" fill="#E2E8F0">Base measures</text>
+  <text x="381" y="187" text-anchor="middle" font-size="9" fill="#94A3B8">event counts · active base · impressions</text>
+
+  <line x1="381" y1="204" x2="381" y2="216" stroke-width="2" marker-end="url(#arr)" stroke="#06B6D4"/>
+
+  <rect x="232" y="216" width="298" height="58" rx="6" fill="#122033" stroke="#06B6D4" stroke-width="1"/>
+  <text x="381" y="240" text-anchor="middle" font-size="11" font-weight="600" fill="#E2E8F0">Business measures</text>
+  <text x="381" y="257" text-anchor="middle" font-size="9" fill="#94A3B8">net adds · churn · ARPU · retention</text>
+
+  <line x1="381" y1="274" x2="381" y2="286" stroke-width="2" marker-end="url(#arr)" stroke="#06B6D4"/>
+
+  <rect x="232" y="286" width="298" height="58" rx="6" fill="#122033" stroke="#06B6D4" stroke-width="1"/>
+  <text x="381" y="310" text-anchor="middle" font-size="11" font-weight="600" fill="#E2E8F0">Consumption layer</text>
+  <text x="381" y="327" text-anchor="middle" font-size="9" fill="#94A3B8">time intelligence · segment cuts</text>
+
+  <text x="381" y="366" text-anchor="middle" font-size="8" fill="#94A3B8">role security · incremental partitions by domain</text>
+
+  <line x1="546" y1="210" x2="596" y2="174" stroke-width="2" marker-end="url(#arr)" stroke="#06B6D4"/>
+  <line x1="546" y1="282" x2="596" y2="248" stroke-width="2" marker-end="url(#arr)" stroke="#06B6D4"/>
+
+  <!-- Power BI -->
+  <rect x="600" y="142" width="332" height="62" rx="8" fill="#122033"/>
+  <text x="766" y="170" text-anchor="middle" font-size="13" font-weight="700" fill="#E2E8F0">Power BI</text>
+  <text x="766" y="188" text-anchor="middle" font-size="9" fill="#06B6D4">live connection · measures by name</text>
+
+  <!-- Ad-hoc analysis -->
+  <rect x="600" y="224" width="332" height="52" rx="8" fill="#122033"/>
+  <text x="766" y="248" text-anchor="middle" font-size="12" font-weight="600" fill="#E2E8F0">Ad-hoc analysis</text>
+  <text x="766" y="265" text-anchor="middle" font-size="9" fill="#94A3B8">DAX over governed measures</text>
+
+  <!-- Governance & operations -->
+  <rect x="600" y="296" width="332" height="92" rx="8" fill="rgba(6,182,212,0.06)" stroke="#06B6D4" stroke-width="1.5"/>
+  <text x="766" y="320" text-anchor="middle" font-size="12" font-weight="600" fill="#06B6D4">Governance &amp; operations</text>
+  <text x="766" y="344" text-anchor="middle" font-size="9" fill="#E2E8F0">Release gates: approval · validation · rollback</text>
+  <text x="766" y="364" text-anchor="middle" font-size="9" fill="#E2E8F0">Weekly monitoring: query stats · capacity</text>
+
+  <text x="490" y="454" text-anchor="middle" font-size="10" fill="#94A3B8">SSAS Tabular · DAX · Power BI · SSIS · Databricks (Gold)</text>
+</svg>

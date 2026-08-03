@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://syedaamir.com/sitemap-index.xml

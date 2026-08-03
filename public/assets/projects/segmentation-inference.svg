@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 460" font-family="Inter, system-ui, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#06B6D4"/>
+    </marker>
+  </defs>
+
+  <rect width="980" height="460" rx="12" fill="#050B14"/>
+  <text x="490" y="36" text-anchor="middle" font-size="16" font-weight="700" fill="#E2E8F0">Behavioral Segmentation &amp; Attribute Inference</text>
+
+  <!-- Shared feature store -->
+  <rect x="24" y="175" width="150" height="120" rx="8" fill="#122033"/>
+  <text x="99" y="210" text-anchor="middle" font-size="12" font-weight="700" fill="#E2E8F0">Shared</text>
+  <text x="99" y="228" text-anchor="middle" font-size="12" font-weight="700" fill="#E2E8F0">Feature Store</text>
+  <text x="99" y="251" text-anchor="middle" font-size="9" fill="#06B6D4">Profile-level</text>
+  <text x="99" y="266" text-anchor="middle" font-size="9" fill="#06B6D4">features</text>
+
+  <line x1="174" y1="210" x2="210" y2="142" stroke-width="2" marker-end="url(#arr)" stroke="#06B6D4"/>
+  <line x1="174" y1="262" x2="210" y2="352" stroke-width="2" marker-end="url(#arr)" stroke="#06B6D4"/>
+
+  <!-- TOP: segmentation branch -->
+  <rect x="214" y="100" width="150" height="86" rx="8" fill="rgba(6,182,212,0.06)" stroke="#06B6D4" stroke-width="1.5"/>
+  <text x="289" y="124" text-anchor="middle" font-size="11" font-weight="600" fill="#06B6D4">Feature Space</text>
+  <text x="289" y="148" text-anchor="middle" font-size="9" fill="#E2E8F0">Behavior matrix</text>
+  <text x="289" y="168" text-anchor="middle" font-size="9" fill="#E2E8F0">+ Embeddings</text>
+
+  <line x1="364" y1="143" x2="394" y2="143" stroke-width="2" marker-end="url(#arr)" stroke="#06B6D4"/>
+
+  <rect x="398" y="110" width="104" height="66" rx="8" fill="#122033"/>
+  <text x="450" y="138" text-anchor="middle" font-size="12" font-weight="700" fill="#E2E8F0">K-means</text>
+  <text x="450" y="157" text-anchor="middle" font-size="9" fill="#06B6D4">clustering</text>
+
+  <line x1="502" y1="143" x2="532" y2="143" stroke-width="2" marker-end="url(#arr)" stroke="#06B6D4"/>
+
+  <rect x="536" y="110" width="120" height="66" rx="8" fill="#122033"/>
+  <text x="596" y="134" text-anchor="middle" font-size="11" font-weight="700" fill="#E2E8F0">Stability</text>
+  <text x="596" y="152" text-anchor="middle" font-size="8" fill="#94A3B8">multi-run checks</text>
+  <text x="596" y="167" text-anchor="middle" font-size="8" fill="#94A3B8">+ labels</text>
+
+  <line x1="656" y1="143" x2="686" y2="143" stroke-width="2" marker-end="url(#arr)" stroke="#06B6D4"/>
+
+  <rect x="690" y="110" width="166" height="66" rx="8" fill="rgba(6,182,212,0.06)" stroke="#06B6D4" stroke-width="1.5"/>
+  <text x="773" y="134" text-anchor="middle" font-size="11" font-weight="600" fill="#06B6D4">Labeled Segments</text>
+  <text x="773" y="152" text-anchor="middle" font-size="8" fill="#94A3B8">→ Semantic Layer</text>
+  <text x="773" y="168" text-anchor="middle" font-size="8" fill="#94A3B8">for activation</text>
+
+  <!-- BOTTOM: inference branch -->
+  <rect x="214" y="320" width="150" height="80" rx="8" fill="rgba(6,182,212,0.06)" stroke="#06B6D4" stroke-width="1.5"/>
+  <text x="289" y="344" text-anchor="middle" font-size="11" font-weight="600" fill="#06B6D4">Clean Subset</text>
+  <text x="289" y="364" text-anchor="middle" font-size="8" fill="#94A3B8">single-user accounts</text>
+  <text x="289" y="382" text-anchor="middle" font-size="8" fill="#94A3B8">self-labeled</text>
+
+  <line x1="364" y1="360" x2="394" y2="360" stroke-width="2" marker-end="url(#arr)" stroke="#06B6D4"/>
+
+  <rect x="398" y="325" width="140" height="70" rx="8" fill="#122033"/>
+  <text x="468" y="350" text-anchor="middle" font-size="12" font-weight="700" fill="#E2E8F0">XGBoost</text>
+  <text x="468" y="369" text-anchor="middle" font-size="9" fill="#06B6D4">MLflow registry</text>
+  <text x="468" y="385" text-anchor="middle" font-size="8" fill="#94A3B8">Unity Catalog</text>
+
+  <line x1="538" y1="360" x2="568" y2="360" stroke-width="2" marker-end="url(#arr)" stroke="#06B6D4"/>
+
+  <rect x="572" y="325" width="186" height="70" rx="8" fill="rgba(6,182,212,0.06)" stroke="#06B6D4" stroke-width="1.5"/>
+  <text x="665" y="349" text-anchor="middle" font-size="11" font-weight="600" fill="#06B6D4">Enrichment Surface</text>
+  <text x="665" y="368" text-anchor="middle" font-size="8" fill="#94A3B8">separate from declared</text>
+  <text x="665" y="384" text-anchor="middle" font-size="8" fill="#94A3B8">scores millions of profiles</text>
+
+  <text x="490" y="442" text-anchor="middle" font-size="10" fill="#94A3B8">Databricks · scikit-learn · XGBoost · MLflow · Power BI</text>
+</svg>

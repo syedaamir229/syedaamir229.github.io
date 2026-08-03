@@ -1,0 +1,56 @@
+---
+import type { Capability } from '../../data/capabilities';
+import Eyebrow from '../ui/Eyebrow.astro';
+import Icon from '../ui/Icon.astro';
+
+interface Props {
+  capability: Capability;
+}
+
+const { capability: cap } = Astro.props;
+---
+
+<div class="flex flex-col p-6 md:p-7 rounded-xl border border-cream-100/5 bg-navy-800/40 transition-colors hover:border-cyan-500/30">
+  <div class="flex items-start gap-4 mb-5">
+    <div class="shrink-0 w-10 h-10 rounded-lg bg-cyan-500/10 flex items-center justify-center">
+      <Icon name={cap.icon} class="w-5 h-5 text-cyan-400" />
+    </div>
+    <div class="min-w-0 flex-1">
+      <Eyebrow size="xs" class="mb-1.5">{cap.title}</Eyebrow>
+      <h3 class="text-cream-100 font-semibold text-lg leading-snug">
+        {cap.headline}
+      </h3>
+    </div>
+  </div>
+
+  <ul class="space-y-3 mb-6 flex-1">
+    {cap.deliverables.map((item) => (
+      <li class="flex items-start gap-2.5 text-sm leading-relaxed">
+        <Icon name="arrow-right" class="shrink-0 w-3.5 h-3.5 text-cyan-400/70 mt-1.5" />
+        <span>
+          <span class="text-cream-100 font-semibold">{item.label}.</span>
+          <span class="text-muted-500"> {item.text}</span>
+        </span>
+      </li>
+    ))}
+  </ul>
+
+  <div class="pt-4 border-t border-cream-100/5 space-y-2">
+    <a
+      href={cap.heroLink}
+      class="group/link inline-flex items-baseline gap-1.5 text-sm text-cyan-400 hover:text-cyan-300 transition-colors"
+    >
+      <Eyebrow size="xs" tone="muted" as="span" class="mr-1">Recent proof</Eyebrow>
+      <span class="font-medium">{cap.heroTitle}</span>
+      <span class="transition-transform group-hover/link:translate-x-0.5" aria-hidden="true">&rarr;</span>
+    </a>
+    {cap.allWorkLink && (
+      <a
+        href={cap.allWorkLink}
+        class="group/link2 block text-xs text-muted-500 hover:text-cyan-400 transition-colors"
+      >
+        {cap.allWorkLabel} <span class="transition-transform inline-block group-hover/link2:translate-x-0.5" aria-hidden="true">&rarr;</span>
+      </a>
+    )}
+  </div>
+</div>

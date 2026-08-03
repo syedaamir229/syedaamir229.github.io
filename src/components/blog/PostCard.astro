@@ -1,0 +1,41 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Card from '../ui/Card.astro';
+import Tag from '../ui/Tag.astro';
+import { readingTime } from '../../lib/readingTime';
+
+interface Props {
+  post: CollectionEntry<'blog'>;
+}
+
+const { post } = Astro.props;
+const { title, description, categories, date } = post.data;
+const rt = readingTime(post.body);
+const formattedDate = date.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<Card
+  as="a"
+  href={`/blog/${post.id}/`}
+  hover
+  class="post-card"
+  data-categories={JSON.stringify(categories)}
+>
+  <div class="flex flex-wrap items-center gap-2 mb-3">
+    {categories.map((cat) => <Tag>{cat}</Tag>)}
+    <span class="text-xs text-muted-500">{rt} min read</span>
+  </div>
+  <h2 class="text-cream-100 font-semibold text-lg mb-2 group-hover:text-cyan-400 transition-colors">
+    {title}
+  </h2>
+  <p class="text-muted-500 text-sm line-clamp-2 mb-3">
+    {description}
+  </p>
+  <time class="text-xs text-muted-500" datetime={date.toISOString()}>
+    {formattedDate}
+  </time>
+</Card>

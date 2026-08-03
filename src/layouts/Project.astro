@@ -1,0 +1,60 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import BaseLayout from './BaseLayout.astro';
+import ProjectTOC from '../components/projects/ProjectTOC.astro';
+import Eyebrow from '../components/ui/Eyebrow.astro';
+import { getBreadcrumbSchema } from '../lib/structuredData';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+}
+
+const { project } = Astro.props;
+const { title, description, category, metrics } = project.data;
+const breadcrumb = getBreadcrumbSchema([
+  { name: 'Home', path: '/' },
+  { name: 'Projects', path: '/projects/' },
+  { name: title, path: Astro.url.pathname },
+]);
+---
+
+<BaseLayout title={title} description={description} schemas={[breadcrumb]}>
+  <article class="pt-32 pb-16 px-6">
+    <div class="max-w-5xl mx-auto">
+      <!-- Breadcrumb -->
+      <nav class="mb-8 text-xs font-mono text-muted-500" aria-label="Breadcrumb">
+        <a href="/projects/" class="hover:text-cyan-400 transition-colors">
+          <span aria-hidden="true">&larr;</span> All projects
+        </a>
+      </nav>
+
+      <!-- Header -->
+      <header class="mb-10">
+        <Eyebrow as="span">{category}</Eyebrow>
+        <h1 class="text-3xl md:text-4xl font-bold mt-3 mb-4 leading-tight">
+          {title}
+        </h1>
+        <p class="text-muted-500 text-lg max-w-[68ch]">{description}</p>
+
+        {metrics.length > 0 && (
+          <div class="flex flex-wrap gap-6 mt-6 pt-6 border-t border-cream-100/5">
+            {metrics.map((m) => (
+              <div>
+                <p class="text-xl font-bold gradient-text">{m.value}</p>
+                <p class="text-muted-500 text-xs">{m.label}</p>
+              </div>
+            ))}
+          </div>
+        )}
+      </header>
+
+      <!-- Body + TOC sidebar -->
+      <div class="lg:grid lg:grid-cols-[minmax(0,1fr)_200px] lg:gap-12">
+        <div class="prose prose-project max-w-[68ch] min-w-0">
+          <slot />
+        </div>
+        <ProjectTOC />
+      </div>
+    </div>
+  </article>
+</BaseLayout>

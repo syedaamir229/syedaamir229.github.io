@@ -1,0 +1,66 @@
+---
+import type { PipelineStage } from '../../data/pipeline';
+import { PIPELINE_PHASE_STYLES } from '../../data/pipeline';
+import Eyebrow from '../ui/Eyebrow.astro';
+
+interface Props {
+  stage: PipelineStage;
+  index: number;
+  showConnector: boolean;
+}
+
+const { stage, index, showConnector } = Astro.props;
+const styles = PIPELINE_PHASE_STYLES[stage.phase];
+---
+
+<div
+  class="pipeline-stage relative opacity-0"
+  style={`animation: fade-in-up 0.5s ease forwards; animation-delay: ${index * 0.08}s;`}
+>
+  <div
+    class:list={[
+      'relative rounded-xl p-5 md:p-6 transition-colors',
+      stage.active
+        ? 'border-2 border-cyan-500/60 bg-navy-800/60 shadow-[0_8px_32px_color-mix(in_srgb,var(--color-cyan-500)_12%,transparent)]'
+        : ['border', styles.border, 'bg-navy-900/50'],
+    ]}
+  >
+    <div class="flex items-start gap-4">
+      <div
+        class:list={[
+          'shrink-0 w-10 h-10 rounded-lg flex items-center justify-center mt-0.5',
+          stage.active ? 'bg-cyan-500/20' : styles.iconBg,
+        ]}
+      >
+        <svg
+          class:list={['w-5 h-5', stage.active ? 'text-cyan-400' : styles.iconColor]}
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" d={stage.icon} />
+        </svg>
+      </div>
+
+      <div class="min-w-0 flex-1">
+        <Eyebrow size="xs" class="mb-1.5">{stage.eyebrow}</Eyebrow>
+        <h3 class="text-cream-100 font-semibold text-lg leading-tight mb-2">
+          {stage.title}
+        </h3>
+        <p class="text-muted-500 text-sm leading-relaxed">
+          {stage.description}
+        </p>
+        <p class="text-muted-500/90 text-xs italic mt-3 pl-3 border-l-2 border-cyan-500/30">
+          Answers: &ldquo;{stage.answers}&rdquo;
+        </p>
+      </div>
+    </div>
+  </div>
+
+  {showConnector && (
+    <div class="flex justify-center my-2 ml-7" aria-hidden="true">
+      <div class="w-px h-6 bg-gradient-to-b from-cyan-500/40 to-cyan-500/10"></div>
+    </div>
+  )}
+</div>

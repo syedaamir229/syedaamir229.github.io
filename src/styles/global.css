@@ -1,0 +1,386 @@
+@import "tailwindcss";
+
+/* ---- Design Tokens ---- */
+/* Palette: Ocean cyan (deep sea cyan-teal, welcoming-but-technical).
+   Typography: Inter (Stripe/Vercel-tier neutral competence) + JetBrains Mono.
+   The legacy token names (copper, carbon) describe role, not hue. */
+@theme {
+  /* Backgrounds */
+  --color-navy-950: #050B14;
+  --color-navy-900: #0A1220;
+  --color-navy-800: #122033;
+  --color-navy-700: #1E3148;
+  --color-navy-600: #2A4561;
+
+  /* Primary accent */
+  --color-cyan-500: #06B6D4;
+  --color-cyan-400: #22D3EE;
+  --color-cyan-300: #67E8F9;
+  --color-cyan-200: #A5F3FC;
+
+  /* Text */
+  --color-cream-100: #E2E8F0;
+  --color-cream-200: #CBD5E1;
+  --color-muted-500: #94A3B8;
+  --color-muted-600: #64748B;
+
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-heading: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Tight type scale for eyebrows and overlines */
+  --text-xxs: 0.625rem;   /* 10px */
+  --text-tiny: 0.6875rem; /* 11px */
+}
+
+/* ---- Base Styles ---- */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: var(--font-body);
+    background-color: var(--color-navy-950);
+    color: var(--color-cream-100);
+    line-height: 1.7;
+  }
+
+  /* Hairline rule between consecutive top-level sections. */
+  main > section + section {
+    border-top: 1px solid color-mix(in srgb, var(--color-cream-100) 5%, transparent);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    color: var(--color-cream-100);
+    line-height: 1.2;
+    letter-spacing: -0.025em;
+  }
+
+  code, pre {
+    font-family: var(--font-mono);
+  }
+
+  a {
+    color: var(--color-cyan-400);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  a:hover {
+    color: var(--color-cyan-300);
+  }
+}
+
+/* ---- Grain Overlay ---- */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.045;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 200px 200px;
+}
+
+/* ---- Scroll Reveal Animation ---- */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---- Glassmorphism ---- */
+.glass {
+  background: color-mix(in srgb, var(--color-navy-950) 70%, transparent);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--color-navy-700);
+}
+
+/* ---- Gradient Text ---- */
+.gradient-text {
+  background: linear-gradient(135deg, var(--color-cyan-500), var(--color-cyan-300));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ---- Card Hover ---- */
+.card-hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 32px color-mix(in srgb, var(--color-cyan-500) 12%, transparent);
+  border-color: color-mix(in srgb, var(--color-cyan-500) 30%, transparent);
+}
+
+/* ---- Prose (blog content) ---- */
+.prose {
+  max-width: 72ch;
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  color: var(--color-cream-100);
+}
+
+.prose h2 {
+  margin-top: 3rem;
+  margin-bottom: 1.25rem;
+  padding-top: 1.75rem;
+  border-top: 1px solid color-mix(in srgb, var(--color-cream-100) 6%, transparent);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-cream-100);
+}
+
+.prose > h2:first-child,
+.prose > :first-child + h2 {
+  margin-top: 2.25rem;
+  padding-top: 0;
+  border-top: 0;
+}
+
+.prose h3 {
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--color-cream-100);
+}
+
+.prose p {
+  margin-bottom: 1.25rem;
+}
+
+.prose ul, .prose ol {
+  margin-bottom: 1.25rem;
+  padding-left: 1.5rem;
+}
+
+.prose ul { list-style: disc outside; }
+.prose ol { list-style: decimal outside; }
+.prose ul ul { list-style: circle outside; }
+
+.prose li {
+  margin-bottom: 0.5rem;
+  padding-left: 0.25rem;
+}
+
+.prose li::marker {
+  color: var(--color-cyan-400);
+}
+
+.prose strong {
+  color: var(--color-cream-100);
+  font-weight: 600;
+}
+
+.prose blockquote {
+  border-left: 3px solid var(--color-cyan-500);
+  padding: 0.85rem 1.25rem;
+  margin: 1.5rem 0;
+  color: var(--color-cream-200);
+  background: color-mix(in srgb, var(--color-cyan-500) 4%, transparent);
+  border-radius: 0 0.25rem 0.25rem 0;
+  font-size: 0.97em;
+}
+
+.prose blockquote > * {
+  margin-bottom: 0.4rem;
+}
+
+.prose blockquote > *:last-child {
+  margin-bottom: 0;
+}
+
+.prose blockquote ul {
+  margin-top: 0.15rem;
+  padding-left: 1.25rem;
+}
+
+.prose blockquote li {
+  margin-bottom: 0.15rem;
+  line-height: 1.55;
+}
+
+.prose pre {
+  background: var(--color-navy-800);
+  border: 1px solid var(--color-navy-700);
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+}
+
+.prose code:not(pre code) {
+  background: color-mix(in srgb, var(--color-cyan-500) 10%, transparent);
+  padding: 0.15rem 0.4rem;
+  border-radius: 0.25rem;
+  font-size: 0.875em;
+  color: var(--color-cyan-300);
+}
+
+.prose img {
+  border-radius: 0.75rem;
+  border: 1px solid var(--color-navy-700);
+  margin: 1.5rem 0;
+}
+
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+}
+
+.prose th, .prose td {
+  border: 1px solid var(--color-navy-700);
+  padding: 0.75rem 1rem;
+  text-align: left;
+}
+
+.prose th {
+  background: var(--color-navy-800);
+  color: var(--color-cream-100);
+  font-weight: 600;
+}
+
+/* ---- Prose Project Variant ----
+   Layered on top of .prose for project case-study pages.
+   Tighter rhythm, lighter section transitions, no editorial top-borders.
+   Wrapped in @layer components so Tailwind utilities can still override
+   inside child components (Decision cards, TOC, etc.). */
+@layer components {
+  .prose-project {
+    max-width: none;
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    color: var(--color-cream-100);
+  }
+
+  .prose-project h2 {
+    margin-top: 2.5rem;
+    margin-bottom: 0.5rem;
+    padding-top: 0;
+    border-top: 0;
+    font-size: 1.35rem;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    scroll-margin-top: 6rem;
+  }
+
+  .prose-project > h2:first-child,
+  .prose-project > :first-child + h2 {
+    margin-top: 1.5rem;
+  }
+
+  .prose-project h3 {
+    margin-top: 1.75rem;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    scroll-margin-top: 6rem;
+  }
+
+  .prose-project p {
+    margin-bottom: 0.9rem;
+  }
+
+  .prose-project ul,
+  .prose-project ol {
+    margin-bottom: 0.9rem;
+    padding-left: 1.25rem;
+  }
+
+  .prose-project li {
+    margin-bottom: 0.35rem;
+    line-height: 1.7;
+  }
+
+  .prose-project blockquote {
+    border-left: 2px solid color-mix(in srgb, var(--color-cyan-500) 60%, transparent);
+    background: transparent;
+    padding: 0.25rem 0 0.25rem 1rem;
+    margin: 1rem 0;
+    font-size: 0.97em;
+    border-radius: 0;
+  }
+
+  .prose-project pre,
+  .prose-project img,
+  .prose-project table,
+  .prose-project .video-embed {
+    margin: 1.25rem 0;
+  }
+
+  .prose-project .video-embed {
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border: 1px solid var(--color-navy-700);
+    border-radius: 0.75rem;
+    background: var(--color-navy-900);
+  }
+
+  .prose-project .video-embed iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  /* Diagrams break out of the reading column. */
+  .prose-project .full-bleed {
+    max-width: none;
+    width: 100%;
+  }
+
+}
+
+/* ---- Stagger Animation ---- */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.6s ease forwards;
+}
+
+/* ---- Reduced-motion ---- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal,
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .card-hover { transition: none; }
+  .card-hover:hover {
+    transform: none;
+    box-shadow: none;
+  }
+  .animate-fade-in-up {
+    animation: none;
+    opacity: 1;
+  }
+  .pipeline-stage {
+    animation: none !important;
+    opacity: 1 !important;
+  }
+}

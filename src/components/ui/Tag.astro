@@ -1,0 +1,21 @@
+---
+type Variant = 'category' | 'tag' | 'series';
+
+interface Props {
+  variant?: Variant;
+  class?: string;
+}
+
+const { variant = 'category', class: className = '' } = Astro.props;
+
+const variantClass: Record<Variant, string> = {
+  category: 'text-xs font-mono text-cyan-400 bg-cyan-500/10 px-2 py-0.5 rounded',
+  tag: 'text-xs text-muted-500 border border-cream-100/5 px-2 py-0.5 rounded',
+  series:
+    'text-xs font-mono text-cyan-300 bg-cyan-500/15 border border-cyan-500/30 px-2.5 py-1 rounded',
+};
+---
+
+<span class:list={[variantClass[variant], className]}>
+  <slot />
+</span>

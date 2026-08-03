@@ -1,0 +1,29 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Eyebrow from '../components/ui/Eyebrow.astro';
+import Button from '../components/ui/Button.astro';
+---
+
+<BaseLayout
+  title="Page Not Found"
+  description="The page you're looking for doesn't exist. Head back to the portfolio home."
+>
+  <section class="min-h-[70vh] flex items-center justify-center px-6 pt-24 pb-16">
+    <div class="max-w-2xl text-center">
+      <Eyebrow class="mb-4">Error 404</Eyebrow>
+      <h1 class="text-5xl md:text-6xl font-bold text-cream-100 mb-6">
+        This page doesn't exist
+      </h1>
+      <p class="text-lg text-muted-500 mb-10 leading-relaxed">
+        The link may be from the previous version of this site, or the URL might
+        be mistyped. Either way, the home page has everything you're probably
+        looking for.
+      </p>
+      <div class="flex flex-wrap gap-4 justify-center">
+        <Button variant="primary" href="/">Back to home</Button>
+        <Button variant="outline" href="/projects/">Browse projects</Button>
+        <Button variant="outline" href="/blog/">Read the blog</Button>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

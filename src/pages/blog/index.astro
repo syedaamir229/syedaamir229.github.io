@@ -1,0 +1,30 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/ui/PageHeader.astro';
+import CategoryFilter from '../../components/ui/CategoryFilter.astro';
+import PostGrid from '../../components/blog/PostGrid.astro';
+import { getPublishedPosts } from '../../lib/blog';
+import { BLOG_CATEGORIES } from '../../data/categories';
+
+const posts = await getPublishedPosts();
+const presentCategories = new Set(posts.flatMap((p) => p.data.categories));
+const categories = BLOG_CATEGORIES.filter((c) => presentCategories.has(c));
+---
+
+<BaseLayout
+  title="Writing"
+  description="Notes on data architecture, BI, data science, and AI automation."
+>
+  <PageHeader
+    eyebrow="Writing"
+    title="Notes on what works and what does not."
+    description="Drawn from real builds across data architecture, analytics, and AI."
+  />
+
+  <section class="py-16 px-6 reveal">
+    <div class="max-w-5xl mx-auto">
+      <CategoryFilter categories={categories} />
+      <PostGrid posts={posts} />
+    </div>
+  </section>
+</BaseLayout>
